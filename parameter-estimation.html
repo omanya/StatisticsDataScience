@@ -1,0 +1,1910 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 Parameter estimation | Statistics and Data Science Applications</title>
+  <meta name="description" content="This is the script for the course." />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 Parameter estimation | Statistics and Data Science Applications" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is the script for the course." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Parameter estimation | Statistics and Data Science Applications" />
+  
+  <meta name="twitter:description" content="This is the script for the course." />
+  
+
+<meta name="author" content="Maria Osipenko" />
+
+
+<meta name="date" content="2024-02-23" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="iii-inductive-statistics.html"/>
+<link rel="next" href="hypothesis-testing.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-goals-and-context"><i class="fa fa-check"></i>Course goals and context</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-goals"><i class="fa fa-check"></i>Course goals</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html"><i class="fa fa-check"></i><b>1</b> Random events and probability - a short review</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#outcomes-and-events"><i class="fa fa-check"></i><b>1.1</b> Outcomes and Events</a></li>
+<li class="chapter" data-level="1.2" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#probabilities"><i class="fa fa-check"></i><b>1.2</b> Probabilities</a>
+<ul>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#laplaces-probability-model"><i class="fa fa-check"></i>Laplace’s probability model</a></li>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#finite-probability-spaces"><i class="fa fa-check"></i>Finite probability spaces</a></li>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#calculating-with-probabilities"><i class="fa fa-check"></i>Calculating with probabilities</a></li>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#joint-and-conditional-probabilities-independence-of-events"><i class="fa fa-check"></i>Joint and conditional probabilities, independence of events</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#sampling-as-a-random-process"><i class="fa fa-check"></i><b>1.3</b> Sampling as a random process</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="random-variables.html"><a href="random-variables.html"><i class="fa fa-check"></i><b>2</b> Random variables</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="random-variables.html"><a href="random-variables.html#discrete-random-variable"><i class="fa fa-check"></i><b>2.1</b> Discrete random variable</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="random-variables.html"><a href="random-variables.html#probability-and-distribution-functions"><i class="fa fa-check"></i><b>2.1.1</b> Probability and distribution functions</a></li>
+<li class="chapter" data-level="2.1.2" data-path="random-variables.html"><a href="random-variables.html#expected-value-and-variance"><i class="fa fa-check"></i><b>2.1.2</b> Expected value and variance</a></li>
+<li class="chapter" data-level="2.1.3" data-path="random-variables.html"><a href="random-variables.html#covariance-and-correlation"><i class="fa fa-check"></i><b>2.1.3</b> Covariance and correlation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="random-variables.html"><a href="random-variables.html#continuous-random-variables"><i class="fa fa-check"></i><b>2.2</b> Continuous random variables</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="random-variables.html"><a href="random-variables.html#density-function"><i class="fa fa-check"></i><b>2.2.1</b> Density function</a></li>
+<li class="chapter" data-level="2.2.2" data-path="random-variables.html"><a href="random-variables.html#distribution-function-1"><i class="fa fa-check"></i><b>2.2.2</b> Distribution function</a></li>
+<li class="chapter" data-level="2.2.3" data-path="random-variables.html"><a href="random-variables.html#expected-value-and-variance-1"><i class="fa fa-check"></i><b>2.2.3</b> Expected value and variance</a></li>
+<li class="chapter" data-level="2.2.4" data-path="random-variables.html"><a href="random-variables.html#quantiles-of-continuous-random-variables"><i class="fa fa-check"></i><b>2.2.4</b> Quantiles of continuous random variables</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html"><i class="fa fa-check"></i><b>3</b> Some important distribution models</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#discrete-distributions"><i class="fa fa-check"></i><b>3.1</b> Discrete distributions</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#discrete-uniform-distribution"><i class="fa fa-check"></i><b>3.1.1</b> Discrete uniform distribution</a></li>
+<li class="chapter" data-level="3.1.2" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#bernoulli-distribution"><i class="fa fa-check"></i><b>3.1.2</b> Bernoulli distribution</a></li>
+<li class="chapter" data-level="3.1.3" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#binomial-distribution"><i class="fa fa-check"></i><b>3.1.3</b> Binomial distribution</a></li>
+<li class="chapter" data-level="3.1.4" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#geometric-distribution"><i class="fa fa-check"></i><b>3.1.4</b> Geometric distribution</a></li>
+<li class="chapter" data-level="3.1.5" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#poisson-distribution"><i class="fa fa-check"></i><b>3.1.5</b> Poisson distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#continuous-distributions"><i class="fa fa-check"></i><b>3.2</b> Continuous distributions</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#normal-distribution"><i class="fa fa-check"></i><b>3.2.1</b> Normal distribution</a></li>
+<li class="chapter" data-level="3.2.2" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#exponential-distribution"><i class="fa fa-check"></i><b>3.2.2</b> Exponential distribution</a></li>
+<li class="chapter" data-level="3.2.3" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#uniform-distribution"><i class="fa fa-check"></i><b>3.2.3</b> Uniform distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#further-distributions"><i class="fa fa-check"></i><b>3.3</b> Further distributions</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#chi2-distribution"><i class="fa fa-check"></i><b>3.3.1</b> <span class="math inline">\(\chi^2\)</span>-distribution</a></li>
+<li class="chapter" data-level="3.3.2" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#t-distribution"><i class="fa fa-check"></i><b>3.3.2</b> t-distribution</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="limit-theorems.html"><a href="limit-theorems.html"><i class="fa fa-check"></i><b>4</b> Limit theorems</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="limit-theorems.html"><a href="limit-theorems.html#strong-law-of-large-numbers"><i class="fa fa-check"></i><b>4.1</b> Strong law of large numbers 💪</a></li>
+<li class="chapter" data-level="4.2" data-path="limit-theorems.html"><a href="limit-theorems.html#central-limit-theorem"><i class="fa fa-check"></i><b>4.2</b> Central limit theorem</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="iii-inductive-statistics.html"><a href="iii-inductive-statistics.html"><i class="fa fa-check"></i>III Inductive Statistics</a></li>
+<li class="chapter" data-level="5" data-path="parameter-estimation.html"><a href="parameter-estimation.html"><i class="fa fa-check"></i><b>5</b> Parameter estimation</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#basic-ideas-of-inductive-statistics"><i class="fa fa-check"></i><b>5.1</b> Basic ideas of inductive statistics</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#parameter-estimation-theoretically"><i class="fa fa-check"></i><b>5.1.1</b> Parameter estimation theoretically</a></li>
+<li class="chapter" data-level="5.1.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#parameter-estimation-practically"><i class="fa fa-check"></i><b>5.1.2</b> Parameter estimation practically</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#point-estimation"><i class="fa fa-check"></i><b>5.2</b> Point estimation</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#estimation-functions"><i class="fa fa-check"></i><b>5.2.1</b> Estimation functions</a></li>
+<li class="chapter" data-level="5.2.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#properties-of-estimators"><i class="fa fa-check"></i><b>5.2.2</b> Properties of estimators</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="parameter-estimation.html"><a href="parameter-estimation.html#construction-of-estimators"><i class="fa fa-check"></i><b>5.3</b> Construction of estimators</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#method-of-moments"><i class="fa fa-check"></i><b>5.3.1</b> Method of moments</a></li>
+<li class="chapter" data-level="5.3.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#maximum-likelihood-method"><i class="fa fa-check"></i><b>5.3.2</b> Maximum likelihood method</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="parameter-estimation.html"><a href="parameter-estimation.html#interval-estimation"><i class="fa fa-check"></i><b>5.4</b> Interval estimation</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#alpha-confidence-interval-for-mu"><i class="fa fa-check"></i><b>5.4.1</b> <span class="math inline">\((1-\alpha)\)</span> confidence interval for <span class="math inline">\(\mu\)</span></a></li>
+<li class="chapter" data-level="5.4.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#alpha-confidence-interval-for-sigma2"><i class="fa fa-check"></i><b>5.4.2</b> <span class="math inline">\((1-\alpha)\)</span> confidence interval for <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="5.4.3" data-path="parameter-estimation.html"><a href="parameter-estimation.html#alpha-confidence-interval-for-probability-p"><i class="fa fa-check"></i><b>5.4.3</b> <span class="math inline">\((1-\alpha)\)</span> confidence interval for probability <span class="math inline">\(p\)</span></a></li>
+<li class="chapter" data-level="5.4.4" data-path="parameter-estimation.html"><a href="parameter-estimation.html#determining-n-based-on-the-length-of-confidence-intervals"><i class="fa fa-check"></i><b>5.4.4</b> Determining <span class="math inline">\(n\)</span> based on the length of confidence intervals</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>6</b> Hypothesis testing</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-basic-idea-of-statistical-testing"><i class="fa fa-check"></i><b>6.1</b> The basic idea of statistical testing</a></li>
+<li class="chapter" data-level="6.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hypothesis-tests-for-p"><i class="fa fa-check"></i><b>6.2</b> Hypothesis tests for <span class="math inline">\(p\)</span></a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-exact-binomial-test"><i class="fa fa-check"></i><b>6.2.1</b> The exact binomial test</a></li>
+<li class="chapter" data-level="6.2.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-approximate-binomial-test"><i class="fa fa-check"></i><b>6.2.2</b> The approximate binomial test</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hypothesis-tests-for-mu"><i class="fa fa-check"></i><b>6.3</b> Hypothesis tests for <span class="math inline">\(\mu\)</span></a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-gauss-test"><i class="fa fa-check"></i><b>6.3.1</b> The Gauss test</a></li>
+<li class="chapter" data-level="6.3.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-t-test"><i class="fa fa-check"></i><b>6.3.2</b> The <span class="math inline">\(t\)</span> test</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#type-1-and-type-2-errors"><i class="fa fa-check"></i><b>6.4</b> Type 1 and Type 2 errors</a></li>
+<li class="chapter" data-level="6.5" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#exceeding-probability-p-value"><i class="fa fa-check"></i><b>6.5</b> Exceeding probability: <span class="math inline">\(p\)</span> value</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="regression-analysis.html"><a href="regression-analysis.html"><i class="fa fa-check"></i><b>7</b> Regression analysis</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="regression-analysis.html"><a href="regression-analysis.html#linear-regression-model-from-descriptive-statistics"><i class="fa fa-check"></i><b>7.1</b> Linear regression model from descriptive Statistics</a></li>
+<li class="chapter" data-level="7.2" data-path="regression-analysis.html"><a href="regression-analysis.html#simple-linear-regression-from-a-probabilistic-perspective"><i class="fa fa-check"></i><b>7.2</b> Simple linear regression from a probabilistic perspective</a></li>
+<li class="chapter" data-level="7.3" data-path="regression-analysis.html"><a href="regression-analysis.html#estimating-testing-and-forecasting"><i class="fa fa-check"></i><b>7.3</b> Estimating, testing and forecasting</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="regression-analysis.html"><a href="regression-analysis.html#estimating-the-parameters-of-a-linear-regression-model"><i class="fa fa-check"></i><b>7.3.1</b> Estimating the parameters of a linear regression model</a></li>
+<li class="chapter" data-level="7.3.2" data-path="regression-analysis.html"><a href="regression-analysis.html#testing-in-linear-regression-model"><i class="fa fa-check"></i><b>7.3.2</b> Testing in linear regression model</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="regression-analysis.html"><a href="regression-analysis.html#forecast-in-linear-regression-models"><i class="fa fa-check"></i><b>7.4</b> Forecast in linear regression models</a></li>
+<li class="chapter" data-level="7.5" data-path="regression-analysis.html"><a href="regression-analysis.html#multivariate-linear-regression"><i class="fa fa-check"></i><b>7.5</b> Multivariate linear regression</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistics and Data Science Applications</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="parameter-estimation" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Parameter estimation<a href="parameter-estimation.html#parameter-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<script>
+function checkAnswer_mmc(q) {
+      const selectedOptions = document.querySelectorAll('input[name="option'+q.id+'"]:checked');
+      if (selectedOptions.length === 2) {
+        const userAnswers = Array.from(selectedOptions).map(option => option.value);
+        const correctAnswers = q.answer;
+        const isCorrect = userAnswers.every(answer => correctAnswers.includes(answer));
+
+if (isCorrect) {
+          document.getElementById('result'+q.id).textContent = 'Congratulations! Your answer is correct.';
+          document.getElementById('result'+q.id).style.color = "green";
+        } else {
+          document.getElementById('result'+q.id).textContent = `Sorry, incorrect.`;
+          document.getElementById('result'+q.id).style.color = "red";
+        }
+      } else {
+        document.getElementById('result'+q.id).textContent = 'Please select two options.';
+      }
+    }
+// numeric
+function generateQuestion_num(id) {
+      // Generate two random numbers between 2 and 10
+      const num1 = Math.floor(Math.random() * 10) + 2;
+      const num2 = Math.floor(Math.random() * 10) + 2;
+      const x1 = Math.floor(Math.random() * 100) + 2;
+      const x2 = Math.floor(Math.random() * 100) + 2;
+      const x3 = Math.floor(Math.random() * 100) + 2;
+      const x4 = Math.floor(Math.random() * 100) + 2;
+      const x5 = Math.floor(Math.random() * 100) + 2;
+      const x6 = Math.floor(Math.random() * 100) + 2;
+
+       // Calculate the correct answer
+      let answer = num1*Math.sqrt(x1) + num2*Math.sqrt(x2);
+
+      // Return the question and answer as an object
+      return {
+       // question: num1 + "\\(\\sqrt{x}+\\)"+ num2 + "\\(\\sqrt{y}\\)" + " for \\(x=\\)" + x1 + " and \\(y=\\)" + x2,
+        question: [num1,num2,x1,x2,x3,x4,x5,x6],
+        answer: answer,
+        id: id
+      };
+    }
+
+function checkAnswer_num(q) {
+      const userAnswer = document.getElementById('answer'+q.id).value;
+      const isCorrect = Math.round(parseFloat(userAnswer)*10000)/10000 === Math.round(q.answer*10000)/10000;
+
+      if (isCorrect) {
+        document.getElementById('result'+q.id).textContent = 'Congratulations! Your answer is correct.';
+        document.getElementById('result'+q.id).style.color = "green";
+      } else {
+        document.getElementById('result'+q.id).textContent = `Sorry, incorrect. The correct answer is ` + Math.round(q.answer*10000)/10000 + '.';
+        document.getElementById('result'+q.id).style.color = "red";
+      }
+  }
+
+// plain multiple choice
+  function checkAnswer_match(q) {
+      const selectedOption = document.querySelector('input[name="option'+q.id+'"]:checked');
+      if (selectedOption) {
+        const userAnswer = selectedOption.value;
+        const isCorrect = userAnswer === q.answer;
+
+        if (isCorrect) {
+          document.getElementById('result'+q.id).textContent = 'Congratulations! Your answer is correct.';
+          document.getElementById('result'+q.id).style.color = "green";
+        } else {
+          document.getElementById('result'+q.id).textContent = `Sorry, incorrect.`;
+          document.getElementById('result'+q.id).style.color = "red";
+        }
+      } else {
+        document.getElementById('result'+q.id).textContent = 'Please select an option.';
+      }
+    }
+    
+function factorial(n){
+  let answer = 1;
+  if (n == 0 || n == 1){
+    return answer;
+  }
+  else if(n > 1){
+    for(var i = n; i >= 1; i--){
+      answer = answer * i;
+    }
+    return answer;
+  }
+  else{
+    return "number has to be positive."
+  }  
+}
+
+function binomial(n, k) {
+     if ((typeof n !== 'number') || (typeof k !== 'number')) 
+  return false; 
+    var coeff = 1;
+    for (var x = n-k+1; x <= n; x++) coeff *= x;
+    for (x = 1; x <= k; x++) coeff /= x;
+    return coeff;
+}
+
+function binomialCDF(k,n,p) {
+    let answer = 0;
+
+    for(var i = 0; i <= k; i++){
+      answer = answer + binomial(n,i)*Math.pow(p,i)*Math.pow((1-p),(n-i));
+    }
+    return answer;
+}
+function normalCDF(x, mean, std) {
+  var x = (x - mean) / std
+  var t = 1 / (1 + .2315419 * Math.abs(x))
+  var d =.3989423 * Math.exp( -x * x / 2)
+  var prob = d * t * (.3193815 + t * ( -.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274))))
+  if( x > 0 ) prob = 1 - prob
+  return prob
+}
+</script>
+<p>To answer the question about inferences about the population regarding <strong>parameter estimation</strong>, let’s take a close look at distributions of <strong>estimators</strong> like <span class="math inline">\(\bar X\)</span> to find some <strong>criteria</strong> of “good” estimators to define and quantify the uncertainty of the estimate.</p>
+<hr />
+<p>In this chapter we will learn:</p>
+<ul>
+<li>What <strong>properties</strong> should we require of the estimators we use,</li>
+<li>which <strong>point estimators</strong> are suitable for which parameters and</li>
+<li>how to construct tailor-made <strong>estimation functions</strong> or</li>
+<li>how to take the uncertainty of the estimate into account in the estimation procedure <span class="math inline">\(\leadsto\)</span> <strong>interval estimation</strong>.</li>
+</ul>
+<hr />
+<div id="basic-ideas-of-inductive-statistics" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Basic ideas of inductive statistics<a href="parameter-estimation.html#basic-ideas-of-inductive-statistics" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In inductive statistics, we want to generalize our findings, which are based on a single sample, on the whole population of interest. With the help of random sampling and appropriate estimators, we conduct inference for parameters of interest in the population.</p>
+<div class="exercise">
+<p><span id="exr:grundideen" class="exercise"><strong>Exercise 5.1  (Basic Concepts) </strong></span></p>
+<iframe title="" src="./htmls/grundideen_eng.html" width="720" height="700"></iframe>
+</div>
+<div id="parameter-estimation-theoretically" class="section level3 hasAnchor" number="5.1.1">
+<h3><span class="header-section-number">5.1.1</span> Parameter estimation theoretically<a href="parameter-estimation.html#parameter-estimation-theoretically" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Before we conduct any data analysis, we think of a model for a real-world problem.</p>
+<div class="example">
+<p><span id="exm:sampling" class="example"><strong>Example 5.1  (New customers) </strong></span>You want to expand your customer base to a specific population group and are interested in:</p>
+<ul>
+<li><p>to what proportion will the new customers use the app (<span class="math inline">\(Y\)</span>), specifically: what would be <strong>the proportion of app users</strong> in your new customer base (<span class="math inline">\(p\)</span>),</p></li>
+<li><p>what average sales/invoice amount can you expect from new customers (<span class="math inline">\(X\)</span>), specifically: what would be <strong>the average invoice amount</strong> of your new customers (<span class="math inline">\(\mathbb E(X)=\mathbb \mu_X\)</span>).</p></li>
+</ul>
+<p><span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are random variables. We are interested in the distribution parameters of these random variables.
+We will build upon the following concept of a random sample…</p>
+</div>
+<div id="modeling-the-quantities-of-interest" class="section level4 unnumbered hasAnchor">
+<h4>Modeling the quantities of interest<a href="parameter-estimation.html#modeling-the-quantities-of-interest" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li>App usage is the property of interest, so:</li>
+</ul>
+<p><span class="math display">\[
+Y=\begin{cases}1,&amp;\text{if app usage},\\0,&amp;\text{no app usage}.\end{cases}
+\]</span>
+<span class="math inline">\(Y\sim Ber(p)\)</span>. Of interest is <strong>the share of app users</strong> (<span class="math inline">\(p\)</span>).</p>
+<ul>
+<li>Invoice amount is size <span class="math inline">\(X\)</span> and the average invoice amount is of interest: <span class="math inline">\(\mathbb E(X)=\mu_x\)</span>.</li>
+</ul>
+</div>
+<div id="random-sample" class="section level4 unnumbered hasAnchor">
+<h4>Random sample<a href="parameter-estimation.html#random-sample" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>We have often talked about a sample and have seen how sampling can be modeled (See “Random events and Probability”). Now we formally define what we mean by a <strong>random sample</strong> as a random process.</p>
+<p>Let <span class="math inline">\(X_1,\ldots, X_n\)</span> be random variables. <span class="math inline">\((X_1,\ldots, X_n)\)</span> is called a <strong>random sample</strong>
+of size <span class="math inline">\(n\)</span> (<strong>sample variables</strong>) to <span class="math inline">\(X\)</span> if the distributions of <span class="math inline">\(X\)</span> and <span class="math inline">\(X_i\)</span>, <span class="math inline">\(i=1,2,\ldots, n\)</span>, match and <span class="math inline">\(X_1,\ldots, X_n\)</span> are independent.</p>
+<p>The observed realization <span class="math inline">\((x_1,\ldots, x_n)\)</span> of random sample <span class="math inline">\((X_1,\ldots, X_n)\)</span> is called a <strong>sample realization</strong>.
+The set <span class="math inline">\(\mathcal X\)</span> of all possible sample realizations is called the <strong>sample space</strong>: <span class="math inline">\(\mathcal X\subseteq\mathbb R^n\)</span>.</p>
+<div class="example">
+<p><span id="exm:sampling2" class="example"><strong>Example 5.2  (New customers) </strong></span>Example <a href="parameter-estimation.html#exm:sampling">5.1</a> cont.</p>
+<p>The plan is to randomly select <span class="math inline">\(n\)</span> customers and survey them.</p>
+<ul>
+<li><strong>App Usage</strong>:</li>
+</ul>
+<p>The sample variables for <span class="math inline">\(Y\)</span> are: <span class="math inline">\(\color{blue}{Y_1, Y_2,\ldots,Y_n},\)</span>
+where <span class="math inline">\(Y_i\)</span> takes the value 1 or 0, depending on whether the <span class="math inline">\(i\)</span>th selected person uses the app or not. So the value of <span class="math inline">\(Y_i\)</span> is initially <strong>unknown</strong> because we don’t know which person will be interviewed in the <span class="math inline">\(i\)</span>th position.</p>
+<p><span class="math inline">\(\leadsto\)</span> <span class="math inline">\(Y_1,\ldots, Y_n\)</span> are <strong>random variables!</strong></p>
+<ul>
+<li><strong>Invoice amount</strong>:
+The sample variables for <span class="math inline">\(X\)</span> are: <span class="math inline">\({\color{red}{X_1, X_2,\ldots,X_n}},\)</span>
+where <span class="math inline">\(X_i\)</span> represents the estimate of the bill amount of the <span class="math inline">\(i\)</span>th selected person. So the value of <span class="math inline">\(X_i\)</span> is initially <strong>unknown</strong> because we don’t know which person will be interviewed in the <span class="math inline">\(i\)</span>th position.</li>
+</ul>
+<p><span class="math inline">\(\leadsto\)</span> <span class="math inline">\(X_1,\ldots, X_n\)</span> are <strong>random variables!</strong></p>
+</div>
+</div>
+<div id="estimation" class="section level4 unnumbered hasAnchor">
+<h4>Estimation<a href="parameter-estimation.html#estimation" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>In descriptive statistics we have used the formulas for computing the empirical mean and the empirical frequencies in order to summarize the sample given. Now we look at those formulas from the probabilistic point of view, realize that there are many possible samples from a population and the formulas (which correspond to estimators) return different values depending on a particular sample realization.</p>
+<div class="example">
+<p><span id="exm:sampling3" class="example"><strong>Example 5.3  (New customers) </strong></span>Example <a href="parameter-estimation.html#exm:sampling2">5.2</a> cont.</p>
+<p>Calculation formulas (estimators) for the parameters of interest:</p>
+<ul>
+<li><p>the app user share <span class="math inline">\(p\)</span>:
+<span class="math display">\[\begin{align}
+\color{blue}{\overline{Y}}&amp;\color{blue}{=\frac 1n (Y_1 + Y_2 + \ldots Y_n)} \leadsto\color{blue}{\frac{\text{Number of 1s (=app usage)}}{\text{Number of values}}}\\
+&amp;\color{blue}{= \text{Sample frequency of ones (=app usage)}}
+\end{align}\]</span></p></li>
+<li><p>the average invoice amount (<span class="math inline">\(\mathbb E(X)\)</span>):
+<span class="math display">\[\color{red}{\overline{X}=\frac 1n (X_1 + X_2 + \ldots X_n) \leadsto\text{sample mean}}.\]</span></p></li>
+</ul>
+<p><span class="math inline">\(\overline{Y}\)</span> and <span class="math inline">\(\overline{X}\)</span> are functions of the sample variables, so they are themselves <strong>random variables</strong>.</p>
+</div>
+</div>
+</div>
+<div id="parameter-estimation-practically" class="section level3 hasAnchor" number="5.1.2">
+<h3><span class="header-section-number">5.1.2</span> Parameter estimation practically<a href="parameter-estimation.html#parameter-estimation-practically" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let us return to our estimation problem. Assume the proportion of app users is <span class="math inline">\(0.6\)</span> and the mean invoice amount in the population of all potential new customers is <span class="math inline">\(25\)</span> Euro. In the reality we do not know those values and we have to estimate them.</p>
+<p>So imagine, we conduct a survey among the potential new customers and ask the survey participants to indicate whether they would use the app or not, and how high would be their willingness to pay.</p>
+<div class="example">
+<p><span id="exm:sampling4" class="example"><strong>Example 5.4  (New customers) </strong></span>Example <a href="parameter-estimation.html#exm:sampling3">5.3</a> cont.</p>
+<p>We need to set the sample size (<span class="math inline">\(n\)</span>) and then conduct a survey to get concrete sample values (<span class="math inline">\(x_i\)</span> and <span class="math inline">\(y_i\)</span> for <span class="math inline">\(i=1,\ldots,n\)</span>).</p>
+</div>
+<p>In the animation you can see what happens when a sample is taken:</p>
+<iframe title="GGZ" src="./htmls/Stichprobe.html" width="760" height="500"></iframe>
+<script>
+function sample01(p){
+  let unif = Math.random();
+  let value = 0;
+  if(unif>p){
+    value=1;
+  }
+  return value;
+}
+
+function sampleUnif(min=10,max=50,dec=2){
+  let value = Math.random()*(max-min)+min;
+  value = Math.round(value*Math.pow(10,dec))/Math.pow(10,dec);
+  return value;
+}
+
+function generateSample(n=10,p=0.4,min=10,max=40,dec=2) {
+      // Generate n random samples for bernoulli and unif
+      let sample1 = [];
+      let sample2 = [];
+      let sample3 = [];
+      
+      let mean1 = 0;
+      let mean2 = 0;
+      let sig2 = 0;
+      
+      for(var i = 0; i < (n); i++){
+        sample1[i]=sample01(p=p);
+        mean1 = mean1 + 1/n*sample1[i];
+        if(sample1[i]>0) {
+          sample3[i]="yes";
+        }
+        else {
+          sample3[i]="no";
+        }
+        sample2[i]=sampleUnif(min=min, max=max, dec=dec);
+        mean2 = mean2 + 1/n*sample2[i];
+      };
+      mean1 = Math.round(mean1*Math.pow(10,dec))/Math.pow(10,dec);
+      mean2 = Math.round(mean2*Math.pow(10,dec))/Math.pow(10,dec);
+      
+       for(var i = 0; i < (n); i++){
+          sig2 = sig2 + Math.pow(sample2[i]-mean2,2)
+       };
+       
+      sig2 = 1/(n-1)*sig2;
+
+      // Return the sample as an object
+      return {
+        sample1: sample1,
+        sample2: sample2,
+        sample3: sample3,
+        mean1: mean1,
+        mean2: mean2,
+        sig2: sig2
+      };
+    }
+    
+function showSample(id){
+
+      // get n
+      //let n= 10;
+      var n = document.getElementById("myn"+id).value;  
+      //generate a sample
+      let mysample = generateSample(n=n);
+      
+      //set up the ids
+      let textid1 = "app-text-1" + id;
+      let textid2  = "app-text-2" + id;
+      let textid3  = "app-text-3" + id;
+      let textid4  = "app-text-4" + id;
+      let textid5  = "app-text-5" + id;
+      let textid6  = "app-text-6" + id;
+      let textid7  = "app-text-7" + id;
+      
+      // impute the texts
+      let sample1 = mysample.sample1;
+      let sample2 = mysample.sample2;
+      let sample3 = mysample.sample3;
+      let mean1 = mysample.mean1;
+      let mean2 = mysample.mean2;
+      let interv = [];
+      interv[0]=mean2 - 1.96*10/Math.sqrt(n);
+      interv[1]=mean2 + 1.96*10/Math.sqrt(n);
+      
+      document.getElementById(textid1).textContent = "{" + sample3.join(", ") + "}";
+      document.getElementById(textid2).textContent = "{"+sample1.join(", ") + "}";
+      document.getElementById(textid3).textContent = "{"+sample2.join(", ") + "}";
+      document.getElementById(textid4).textContent = mean1;
+      document.getElementById(textid5).textContent = mean2;
+
+      
+      //style
+      document.getElementById(textid1).style.color = "blue";
+      document.getElementById(textid2).style.color = "blue";
+      document.getElementById(textid3).style.color = "red";
+      document.getElementById(textid4).style.color = "blue";
+      document.getElementById(textid5).style.color = "red";
+
+}
+
+function showInterv(id){
+
+      // get n
+      //let n= 10;
+      var n = document.getElementById("myn"+id).value;  
+      //generate a sample
+      let mysample = generateSample(n=n);
+      
+      //set up the ids
+      let textid1 = "app-text-1" + id;
+      let textid2  = "app-text-2" + id;
+      let textid3  = "app-text-3" + id;
+      let textid4  = "app-text-4" + id;
+      let textid5  = "app-text-5" + id;
+      let textid6  = "app-text-6" + id;
+      let textid7  = "app-text-7" + id;
+      
+      // impute the texts
+      let sample1 = mysample.sample1;
+      let sample2 = mysample.sample2;
+      let sample3 = mysample.sample3;
+      let mean1 = mysample.mean1;
+      let mean2 = mysample.mean2;
+      let interv = [];
+      interv[0]=Math.round((mean2 - 1.96*10/Math.sqrt(n))*100)/100;
+      interv[1]=Math.round((mean2 + 1.96*10/Math.sqrt(n))*100)/100;
+      
+    
+      document.getElementById(textid3).textContent = "{"+sample2.join(", ") + "}";
+      document.getElementById(textid5).textContent = mean2;
+      document.getElementById(textid6).textContent = interv.join(", ");
+
+      
+      //style
+    
+      document.getElementById(textid3).style.color = "red";
+     document.getElementById(textid5).style.color = "red";
+      document.getElementById(textid6).style.color = "blue";
+
+}
+    
+  
+</script>
+<div id="app100" class="app">
+<h3>
+Sample size \(n\):
+</h3>
+<form>
+<select id = "myn100" onchange = "showSample(100)" ><br />
+<option value="10">10</option><br />
+<option value="20">20</option><br />
+<option value="50">50</option><br />
+<option value="100">100</option><br />
+</select>
+</form>
+<h3>
+Sample realizations:
+</h3>
+<ul>
+<li>
+The survey results for App usage (yes/no) as realized sample values:
+<p id="sample1">
+\(\color{blue}{\{1,2,\ldots, n\}=} ~\)<span id="app-text-1100"></span>
+</p>
+</li>
+<li>
+As realizations of the corresponding 0-1 Bernoulli random variable:
+<p id="sample12">
+\(\color{blue}{\{y_1,y_2,\ldots,y_n\}=}~\)<span id="app-text-2100"></span>
+</p>
+</li>
+<li>
+Willingness to pay in form of self-estimated invoice amount with sample values:
+<p id="sample2">
+\(\color{red}{\{x_1,x_2,\ldots,x_n\}=}~\)<span id="app-text-3100"></span>
+</p>
+</li>
+</ul>
+<h3>
+Calculation of the resulting estimates:
+</h3>
+<ul>
+<li>
+The estimate for the proportion of app users:
+<p id="mean1">
+\(\color{blue}{\bar y=\frac 1n(y_1+y_2 + \ldots + y_n)=}\) <span id="app-text-4100"></span>
+</p>
+</li>
+<li>
+The estimate for the average invoice amount:
+<p id="mean1">
+\(\color{red}{\bar x=\frac 1n(x_1+x_2 + \ldots + x_n)= }\)<span id="app-text-5100"></span>
+</p>
+</li>
+</ul>
+<button onclick="showSample(100)">
+draw a new sample
+</button>
+<script>
+showSample(100)
+</script>
+</div>
+<div id="q51" class="quiz">
+<script>
+
+
+// Generate a random question
+  const questionObj51 = {
+      question: 'What do you observe when you conduct several different simulated surveys with \\(n=10\\) in the app above? (Keep in mind that the actual population parameters correspond to \\(0.6\\) for the proportion of app users and to \\(25\\) Euro average invoice amount.)',
+      options: ['The estimates change the sample.', 'The estimated values change from sample to sample.', 'The estimation result deviates from the true parameter.', 'The estimation result perfectly agrees with the population parameter to be estimated.'],
+      answer: ['2','3'],
+      id: 51
+    };
+</script>
+<p class="question">
+<span id="question-text51"></span>
+</p>
+<div class="options">
+<p><label>
+<input type="checkbox" name="option51" value=1> The estimates change the sample.
+</label>
+<br>
+<label>
+<input type="checkbox" name="option51" value=2> The estimated values change from sample to sample.
+</label>
+<br>
+<label>
+<input type="checkbox" name="option51" value=3> The estimation result deviates from the true parameter.
+</label>
+<br>
+<label>
+<input type="checkbox" name="option51" value=4> The estimation result perfectly agrees with the population parameter to be estimated.
+</label></p>
+</div>
+<button onclick="checkAnswer_mmc(questionObj51)">
+Submit
+</button>
+<p id="result51">
+</p>
+<script>
+    // Display the question
+    document.getElementById('question-text51').textContent = questionObj51.question;
+
+</script>
+<hr />
+<script>
+
+
+// Generate a random question
+  const questionObj52 = {
+      question: 'What happens if you increase the sample size to \\(n=100\\)?',
+      options: ['Nothing changes.', 'Precision increases as the sample size increases.', 'The estimates vary more from sample to sample.', '\\((70;50)\\)'],
+      answer: ['2','4'],
+      id: 52
+    };
+</script>
+<p class="question">
+<span id="question-text52"></span>
+</p>
+<div class="options">
+<p><label>
+<input type="checkbox" name="option52" value=1> Nothing changes.
+</label>
+<br>
+<label>
+<input type="checkbox" name="option52" value=2> Precision increases as the sample size increases.
+</label>
+<br>
+<label>
+<input type="checkbox" name="option52" value=3> The estimates vary more from sample to sample.
+</label>
+<br>
+<label>
+<input type="checkbox" name="option52" value=4> The estimates vary less from sample to sample.
+</label></p>
+</div>
+<button onclick="checkAnswer_mmc(questionObj52)">
+Submit
+</button>
+<p id="result52">
+</p>
+<script>
+    // Display the question
+    document.getElementById('question-text52').textContent = questionObj52.question;
+
+</script>
+<hr />
+<p id="question">
+<span id="question-text53"></span>
+<input type="number" id="answer53" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj53)">Submit</button>
+</p>
+<p id="result53">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj53 = generateQuestion_num(53);
+// Display the question
+    document.getElementById('question-text53').textContent = "Assume the mean age of your customers is \\(" +  (questionObj53.question[0]*5) + "\\) years with a standard deviation of \\(" + (questionObj53.question[1]*2) + "\\) years. Determine the approximate distribution of the sample mean for a sample of customers with size \\(n=20\\)! \\[\\] The approximate distribution is normal with \\(\\mu=\\)";
+    questionObj53.answer = questionObj53.question[0]*5
+</script>
+<p id="question">
+<span id="question-text54"></span>
+<input type="number" id="answer54" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj54)">Submit</button>
+</p>
+<p id="result54">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj54 = generateQuestion_num(54);
+// Display the question
+    document.getElementById('question-text54').textContent = "\\(\\sigma^2=\\)";
+    questionObj54.answer = Math.pow((questionObj53.question[1]*2),2)/20
+</script>
+<p id="question">
+<span id="question-text55"></span>
+<input type="number" id="answer55" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj55)">Submit</button>
+</p>
+<p id="result55">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj55 = generateQuestion_num(55);
+// Display the question
+    document.getElementById('question-text55').textContent = "How does the variance of the sample mean changes, if the new sample size is \\(n=500\\)? \\[\\]\\(\\sigma^2_{n=500}=\\)";
+    questionObj55.answer = Math.pow((questionObj53.question[1]*2),2)/500
+</script>
+</div>
+<hr />
+</div>
+</div>
+<div id="point-estimation" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Point estimation<a href="parameter-estimation.html#point-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The aim of a <strong>point estimate</strong> is to provide the most accurate possible approximation value for an unknown population parameter.</p>
+<p>Parameters come in two forms:</p>
+<ul>
+<li><p>Characteristics of an arbitrary, unknown distribution (<span class="math inline">\(\leadsto \mathbb E(\cdot), \text{Var}(\cdot), \rho, q_p,\ldots\)</span>)</p></li>
+<li><p>Parameters of an assumed distribution model (<span class="math inline">\(\leadsto p \text{ of the Bernoulli distribution }, \lambda \text{ of the Poisson distribution },\ldots\)</span>).</p></li>
+</ul>
+<p>For both types of parameters there exist <strong>estimation functions or estimators</strong> (formulas from the descriptive statistics) that provide a <strong>point estimate</strong> for a given sample. In the case of a distribution model, such estimators can be constructed.</p>
+<div id="estimation-functions" class="section level3 hasAnchor" number="5.2.1">
+<h3><span class="header-section-number">5.2.1</span> Estimation functions<a href="parameter-estimation.html#estimation-functions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Assume that a parameter <span class="math inline">\(\theta\)</span> is to be deduced from the realizations in the sample (e.g. distribution parameter).</p>
+<p>A function:
+<span class="math display">\[\begin{equation*}
+        T=g(X_1,\ldots, X_n)
+\end{equation*}\]</span>
+of the random sample <span class="math inline">\((X_1,\ldots, X_n)\)</span> an <strong>estimation function</strong> for <span class="math inline">\(\theta\)</span>. As a function of random variables, <span class="math inline">\(T\)</span> is itself a <strong>random variable</strong>.</p>
+<p>There two types of estimation functions, that we will be talking about:</p>
+<ul>
+<li><strong>estimator</strong> if it is an estimator of a distribution parameter;</li>
+<li><strong>test statistics</strong> in case of hypotheses testing.</li>
+</ul>
+<hr />
+<div class="example">
+<p><span id="exm:sch" class="example"><strong>Example 5.5  (Examples of estimators) </strong></span>We already know the following estimation functions quite well:</p>
+<ul>
+<li><p><span class="math inline">\(\displaystyle\overline X = \frac{1}{n} \sum_{i=1}^n\)</span></p></li>
+<li><p><span class="math inline">\(\displaystyle \overline X = \frac{1}{n} \sum_{i=1}^n\)</span>
+<strong>Probability of occurrence</strong> <span class="math inline">\(\mathbb P(X=1)\)</span>.</p></li>
+<li><p><span class="math inline">\(\hat\sigma_X^2=\displaystyle S_X^2 = g(X_1,\ldots, X_n) = \frac{1}{n-1}\sum_{i=1}^n (X_i-\overline X )^2\)</span> is estimator for the <strong>variance</strong> <span class="math inline">\(\sigma_X^2=\text{Var}(X)\)</span>.</p></li>
+</ul>
+</div>
+<p>A <strong>point estimate</strong> for <span class="math inline">\(\theta\)</span> is a function of realizations of the form
+<span class="math display">\[t=g(x_1,\ldots, x_n).\]</span></p>
+<p>The resulting numerical value <span class="math inline">\(g(x_1,\ldots, x_n)\)</span> is called <strong>estimate</strong>. For example, <span class="math inline">\(g(x_1,\ldots, x_n)=\displaystyle \frac{1}{n}\sum_i x_i\)</span> is estimate for expected value <span class="math inline">\(\theta=\mathbb E X\)</span>.</p>
+<hr />
+</div>
+<div id="properties-of-estimators" class="section level3 hasAnchor" number="5.2.2">
+<h3><span class="header-section-number">5.2.2</span> Properties of estimators<a href="parameter-estimation.html#properties-of-estimators" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>What characterizes a <strong>“good” estimator</strong>?</p>
+<p>For example, which properties justify the estimator <span class="math inline">\(\overline X\)</span> as an estimator of the expected value?</p>
+<p>The following properties provide clear criteria for the quality of an estimator:</p>
+<ul>
+<li><strong>Unbiasedness</strong></li>
+<li><strong>Consistency</strong></li>
+<li><strong>Efficiency</strong></li>
+</ul>
+<div id="unbiasedness" class="section level4 hasAnchor" number="5.2.2.1">
+<h4><span class="header-section-number">5.2.2.1</span> Unbiasedness<a href="parameter-estimation.html#unbiasedness" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>An estimate should <strong>tend to</strong> deliver the correct value, i.e. neither systematically overestimate nor underestimate. An estimator <span class="math inline">\(T=g(X_1,\ldots, X_n)\)</span> for the parameter <span class="math inline">\(\theta\)</span> is called <strong>unbiased</strong> if holds
+<span class="math display">\[\begin{equation*}
+      \mathbb E(T) = \theta.
+\end{equation*}\]</span></p>
+<p>The <strong>bias</strong> refers to the systematic overestimation or underestimation of an estimator:
+<span class="math display">\[\begin{equation*}
+      \text{Bias}(T) = \mathbb E(T) - \theta.
+\end{equation*}\]</span></p>
+<hr />
+<div class="example">
+<p><span id="exm:erwtr" class="example"><strong>Example 5.6  (Unbiasedness of the sample mean) </strong></span>We check whether the sample mean <span class="math inline">\(\bar X\)</span> is unbiased for <span class="math inline">\(\mathbb E(X)\)</span> and the relative frequency (<span class="math inline">\(h_{Y=1}=\bar Y\)</span>, <span class="math inline">\(Y\in\{0;1\}\)</span> ) are unbiased for <span class="math inline">\(\mathbb P(Y=1)\)</span>.</p>
+<ul>
+<li><p><span class="math inline">\(\overline X=\displaystyle \frac{1}{n} \sum_{i=1}^n\)</span> because
+<span class="math display">\[\begin{equation*}
+    \mathbb E(\overline X) = \frac{1}{n} \sum_{i=1}^n \mathbb E(X_i) = \frac{1}{n}
+    n\cdot \mu = \mu.
+\end{equation*}\]</span></p></li>
+<li><p>The <strong>relative frequency</strong> <span class="math inline">\(H_{Y=1}=\displaystyle \overline Y=\displaystyle\frac{1}{n}\sum_{i=1}^n Y_i\)</span>, with <span class="math inline">\(Y_i\in \{0,1\}\)</span>,
+is unbiased estimator for the <strong>share value</strong>/ the <strong>probability of occurrence</strong> <span class="math inline">\(\mathbb P(Y=1)\)</span>.
+<span class="math display">\[\begin{equation*}
+    \mathbb E(\overline Y) = \frac{1}{n} \sum_{i=1}^n \mathbb E(Y_i) = \frac{1}{n} \sum_{i=1}^n \mathbb P(Y_i=1)\frac{1}{n}
+    n\cdot \mathbb P(Y=1) = \mathbb P(Y=1).
+\end{equation*}\]</span></p></li>
+<li><p>If we now take several random samples (e.g. <span class="math inline">\(100\)</span>) and calculate the sample mean for each drawing with a certain size <span class="math inline">\(n\)</span>, then we observe the following:</p></li>
+</ul>
+<p><img src="_main_files/figure-html/unnamed-chunk-131-1.png" width="672" /></p>
+</div>
+<hr />
+<div class="example">
+<p><span id="exm:nerwtr" class="example"><strong>Example 5.7  (Sample variance and mean square deviation) </strong></span>What about the variance estimators?</p>
+<ul>
+<li><p>Sample variance:
+<span class="math display">\[\begin{equation*}
+    S^2 = \frac{1}{n-1} \sum_{i=1}^n (X_i-\overline X)^2
+\end{equation*}\]</span>
+is an unbiased estimator for the <strong>variance</strong> <span class="math inline">\(\sigma^2=\text{Var}(X)\)</span>, i.e. <span class="math inline">\(\mathbb E(S^2) = \sigma^2\)</span>.</p></li>
+<li><p>For the <strong>mean square deviation</strong> <span class="math inline">\(\displaystyle \tilde S^2 = \frac{1}{n}\sum_{i=1}^n (X_i-\overline X)^2\)</span> applies:
+<span class="math display">\[\begin{equation*}
+         \mathbb E(\tilde S^2) = \frac{n-1}{n} \sigma^2.
+\end{equation*}\]</span>
+So: <span class="math inline">\(\tilde S^2\)</span> is biased (it is <strong>asymptotically unbiased</strong> since the bias disappears for increasing <span class="math inline">\(n\)</span>).
+The distortion is
+<span class="math display">\[\begin{equation*}
+      \text{Bias}(\tilde S^2) = \mathbb E(\tilde S^2) - \sigma^2 =
+      -\frac{1}{n}\sigma^2.
+\end{equation*}\]</span></p></li>
+</ul>
+<details>
+<hr />
+<summary>
+Proof: Mean square deviation is biased 👽
+</summary>
+<ul>
+<li>The following applies: <span class="math inline">\(\displaystyle \mathbb E((X_i-\mu)(X_j-\mu))=0\)</span> if <span class="math inline">\(i\not=j\)</span>.</li>
+<li>Furthermore:
+<span class="math display">\[\begin{equation*}
+    \mathbb E((\overline X-\mu)^2) = \text{Var}(\overline X) =
+    \frac{1}{n^2} \text{Var}(X_1+\cdots+X_n) = \frac{1}{n}\sigma^2.
+\end{equation*}\]</span>
+This results in:
+<span class="math display">\[\begin{align*}
+    \mathbb E((X_i-\overline X)^2) &amp;= \mathbb E(((X_i-\mu) - (\overline X-\mu))^2)
+    \\
+    &amp;= \sigma^2 -2 \mathbb E\left((X_i-\mu) \left(\frac{1}{n} \sum_{j=1}^n
+      X_j-\mu\right)\right) + \frac{\sigma^2}{n} \\
+    &amp;= \sigma^2 - \frac{2}{n} \sum_{i=1}^n \mathbb E((X_i-\mu)(X_j-\mu)) +
+      \frac{\sigma^2}{n} \\
+    &amp;= \sigma^2 - \frac{2\sigma^2}{n} + \frac{\sigma^2}{n}
+      = \sigma^2 - \frac{\sigma^2}{n}.
+\end{align*}\]</span></li>
+</ul>
+<hr />
+</details>
+<p><br></p>
+<ul>
+<li>If we now carry out several samplings (e.g. <span class="math inline">\(100\)</span>) and calculate the sample variance and the mean square deviation for each drawing with a certain size <span class="math inline">\(n\)</span>, then we observe the following:</li>
+</ul>
+<p><img src="_main_files/figure-html/unnamed-chunk-132-1.png" width="100%" /></p>
+</div>
+<hr />
+</div>
+<div id="consistency" class="section level4 hasAnchor" number="5.2.2.2">
+<h4><span class="header-section-number">5.2.2.2</span> Consistency<a href="parameter-estimation.html#consistency" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Another important property of an estimator is <strong>consistency</strong>, which states that the estimator converges to the quantity being estimated. This definition takes into account <strong>the variance and the bias of the estimator</strong>; the two sizes should approach zero as the sample size <span class="math inline">\(n\)</span> increases.</p>
+<p>Formally, consistency is defined by the convergence of the expected mean square deviation. The <strong>expected mean square error</strong> is determined by
+<span class="math display">\[\begin{equation*}
+      \text{MSE}(T)= \mathbb E((T-\theta)^2).
+\end{equation*}\]</span></p>
+<p>It can be expressed as
+<span class="math display">\[\begin{equation*}
+      \text{MSE}(T) = \text{Var}(T) + \text{Bias}(T)^2.
+\end{equation*}\]</span></p>
+<p>An estimator is said to be <strong>consistent</strong> if:
+<span class="math display">\[\begin{equation*}
+      \text{MSE} \rightarrow 0\text{ for } n\rightarrow\infty.
+\end{equation*}\]</span></p>
+<hr />
+<div class="example">
+<p><span id="exm:kons" class="example"><strong>Example 5.8  (Consistency of the sample mean) </strong></span>From independent, identically distributed observations <span class="math inline">\(X_1,\ldots, X_n\)</span> with <span class="math inline">\(\mathbb E(X_1)=\mu\)</span> and <span class="math inline">\(\text{Var}(X_1)=\sigma^2\)</span>
+the expected value is estimated by <span class="math inline">\(\overline X=\displaystyle\frac{1}{n} \sum_{i=1}^n X_i\)</span>.</p>
+<ul>
+<li><p><span class="math inline">\(\mathbb E(\overline X)=\mu\)</span> (See unbiasedness of <span class="math inline">\(\bar X\)</span> <span class="math inline">\(\leadsto \text{Bias}(\overline X)=0\)</span>)</p></li>
+<li><p><span class="math inline">\(\text{MSE}(\overline X) = \text{Var}(\overline X) + \text{Bias}^2(\overline X)=\frac{\sigma^2}{n} + 0^2 {\rightarrow}0\)</span> for <span class="math inline">\({n\rightarrow\infty}\)</span> (<span class="math inline">\(\leadsto\)</span> consistency)</p></li>
+</ul>
+</div>
+<hr />
+</div>
+<div id="efficiency" class="section level4 hasAnchor" number="5.2.2.3">
+<h4><span class="header-section-number">5.2.2.3</span> Efficiency<a href="parameter-estimation.html#efficiency" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>An unbiased estimator for <span class="math inline">\(\theta\)</span> is more efficient than another unbiased estimator if it has the smaller variance.</p>
+<p>Efficiency means that of two unbiased estimators <span class="math inline">\(T_1\)</span> and <span class="math inline">\(T_2\)</span> for <span class="math inline">\(\theta\)</span>, one (here <span class="math inline">\(T_1\)</span>) is <strong>more efficient</strong> if:
+<span class="math display">\[\begin{equation*}
+      \text{Var}(T_1)\leq \text{Var}(T_2)
+\end{equation*}\]</span></p>
+<p>The <strong>most efficient</strong> or <strong>best estimator</strong> is the unbiased estimator that has the smallest variance.</p>
+<ul>
+<li><span class="math inline">\(\overline X\)</span> is efficient for the expected value;</li>
+<li><span class="math inline">\(\overline X\)</span>, with <span class="math inline">\(X_i\in\{0,1\}\)</span> is efficient for <span class="math inline">\(\mathbb P(X=1)\)</span>;</li>
+<li><span class="math inline">\(\overline X\)</span> is efficient for the parameter <span class="math inline">\(\lambda\)</span> of the Poisson distribution.</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="construction-of-estimators" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> Construction of estimators<a href="parameter-estimation.html#construction-of-estimators" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We already have good estimators for the most important parameters of distributions (expectation and variance). But what do we do if we want to estimate unknown parameters of a distribution model? It’s not always possible to “google” a suitable estimator.</p>
+<p>There are two useful methods to <strong>construct</strong> the estimators for the unknown parameters of a distribution model.</p>
+<div id="method-of-moments" class="section level3 hasAnchor" number="5.3.1">
+<h3><span class="header-section-number">5.3.1</span> Method of moments<a href="parameter-estimation.html#method-of-moments" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Basic idea: Estimate parameters of the distribution such that the corresponding <strong>moments</strong> of the distribution <span class="math inline">\(\mathbb E(X), \mathbb E(X^2), \ldots\)</span> match with the corresponding <strong>empirical moments</strong> of the sample <span class="math inline">\(\bar X, \overline{X^2}, \ldots\)</span>:</p>
+<p><span class="math display">\[
+\begin{array}{lp{.5cm}l}
+        \hline
+        \text{Distribution} &amp; &amp; \text{Sample}\\\hline
+        \mathbb E(X)=\mu &amp;&amp; \displaystyle \overline x=\frac{1}{n}\sum_{i=1}^n x_i\\
+        \mathbb E(X^2) = \mu^2 + \sigma^2 &amp; &amp; \displaystyle
+                                       \overline{x^2}=\frac{1}{n}\sum_{i=1}^n x_i^2\\
+        \vdots &amp; &amp; \vdots\\
+        \mathbb E(X^m) &amp; &amp; \displaystyle \overline{x^m}=\frac{1}{n} \sum_{i=1}^n x_i^m\\\hline
+      \end{array}
+\]</span></p>
+<p>Starting with the first moment, just enough moments are included so that all parameters to be estimated can be clearly estimated.</p>
+<hr />
+<div class="example">
+<p><span id="exm:schbern" class="example"><strong>Example 5.9  (Bernoulli distribution) </strong></span>Estimation of the parameter <span class="math inline">\(p\)</span> of a <strong>Bernoulli distribution</strong>.</p>
+<ul>
+<li><p>Theoretically:</p>
+<ul>
+<li>Distribution assumption: <span class="math inline">\(\mathbb P\in\{B(1,p) | p\in \Theta=[0,1]\}\)</span></li>
+<li>First moment of the distribution: <span class="math inline">\(\mathbb E(X) = p\)</span></li>
+<li>First moment of the sample: <span class="math inline">\(\bar X = \frac 1n \sum_{i=1}^n X_i\)</span></li>
+<li>Estimator: <span class="math inline">\(\hat p = \overline X\)</span> (proportion of “successes” in the sample)</li>
+</ul></li>
+<li><p>Practical: Estimation of the app user share based on a customer survey.</p>
+<ul>
+<li>From the sample: <span class="math inline">\(\bar x = 0.55\)</span></li>
+<li>Estimate: <span class="math inline">\(\hat p=0.55\)</span></li>
+</ul></li>
+</ul>
+</div>
+<hr />
+<div class="example">
+<p><span id="exm:schexp" class="example"><strong>Example 5.10  (Exponential distribution) </strong></span>Estimation of the parameter <span class="math inline">\(\lambda\)</span> of an <strong>exponential distribution</strong>.</p>
+<ul>
+<li><p>Theoretically:</p>
+<ul>
+<li>Distribution assumption: <span class="math inline">\(\mathbb P\in\{E(\lambda)| \lambda&gt;0\}\)</span></li>
+<li>First moment of the distribution: <span class="math inline">\(\mathbb E(X) = \displaystyle\frac{1}{\lambda}\)</span></li>
+<li>First moment of the sample: <span class="math inline">\(\bar X = \frac 1n \sum_{i=1}^n X_i\)</span></li>
+<li>Estimator: <span class="math inline">\(\hat\lambda = \displaystyle\frac{1}{\overline X}\)</span> (because then: <span class="math inline">\(\overline X = \displaystyle \mathbb E(X) = \frac{1}{\lambda}\)</span> )</li>
+</ul></li>
+<li><p>Practical: estimate the <span class="math inline">\(\lambda\)</span> for the transaction duration.</p>
+<ul>
+<li>From the sample: <span class="math inline">\(\bar x = 9.5\)</span></li>
+<li>Estimate: <span class="math inline">\(\hat \lambda=\frac1{9.5}=0.1053.\)</span></li>
+</ul></li>
+</ul>
+</div>
+<hr />
+<div class="example">
+<p><span id="exm:schnorm" class="example"><strong>Example 5.11  (Normal distribution) </strong></span>Estimation of the parameters <span class="math inline">\((\mu,\sigma^2)\)</span> of a <strong>normal distribution</strong>.</p>
+<ul>
+<li><p>Theoretically:</p>
+<ul>
+<li>Distribution assumption: <span class="math inline">\(\mathbb P\in\{N(\mu,\sigma^2)|\mu\in \mathbb R, \sigma^2&gt;0\}\)</span></li>
+<li>First moment of the distribution: <span class="math inline">\(\mathbb E(X) = \mu\)</span></li>
+<li>First moment of the sample: <span class="math inline">\(\bar X = \frac 1n \sum_{i=1}^n X_i\)</span></li>
+<li>Second moment of the distribution: <span class="math inline">\(\mathbb E(X^2) = \mu^2 + \sigma^2\)</span></li>
+<li>Second moment of the sample: <span class="math inline">\(\overline{X^2} = \frac 1n \sum_{i=1}^n X^2_i\)</span></li>
+<li>Inserting the empirical moments gives: <span class="math inline">\(\hat\mu=\overline X\)</span> and <span class="math inline">\(\hat\sigma^2 = \tilde S^2\)</span></li>
+</ul></li>
+<li><p>Practical: distribution parameters for the average temperature in July.</p>
+<ul>
+<li>From the sample: <span class="math inline">\(\bar t = 20.5\)</span>; <span class="math inline">\(\tilde s_T^2 = 12\)</span></li>
+<li>Estimated value: <span class="math inline">\(\hat \mu_T=20.5\)</span>; <span class="math inline">\(\hat\sigma_T^2=12\)</span>.</li>
+</ul></li>
+</ul>
+</div>
+<hr />
+<div class="exercise">
+<p><span id="exr:unlabeled-div-2" class="exercise"><strong>Exercise 5.2  (The method of moments) </strong></span></p>
+<iframe title="Aufgabe_MM" src="./htmls/aufgabe_mm_eng.html" width="720" height="510"></iframe>
+</div>
+<hr />
+</div>
+<div id="maximum-likelihood-method" class="section level3 hasAnchor" number="5.3.2">
+<h3><span class="header-section-number">5.3.2</span> Maximum likelihood method<a href="parameter-estimation.html#maximum-likelihood-method" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let <span class="math inline">\(X_1,\ldots, X_n\)</span> be independent, identically distributed random variables.
+The distribution of <span class="math inline">\(X_i\)</span>, <span class="math inline">\(i=1,\ldots, n\)</span> is unknown, but we assume that the distribution belongs to a <strong>distribution model</strong> that characterizes <span class="math inline">\(\theta\)</span> by an appropriate <strong>parameterization</strong> is.</p>
+<p>That is, <span class="math inline">\(X_i\)</span> has probability function or density <span class="math inline">\(f(x|\theta)\)</span>, <span class="math inline">\(\theta\in\Theta\)</span>, where <span class="math inline">\(\theta\)</span> is a vector of parameters from the set <span class="math inline">\(\Theta\)</span>.</p>
+<p>The <strong>maximum likelihood principle</strong> states:</p>
+<p>For the sample result <span class="math inline">\((x_1,\ldots, x_n)\)</span>, choose the value <span class="math inline">\(\hat\theta\)</span> as the estimated value for <span class="math inline">\(\theta\)</span>, below which the <strong>probability of the sample result occurring is greatest</strong>.</p>
+<p>The sentence “under which the probability of the outcome occurring is greatest” can be replaced by: “under which the corresponding probability function or density is maximum”. The latter is quantified using the <strong>likelihood function</strong>:</p>
+<ul>
+<li><p>If a realization <span class="math inline">\((x_1,\ldots, x_n)\)</span> is given, the density can be determined as a function of the unknown parameters <span class="math inline">\(\theta\)</span>
+comprehend
+<span class="math display">\[\begin{equation*}
+    L(\theta)= f(x_1,\ldots, x_n|\theta).
+\end{equation*}\]</span></p></li>
+<li><p>Because of the <strong>independence</strong> of the random sample, the following applies to the joint probability function / density:
+<span class="math display">\[\begin{equation*}
+    L(\theta)=f(x_1,\ldots, x_n|\theta) = f(x_1|\theta)\cdot f(x_2|\theta)\cdot \dots \cdot f(x_n|\theta).
+\end{equation*}\]</span></p></li>
+<li><p>The <strong>Maximum Likelihood Principle</strong> says: for <span class="math inline">\(x_1,\ldots, x_n\)</span>, choose as parameter estimate the parameter <span class="math inline">\(\hat\theta\)</span> for which the <strong>likelihood is maximum</strong>, i.e.
+<span class="math display">\[\begin{equation*}
+    L(\hat\theta)=\max_{\theta} L(\theta),
+\end{equation*}\]</span>
+or
+<span class="math display">\[\begin{equation*}
+    f(x_1,\ldots, x_n|\hat\theta) = \max_{\theta} f(x_1,\ldots,
+    x_n|\theta).
+\end{equation*}\]</span></p></li>
+</ul>
+<p>For the given realizations <span class="math inline">\(x_1,\ldots, x_n\)</span>, one chooses the parameter <span class="math inline">\(\hat\theta\)</span> for which the probability or density that these values ​​occur is <strong>maximum</strong>. These are the parameters <span class="math inline">\(\theta\)</span> that provide the <strong>most plausible explanation</strong> for how these values ​​came about. The estimate depends in particular on the sample: <span class="math inline">\(\hat\theta=\hat\theta(x_1,\ldots, x_n)\)</span>.</p>
+<ul>
+<li><p>The estimating function <span class="math inline">\(g(x_1,\ldots, x_n)=\hat\theta(x_1,\ldots, x_n)\)</span> is called <strong>maximum likelihood estimator</strong> (ML estimator).</p></li>
+<li><p>To practically determine the maximum, one often chooses the <strong>logarithm of the likelihood function</strong>, the <strong>log-likelihood</strong>, as this converts the product of the densities into a sum:
+<span class="math display">\[\begin{equation*}
+    \mathcal L(\theta) = \ln L(\theta) = \sum_{i=1}^n \ln f(x_i|\theta).
+\end{equation*}\]</span>
+Because of the strict monotonicity of the logarithm, maximizing <span class="math inline">\(L(\theta)\)</span> and <span class="math inline">\(\ln L(\theta)\)</span> yield the same value <span class="math inline">\(\hat\theta\)</span>.</p></li>
+</ul>
+<hr />
+<div class="example">
+<p><span id="exm:mlschbern" class="example"><strong>Example 5.12  (ML: Bernoulli distribution) </strong></span>Randomly select <span class="math inline">\(n=4\)</span> customers from a customer pool with <span class="math inline">\(a\)</span> app users and <span class="math inline">\(w\)</span> web users (with replacement); <span class="math inline">\(p=\displaystyle\frac{a}{a+w}\)</span> unknown.</p>
+<ul>
+<li><p>Construction:</p>
+<ul>
+<li>So: <span class="math inline">\(4\)</span> independent repetitions of the Bernoulli random process.</li>
+<li>The sample is <span class="math inline">\(x_1=1\)</span>, <span class="math inline">\(x_2=1\)</span>, <span class="math inline">\(x_3=0\)</span>, <span class="math inline">\(x_4=1\)</span>:</li>
+<li>Likelihood function:
+<span class="math display">\[\begin{equation*}
+L(p) = f(x_1|p) \cdots f(x_4|p) = \prod_{i=1}^4
+p^{x_i}(1-p)^{1-x_i} = p\cdot p\cdot (1-p)\cdot p =
+p^3\cdot (1-p).
+\end{equation*}\]</span></li>
+<li>Deriving and setting to zero results in:
+<span class="math display">\[\begin{equation*}
+  L&#39;(p) = 3p^2 (1-p) - p^3 = (3-4p)p^2 = 0 \iff
+  p\in \left\{0,\frac{3}{4}\right\}.
+  \end{equation*}\]</span></li>
+<li>Maximum at <span class="math inline">\(p^\ast=3/4\)</span> (negative second derivative).</li>
+</ul></li>
+<li><p>Representation of the likelihood function:</p></li>
+</ul>
+<p><img src="_main_files/figure-html/unnamed-chunk-134-1.png" width="100%" /></p>
+<ul>
+<li>Interpretation of the likelihood function: <span class="math inline">\(L(p)\)</span> is the probability of the observations <span class="math inline">\(x_1=1,x_2=1, x_3=0\)</span> and <span class="math inline">\(x_4=1\)</span> occurring together under the assumption that <span class="math inline">\(\mathbb P(X =1)=p\)</span>.</li>
+</ul>
+</div>
+<hr />
+<div class="example">
+<p><span id="exm:mlschexp" class="example"><strong>Example 5.13  (ML: Exponential distribution) </strong></span>Let <span class="math inline">\(X_1,\ldots, X_4\)</span> be independent repetitions of an exponentially distributed quantity with estimated value <span class="math inline">\(\lambda\)</span>.</p>
+<ul>
+<li><p>Construction:</p>
+<ul>
+<li>Sample: <span class="math inline">\(x_1=0.95\)</span>, <span class="math inline">\(x_2=1.81\)</span>, <span class="math inline">\(x_3=1\)</span>, <span class="math inline">\(x_4=0.67\)</span></li>
+<li>Likelihood function:
+<span class="math display">\[\begin{equation*}
+L(\lambda) = f(x_1|\lambda)\cdots f(x_4|\lambda) = \prod_{i=1}^4
+\lambda \text e^{-\lambda x_i}
+= \lambda^4 \text e^{-\lambda (x_1+\cdots + x_4)} = \lambda^4 \text e^{-4.43\lambda}
+  \end{equation*}\]</span></li>
+<li>Log likelihood function: <span class="math inline">\(\displaystyle \mathcal{L}(\lambda) = \ln L(\lambda) = -4.43\lambda + 4 \ln(\lambda)\)</span></li>
+<li>Derive and zero:
+<span class="math display">\[\begin{equation*}
+  \mathcal{L}^\prime(\lambda) = -4.43 + \frac{4}{\lambda} = 0 \quad
+  \iff \quad \lambda=4/4.43 = 0.9029
+\end{equation*}\]</span></li>
+<li>Second derivative: <span class="math inline">\(\displaystyle -\frac{4}{\lambda^2}&lt;0\)</span>, i.e. maximum.</li>
+<li><span class="math inline">\(\hat\lambda=1/\overline X = 1/1.1075=0.902935\)</span>.</li>
+</ul></li>
+<li><p>Representation of the likelihood function and log-likelihood function:</p></li>
+</ul>
+<p><img src="_main_files/figure-html/unnamed-chunk-135-1.png" width="100%" /></p>
+<ul>
+<li><p>Interpretation of the likelihood function: <span class="math inline">\(L(\lambda)\)</span> is the density for the co-occurrence of the observations <span class="math inline">\(x_1=0.95\)</span>, <span class="math inline">\(x_2=1.81\)</span>, <span class="math inline">\(x_3=1\)</span> and <span class="math inline">\(x_4=0, 67\)</span> under the assumption that there is an exponential distribution with parameter <span class="math inline">\(\lambda\)</span>.</p></li>
+<li><p>A high density value <span class="math inline">\(f(x)\)</span> at location <span class="math inline">\(x\)</span> implies a high probability of occurrence in a small interval around <span class="math inline">\(x\)</span>.</p></li>
+</ul>
+</div>
+<hr />
+<div class="exercise">
+<p><span id="exr:unlabeled-div-3" class="exercise"><strong>Exercise 5.3  (The maximum likelihood method) </strong></span></p>
+<iframe title="Aufgabe_ML" src="./htmls/aufgabe_ml_eng.html" width="720" height="680"></iframe>
+</div>
+<hr />
+</div>
+</div>
+<div id="interval-estimation" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> Interval estimation<a href="parameter-estimation.html#interval-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The point estimate provides a parameter estimate <span class="math inline">\(\hat\theta\)</span>, which is typically not the same as the true value <span class="math inline">\(\theta\)</span>. In addition to the estimate <span class="math inline">\(\hat\theta\)</span> itself, one can specify the <strong>precision</strong> of the estimator by taking into account the <strong>variability of the estimator</strong>.</p>
+<p>The <strong>Interval Estimation</strong> is a way to directly incorporate the accuracy of the estimation process. The result of the estimation is an <strong>interval</strong>. However, it is not really possible to hit the true parameter with certainty. The <strong>error probability</strong> <span class="math inline">\(\alpha\)</span>, with which the method returns an interval that does not contain the true value <span class="math inline">\(\theta\)</span>, is given. Common values <span class="math inline">\(\alpha\)</span> are <span class="math inline">\(\alpha=0.1\)</span>, <span class="math inline">\(\alpha=0.05\)</span> and <span class="math inline">\(\alpha=0.01\)</span>.</p>
+<p>The <strong>coverage probability/confidence level</strong> <span class="math inline">\(1-\alpha\)</span> is the probability that the procedure returns an interval that contains the value <span class="math inline">\(\theta\)</span>.</p>
+<p>Since the width of such an interval can also be understood as the accuracy of the estimate, the <strong>sample size</strong>, which ensures a certain level of accuracy at the given level of certainty, can be derived from it.
+***</p>
+<div class="example">
+<p><span id="exm:intsch" class="example"><strong>Example 5.14  (Estimate the average invoice amount (Rechnungsbetrag)) </strong></span>Our estimator - the sample mean <span class="math inline">\(\bar{X}=\frac 1n \sum_{i=1}^n\)</span>. The values fluctuate less as the sample size <span class="math inline">\(n\)</span> increases.</p>
+<p><strong>But how exactly is the relationship to the sample size?</strong></p>
+<p>The answer is provided by the central limit theorem (CLT). If the sample variables <span class="math inline">\(X_1,X_2,\ldots, X_n\)</span> are identical and independently distributed with a finite mean <span class="math inline">\(\mu_X\)</span> and a finite variance <span class="math inline">\(\sigma_X^2\)</span>, the approximate distribution of sample mean is: <span class="math display">\[\bar{X} \stackrel{a}{\sim} N(\mu_X, \frac{\sigma_X^2}{n})\]</span> or in its standardized version: <span class="math display">\[\frac{\bar X-\mu_X}{\sigma_X/\sqrt{n}}\stackrel{a}{\sim}N(0;1).\]</span></p>
+<p>The sample size depends on the unknown variance in the population. In practice, an estimate of the variance is used. You should assume a rather higher value.</p>
+<ul>
+<li>Assuming <span class="math inline">\(\sigma_X=100\)</span> is known or determined by experience and <span class="math inline">\(n=50\)</span>, therefore <span class="math inline">\(\frac{\sigma_X^2}{n}=\frac{100}{50}=2\)</span>, then according to CLT :
+<span class="math display">\[\bar{X}\stackrel{a}{\sim} N(\mu_X; 2)\text{ or }\frac{\bar X-\mu_X}{\sqrt 2}\stackrel{a}{\sim} N(0;1)\]</span></li>
+</ul>
+<p>I.e. <span class="math inline">\(\mathbb P\left(-1.96\leq\frac{\overline X-\mu_X}{\sqrt 2}\leq1.96\right)=0.95\leftrightarrow\)</span> <span class="math inline">\(\mathbb P\left(-1 .96\cdot \sqrt 2\leq \overline X-\mu_X\leq1.96\cdot \sqrt 2\right)=0.95\)</span> and with 95% probability the values of <span class="math inline">\(\bar x\)</span> away from <span class="math inline">\(\mu_X\)</span>.</p>
+<ul>
+<li>Rearranging the inequalities within the probability according to <span class="math inline">\(\mu_X\)</span> gives:</li>
+</ul>
+<p><span class="math display">\[\begin{align}
+\mathbb P\left(-1.96\cdot \sqrt 2\leq \bar X-\mu_X\leq 1.96\cdot \sqrt 2\right)&amp;=0.95~~ |\leadsto -\bar X\\
+\mathbb P\left(-\bar X-1.96\cdot \sqrt 2\leq-\mu_X\leq -\bar X+1.96\cdot \sqrt2\right)&amp;=0.95~~|\leadsto :(-1)\\
+\mathbb P\left(\bar X+1.96\cdot \sqrt 2\geq\mu_X\geq \bar X-1.96\cdot \sqrt 2\right)&amp;=0.95~~|\leadsto \text{swipping the sides}\\
+\mathbb P\left(\bar X-1.96\cdot \sqrt 2\leq\mu_X\leq \bar X+1.96\cdot \sqrt 2\right)&amp;=0.95
+\end{align}\]</span></p>
+<p>With 95% probability, the above term guarantees us that the unknown parameter <span class="math inline">\(\mu_X\)</span> is somewhere between <span class="math inline">\(\bar X-1.96\cdot \sqrt 2\)</span> and <span class="math inline">\(\bar X+1.96\cdot \sqrt 2\)</span>.</p>
+<ul>
+<li><p>Now <span class="math inline">\(\bar X-1.96\cdot \sqrt 2\)</span> and <span class="math inline">\(\bar X+1.96\cdot \sqrt 2\)</span> are random variables and the values vary with each new sampling.</p></li>
+<li><p>For a concrete sampling, you can calculate the values <span class="math inline">\(\overline x-1.96\cdot \sqrt 2\)</span> and <span class="math inline">\(\overline x+1.96\cdot \sqrt 2\)</span> and get an estimation interval for <span class="math inline">\(\mu_X\)</span> as a result:</p></li>
+</ul>
+<p><span class="math display">\[
+[\overline x-1,96\cdot \sqrt 2; \overline x+1,96\cdot \sqrt 2].
+\]</span></p>
+<ul>
+<li>or for a general sample size (<span class="math inline">\(\text{Var}(\overline X) = \sigma^2/n\)</span> <span class="math inline">\(\leadsto \sqrt{\text{Var}(\overline X)} = \sigma/\sqrt n\)</span>):</li>
+</ul>
+<p><span class="math display">\[
+\left[\overline x-1,96\cdot \frac{10}{\sqrt n}; \overline x+1,96\cdot \frac{10}{\sqrt n}\right].
+\]</span></p>
+<div id="app200" class="app">
+<h3>
+Sample size \(n\):
+</h3>
+<form>
+<select id = "myn200" onchange = "showInterv(200)" ><br />
+<option value="10">10</option><br />
+<option value="20">20</option><br />
+<option value="50">50</option><br />
+<option value="100">100</option><br />
+</select>
+</form>
+<h3>
+Sample realizations:
+</h3>
+<ul>
+<li>
+Willingness to pay in form of self-estimated invoice amount with sample values:
+<p id="sample200">
+\(\color{red}{\{x_1,x_2,\ldots,x_n\}=}~\)<span id="app-text-3200"></span>
+</p>
+</li>
+</ul>
+<h3>
+Calculation of the resulting estimates:
+</h3>
+<ul>
+<li>
+The estimate for the average invoice amount:
+<p id="mean200">
+\(\color{red}{\bar x=\frac 1n(x_1+x_2 + \ldots + x_n)= }\)<span id="app-text-5200"></span>
+</p>
+</li>
+<li>
+The interval estimate for the average invoice amount:
+<p id="inter">
+\(\color{blue}{\left[\overline x-1,96\cdot \frac{10}{\sqrt n}; \overline x+1,96\cdot \frac{10}{\sqrt n}\right]}=[\)<span id="app-text-6200"></span>\(\color{blue}{]}\)
+</p>
+</li>
+</ul>
+<button onclick="showInterv(200)">
+draw a new sample
+</button>
+<script>
+showInterv(200)
+</script>
+</div>
+<ul>
+<li><p>Repeated sampling and interval calculation for the given coverage probability <span class="math inline">\(1−\alpha\)</span> gives on average approximately a <span class="math inline">\((1−\alpha)\)</span> proportion of the interval estimates that cover the true parameter.</p></li>
+<li><p>For our example <a href="parameter-estimation.html#exm:intsch">5.14</a> we want to estimate <span class="math inline">\(\mu_X\)</span> using a sample of size <span class="math inline">\(n=50\)</span> and assuming <span class="math inline">\(\sigma_X=10.\)</span> Then, a collection of <span class="math inline">\(100\)</span> repeated interval estimates for <span class="math inline">\(\alpha=0.05\)</span> could look like this:</p></li>
+</ul>
+<p><img src="_main_files/figure-html/unnamed-chunk-139-1.png" width="672" /></p>
+</div>
+<hr />
+<div id="alpha-confidence-interval-for-mu" class="section level3 hasAnchor" number="5.4.1">
+<h3><span class="header-section-number">5.4.1</span> <span class="math inline">\((1-\alpha)\)</span> confidence interval for <span class="math inline">\(\mu\)</span><a href="parameter-estimation.html#alpha-confidence-interval-for-mu" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="type-a-confidence-interval-for-mu-with-known-variance-sigma2-nmusigma2-distributed-random-variables" class="section level4 unnumbered hasAnchor">
+<h4>Type A: Confidence interval for <span class="math inline">\(\mu\)</span> with known variance <span class="math inline">\(\sigma^2\)</span> (<span class="math inline">\(N(\mu,\sigma^2)\)</span>-distributed random variables)<a href="parameter-estimation.html#type-a-confidence-interval-for-mu-with-known-variance-sigma2-nmusigma2-distributed-random-variables" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The starting point is the point estimator <span class="math inline">\(\overline X\)</span>, which is <span class="math inline">\(N(\mu,\sigma^2/n)\)</span>-distributed.</p>
+<ul>
+<li><p>The standardized sample mean <span class="math inline">\(\displaystyle\frac{\overline X-\mu}{\sigma/\sqrt{n}}\)</span> is <span class="math inline">\(N(0,1)\)</span>-distributed; therefore:
+<span class="math display">\[\begin{equation*}
+    \mathbb P\left(-N_{1-\alpha/2} \leq \frac{\overline
+      X-\mu}{\sigma/\sqrt{n}}\leq N_{1-\alpha/2}\right)=1-\alpha,
+\end{equation*}\]</span>
+with <span class="math inline">\(N_{1-\alpha/2}\)</span> the <span class="math inline">\(1-\alpha/2\)</span> quantile of the standard normal distribution.</p></li>
+<li><p>Forming results in:
+<span class="math display">\[\begin{equation*}
+      1-\alpha = \mathbb P\left(\overline X - N_{1-\alpha/2}
+      \frac{\sigma}{\sqrt{n}} \leq \mu \leq \overline X + N_{1-\alpha/2}
+      \frac{\sigma}{\sqrt{n}}\right),
+\end{equation*}\]</span>
+and a <span class="math inline">\((1-\alpha)\)</span> confidence interval is given by
+<span class="math display">\[\begin{equation*}
+      \left[\overline X - N_{1-\alpha/2}
+      \frac{\sigma}{\sqrt{n}}, \overline X + N_{1-\alpha/2}
+      \frac{\sigma}{\sqrt{n}}\right].
+\end{equation*}\]</span></p></li>
+</ul>
+<hr />
+<div class="example">
+<p><span id="exm:intsch2" class="example"><strong>Example 5.15  (Monthly returns) </strong></span>Given: monthly returns of a stock <span class="math inline">\(A\)</span></p>
+<ul>
+<li><p>random monthly return <span class="math inline">\(X\sim N(\mu,\sigma^2)\)</span> with <span class="math inline">\(\sigma^2 = 0.25\)</span></p></li>
+<li><p>Data: <span class="math inline">\(12\)</span> monthly returns in <span class="math inline">\(\%\)</span></p>
+<span class="math display">\[\begin{array}[t]{|*{4}{cc|}}
+    \hline
+    n &amp; x_n &amp; n &amp; x_n &amp; n &amp; x_n &amp; n &amp; x_n \\\hline
+    1 &amp; 0.35 &amp; 4 &amp; \phantom{-}0.52 &amp; 7 &amp; -0.48 &amp; 10 &amp; 0.29\\
+    2 &amp; 0.89 &amp; 5 &amp; \phantom{-}0.12 &amp; 8 &amp; -0.37 &amp; 11 &amp; 0.41\\
+    3 &amp; 1.02 &amp; 6 &amp; -0.22 &amp; 9 &amp; \phantom{-}0.07 &amp; 12 &amp; 0.72\\\hline
+\end{array}\]</span></li>
+<li><p>Error probability <span class="math inline">\(\alpha=5\%\)</span> <span class="math inline">\(\Rightarrow\)</span> Confidence level <span class="math inline">\(1-\alpha=0.95\)</span></p></li>
+<li><p>Sample mean: <span class="math inline">\(\displaystyle \overline x=\frac{3.32}{12}=0.2767\%\)</span></p></li>
+<li><p><span class="math inline">\((1-\alpha/2)\)</span>-quantile <span class="math inline">\(N_{1-\alpha/2} = N_{0.975} =1.96\)</span></p></li>
+<li><p>Realized confidence interval:
+<span class="math display">\[\begin{align*}
+      &amp;\left[\overline x - N_{1-\alpha/2}
+      \frac{\sigma}{\sqrt{n}}, \overline x + N_{1-\alpha/2}
+      \frac{\sigma}{\sqrt{n}}\right] = \\
+    &amp;\left[0.2767-1.96\cdot
+      \frac{\sqrt{0.25}}{\sqrt{12}};
+      0.2767+
+      1.96\cdot\frac{\sqrt{0.25}}
+      {\sqrt{12}}\right]
+    = [-0.0062\%; 0.5596\%]
+\end{align*}\]</span></p></li>
+</ul>
+</div>
+<hr />
+</div>
+<div id="type-b-confidence-interval-for-mu-with-unknown-variance-sigma2-nmusigma2-distributed-random-variables" class="section level4 unnumbered hasAnchor">
+<h4>Type B: Confidence interval for <span class="math inline">\(\mu\)</span> with unknown variance <span class="math inline">\(\sigma^2\)</span> (<span class="math inline">\(N(\mu,\sigma^2)\)</span>-distributed random variables)<a href="parameter-estimation.html#type-b-confidence-interval-for-mu-with-unknown-variance-sigma2-nmusigma2-distributed-random-variables" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The starting point is the point estimator <span class="math inline">\(\displaystyle\frac{\overline X-\mu}{S/\sqrt{n}}\)</span>, where <span class="math inline">\(S^2=\displaystyle\frac{1}{n-1}\sum_{i =1}^n (X_i-\overline X)^2\)</span> is an estimate for <span class="math inline">\(\sigma^2\)</span>.</p>
+<ul>
+<li><p>The following applies: <span class="math inline">\(\displaystyle \frac{\overline X-\mu}{S/\sqrt{n}}\sim t(n-1)\)</span>, where <span class="math inline">\(t(n-1)\)</span> is a Student $t $ distribution with parameters
+denotes <span class="math inline">\(n-1\)</span>, and thus:
+<span class="math display">\[\begin{equation*}
+  \mathbb P\left(-t_{1-\alpha/2}(n-1) \leq \frac{\overline X-\mu}{S/\sqrt{n}}\leq
+  t_{1-\alpha/2}(n-1)\right) = 1-\alpha,
+\end{equation*}\]</span>
+with <span class="math inline">\(t_{1-\alpha/2}(n-1)\)</span> the corresponding quantile of the <span class="math inline">\(t\)</span> distribution.</p></li>
+<li><p>Reshaping gives the confidence interval
+<span class="math display">\[\begin{equation*}
+  \left[\overline X-t_{1-\alpha/2}(n-1) \frac{S}{\sqrt{n}},
+    \overline X + t_{1-\alpha/2}(n-1) \frac{S}{\sqrt{n}}\right].
+\end{equation*}\]</span></p></li>
+</ul>
+<div class="example">
+<p><span id="exm:intsch22" class="example"><strong>Example 5.16  (Monthly returns) </strong></span>Example <a href="parameter-estimation.html#exm:intsch2">5.15</a> cont.</p>
+<ul>
+<li><p>Sample mean: <span class="math inline">\(\overline x=\displaystyle\frac{3.32}{12}=0.2767\%\)</span></p></li>
+<li><p>Sample variance: <span class="math inline">\(s^2 = \displaystyle\frac{2.5124}{11} =0.2284\)</span></p></li>
+<li><p><span class="math inline">\((1-\alpha/2)\)</span>-quantile: <span class="math inline">\(t_{1-\alpha/2}(n-1) = t_{0.975}(11) =2.2010\)</span></p></li>
+<li><p>Realized confidence interval:
+<span class="math display">\[\begin{align*}
+  &amp;\left[\overline x-t_{1-\alpha/2}(n-1) \frac{s}{\sqrt{n}},
+    \overline x + t_{1-\alpha/2}(n-1) \frac{s}{\sqrt{n}}\right]= \\
+   &amp; \left[0.2767-2.201\cdot\frac{\sqrt{0.2284}}{\sqrt{12}}
+      ; 0.2767 + 2.201\cdot \frac{\sqrt{0.2284}}
+      {\sqrt{12}}\right]
+    = [-0.0270\%; 0.5803\%]
+\end{align*}\]</span></p></li>
+</ul>
+</div>
+<hr />
+</div>
+<div id="type-c-approximate-confidence-interval-for-mu-for-any-distribution" class="section level4 hasAnchor" number="5.4.1.1">
+<h4><span class="header-section-number">5.4.1.1</span> Type C: Approximate confidence interval for <span class="math inline">\(\mu\)</span> for any distribution<a href="parameter-estimation.html#type-c-approximate-confidence-interval-for-mu-for-any-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>For <strong>any distribution</strong> but a large sample size (<span class="math inline">\(n&gt;30\)</span>), the confidence interval results from the approximate normal distribution.</p>
+<p><span class="math inline">\((1-\alpha)\)</span> confidence interval for <span class="math inline">\(\mu\)</span> with any distribution (<span class="math inline">\(n&gt;30\)</span>)
+- If <span class="math inline">\(\sigma^2\)</span> is known, represents
+<span class="math display">\[\begin{equation*}
+        \left[\overline X - N_{1-\alpha/2}
+        \frac{\sigma}{\sqrt{n}}, \overline X + N_{1-\alpha/2}
+        \frac{\sigma}{\sqrt{n}}\right].
+\end{equation*}\]</span>
+represents an <strong>approximate confidence interval</strong>.</p>
+<ul>
+<li>Analogously: If <span class="math inline">\(\sigma^2\)</span> is unknown, then
+<span class="math display">\[\begin{equation*}
+      \left[\overline X-N_{1-\alpha/2} \frac{S}{\sqrt{n}},
+        \overline X + N_{1-\alpha/2} \frac{S}{\sqrt{n}}\right].
+\end{equation*}\]</span></li>
+</ul>
+<hr />
+<div class="example">
+<p><span id="exm:intschkont" class="example"><strong>Example 5.17  (Estimating the average invoice amount) </strong></span>Example <a href="parameter-estimation.html#exm:intsch">5.14</a> cont.</p>
+<p>In this example, we have already derived the <span class="math inline">\(95\%\)</span> confidence interval for the mean invoice amount and <span class="math inline">\(\sigma\)</span> known <span class="math inline">\((n=100)\)</span>:</p>
+<p><span class="math display">\[
+\overline X\pm 1.96\cdot \frac{\sigma}{\sqrt n}
+\]</span></p>
+<p>Now if <span class="math inline">\(\sigma\)</span> is unknown, we replace it with the estimate <span class="math inline">\(S\)</span>:</p>
+<p><span class="math display">\[
+\overline X\pm 1.96\cdot \frac{S}{\sqrt n}
+\]</span>
+We are allowed to keep the quantiles of the standard normal distribution, since <span class="math inline">\(t\)</span> quantiles for <span class="math inline">\(n\)</span> large approach these.</p>
+</div>
+<hr />
+<!--::: {.exercise name="Confidence intervals for average temperature"}
+
+
+
+```{=html}
+<iframe title="Aufgabe_Intervallschaetzung" src="./htmls/aufgabe_intervallsch.html" width="760" height="700"></iframe>
+```
+
+:::-->
+<script>
+function generateQuestion_num2(id,n=10,p=0.4,min=10,max=40,dec=2) {
+      // Generate 
+      let out = generateSample(n=n,p=p,min=min,max=max,dec=dec);
+      let mean2 = out.mean2;
+      let sig2 = Math.round(out.sig2*100)/100;
+      let mean1 = out.mean1;
+      //alpha
+      const singn = [0.01,0.05,0.1];
+      const which = Math.floor((Math.random()*(2-0) + 0));
+      let al = singn[which];
+      // quant
+      const qn = [2.575829, 1.959964, 1.644854];
+      const qt = [4.604095, 2.776445, 2.131847];
+       const qch1 = [0.2069891, 0.4844186, 0.7107230];
+       const qch2 = [14.860259, 11.143287,  9.487729];
+      let qnn = qn[which];
+      let qtt = qt[which];
+      let qchh1 = qch1[which];
+      let qchh2 = qch2[which];
+
+       // Calculate the correct answer
+      let answer1 = 1;
+      let answer2 = 1;
+
+      // Return the question and answer as an object
+      return {
+       // question: num1 + "\\(\\sqrt{x}+\\)"+ num2 + "\\(\\sqrt{y}\\)" + " for \\(x=\\)" + x1 + " and \\(y=\\)" + x2,
+        sample: out.sample2,
+        sample01: out.sample1,
+        question: [mean2,sig2,al,qnn,qtt,qchh1,qchh2, mean1],
+        answer1: answer1,
+        answer2: answer2,
+        id: id
+      };
+    }
+    
+function checkAnswer_num2(q) {
+      const userAnswer1 = document.getElementById('answer1'+q.id).value;
+      const userAnswer2 = document.getElementById('answer2'+q.id).value;
+      const isBothCorrect = Math.round(parseFloat(userAnswer1)*1000)/1000 === Math.round(q.answer1*1000)/1000 && Math.round(parseFloat(userAnswer2)*1000)/1000 === Math.round(q.answer2*1000)/1000;
+      const isCorrect1 = Math.round(parseFloat(userAnswer1)*1000)/1000 === Math.round(q.answer1*1000)/1000;
+      const isCorrect2 = Math.round(parseFloat(userAnswer2)*1000)/1000 === Math.round(q.answer2*1000)/1000;
+
+      if (isBothCorrect) {
+        document.getElementById('result'+q.id).textContent = 'Congratulations! Your answer is correct.';
+        document.getElementById('result'+q.id).style.color = "green";
+      }  else if (isCorrect1) {
+        document.getElementById('result'+q.id).textContent = 'Your first entry is correct. Your second entry is incorrect.';
+        document.getElementById('result'+q.id).style.color = "orange";
+        
+      }  else if (isCorrect2) {
+        document.getElementById('result'+q.id).textContent = 'Your first entry is incorrect. Your second entry is correct.';
+        document.getElementById('result'+q.id).style.color = "orange";
+        
+      } else {
+        document.getElementById('result'+q.id).textContent = `Sorry, incorrect. The correct answer is [` + Math.round(q.answer1*1000)/1000 + ',' + Math.round(q.answer2*1000)/1000 + '].';
+        document.getElementById('result'+q.id).style.color = "red";
+      }
+  }
+
+</script>
+<div id="q52" class="quiz">
+<p id="question">
+<span id="question-text56"></span>
+</p>
+<input type="number" id="answer56" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj56)">Submit</button>
+<p id="result56">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj56 = generateQuestion_num(56);
+    const questionObj561 = generateQuestion_num2(561, n=5,min=10, max=60);
+// Display the question
+    document.getElementById('question-text56').textContent = "For a sample of customer ages: \\["+ questionObj561.sample.join(", ") + "\\] compute the confindence interval for the mean age for \\(\\alpha="+ questionObj561.question[2] + "\\).Assume that customer agea are normally distributed." + " \\[\\] The point estimate for \\(\\mu\\) is ";
+    questionObj56.answer = questionObj561.question[0]
+</script>
+<hr />
+<script>
+  // Generate a random question
+    const questionObj57 = {
+      question: 'In this case, the appropriate confidence interval formula is',
+      options: ['\\( \left[\overline X \\pm N_{1-\alpha/2}\frac{\sigma}{\sqrt{n}}\right].\\)','\\( \left[\overline X \\pm t_{1-\alpha/2, n-1}\frac{S}{\sqrt{n}}\right].\\)', 'none'],
+      answer: '2',
+      id: 57
+    };
+</script>
+<p class="question">
+<span id="question-text57"></span>
+</p>
+<div class="options">
+<label>
+<input type="radio" name="option57" value=1> \(\left[\overline X \pm N_{1-\alpha/2}\frac{\sigma}{\sqrt{n}}\right].\)
+</label>
+<br>
+<label>
+<input type="radio" name="option57" value=2> \(\left[\overline X \pm t_{1-\alpha/2, n-1}\frac{S}{\sqrt{n}}\right].\)
+</label>
+<br>
+<label>
+<input type="radio" name="option57" value=3> none of the above
+</label>
+</div>
+<button onclick="checkAnswer_match(questionObj57)">Submit</button>
+<p id="result57">
+</p>
+<script>
+  // Display the question
+    document.getElementById('question-text57').textContent = questionObj57.question;
+</script>
+<hr />
+<p id="question">
+<span id="question-text58"></span>
+</p>
+<input type="number" id="answer58" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj58)">Submit</button>
+<p id="result58">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj58 = generateQuestion_num(58);
+// Display the question
+    document.getElementById('question-text58').textContent = "The point estimate for \\(\\sigma\\) is ";
+    questionObj58.answer = Math.sqrt(questionObj561.question[1])
+</script>
+<hr />
+<p id="question">
+<span id="question-text59"></span>
+</p>
+<input type="number" id="answer59" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj59)">Submit</button>
+<p id="result59">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj59 = generateQuestion_num(59);
+// Display the question
+    document.getElementById('question-text59').textContent = "The required quantile is";
+    questionObj59.answer = questionObj561.question[4]
+</script>
+<hr />
+<p id="question">
+<span id="question-text610"></span>
+</p>
+<input type="number" id="answer1610" placeholder="Enter your answer">
+<input type="number" id="answer2610" placeholder="Enter your answer">
+<button onclick="checkAnswer_num2(questionObj610)">Submit</button>
+<p id="result610">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj610 = generateQuestion_num2(610);
+// Display the question
+    document.getElementById('question-text610').textContent = "The resulting confidence interval is";
+    questionObj610.answer1 = questionObj561.question[0] - questionObj561.question[4]*Math.sqrt(questionObj561.question[1])/Math.sqrt(5);
+    questionObj610.answer2 = questionObj561.question[0] + questionObj561.question[4]*Math.sqrt(questionObj561.question[1])/Math.sqrt(5);
+</script>
+<hr />
+<p id="question">
+<span id="question-text610"></span>
+</p>
+<input type="number" id="answer1610" placeholder="Enter your answer">
+<input type="number" id="answer2610" placeholder="Enter your answer">
+<button onclick="checkAnswer_num2(questionObj610)">Submit</button>
+<p id="result610">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj610 = generateQuestion_num2(610);
+// Display the question
+    document.getElementById('question-text610').textContent = "The resulting confidence interval is";
+    questionObj610.answer1 = questionObj561.question[0] - questionObj561.question[4]*Math.sqrt(questionObj561.question[1])/Math.sqrt(5);
+    questionObj610.answer2 = questionObj561.question[0] + questionObj561.question[4]*Math.sqrt(questionObj561.question[1])/Math.sqrt(5);
+</script>
+</div>
+<hr />
+</div>
+</div>
+<div id="alpha-confidence-interval-for-sigma2" class="section level3 hasAnchor" number="5.4.2">
+<h3><span class="header-section-number">5.4.2</span> <span class="math inline">\((1-\alpha)\)</span> confidence interval for <span class="math inline">\(\sigma^2\)</span><a href="parameter-estimation.html#alpha-confidence-interval-for-sigma2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Now it’s about interval estimation for the unknown variance <span class="math inline">\(\sigma^2\)</span>.</p>
+<p><span class="math inline">\((1-\alpha)\)</span> confidence interval for <span class="math inline">\(\sigma^2\)</span> for a normally distributed characteristic</p>
+<p>The two-sided confidence interval is determined by the limits
+<span class="math display">\[\begin{equation*}
+      \left[\frac{(n-1)S^2}{q_{1-\alpha/2}(n-1)} ,
+      \frac{(n-1)S^2}{q_{\alpha/2}(n-1)}\right].
+\end{equation*}\]</span></p>
+<p>Note that - in contrast to the normal or <span class="math inline">\(t\)</span> distribution - the <span class="math inline">\(\chi^2\)</span> distribution is not symmetric.</p>
+<hr />
+<div class="example">
+<p><span id="exm:intsch222" class="example"><strong>Example 5.18  (Monthly returns) </strong></span>Example <a href="parameter-estimation.html#exm:intsch22">5.16</a> cont.</p>
+<ul>
+<li><p>Sample variance: <span class="math inline">\(s^2 = \displaystyle\frac{2.5124}{11} =0.2284\)</span></p></li>
+<li><p>Quantiles:
+<span class="math display">\[
+\begin{array}[t]{rcl}
+    q_{\alpha/2}(n-1) &amp;=&amp; q_{0.025}(11) =
+                              3.8157\\
+   q_{1-\alpha/2}(n-1) &amp;=&amp; q_{0.975}(11) = 21.9200
+  \end{array}
+\]</span></p></li>
+<li><p>Confidence interval:
+<span class="math display">\[\begin{align*}
+    &amp;\left[\frac{(n-1)S^2}{q_{1-\alpha/2}(n-1)} ,
+    \frac{(n-1)S^2}{q_{\alpha/2}(n-1)}\right]=\\\\
+&amp; \left[\frac{11\cdot 0.2284}{21.9200}, \frac{11\cdot
+      0.2284}{3.8157}\right]
+  = \left[0.1146; 0.6584\right]
+\end{align*}\]</span></p></li>
+</ul>
+</div>
+<div id="q53" class="quiz">
+<p id="question">
+<span id="question-text611"></span>
+</p>
+<input type="number" id="answer611" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj611)">Submit</button>
+<p id="result611">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj611 = generateQuestion_num(611);
+// Display the question
+    document.getElementById('question-text611').textContent = "For a sample of customer ages: \\["+ questionObj561.sample.join(", ") + "\\] compute the confindence interval for age variance for \\(\\alpha="+ questionObj561.question[2] + "\\). Assume that customer ages are normally distributed." + " \\[\\] The point estimate for \\(\\sigma^2\\) is ";
+    questionObj611.answer = questionObj561.question[1]
+</script>
+<hr />
+<p id="question">
+<span id="question-text612"></span>
+</p>
+<input type="number" id="answer1612" placeholder="Enter your answer">
+<input type="number" id="answer2612" placeholder="Enter your answer">
+<button onclick="checkAnswer_num2(questionObj612)">Submit</button>
+<p id="result612">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj612 = generateQuestion_num2(612);
+// Display the question
+    document.getElementById('question-text612').textContent = "The required \\(\\chi^2\\)-quantiles are (starting with the smaller value):";
+    questionObj612.answer1 = questionObj561.question[5];
+    questionObj612.answer2 = questionObj561.question[6];
+    
+</script>
+<hr />
+<p id="question">
+<span id="question-text613"></span>
+</p>
+<input type="number" id="answer1613" placeholder="Enter your answer">
+<input type="number" id="answer2613" placeholder="Enter your answer">
+<button onclick="checkAnswer_num2(questionObj613)">Submit</button>
+<p id="result613">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj613 = generateQuestion_num2(613);
+// Display the question
+    document.getElementById('question-text613').textContent = "The resulting confidence interval is:";
+    questionObj613.answer2 = 4*questionObj561.question[1]/questionObj561.question[5];
+    questionObj613.answer1 = 4*questionObj561.question[1]/questionObj561.question[6];
+    
+</script>
+</div>
+<hr />
+</div>
+<div id="alpha-confidence-interval-for-probability-p" class="section level3 hasAnchor" number="5.4.3">
+<h3><span class="header-section-number">5.4.3</span> <span class="math inline">\((1-\alpha)\)</span> confidence interval for probability <span class="math inline">\(p\)</span><a href="parameter-estimation.html#alpha-confidence-interval-for-probability-p" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let <span class="math inline">\(X_1,\ldots, X_n\)</span>, with <span class="math inline">\(X_i\in \{0,1\}\)</span>, be independent Bernoulli experiments.</p>
+<p>The sum of successes <span class="math inline">\(X_i=1\)</span>, <span class="math inline">\(i=1,\ldots, n\)</span>, is binomially distributed: <span class="math inline">\(\sum_{i=1}^n X_i\sim B(n,p)\)</span> with unknown parameter <span class="math inline">\(p\)</span> .</p>
+<p>The ZGS states that <span class="math inline">\(\overline X\)</span> is approximately normally distributed with <span class="math inline">\(\mathbb E(\overline X)=p\)</span> and <span class="math inline">\(\text{Var}(\overline X) = p(1-p)/n\)</span>.</p>
+<p>For a sufficiently large sample size (<span class="math inline">\(n\cdot p&gt;5\)</span> and <span class="math inline">\(n\cdot (1-p)&gt;5\)</span>), an <strong>approximate confidence interval</strong> is given by
+<span class="math display">\[\begin{equation*}
+      \left[\hat p - N_{1-\alpha/2} \sqrt{\frac{\hat p(1-\hat p)}{n}}, \hat
+        p + N_{1-\alpha/2} \sqrt{\frac{\hat p(1-\hat p)}{n}}\right],
+\end{equation*}\]</span>
+where <span class="math inline">\(\hat p=\overline X\)</span> denotes the relative frequency.</p>
+<hr />
+<div class="example">
+<p><span id="exm:intsch3" class="example"><strong>Example 5.19  (App usage) </strong></span>Of the <span class="math inline">\(100\)</span> customers surveyed, <span class="math inline">\(55\)</span> were app users.</p>
+<ul>
+<li><p>If you use a confidence level of <span class="math inline">\(1-\alpha=0.95\)</span>, you get <span class="math inline">\(N_{1-\alpha/2}=1.96\)</span>.</p></li>
+<li><p>This results in <span class="math inline">\(\hat p= 55/100=0.55\)</span>:
+<span class="math display">\[\begin{equation*}
+\left[0.55 - 1.96 \cdot \sqrt{\frac{0.55\cdot 0.45}{100}};
+      0.55 + 1.96\cdot \sqrt{\frac{0.55\cdot 0.45}{100}}\right]
+    = [0.4525; 0.6475].
+\end{equation*}\]</span></p></li>
+</ul>
+</div>
+<div id="q54" class="quiz">
+<p id="question">
+<span id="question-text614"></span>
+</p>
+<input type="number" id="answer614" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj614)">Submit</button>
+<p id="result614">
+</p>
+<script>
+
+ // Generate a random question
+    questionObj6141 = generateQuestion_num2(6141,n=35,p=0.4,min=10,max=40,dec=4)
+    const questionObj614 = generateQuestion_num(614);
+// Display the question
+    document.getElementById('question-text614').textContent = "For the sample of \\(n=35\\) customer app usage answers: \\["+ questionObj6141.sample01.join(", ") + "\\] compute the confindence interval for the corresponding proportion for \\(\\alpha="+ questionObj6141.question[2] + "\\)." + " \\[\\] The point estimate for \\(p\\) is ";
+    questionObj614.answer = questionObj6141.question[7]
+</script>
+<p id="question">
+<span id="question-text615"></span>
+</p>
+<input type="number" id="answer615" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj615)">Submit</button>
+<p id="result615">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj615 = generateQuestion_num(615);
+// Display the question
+    document.getElementById('question-text615').textContent = "The required quantile is";
+    questionObj615.answer = questionObj6141.question[3]
+</script>
+<p id="question">
+<span id="question-text616"></span>
+</p>
+<input type="number" id="answer1616" placeholder="Enter your answer">;
+<input type="number" id="answer2616" placeholder="Enter your answer">
+<button onclick="checkAnswer_num2(questionObj616)">Submit</button>
+<p id="result616">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj616 = generateQuestion_num2(616);
+// Display the question
+    document.getElementById('question-text616').textContent = "The resulting approximate confidence interval is";
+    questionObj616.answer1 = questionObj6141.question[7] - questionObj6141.question[3]*Math.sqrt((questionObj6141.question[7]*(1-questionObj6141.question[7])))/Math.sqrt(35);
+    questionObj616.answer2 = questionObj6141.question[7] + questionObj6141.question[3]*Math.sqrt((questionObj6141.question[7]*(1-questionObj6141.question[7])))/Math.sqrt(35);
+</script>
+</div>
+<hr />
+</div>
+<div id="determining-n-based-on-the-length-of-confidence-intervals" class="section level3 hasAnchor" number="5.4.4">
+<h3><span class="header-section-number">5.4.4</span> Determining <span class="math inline">\(n\)</span> based on the length of confidence intervals<a href="parameter-estimation.html#determining-n-based-on-the-length-of-confidence-intervals" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>If a certain precision (e.g. <span class="math inline">\(\pm 1\%\)</span> or <span class="math inline">\(\pm 0.01\)</span>) with <span class="math inline">\(1-\alpha\)</span> confidence is to be achieved in an estimation problem, one can use the * *Length** of the associated confidence interval to determine the required sample size.</p>
+<iframe title="Problemstellung" src="./htmls/Problemstellung.html" width="760" height="700"></iframe>
+<p>The length of the <span class="math inline">\(1-\alpha\)</span> confidence interval for <span class="math inline">\(p\)</span> is:</p>
+<p><span class="math display">\[\begin{align}
+\text{upper limit} - \text{lower limit} &amp;=
+p + N_{1-\alpha/2} \sqrt{\frac{\hat p(1-\hat p)}{n}} - \Big( p - N_{1-\alpha/2} \sqrt{ \frac{\hat p(1-\hat p)}{n}}\Big)\\
+&amp;=2\cdot N_{1-\alpha/2} \frac{\sqrt{\hat p(1-\hat p)}}{\sqrt{n}}
+\end{align}\]</span>
+Before a sample is drawn, <span class="math inline">\(\hat p\)</span> is a random variable, so so is the term <span class="math inline">\(\sqrt{\hat p(1-\hat p)}\)</span>. However, you can limit it upwards, because for <span class="math inline">\(p=\frac 12\)</span> it takes on the maximum value.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-156"></span>
+<img src="_main_files/figure-html/unnamed-chunk-156-1.png" alt="f(p)=p(1-p)" width="80%" />
+<p class="caption">
+Figure 5.1: f(p)=p(1-p)
+</p>
+</div>
+<p>I.e. the maximum length of the confidence interval in this case is (<span class="math inline">\(p=\frac 12\)</span> inserted):</p>
+<p><span class="math display">\[\text{max. length} = \frac{N_{1-\alpha/2}}{\sqrt{n}}\]</span></p>
+<p><img src="images/intschn.png" style="width:50.0%" /></p>
+<p>In order to maintain the needed accuracy, we set:</p>
+<p><span class="math display">\[
+\frac{N_{1-\alpha/2}}{\sqrt{n}}\leq 2\cdot\text{accuracy} = 2g
+\]</span>
+and solve for <span class="math inline">\(n\)</span>:</p>
+<p><span class="math display">\[
+\sqrt n\geq \frac 12\cdot\frac{N_{1-\alpha/2}}{g}\rightarrow n\geq \left(\frac 12\cdot\frac{N_{1-\alpha/2}}{g}\right)^2
+\]</span>
+For example, if the accuracy of <span class="math inline">\(0.01\)</span> is required at the confidence level of <span class="math inline">\(99\%\)</span>, then the minimum sample size is <span class="math inline">\(n\geq 66348,966\)</span>.</p>
+<hr />
+<div id="q56" class="quiz">
+<p id="question">
+<span id="question-text617"></span>
+<input type="number" id="answer617" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj617)">Submit</button>
+</p>
+<p id="result617">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj617 = generateQuestion_num(617);
+// Display the question
+    document.getElementById('question-text617').textContent = "Compute the minimum required sample size \\(n\\) for the app usage sample in the previous quiz question which guarantees that the estimation accurancy on the confidence level of \\("+((1-questionObj6141.question[2])*100) + "\\%\\) is \\(\\pm 0.1.\\) The resulting \\(n\\geq\\)";
+    questionObj617.answer = Math.floor(Math.pow(0.5*questionObj6141.question[3]/0.1,2)+1)
+</script>
+</div>
+<!--::: {.exercise name="Interval estimation"}
+
+
+
+```{=html}
+<iframe title="Quiz_Intervallsch" src="./htmls/zusatz_intervallsch1.html" width="760" height="700"></iframe>
+```
+
+:::-->
+<hr />
+<!--
+## Rückblick{-}
+
+
+```{=html}
+<iframe title="Wortwolke" src="http://learning-dashboard.lehre.hwr-berlin.de:3838/Apps_RBook/#section-wortwolke" width="760" height="600"></iframe>
+```
+-->
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="iii-inductive-statistics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="hypothesis-testing.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/05-Estimators.rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

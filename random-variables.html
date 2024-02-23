@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Random variables | Statistics and Data Science Applications</title>
+  <meta name="description" content="This is the script for the course." />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Random variables | Statistics and Data Science Applications" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is the script for the course." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Random variables | Statistics and Data Science Applications" />
+  
+  <meta name="twitter:description" content="This is the script for the course." />
+  
+
+<meta name="author" content="Maria Osipenko" />
+
+
+<meta name="date" content="2024-02-23" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="random-events-and-probability---a-short-review.html"/>
+<link rel="next" href="some-important-distribution-models.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-goals-and-context"><i class="fa fa-check"></i>Course goals and context</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-goals"><i class="fa fa-check"></i>Course goals</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html"><i class="fa fa-check"></i><b>1</b> Random events and probability - a short review</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#outcomes-and-events"><i class="fa fa-check"></i><b>1.1</b> Outcomes and Events</a></li>
+<li class="chapter" data-level="1.2" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#probabilities"><i class="fa fa-check"></i><b>1.2</b> Probabilities</a>
+<ul>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#laplaces-probability-model"><i class="fa fa-check"></i>Laplace’s probability model</a></li>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#finite-probability-spaces"><i class="fa fa-check"></i>Finite probability spaces</a></li>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#calculating-with-probabilities"><i class="fa fa-check"></i>Calculating with probabilities</a></li>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#joint-and-conditional-probabilities-independence-of-events"><i class="fa fa-check"></i>Joint and conditional probabilities, independence of events</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#sampling-as-a-random-process"><i class="fa fa-check"></i><b>1.3</b> Sampling as a random process</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="random-variables.html"><a href="random-variables.html"><i class="fa fa-check"></i><b>2</b> Random variables</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="random-variables.html"><a href="random-variables.html#discrete-random-variable"><i class="fa fa-check"></i><b>2.1</b> Discrete random variable</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="random-variables.html"><a href="random-variables.html#probability-and-distribution-functions"><i class="fa fa-check"></i><b>2.1.1</b> Probability and distribution functions</a></li>
+<li class="chapter" data-level="2.1.2" data-path="random-variables.html"><a href="random-variables.html#expected-value-and-variance"><i class="fa fa-check"></i><b>2.1.2</b> Expected value and variance</a></li>
+<li class="chapter" data-level="2.1.3" data-path="random-variables.html"><a href="random-variables.html#covariance-and-correlation"><i class="fa fa-check"></i><b>2.1.3</b> Covariance and correlation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="random-variables.html"><a href="random-variables.html#continuous-random-variables"><i class="fa fa-check"></i><b>2.2</b> Continuous random variables</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="random-variables.html"><a href="random-variables.html#density-function"><i class="fa fa-check"></i><b>2.2.1</b> Density function</a></li>
+<li class="chapter" data-level="2.2.2" data-path="random-variables.html"><a href="random-variables.html#distribution-function-1"><i class="fa fa-check"></i><b>2.2.2</b> Distribution function</a></li>
+<li class="chapter" data-level="2.2.3" data-path="random-variables.html"><a href="random-variables.html#expected-value-and-variance-1"><i class="fa fa-check"></i><b>2.2.3</b> Expected value and variance</a></li>
+<li class="chapter" data-level="2.2.4" data-path="random-variables.html"><a href="random-variables.html#quantiles-of-continuous-random-variables"><i class="fa fa-check"></i><b>2.2.4</b> Quantiles of continuous random variables</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html"><i class="fa fa-check"></i><b>3</b> Some important distribution models</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#discrete-distributions"><i class="fa fa-check"></i><b>3.1</b> Discrete distributions</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#discrete-uniform-distribution"><i class="fa fa-check"></i><b>3.1.1</b> Discrete uniform distribution</a></li>
+<li class="chapter" data-level="3.1.2" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#bernoulli-distribution"><i class="fa fa-check"></i><b>3.1.2</b> Bernoulli distribution</a></li>
+<li class="chapter" data-level="3.1.3" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#binomial-distribution"><i class="fa fa-check"></i><b>3.1.3</b> Binomial distribution</a></li>
+<li class="chapter" data-level="3.1.4" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#geometric-distribution"><i class="fa fa-check"></i><b>3.1.4</b> Geometric distribution</a></li>
+<li class="chapter" data-level="3.1.5" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#poisson-distribution"><i class="fa fa-check"></i><b>3.1.5</b> Poisson distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#continuous-distributions"><i class="fa fa-check"></i><b>3.2</b> Continuous distributions</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#normal-distribution"><i class="fa fa-check"></i><b>3.2.1</b> Normal distribution</a></li>
+<li class="chapter" data-level="3.2.2" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#exponential-distribution"><i class="fa fa-check"></i><b>3.2.2</b> Exponential distribution</a></li>
+<li class="chapter" data-level="3.2.3" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#uniform-distribution"><i class="fa fa-check"></i><b>3.2.3</b> Uniform distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#further-distributions"><i class="fa fa-check"></i><b>3.3</b> Further distributions</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#chi2-distribution"><i class="fa fa-check"></i><b>3.3.1</b> <span class="math inline">\(\chi^2\)</span>-distribution</a></li>
+<li class="chapter" data-level="3.3.2" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#t-distribution"><i class="fa fa-check"></i><b>3.3.2</b> t-distribution</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="limit-theorems.html"><a href="limit-theorems.html"><i class="fa fa-check"></i><b>4</b> Limit theorems</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="limit-theorems.html"><a href="limit-theorems.html#strong-law-of-large-numbers"><i class="fa fa-check"></i><b>4.1</b> Strong law of large numbers 💪</a></li>
+<li class="chapter" data-level="4.2" data-path="limit-theorems.html"><a href="limit-theorems.html#central-limit-theorem"><i class="fa fa-check"></i><b>4.2</b> Central limit theorem</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="iii-inductive-statistics.html"><a href="iii-inductive-statistics.html"><i class="fa fa-check"></i>III Inductive Statistics</a></li>
+<li class="chapter" data-level="5" data-path="parameter-estimation.html"><a href="parameter-estimation.html"><i class="fa fa-check"></i><b>5</b> Parameter estimation</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#basic-ideas-of-inductive-statistics"><i class="fa fa-check"></i><b>5.1</b> Basic ideas of inductive statistics</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#parameter-estimation-theoretically"><i class="fa fa-check"></i><b>5.1.1</b> Parameter estimation theoretically</a></li>
+<li class="chapter" data-level="5.1.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#parameter-estimation-practically"><i class="fa fa-check"></i><b>5.1.2</b> Parameter estimation practically</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#point-estimation"><i class="fa fa-check"></i><b>5.2</b> Point estimation</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#estimation-functions"><i class="fa fa-check"></i><b>5.2.1</b> Estimation functions</a></li>
+<li class="chapter" data-level="5.2.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#properties-of-estimators"><i class="fa fa-check"></i><b>5.2.2</b> Properties of estimators</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="parameter-estimation.html"><a href="parameter-estimation.html#construction-of-estimators"><i class="fa fa-check"></i><b>5.3</b> Construction of estimators</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#method-of-moments"><i class="fa fa-check"></i><b>5.3.1</b> Method of moments</a></li>
+<li class="chapter" data-level="5.3.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#maximum-likelihood-method"><i class="fa fa-check"></i><b>5.3.2</b> Maximum likelihood method</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="parameter-estimation.html"><a href="parameter-estimation.html#interval-estimation"><i class="fa fa-check"></i><b>5.4</b> Interval estimation</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#alpha-confidence-interval-for-mu"><i class="fa fa-check"></i><b>5.4.1</b> <span class="math inline">\((1-\alpha)\)</span> confidence interval for <span class="math inline">\(\mu\)</span></a></li>
+<li class="chapter" data-level="5.4.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#alpha-confidence-interval-for-sigma2"><i class="fa fa-check"></i><b>5.4.2</b> <span class="math inline">\((1-\alpha)\)</span> confidence interval for <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="5.4.3" data-path="parameter-estimation.html"><a href="parameter-estimation.html#alpha-confidence-interval-for-probability-p"><i class="fa fa-check"></i><b>5.4.3</b> <span class="math inline">\((1-\alpha)\)</span> confidence interval for probability <span class="math inline">\(p\)</span></a></li>
+<li class="chapter" data-level="5.4.4" data-path="parameter-estimation.html"><a href="parameter-estimation.html#determining-n-based-on-the-length-of-confidence-intervals"><i class="fa fa-check"></i><b>5.4.4</b> Determining <span class="math inline">\(n\)</span> based on the length of confidence intervals</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>6</b> Hypothesis testing</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-basic-idea-of-statistical-testing"><i class="fa fa-check"></i><b>6.1</b> The basic idea of statistical testing</a></li>
+<li class="chapter" data-level="6.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hypothesis-tests-for-p"><i class="fa fa-check"></i><b>6.2</b> Hypothesis tests for <span class="math inline">\(p\)</span></a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-exact-binomial-test"><i class="fa fa-check"></i><b>6.2.1</b> The exact binomial test</a></li>
+<li class="chapter" data-level="6.2.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-approximate-binomial-test"><i class="fa fa-check"></i><b>6.2.2</b> The approximate binomial test</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hypothesis-tests-for-mu"><i class="fa fa-check"></i><b>6.3</b> Hypothesis tests for <span class="math inline">\(\mu\)</span></a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-gauss-test"><i class="fa fa-check"></i><b>6.3.1</b> The Gauss test</a></li>
+<li class="chapter" data-level="6.3.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-t-test"><i class="fa fa-check"></i><b>6.3.2</b> The <span class="math inline">\(t\)</span> test</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#type-1-and-type-2-errors"><i class="fa fa-check"></i><b>6.4</b> Type 1 and Type 2 errors</a></li>
+<li class="chapter" data-level="6.5" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#exceeding-probability-p-value"><i class="fa fa-check"></i><b>6.5</b> Exceeding probability: <span class="math inline">\(p\)</span> value</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="regression-analysis.html"><a href="regression-analysis.html"><i class="fa fa-check"></i><b>7</b> Regression analysis</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="regression-analysis.html"><a href="regression-analysis.html#linear-regression-model-from-descriptive-statistics"><i class="fa fa-check"></i><b>7.1</b> Linear regression model from descriptive Statistics</a></li>
+<li class="chapter" data-level="7.2" data-path="regression-analysis.html"><a href="regression-analysis.html#simple-linear-regression-from-a-probabilistic-perspective"><i class="fa fa-check"></i><b>7.2</b> Simple linear regression from a probabilistic perspective</a></li>
+<li class="chapter" data-level="7.3" data-path="regression-analysis.html"><a href="regression-analysis.html#estimating-testing-and-forecasting"><i class="fa fa-check"></i><b>7.3</b> Estimating, testing and forecasting</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="regression-analysis.html"><a href="regression-analysis.html#estimating-the-parameters-of-a-linear-regression-model"><i class="fa fa-check"></i><b>7.3.1</b> Estimating the parameters of a linear regression model</a></li>
+<li class="chapter" data-level="7.3.2" data-path="regression-analysis.html"><a href="regression-analysis.html#testing-in-linear-regression-model"><i class="fa fa-check"></i><b>7.3.2</b> Testing in linear regression model</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="regression-analysis.html"><a href="regression-analysis.html#forecast-in-linear-regression-models"><i class="fa fa-check"></i><b>7.4</b> Forecast in linear regression models</a></li>
+<li class="chapter" data-level="7.5" data-path="regression-analysis.html"><a href="regression-analysis.html#multivariate-linear-regression"><i class="fa fa-check"></i><b>7.5</b> Multivariate linear regression</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistics and Data Science Applications</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="random-variables" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Random variables<a href="random-variables.html#random-variables" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<script>
+function checkAnswer_mmc(q) {
+      const selectedOptions = document.querySelectorAll('input[name="option'+q.id+'"]:checked');
+      if (selectedOptions.length === 2) {
+        const userAnswers = Array.from(selectedOptions).map(option => option.value);
+        const correctAnswers = q.answer;
+        const isCorrect = userAnswers.every(answer => correctAnswers.includes(answer));
+
+if (isCorrect) {
+          document.getElementById('result'+q.id).textContent = 'Congratulations! Your answer is correct.';
+          document.getElementById('result'+q.id).style.color = "green";
+        } else {
+        document.getElementById('result'+q.id).textContent = 'Sorry, incorrect.';
+        document.getElementById('result'+q.id).style.color = "red";
+        }
+      } else {
+        document.getElementById('result'+q.id).textContent = 'Please select two options.';
+      }
+    }
+// numeric
+function generateQuestion_num(id) {
+      // Generate two random numbers between 2 and 10
+      const num1 = Math.floor(Math.random() * 10) + 2;
+      const num2 = Math.floor(Math.random() * 10) + 2;
+      const x1 = Math.floor(Math.random() * 100) + 2;
+      const x2 = Math.floor(Math.random() * 100) + 2;
+      const x3 = Math.floor(Math.random() * 100) + 2;
+      const x4 = Math.floor(Math.random() * 100) + 2;
+      const x5 = Math.floor(Math.random() * 100) + 2;
+      const x6 = Math.floor(Math.random() * 100) + 2;
+
+       // Calculate the correct answer
+      let answer = num1*Math.sqrt(x1) + num2*Math.sqrt(x2);
+
+      // Return the question and answer as an object
+      return {
+       // question: num1 + "\\(\\sqrt{x}+\\)"+ num2 + "\\(\\sqrt{y}\\)" + " for \\(x=\\)" + x1 + " and \\(y=\\)" + x2,
+        question: [num1,num2,x1,x2,x3,x4,x5,x6],
+        answer: answer,
+        id: id
+      };
+    }
+
+function checkAnswer_num(q) {
+      const userAnswer = document.getElementById('answer'+q.id).value;
+      const isCorrect = Math.round(parseFloat(userAnswer)*100)/100 === Math.round(q.answer*100)/100;
+
+      if (isCorrect) {
+        document.getElementById('result'+q.id).textContent = 'Congratulations! Your answer is correct.';
+        document.getElementById('result'+q.id).style.color = "green";
+      } else {
+        document.getElementById('result'+q.id).textContent = `Sorry, incorrect. The correct answer is ` + Math.round(q.answer*10000)/10000 + '.';
+        document.getElementById('result'+q.id).style.color = "red";
+      }
+  }
+
+// plain multiple choice
+  function checkAnswer_match(q) {
+      const selectedOption = document.querySelector('input[name="option'+q.id+'"]:checked');
+      if (selectedOption) {
+        const userAnswer = selectedOption.value;
+        const isCorrect = userAnswer === q.answer;
+
+        if (isCorrect) {
+          document.getElementById('result'+q.id).textContent = 'Congratulations! Your answer is correct.';
+        } else {
+          document.getElementById('result'+q.id).textContent = `Sorry, incorrect.`;
+        }
+      } else {
+        document.getElementById('result'+q.id).textContent = 'Please select an option.';
+      }
+    }
+</script>
+<p>Nice to be able to calculate probabilities for various events 😄! As business analysts, we mostly work with numbers. This means that we usually transfer the results of a random process to numerical values. For example, we summarize a purchase decision (the interaction of unknown customer preferences and complex consequences of customer interactions with their environment) into a few numerical values, such as the number of products purchased, orders placed or the average invoice amount. We are primarily interested in the result in the form of these numbers, while we cannot/don’t want to model the customer’s complex decision-making process.</p>
+<p>However, these numbers that we are looking at are not fixed but <strong>vary</strong> from customer to customer, month to month, etc. If we had to indicate future sales today, we would hardly be able to give a concrete value. We know approximately what values the sales volume can attain, but these are associated with <strong>uncertainty</strong> and therefore depend on complex events (<strong>random processes</strong>) that are partly controlled by chance. Probabilistically speaking, this future sales volume is a <strong>random variable</strong>.</p>
+<hr />
+<p>In this chapter we will learn:</p>
+<ul>
+<li>How to define the random variables and what kind of examples exist (<span class="math inline">\(\leadsto\)</span> <strong>discrete vs. continuous</strong> random variables),</li>
+<li>how to derive <strong>distribution</strong> of random variables and</li>
+<li>how to calculate the key parameters of this distribution, as the <strong>expected value</strong> and the <strong>variance</strong>, but also the <strong>covariance</strong> and the <strong>quantiles</strong>.</li>
+</ul>
+<hr />
+<p>A <strong>random variable</strong> <span class="math inline">\(X\)</span> is a variable whose values are derived from the result of a random operation.</p>
+<p>The number <span class="math inline">\(x\in \mathbb R\)</span>, which represents the random variable <span class="math inline">\(X\)</span> in the course of the random process
+assumes is called the <strong>realization</strong> or the value of <span class="math inline">\(X\)</span>.</p>
+<p>Examples:</p>
+<ul>
+<li>Sum of two dice,</li>
+<li>Stock return in the next month,</li>
+<li>Number of app users in a survey sample,</li>
+</ul>
+<p>We differentiate between two types: <strong>discrete</strong> and <strong>continuous</strong> random variables, depending on what values they can assume.</p>
+<p>The <strong>distribution</strong> of a random variable <span class="math inline">\(X\)</span> indicates which values in <span class="math inline">\(\mathbb R\)</span> are assumed with which probabilities. This distribution is derived from the original random process.</p>
+<p>Since random variables have numbers as values, we consider the following <strong>events</strong>:
+<span class="math display">\[\begin{equation*}
+      \{X=x\},\quad \{X\not=x\}, \quad \{X\leq x\},\quad \{X&gt;x\},
+      \quad \{a\leq X\leq b\}.
+    \end{equation*}\]</span>
+These events are assigned <strong>probabilities</strong> by the distribution of the random variable.</p>
+<div id="discrete-random-variable" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Discrete random variable<a href="random-variables.html#discrete-random-variable" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A random variable <span class="math inline">\(X\)</span> is called <strong>discrete</strong> if it assumes a finite or countably infinite number of values
+<span class="math inline">\(x_1,x_2,\ldots, x_n, \ldots\)</span>. Such as, dice numbers, number of orders, number of customers per hour, indicator of a loan default or of a product purchase.</p>
+<ul>
+<li><p>The <strong>probability distribution</strong> of <span class="math inline">\(X\)</span> is given
+by the probabilities
+<span class="math display">\[\begin{equation*}
+     \mathbb P(X=x_i)=p_i, \quad i=1,2,\ldots.
+   \end{equation*}\]</span></p></li>
+<li><p>We denote the set of values of <span class="math inline">\(X\)</span> with <span class="math inline">\(\mathcal T=\{x_1,x_2,\ldots\}\)</span>.</p></li>
+<li><p>For the probabilities <span class="math inline">\(p_1,p_2,\ldots\)</span> applies (according to the
+axioms):
+<span class="math display">\[\begin{gather*}
+    \phantom{\quad i=1,2,\ldots} 0\leq p_i\leq 1,\quad i=1,2,\ldots,\\
+    p_1+p_2+\cdots = \sum_{i\geq 1} p_i=1.
+  \end{gather*}\]</span></p></li>
+<li><p>The probability <span class="math inline">\(\mathbb P(X\in A)\)</span> for <span class="math inline">\(A\subseteq \mathcal T\)</span> is given
+as <span class="math display">\[\displaystyle \mathbb P(X\in A) = \sum_{i: x_i\in A} p_i.\]</span></p></li>
+</ul>
+<hr />
+<div class="example">
+<p><span id="exm:roll123zv" class="example"><strong>Example 2.1  (Win when rolling two dice) </strong></span>Continuation of <a href="random-events-and-probability---a-short-review.html#exm:roll1235">1.5</a>.</p>
+<p>In the experiment: Sum of the numbers when rolling two fair dice with the numbers 1, 2 and 3 twice, we found:</p>
+<ul>
+<li><span class="math inline">\(\Omega = \{2;3;4;5;6\}\)</span> <span class="math inline">\(\omega\in\Omega,\)</span> <span class="math inline">\(\omega=\)</span> the sum of the numbers rolled,</li>
+<li><span class="math inline">\(\mathcal F=\mathcal P(\Omega)\)</span>,</li>
+<li><span class="math inline">\(\mathbb P\)</span>:</li>
+</ul>
+<p><span class="math display">\[
+\begin{array}{c|ccccc}\omega_i&amp;2&amp;3&amp;4&amp;5&amp;6\\\hline
+\mathbb P(\{\omega_i\})&amp;\frac 19&amp;\frac 29&amp;\frac 39&amp;\frac 29&amp;\frac 19
+\end{array}
+\]</span></p>
+<p>Based on this, we now define a random variable <span class="math inline">\(X=\)</span> The random win (in euros):</p>
+<p><span class="math display">\[
+X=\begin{cases}
+2\cdot \omega, &amp;\text{ if } \omega \text{ odd},\\
+- 1, &amp;\text{ if } \omega \text{ even},\\
+\end{cases}
+\]</span></p>
+<p><strong>What values does <span class="math inline">\(X\)</span> have and how is <span class="math inline">\(X\)</span> distributed?</strong> (what are the probabilities of the values?)</p>
+<p>Well, for each result <span class="math inline">\(\omega\)</span> we can determine the value of <span class="math inline">\(X\)</span>, specifically:</p>
+<p><span class="math display">\[
+\begin{array}{c|ccccc}\omega_i&amp;2&amp;3&amp;4&amp;5&amp;6\\\hline
+x_i&amp;-1&amp;6&amp;-1&amp;10&amp;-1\\
+\mathbb P(\{\omega_i\})&amp;\frac 19&amp;\frac 29&amp;\frac 39&amp;\frac 29&amp;\frac 19
+\end{array}
+\]</span></p>
+<p>The probabilities of the <span class="math inline">\(X\)</span> values correspond to the probabilities of the respective outcomes. Only, some values in the above list are doubled.</p>
+<p>Therefore, to create a distribution of <span class="math inline">\(X\)</span>, we write down each value only once and sum the probabilities of the outcomes that give us that value to determine the final probability of that <span class="math inline">\(X\)</span>-value:</p>
+<p><span class="math display">\[
+\begin{array}{c|ccc}
+x_i&amp;-1&amp;6&amp;10\\\hline
+\mathbb P(x_i)=p_i&amp;\frac 59&amp;\frac 29&amp;\frac 29
+\end{array}
+\]</span></p>
+<p>This is the distribution of <span class="math inline">\(X\)</span>.</p>
+<p>Probability that <span class="math inline">\(X\)</span> is positive is calculated as:
+<span class="math display">\[\begin{equation*}
+      \mathbb P(X&gt;0)=\mathbb P(X\in \{6;10\}) = \mathbb P(X=6) + \mathbb P(X=10) = \frac{4}{9 }.
+\end{equation*}\]</span></p>
+</div>
+<hr />
+<div id="probability-and-distribution-functions" class="section level3 hasAnchor" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Probability and distribution functions<a href="random-variables.html#probability-and-distribution-functions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="probability-function" class="section level4 unnumbered hasAnchor">
+<h4>Probability function<a href="random-variables.html#probability-function" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>If you specify the distribution of <span class="math inline">\(X\)</span> like in the example <a href="random-variables.html#exm:roll123zv">2.1</a>, then you only have probabilities for numbers that are in the value set <span class="math inline">\(\mathcal T\)</span>. There may be other real numbers <span class="math inline">\(x\not\in \mathcal T\)</span> that do not occur or only occur with probability zero, i.e. <span class="math inline">\(\mathbb P(X=x)=0\)</span> for <span class="math inline">\(x\not \in \mathcal T\)</span>. The probability function assigns a value to <strong>every</strong> <span class="math inline">\(x\in \mathbb R\)</span>.</p>
+<p>The <strong>probability function</strong> <span class="math inline">\(f(x)\)</span> of a discrete random variable <span class="math inline">\(X\)</span> for <span class="math inline">\(x\in \mathbb R\)</span> is defined by</p>
+<p><span class="math display">\[\begin{equation*}
+      f(x) =
+      \begin{cases}
+        \mathbb P(X=x_i)=p_i, &amp;\quad x=x_i\in \{x_1,x_2,\ldots, \},\\
+        0,&amp;\quad\text{else}.
+      \end{cases}
+    \end{equation*}\]</span></p>
+<p>Properties of the W’function:</p>
+<ul>
+<li><span class="math inline">\(f(x)\geq 0\)</span>, <span class="math inline">\(x\in \mathbb R\)</span>,</li>
+<li><span class="math inline">\(\sum_{i\geq 1} f(x_i)=1\)</span></li>
+</ul>
+</div>
+<div id="distribution-function" class="section level4 unnumbered hasAnchor">
+<h4>Distribution function<a href="random-variables.html#distribution-function" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The <strong>(cumulative) distribution function</strong> (cdf) of a discrete random variable is given as
+<span class="math display">\[\begin{equation*}
+      F(x) = \mathbb P(X\leq x) = \sum_{i: x_i\leq x} f(x_i).
+\end{equation*}\]</span></p>
+<p>Properties of the distribution function of a discrete random variable:</p>
+<ul>
+<li><p><span class="math inline">\(F\)</span> is a right-sided continuous step function</p></li>
+<li><p><span class="math inline">\(x\mapsto F(x)\)</span> is monotonically increasing</p></li>
+<li><p><span class="math inline">\(0\leq F(x)\leq 1\)</span>, for all <span class="math inline">\(x\in \mathbb R\)</span></p></li>
+<li><p><span class="math inline">\(\lim_{x\rightarrow-\infty} F(x)=0\)</span> and
+<span class="math inline">\(\lim_{x\rightarrow\infty} F(x)=1\)</span>.</p></li>
+</ul>
+<div class="example">
+<p><span id="exm:wurf123zvf" class="example"><strong>Example 2.2  (Win when rolling two dice) </strong></span>Example <a href="random-variables.html#exm:roll123zv">2.1</a> cont.</p>
+<ul>
+<li>Probability function:
+<span class="math display">\[\begin{align}
+f(x)&amp;=\begin{cases}\frac 59, \text{if }x=-1,\\
+\frac 29, \text{if }x\in\{6;10\},\\
+~0, \text{else.}
+\end{cases}
+\end{align}\]</span></li>
+</ul>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-18"></span>
+<img src="_main_files/figure-html/unnamed-chunk-18-1.png" alt="Probability function for X" width="80%" />
+<p class="caption">
+Figure 2.1: Probability function for X
+</p>
+</div>
+<ul>
+<li>Distribution function:
+<span class="math display">\[\begin{align}
+F(x)=\begin{cases}
+~0, \text{if } x&lt; -1,\\
+\frac 59, \text{if }-1\leq x&lt;6,\\
+\frac 79, \text{if }~~6\leq x&lt; 10,\\
+~1, \text{if }~~x\geq 10.
+\end{cases}
+\end{align}\]</span></li>
+</ul>
+<p>Calculation example: if <span class="math inline">\(6\leq x&lt; 10\)</span> then</p>
+<p><span class="math display">\[
+F(x)=\mathbb P(X\leq x) = \mathbb P(X=-1) + \mathbb P(X=6) =\frac 59+\frac 29 = \frac 79.
+\]</span></p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-19"></span>
+<img src="_main_files/figure-html/unnamed-chunk-19-1.png" alt="Distribution function for X" width="80%" />
+<p class="caption">
+Figure 2.2: Distribution function for X
+</p>
+</div>
+</div>
+<hr />
+<div id="q22" class="quiz">
+<p id="question">
+<span id="question-text26"></span>
+<input type="number" id="answer26" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj26)">Submit</button>
+</p>
+<p id="result26">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj26 = generateQuestion_num(26);
+// Display the question
+    document.getElementById('question-text26').textContent = "Your friend wants to play a dice game with you. You roll two fair dice with the face numbers 1; 2; 3 as in the examples above. If the sum of the numbers fallen is greater than four, you win the euro amount equal to this sum. Otherwise, your friend wins and you pay him \\(1\\) euro.\\[\\] Recall that the distribution of the sum \\(S\\) is:\\begin{array}{c|ccccc}s_i&2&3&4&5&6\\\\\\hline\\mathbb P(\\{s_i\\})&\\frac 19&\\frac 29&\\frac 39&\\frac 29&\\frac 19\\end{array} Your win \\(W\\) can be described in functional form as:\\[W=\\begin{cases}-1,&\\text{ if } S\\leq 4,\\\\ S,&\\text{ if } S>4.\\end{cases}\\] That means, that your win can only take three values: \\(-1\\) when the sum of the dice is smaller or equal than \\(4\\) and \\(5,6\\) if the sum is respectively \\(5\\) or \\(6.\\) The resulting distribution of your win \\(W\\) is (Round to four decimal places.):\\[\\]\\(\\mathbb P(W=-1)=\\)";
+    questionObj26.answer = 2/3
+</script>
+<p id="question">
+<span id="question-text27"></span>
+<input type="number" id="answer27" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj27)">Submit</button>
+</p>
+<p id="result27">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj27 = generateQuestion_num(27);
+// Display the question
+    document.getElementById('question-text27').textContent = "\\(\\mathbb P(W=~~5)=\\)";
+    questionObj27.answer =2/9
+</script>
+<p id="question">
+<span id="question-text28"></span>
+<input type="number" id="answer28" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj28)">Submit</button>
+</p>
+<p id="result28">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj28 = generateQuestion_num(28);
+// Display the question
+    document.getElementById('question-text28').textContent = "\\(\\mathbb P(W=~~6)=\\)";
+    questionObj28.answer = 1/9
+</script>
+<p id="question">
+<span id="question-text29"></span>
+<input type="number" id="answer29" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj29)">Submit</button>
+</p>
+<p id="result29">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj29 = generateQuestion_num(29);
+// Display the question
+    document.getElementById('question-text29').textContent = "What is the probability that you will get a positive win?\\[\\]\\(\\mathbb P(W>~0)=\\)";
+    questionObj29.answer = 1/3
+</script>
+</div>
+<!--::: {.exercise name="Random win in a dice game"}
+
+
+
+:::-->
+<div class="example">
+<p><span id="exm:ziehdzc" class="example"><strong>Example 2.3  (Costs for customer orders) </strong></span>Continuation of <a href="random-events-and-probability---a-short-review.html#exm:ziehungbest">1.12</a>.</p>
+<p>In the example with orders via app or web, we had the following common probabilities:</p>
+<p><span class="math display">\[
+\begin{array}{c|cccccc}
+\mathbb P((a_i,b_i))&amp;b_1=1&amp;b_2=2&amp;b_3=3&amp;b_4=4&amp;b_5=5&amp;b_6=6\\\hline
+a_1=App&amp;0,02&amp;0,06&amp;0,12&amp;0,2&amp;0,12&amp;0,08 \\
+a_2=Web&amp;0,08&amp;0,09&amp;0,13&amp;0,05&amp;0,03&amp;0,02 \\
+\end{array}
+\]</span></p>
+<p>We also found that app users place more orders on average.</p>
+<p>Just process your order processes through a service partner. When ordering in the app, you have to pay a higher fee to the service partner. Furthermore, the fee depends on the number of orders.</p>
+<p>We define the costs that result from all ordering processes on a user account as a random variable <span class="math inline">\(K\)</span>. <span class="math inline">\(K\)</span> is calculated as:</p>
+<p><span class="math display">\[
+K = \begin{cases}
+1,5\cdot \text{No. Orders}, &amp;\text{ if via app and number. Orders }\leq 4,\\
+1\cdot \text{No. Orders} + 1, &amp;\text{ if via web and number. Orders }\leq 4,\\
+6, &amp;\text{ if via app and number. Orders }&gt;4,\\
+5, &amp;\text{ if via web and display. Orders }&gt;4.
+\end{cases}
+\]</span></p>
+<p><strong>How are the costs distributed?</strong></p>
+<ul>
+<li>Values of <span class="math inline">\(K\)</span>:</li>
+</ul>
+<p><span class="math display">\[
+\begin{array}{c|cccccc}
+(App,b_i)&amp;(App,1)&amp;(App,2)&amp;(App,3)&amp;(App,4)&amp;(App,5)&amp;(App,6)\\\hline
+k_{1,i}&amp;1,5&amp;3&amp;4,5&amp;6&amp;6&amp;6\\
+\mathbb P(App,b_i)&amp;0,02&amp;0,06&amp;0,12&amp;0,2&amp;0,12&amp;0,08\\
+\end{array}
+\]</span></p>
+<p><span class="math display">\[
+\begin{array}{c|cccccc}
+(Web,b_i)&amp;(Web,1)&amp;(Web,2)&amp;(Web,3)&amp;(Web,4)&amp;(Web,5)&amp;(Web,6)\\\hline
+k_{2,i}&amp;2&amp;3&amp;4&amp;5&amp;5&amp;5\\
+\mathbb P(Web,b_i)&amp;0,08&amp;0,09&amp;0,13&amp;0,05&amp;0,03&amp;0,02\\
+\end{array}
+\]</span></p>
+<ul>
+<li>Distribution of <span class="math inline">\(K\)</span>:</li>
+</ul>
+<p><span class="math display">\[
+\begin{array}{c|cccccccc}
+k_i&amp;1,5&amp;2&amp;3&amp;4&amp;4,5&amp;5&amp;6\\\hline
+p_i&amp;0,02&amp;0,08&amp;0,15&amp;0,13&amp;0,12&amp;0,1&amp;0,4
+\end{array}
+\]</span></p>
+</div>
+<hr />
+</div>
+</div>
+<div id="expected-value-and-variance" class="section level3 hasAnchor" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> Expected value and variance<a href="random-variables.html#expected-value-and-variance" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>As in descriptive statistics, it often makes sense to define, in addition to the distribution, some meaningful parameters that essentially describe this distribution. For both types of random variables we define the mean value <span class="math inline">\(\leadsto\)</span> <strong>expected value</strong>, a measure for the spread <span class="math inline">\(\leadsto\)</span> <strong>variance</strong> and <strong>standard deviation</strong>, as well as <strong>correlation </strong>.</p>
+<p>Expected value and variance are the most important metrics, as many families of distributions (more on this later) are clearly defined by these two metrics. The two key metrics give us information about the mean position and variability of the values of random variables.</p>
+<div id="expected-value" class="section level4 unnumbered hasAnchor">
+<h4>Expected value<a href="random-variables.html#expected-value" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The <strong>expected value</strong> <span class="math inline">\(\mathbb E(X)\)</span> of a <strong>discrete</strong> random variable <span class="math inline">\(X\)</span> with value set <span class="math inline">\(\mathcal T=\{x_1,x_2,\ldots\}\)</span> and probability function <span class="math inline">\(f(x)\)</span> is:
+<span class="math display">\[\begin{equation*}
+        \mathbb E(X) = x_1 f(x_1) + x_2 f(x_2) + \cdots = \sum_{i\geq 1} x_i
+        f(x_i).
+\end{equation*}\]</span></p>
+</div>
+<div id="properties-of-the-expected-value" class="section level4 unnumbered hasAnchor">
+<h4>Properties of the expected value<a href="random-variables.html#properties-of-the-expected-value" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><span class="math inline">\(\mathbb E(a X + b) = a \mathbb E (X) + b\)</span> (linear transformation)</li>
+<li><span class="math inline">\(\mathbb E(X+Y) = \mathbb E(X) + \mathbb E(Y)\)</span> (expected value of a sum = sum of expected values)</li>
+</ul>
+</div>
+<div id="variance-and-standard-deviation" class="section level4 unnumbered hasAnchor">
+<h4>Variance and standard deviation<a href="random-variables.html#variance-and-standard-deviation" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The <strong>variance</strong> of a random variable <span class="math inline">\(X\)</span> is</p>
+<p><span class="math display">\[\begin{equation*}
+    \sigma^2 = \text{Var}(X) = \mathbb E((X-\mathbb E(X))^2)\\
+    =\sum_{i\geq 1} (x_i-\mathbb E(X))^2 f(x_i),
+\end{equation*}\]</span></p>
+<p>The <strong>standard deviation</strong> is <span class="math inline">\(\sigma = \sqrt{\text{Var}(X)}.\)</span></p>
+<ul>
+<li><p>Best suited for calculating variance:
+<span class="math display">\[\begin{equation*}
+  \text{Var}(X)=\mathbb E(X^2) - (\mathbb E(X))^2.
+\end{equation*}\]</span></p></li>
+<li><p>For discrete random variables this means:
+<span class="math display">\[\begin{align}
+  \text{Var}(X)&amp;=\sum_{i\geq1} x_i^2f(x_i)- (\mathbb E(X))^2.
+  \end{align}\]</span></p></li>
+</ul>
+</div>
+<div id="properties-of-variance" class="section level4 unnumbered hasAnchor">
+<h4>Properties of Variance<a href="random-variables.html#properties-of-variance" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><span class="math inline">\(\text{Var}(aX+b)= a^2\text{Var}(X)\)</span> (linear transformation)</li>
+<li><span class="math inline">\(\text{Var}(X+Y) = \text{Var}(X) + \text{Var}(Y)\)</span> if <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are stochastically independent.</li>
+</ul>
+<p>This results in the calculation rules for linear transformations (<span class="math inline">\(Y=a X + b\)</span>):
+<span class="math display">\[\begin{align}
+      \mathbb E(Y) &amp;= \mathbb E (a X + b)=a \mathbb E(X) + b,\\
+      \text{Var}(Y)&amp;=\text{Var}(a X + b) = a^2\text{Var}(X).
+\end{align}\]</span></p>
+<hr />
+<!--:::{.example #wurf123kenz name="Win when rolling two dice"}
+
+Fortführung von \@ref(exm:roll123zv).
+
+
+```{=html}
+<iframe title="Beispiel_Kennzahlen" src="http://learning-dashboard.lehre.hwr-berlin.de:3838/Apps_RBook/#section-kennzahlen-von-zufallsvariablen" width="760" height="700"></iframe>
+```
+
+
+:::
+-->
+<div class="example">
+<p><span id="exm:ziehdzkennz" class="example"><strong>Example 2.4  (Costs for customer orders) </strong></span>Example <a href="random-variables.html#exm:ziehdzc">2.3</a> cont.</p>
+<p>In this example, we derived the following probability distribution for the cost <span class="math inline">\(K\)</span>:</p>
+<p><span class="math display">\[
+\begin{array}{c|ccccccc}
+k_i&amp;1,5&amp;2&amp;3&amp;4&amp;4,5&amp;5&amp;6\\\hline
+p_i&amp;0,02&amp;0,08&amp;0,15&amp;0,13&amp;0,12&amp;0,1&amp;0,4
+\end{array}
+\]</span></p>
+<p>That is,</p>
+<ul>
+<li><p><span class="math inline">\(\mathbb E(K) = \sum_{i=1}^7 k_i\cdot p_i = 1,5\cdot 0,02 + \ldots + 6\cdot 0,4 = 4,6.\)</span></p></li>
+<li><p><span class="math inline">\(\text{Var}(K) = \sum_{i=1}^7 k^2_i\cdot p_i - \mathbb E(K)^2= 1,5^2\cdot 0,02 + \ldots + 6^2\cdot 0,4 -4,6^2 = 1,965.\)</span></p></li>
+</ul>
+</div>
+<hr />
+<div id="q2" class="quiz">
+<p id="question">
+<span id="question-text20"></span>
+<input type="number" id="answer20" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj20)">Submit</button>
+</p>
+<p id="result20">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj20 = generateQuestion_num(20);
+// Display the question
+    document.getElementById('question-text20').textContent = "The random variable \\(X=\\) 'Number of experienced project staff members' has the following distribution: \\[\\begin{array}{c|ccccc}x_i&0&1&2&3&4\\\\\\hline p_i&0.3&0.25&0.2&0.15&0.05\\end{array}\\] The expected number of experienced members is \\(\\mathbb E(X)=\\)";
+    questionObj20.answer = 1.3
+</script>
+<p id="question">
+<span id="question-text21"></span>
+<input type="number" id="answer21" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj21)">Submit</button>
+</p>
+<p id="result21">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj21 = generateQuestion_num(21);
+// Display the question
+    document.getElementById('question-text21').textContent = "The standard deviation of the number of experienced project members is (round to four decimal places) \\(\\sqrt{\\text{Var}(X)}\\)";
+    questionObj21.answer = 1.2288
+</script>
+<hr />
+<p id="question">
+<span id="question-text22"></span>
+<input type="number" id="answer22" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj22)">Submit</button>
+</p>
+<p id="result22">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj22 = generateQuestion_num(22);
+// Display the question
+    document.getElementById('question-text22').textContent = "You are given two independent random variables \\(X\\) and \\(Y\\) with: \\[\\mathbb E(X) = 2, \\mathbb E(Y)=-1, \\text{Var}(X)=3, \\text{Var}(Y)=10.\\] Compute \\(\\mathbb E("+ questionObj22.question[0]+ "X-" + questionObj21.question[0] + "Y+"+ questionObj22.question[1]+ ")=\\)";
+    questionObj22.answer = questionObj22.question[0]*2-questionObj21.question[0]*(-1) + questionObj22.question[1]
+</script>
+<p id="question">
+<span id="question-text23"></span>
+<input type="number" id="answer23" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj23)">Submit</button>
+</p>
+<p id="result23">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj23 = generateQuestion_num(23);
+// Display the question
+    document.getElementById('question-text23').textContent = "Compute \\(\\text{Var}("+ questionObj22.question[0]+ "X-" + questionObj21.question[0] + "Y+"+ questionObj22.question[1]+ ")=\\)";
+    questionObj23.answer = Math.pow(questionObj22.question[0],2)*3+Math.pow(questionObj21.question[0],2)*10
+</script>
+</div>
+<hr />
+</div>
+</div>
+<div id="covariance-and-correlation" class="section level3 hasAnchor" number="2.1.3">
+<h3><span class="header-section-number">2.1.3</span> Covariance and correlation<a href="random-variables.html#covariance-and-correlation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Whenever we are dealing with several random variables as in example <a href="random-events-and-probability---a-short-review.html#exm:ziehungbest">1.12</a>, the question of association between the variables arises. If we can find a positive association pattern between the number of orders and the usage of app, then we could possibly boost the sales by promoting the mobile app usage.</p>
+<p>A measure of linear dependence between two random variables is their covariance. The <strong>covariance</strong> of two random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is determined by
+<span class="math display">\[\begin{equation*}
+      \sigma_{XY}=\text{Cov}(X,Y) =\mathbb E[(X-\mathbb E(X))\, (Y-\mathbb E(Y))] =
+      \mathbb E[X\cdot Y] - \mathbb E(X)\, \mathbb E(Y).
+\end{equation*}\]</span></p>
+<p>Specifically for discrete random variables:
+<span class="math display">\[
+\text{Cov}(X,Y) =\sum_{i,j}x_i\cdot y_j\cdot f(x_i,y_j) - \left(\sum_ix_i\cdot f(x_i)\right)\cdot\left( \sum_jy_j\cdot f(y_j)\right).
+\]</span></p>
+<p>The <strong>correlation coefficient</strong> is determined by
+<span class="math display">\[\begin{equation*}
+      \rho_{XY}=\frac{\sigma_{XY}}{\sigma_X\, \sigma_Y} =
+      \frac{\text{Cov}(X,Y)} {\sqrt{\text{Var}(X)}\, \sqrt{\text{Var}(Y)}}.
+\end{equation*}\]</span></p>
+<ul>
+<li><p><span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are called <strong>uncorrelated</strong> if <span class="math inline">\(\text{Cov}(X,Y)=0\)</span>.</p></li>
+<li><p><span class="math inline">\(-1\leq \rho_{XY}\leq 1\)</span></p></li>
+</ul>
+<!--- Properties of covariance and correlation coefficient
+
+    - $\text{Cov}(aX + b, c Y + d) = a\, c\, \text{Cov}(X,Y)$
+    - $\text{Cov}(X,Y)=\text{Cov}(Y,X)$
+    - $-1\leq \rho_{XY}\leq 1$
+    - $|\rho_{XY}|=1$ $\iff$ there are numbers $\beta\not=0$ and $\alpha$ with $Y=\alpha + \beta X$ (linearity)
+-->
+<ul>
+<li>If <span class="math inline">\(X, Y\)</span> are independent, then they are also uncorrelated.</li>
+</ul>
+<hr />
+<div class="example">
+<p><span id="exm:ziehungbestKov" class="example"><strong>Example 2.5  (Orders and Usage) </strong></span>In the example <a href="random-events-and-probability---a-short-review.html#exm:ziehungbest">1.12</a> we looked at the joint distribution of the app usage and orders. Now we define two random variables:</p>
+<ul>
+<li><p><span class="math inline">\(A=\begin{cases}1, &amp;\text{ falls } App\\0, &amp;\text{ falls } Web\end{cases}\)</span> (an indicator of app usage).</p></li>
+<li><p><span class="math inline">\(B=b_i\)</span>, <span class="math inline">\(b_i\in\{1; 2; \ldots 6\}\)</span> the number of orders.</p></li>
+</ul>
+<p>The joint probabilities are:</p>
+<p><span class="math display">\[
+\begin{array}{c|cccccc}
+\mathbb P((a_i,b_i))&amp;B=1&amp;B=2&amp;B=3&amp;B=4&amp;B=5&amp;B=6\\\hline
+A=1&amp;0,02&amp;0,06&amp;0,12&amp;0,2&amp;0,12&amp;0,08\\
+A=0&amp;0,08&amp;0,09&amp;0,13&amp;0,05&amp;0,03&amp;0,02\\
+\end{array}
+\]</span></p>
+<p><strong>Are the two quantities correlated?</strong></p>
+<ul>
+<li>Expected values</li>
+</ul>
+<p><span class="math display">\[\begin{align}
+\mathbb E(A)&amp;=1\cdot0,6  + 0\cdot0,4 = 0,6,\\
+\mathbb E(B)&amp;=1\cdot0,1  + 2\cdot0,15 +\ldots + 6\cdot0,1=3,5.
+\end{align}\]</span></p>
+<ul>
+<li>Variances:</li>
+</ul>
+<p><span class="math display">\[\begin{align}
+\text{Var}(A)&amp;=1^2\cdot0,6  + 0^2\cdot0,4 - 0,6^2 = 0,24,\\
+\text{Var}(B)&amp;=1^2\cdot0,1  + 2^2\cdot0,15 +\ldots + 6^2\cdot0,1  - 3,5^2=2,05.
+\end{align}\]</span></p>
+<ul>
+<li>Covariance:</li>
+</ul>
+<p><span class="math display">\[\begin{align}
+\text{Cov}(A,B)&amp;=\mathbb E(A\cdot B) - \mathbb E(A)\, \mathbb E(B)\\
+&amp;=1\cdot 1\cdot0,02  + 1\cdot 2\cdot0,06 + 1\cdot 3\cdot0,12 + 1\cdot 4\cdot0,2 \\
+&amp;+ 1\cdot 5\cdot0,12 + 1\cdot 6\cdot0,08  \text{ (für A=1 und B=1;2;$\ldots$ 6)} + \\
+&amp;+ 0\cdot 1\cdot0,08 + \dots + 0\cdot 6\cdot0,02\text{ (für A=0 und B=1;2;$\ldots$ 6)} - \\
+&amp;- 0,6\cdot3,5 = 0,28.
+\end{align}\]</span></p>
+<ul>
+<li>Correlation:</li>
+</ul>
+<p><span class="math display">\[\begin{align}
+\rho_{A,B}&amp;=\frac{\text{Cov}(A,B)}{\sqrt{\text{Var}(A)}\cdot\sqrt{\text{Var}(B)}}\\
+&amp;= \frac{0,28}{\sqrt{0,24}\cdot\sqrt{2,05}} = 0,3992.
+\end{align}\]</span></p>
+<p>So the two random variables are <strong>positively correlated</strong>.</p>
+</div>
+<p>Yuhu! We have a positive association between the app usage and the number of orders. It means, that by increasing the incentive for the app usage, we could increase our sales.</p>
+<hr />
+</div>
+</div>
+<div id="continuous-random-variables" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Continuous random variables<a href="random-variables.html#continuous-random-variables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We have seen how to model discrete random variables. However, there are certainly cases where the framework of discrete random variables is not sufficient. For example, when we look at sizes, lengths, volumes, but also when we examine sales, times in the online shop, waiting times or security returns. These variables take on many different values, which makes modeling difficult for us because we have to take probabilities into account for all values 🤔. In addition, due to measurement precision, we usually cannot distinguish between online shopping time of <span class="math inline">\(12\)</span> minutes and <span class="math inline">\(12,0001\)</span> minutes. Then why not just look at a range <span class="math inline">\((12, 12.1)\)</span> minutes? So it makes sense for some variables, instead of looking at fixed values, to look at entire <strong>areas</strong> (<span class="math inline">\(\leadsto\)</span> <strong>continuous random variables</strong>) and the “fullness” or, in other words, the <strong>density</strong> of these areas as the basis for the probability calculation, with the probabilities represented as areas under this density on the corresponding section. This implies that the probability of hitting a very specific value (the point probability) becomes zero.</p>
+<p>A random variable <span class="math inline">\(X\)</span> is said to be <strong>continuous</strong> if there is a function (<strong>density function</strong>) <span class="math inline">\(x\mapsto f(x)\geq 0\)</span>,
+so that for every interval <span class="math inline">\([a,b]\)</span> we have:
+<span class="math display">\[\begin{equation*}
+      \mathbb P(a\leq X\leq b)=\int_a^b f(x) dx.
+\end{equation*}\]</span></p>
+<ul>
+<li>The set of values ​​<span class="math inline">\(\mathcal T\subseteq\mathbb R\)</span> of a continuous random variable is uncountable. It corresponds either to the whole <span class="math inline">\(\mathbb R\)</span> or to the subsets of <span class="math inline">\(\mathbb R\)</span> (intervals).</li>
+</ul>
+<div id="density-function" class="section level3 hasAnchor" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> Density function<a href="random-variables.html#density-function" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>Density properties:</p>
+<ul>
+<li><span class="math inline">\(f(x)\geq 0\)</span> for all <span class="math inline">\(x\in \mathbb R\)</span></li>
+<li><span class="math inline">\(\int_{\mathbb R} f(x)\, dx=1\)</span></li>
+</ul></li>
+<li><p>The point probability, <span class="math inline">\(\mathbb P(X=x)=0\)</span> for all <span class="math inline">\(x\in \mathbb R\)</span> if <span class="math inline">\(X\)</span> represents a continuous random variable.</p></li>
+<li><p>Graphical representation:</p></li>
+</ul>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-33"></span>
+<img src="_main_files/figure-html/unnamed-chunk-33-1.png" alt="Example: Density function" width="80%" />
+<p class="caption">
+Figure 2.3: Example: Density function
+</p>
+</div>
+<ul>
+<li>Probabilities are represented by areas under density
+<span class="math inline">\(f(x)\)</span> set. Calculating the probability that <span class="math inline">\(X\)</span> values ​​in <span class="math inline">\(B\)</span>
+accepts:
+<span class="math display">\[\begin{equation*}
+    \mathbb P(X\in B) = \int_B f(x)\, dx = \int_a^b f(x)dx
+\end{equation*}\]</span></li>
+</ul>
+</div>
+<div id="distribution-function-1" class="section level3 hasAnchor" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> Distribution function<a href="random-variables.html#distribution-function-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>The <strong>(cumulative) distribution function</strong> of a continuous
+Random variable is given as
+<span class="math display">\[\begin{equation*}
+    F(x) = \mathbb P(X\leq x) = \int_{-\infty}^x f(t)\, dt.
+\end{equation*}\]</span></p></li>
+<li><p>Properties of the distribution function for continuous random variables:</p>
+<ul>
+<li><span class="math inline">\(F\)</span> is a continuous function</li>
+<li><span class="math inline">\(x\mapsto F(x)\)</span> is monotonically increasing</li>
+<li><span class="math inline">\(0\leq F(x)\leq 1\)</span>, for all <span class="math inline">\(x\in \mathbb R\)</span></li>
+<li><span class="math inline">\(\lim_{x\rightarrow-\infty} F(x)=0\)</span> and</li>
+<li><span class="math inline">\(\lim_{x\rightarrow\infty} F(x)=1\)</span>.</li>
+</ul></li>
+<li><p>Graphical representation:</p></li>
+</ul>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-34"></span>
+<img src="_main_files/figure-html/unnamed-chunk-34-1.png" alt="Example: Probability function of a continuous random variable" width="80%" />
+<p class="caption">
+Figure 2.4: Example: Probability function of a continuous random variable
+</p>
+</div>
+<ul>
+<li><p>If the distribution function <span class="math inline">\(F\)</span> is given, this is what you get
+Density <span class="math inline">\(f\)</span> by deriving:
+<span class="math display">\[\begin{equation*}
+    f(x) = F^\prime(x),\quad\text{ differentiable for $F$ in $x$}
+\end{equation*}\]</span></p></li>
+<li><p>Calculating the probability that <span class="math inline">\(X\)</span> values ​​in <span class="math inline">\(B\)</span>
+accepts:
+<span class="math display">\[\begin{equation*}
+    \mathbb P(X\in B) = \mathbb P(a\leq X \leq b) = F(b) - F(a).
+\end{equation*}\]</span></p></li>
+</ul>
+<hr />
+<div class="example">
+<p><span id="exm:stZV" class="example"><strong>Example 2.6  (Time in the online shop as a continuous random variable) </strong></span>We model the random variable <span class="math inline">\(X=\)</span> time in the online shop in minutes as a continuous random variable with the density:</p>
+<p><span class="math display">\[
+f(x) = \begin{cases}0,001\cdot x , &amp;\text{ für } 0\leq x\leq 20,\\
+                      0,025 -0,00025\cdot x, &amp;\text{ für } 20&lt; x\leq 100.\end{cases}
+\]</span></p>
+<p>That is,</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-36"></span>
+<img src="_main_files/figure-html/unnamed-chunk-36-1.png" alt="Probability density  of X=Time in online shop" width="80%" />
+<p class="caption">
+Figure 2.5: Probability density of X=Time in online shop
+</p>
+</div>
+<p>We compute the event probabilities:</p>
+<ul>
+<li><p><span class="math inline">\(\{X&lt;20\}=\text{&quot;Zeit im Shop weniger als 20 Minuten&quot;}\)</span>:
+<span class="math display">\[\begin{align}
+\mathbb P(X&lt;20)&amp;= \displaystyle \int_0^{20} (0,001\cdot x )dx = \text{Area of the red triangle}\\
+&amp;= \frac{1}{2}\cdot 20\cdot 0,02 = 0,2.
+\end{align}\]</span></p></li>
+<li><p><span class="math inline">\(\{X&lt;60\}=\text{&quot;Zeit im Shop weniger als 60 Minuten&quot;}\)</span>:
+<span class="math display">\[\begin{align}
+  \mathbb P(X&lt;60)&amp;= 1-\mathbb P(X\geq 60)=1-\displaystyle \int^{100}_{60} (0,025 -0,00025\cdot x)dx \\
+  &amp;= 1- \text{Area of the transparent triagle} = 1-\frac{1}{2}\cdot 40\cdot 0,01 = 0,8.
+  \end{align}\]</span></p></li>
+</ul>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-37"></span>
+<img src="_main_files/figure-html/unnamed-chunk-37-1.png" alt="Probability density of X=Time in online shop with probabilities as areas under the density fucntion." width="80%" />
+<p class="caption">
+Figure 2.6: Probability density of X=Time in online shop with probabilities as areas under the density fucntion.
+</p>
+</div>
+<p>Computing the cumulative probability function from the density function:</p>
+<ol style="list-style-type: decimal">
+<li>case: <span class="math inline">\(x\in [{0},{20}]\)</span>:</li>
+</ol>
+<p><span class="math display">\[\begin{align}
+F(x) &amp;= \int_{{0}}^x f(t)~ dt = \int_{0}^x (0,001\cdot t )~ dt=\Big[0,001\cdot \frac{t^2}2 \Big]_{0}^x \\
+&amp; = 0,001\cdot \frac{x^2}2  - (0,001\cdot \frac{0^2}2 )\\
+&amp;=0,0005x^2.
+\end{align}\]</span></p>
+<ol start="2" style="list-style-type: decimal">
+<li>case: <span class="math inline">\(x\in ({20},{100}]\)</span>:
+<span class="math display">\[\begin{align}
+\displaystyle F(x) &amp;= \int_{0}^x f(t)~ dt\\
+&amp;= \int_{0}^{20} (0,001\cdot t )~ dt + \int_{20}^x (0,025 -0,00025\cdot t)~ dt\\
+&amp;=0,2 + \big[0,025\cdot t -0,00025\cdot \frac{t^2}2 \big]_{20}^x\\
+&amp;=0,2 + 0,025\cdot x -0,00025\cdot \frac{x^2}2 - (0,025\cdot 20 -0,00025\cdot \frac{20^2}2) \\
+&amp;= -0.25 + 0.025x -0.000125x^2.
+\end{align}\]</span></li>
+</ol>
+<p>That is:</p>
+<p><span class="math display">\[
+F(x) =
+    \begin{cases}
+    0,&amp;x&lt;0,\\
+    0,0005x^2,&amp;0\leq x\leq 20,\\
+    -0.25 + 0.025x -0.000125x^2,&amp;20&lt;x\leq 100,\\
+    1,&amp;x&gt;100.
+    \end{cases}
+\]</span></p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-39"></span>
+<img src="_main_files/figure-html/unnamed-chunk-39-1.png" alt="Cumulative distribution function of X=Time in online shop" width="80%" />
+<p class="caption">
+Figure 2.7: Cumulative distribution function of X=Time in online shop
+</p>
+</div>
+<p>Using the cumulative distribution function, we can calculate the event probabilities:</p>
+<ul>
+<li><p><span class="math inline">\(\{X&lt;20\}=\text{&quot;Time in shop less than 20 minutes&quot;}\)</span>: <span class="math display">\[\begin{align}\mathbb P(X&lt;20)&amp;= \mathbb P(X\leq20)=F(20) = 0,0005\cdot 20^2= 0.2.\end{align}\]</span></p></li>
+<li><p><span class="math inline">\(\{X&lt;60\}=\text{&quot;Zeit im Shop weniger als 60 Minuten&quot;}\)</span>:<span class="math display">\[\begin{align}\mathbb P(X&lt;60)&amp;=\mathbb P(X\leq60)=F(60) =-0.25 + 0.025\cdot 60 -0.000125\cdot 60^2= 0.8.\end{align}\]</span></p></li>
+<li><p><span class="math inline">\(\{X &gt;30\}=\text{&quot;Time in shop less than 30 minutes&quot;}\)</span>:<span class="math display">\[\begin{align}
+  \mathbb P(X&gt;30)&amp;=1-\mathbb P(X\leq30)= 1-F(30) \\&amp;= 1-(-0.25 + 0.025\cdot 30 -0.000125\cdot 30^2)\\
+  &amp;= 0.6125.\end{align}\]</span></p></li>
+</ul>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-40"></span>
+<img src="_main_files/figure-html/unnamed-chunk-40-1.png" alt="Cumulative probability function of X=Time in online shop with probabilities" width="80%" />
+<p class="caption">
+Figure 2.8: Cumulative probability function of X=Time in online shop with probabilities
+</p>
+</div>
+</div>
+<hr />
+<div id="q23" class="quiz">
+<div class="sourceCode" id="cb1"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb1-1"><a href="random-variables.html#cb1-1" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Generate a random question</span></span>
+<span id="cb1-2"><a href="random-variables.html#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> questionObj210 <span class="op">=</span> {</span>
+<span id="cb1-3"><a href="random-variables.html#cb1-3" aria-hidden="true" tabindex="-1"></a>      <span class="dt">question</span><span class="op">:</span> <span class="st">&#39;Let X be a continuous random variable with the distribution function:</span><span class="sc">\\</span><span class="st">[F(x)=</span><span class="sc">\\</span><span class="st">begin{cases}x^2,&amp;</span><span class="sc">\\</span><span class="st">text{ if }0</span><span class="sc">\\</span><span class="st">leq x </span><span class="sc">\\</span><span class="st">leq 1,</span><span class="sc">\\\\</span><span class="st">0,&amp;</span><span class="sc">\\</span><span class="st">text{ if } x&lt;0,</span><span class="sc">\\\\</span><span class="st">1,&amp;</span><span class="sc">\\</span><span class="st">text{ if }x&gt;1.</span><span class="sc">\\</span><span class="st">end{cases}</span><span class="sc">\\</span><span class="st">] The density function for </span><span class="sc">\\</span><span class="st">(X</span><span class="sc">\\</span><span class="st">) must be </span><span class="sc">\\</span><span class="st">[</span><span class="sc">\\</span><span class="st">]&#39;</span><span class="op">,</span></span>
+<span id="cb1-4"><a href="random-variables.html#cb1-4" aria-hidden="true" tabindex="-1"></a>      <span class="dt">options</span><span class="op">:</span> [<span class="st">&#39;</span><span class="sc">\\</span><span class="st">(f(x)=</span><span class="sc">\\</span><span class="st">begin{cases}2x,&amp;</span><span class="sc">\\</span><span class="st">text{ if }0</span><span class="sc">\\</span><span class="st">leq x </span><span class="sc">\\</span><span class="st">leq 1,</span><span class="sc">\\\\</span><span class="st">0,&amp;</span><span class="sc">\\</span><span class="st">text{ if } x&lt;0,</span><span class="sc">\\\\</span><span class="st">1,&amp;</span><span class="sc">\\</span><span class="st">text{ if }x&gt;1.</span><span class="sc">\\</span><span class="st">end{cases}</span><span class="sc">\\</span><span class="st">)&#39;</span><span class="op">,</span><span class="st">&#39;</span><span class="sc">\\</span><span class="st">(f(x)=</span><span class="sc">\\</span><span class="st">begin{cases}x^2,&amp;</span><span class="sc">\\</span><span class="st">text{ if }0</span><span class="sc">\\</span><span class="st">leq x </span><span class="sc">\\</span><span class="st">leq 1,</span><span class="sc">\\\\</span><span class="st">0,&amp;</span><span class="sc">\\</span><span class="st">text{ if } x&lt;0,</span><span class="sc">\\\\</span><span class="st">1,&amp;</span><span class="sc">\\</span><span class="st">text{ if }x&gt;1.</span><span class="sc">\\</span><span class="st">end{cases}</span><span class="sc">\\</span><span class="st">)&#39;</span> <span class="op">,</span><span class="st">&#39;</span><span class="sc">\\</span><span class="st">(f(x)=</span><span class="sc">\\</span><span class="st">begin{cases}2x,&amp;</span><span class="sc">\\</span><span class="st">text{ if }0</span><span class="sc">\\</span><span class="st">leq x </span><span class="sc">\\</span><span class="st">leq 1,</span><span class="sc">\\\\</span><span class="st">0,&amp;</span><span class="sc">\\</span><span class="st">text{ if } x&lt;0,x&gt;1.</span><span class="sc">\\</span><span class="st">end{cases}</span><span class="sc">\\</span><span class="st">)&#39;</span><span class="op">,</span> <span class="st">&#39;</span><span class="sc">\\</span><span class="st">(</span><span class="sc">\\</span><span class="st">mathbb R</span><span class="sc">\\</span><span class="st">)&#39;</span><span class="op">,</span> <span class="st">&#39;</span><span class="sc">\\</span><span class="st">(f(x)=</span><span class="sc">\\</span><span class="st">begin{cases}</span><span class="sc">\\</span><span class="st">frac13 x^3,&amp;</span><span class="sc">\\</span><span class="st">text{ if }0</span><span class="sc">\\</span><span class="st">leq x </span><span class="sc">\\</span><span class="st">leq 1,</span><span class="sc">\\\\</span><span class="st">0,&amp;</span><span class="sc">\\</span><span class="st">text{ if } x&lt;0,</span><span class="sc">\\\\</span><span class="st">1,&amp;</span><span class="sc">\\</span><span class="st">text{ if }x&gt;1.</span><span class="sc">\\</span><span class="st">end{cases}</span><span class="sc">\\</span><span class="st">)&#39;</span>]<span class="op">,</span></span>
+<span id="cb1-5"><a href="random-variables.html#cb1-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">answer</span><span class="op">:</span> <span class="st">&#39;3&#39;</span><span class="op">,</span></span>
+<span id="cb1-6"><a href="random-variables.html#cb1-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">id</span><span class="op">:</span> <span class="dv">210</span></span>
+<span id="cb1-7"><a href="random-variables.html#cb1-7" aria-hidden="true" tabindex="-1"></a>    }<span class="op">;</span></span></code></pre></div>
+<script>
+  // Generate a random question
+    const questionObj210 = {
+      question: 'Let X be a continuous random variable with the distribution function:\\[F(x)=\\begin{cases}x^2,&\\text{ if }0\\leq x \\leq 1,\\\\0,&\\text{ if } x<0,\\\\1,&\\text{ if }x>1.\\end{cases}\\] The density function for \\(X\\) must be \\[\\]',
+      options: ['\\(f(x)=\\begin{cases}2x,&\\text{ if }0\\leq x \\leq 1,\\\\0,&\\text{ if } x<0,\\\\1,&\\text{ if }x>1.\\end{cases}\\)','\\(f(x)=\\begin{cases}x^2,&\\text{ if }0\\leq x \\leq 1,\\\\0,&\\text{ if } x<0,\\\\1,&\\text{ if }x>1.\\end{cases}\\)' ,'\\(f(x)=\\begin{cases}2x,&\\text{ if }0\\leq x \\leq 1,\\\\0,&\\text{ if } x<0,x>1.\\end{cases}\\)', '\\(\\mathbb R\\)', '\\(f(x)=\\begin{cases}\\frac13 x^3,&\\text{ if }0\\leq x \\leq 1,\\\\0,&\\text{ if } x<0,\\\\1,&\\text{ if }x>1.\\end{cases}\\)'],
+      answer: '3',
+      id: 210
+    };
+</script>
+<p class="question">
+<span id="question-text210"></span>
+</p>
+<div class="options">
+<label>
+<input type="radio" name="option210" value=1> \(f(x)=\begin{cases}2x,&amp;\text{ if }0\leq x \leq 1,\\0,&amp;\text{ if } x&lt;0,\\1,&amp;\text{ if }x&gt;1.\end{cases}\)
+</label>
+<br>
+<label>
+<input type="radio" name="option210" value=2> \(f(x)=\begin{cases}x^2,&amp;\text{ if }0\leq x \leq 1,\\0,&amp;\text{ if } x&lt;0,\\1,&amp;\text{ if }x&gt;1.\end{cases}\)
+</label>
+<br>
+<label>
+<input type="radio" name="option210" value=3> \(f(x)=\begin{cases}2x,&amp;\text{ if }0\leq x \leq 1,\\0,&amp;\text{ if } x&lt;0,x&gt;1.\end{cases}\)
+</label>
+<br>
+<label>
+<input type="radio" name="option210" value=4> \(f(x)=\begin{cases}\frac13 x^3,&amp;\text{ if }0\leq x \leq 1,\\0,&amp;\text{ if } x&lt;0,\\1,&amp;\text{ if }x&gt;1.\end{cases}\)
+</label>
+</div>
+<button onclick="checkAnswer_match(questionObj210)">Submit</button>
+<p id="result210">
+</p>
+<script>
+  // Display the question
+    document.getElementById('question-text210').textContent = questionObj210.question;
+</script>
+<p id="question">
+<span id="question-text211"></span>
+<input type="number" id="answer211" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj211)">Submit</button>
+</p>
+<p id="result211">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj211 = generateQuestion_num(211);
+// Display the question
+    document.getElementById('question-text211').textContent = "For the same random variable \\(X\\) compute:\\[\\]\\(\\mathbb P(0.1 < X < 0.3)=\\)";
+    questionObj211.answer = Math.pow(0.3,2) - Math.pow(0.1,2)
+</script>
+<p id="question">
+<span id="question-text212"></span>
+<input type="number" id="answer212" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj212)">Submit</button>
+</p>
+<p id="result212">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj212 = generateQuestion_num(212);
+// Display the question
+    document.getElementById('question-text212').textContent = "\\(\\mathbb P(0.1 \\leq X \\leq 0.3)=\\)";
+    questionObj212.answer = Math.pow(0.3,2) - Math.pow(0.1,2)
+</script>
+<p id="question">
+<span id="question-text213"></span>
+<input type="number" id="answer213" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj213)">Submit</button>
+</p>
+<p id="result213">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj213 = generateQuestion_num(213);
+// Display the question
+    document.getElementById('question-text213').textContent = "\\(\\mathbb P(X > 0.5)=\\)";
+    questionObj213.answer = 1-Math.pow(0.5,2)
+</script>
+<p id="question">
+<span id="question-text214"></span>
+<input type="number" id="answer214" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj214)">Submit</button>
+</p>
+<p id="result214">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj214 = generateQuestion_num(214);
+// Display the question
+    document.getElementById('question-text214').textContent = "\\(\\mathbb P(0.1 \\leq X \\leq 0.3|X\\leq 0.5)=\\)";
+    questionObj214.answer = (Math.pow(0.3,2) - Math.pow(0.1,2))/Math.pow(0.5,2)
+</script>
+</div>
+<!--::: {.exercise name="Continuous random variable"}
+
+
+
+:::-->
+<hr />
+</div>
+<div id="expected-value-and-variance-1" class="section level3 hasAnchor" number="2.2.3">
+<h3><span class="header-section-number">2.2.3</span> Expected value and variance<a href="random-variables.html#expected-value-and-variance-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Expected value and variance are the most important metrics, as many families of distributions (more on this later) are clearly defined by these two metrics. The two measures give us information about the mean position and variability of the values of random variables.</p>
+<div id="expected-value-1" class="section level4 unnumbered hasAnchor">
+<h4>Expected value<a href="random-variables.html#expected-value-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The <strong>expected value</strong> <span class="math inline">\(\mathbb E(X)\)</span> of a <strong>continuous</strong> random variable <span class="math inline">\(X\)</span> with density <span class="math inline">\(f(x)\)</span> is
+<span class="math display">\[\begin{equation*}
+        \mathbb E(X) = \int_{-\infty}^\infty x\, f(x)\, dx.
+\end{equation*}\]</span></p>
+</div>
+<div id="properties-of-the-expected-value-1" class="section level4 unnumbered hasAnchor">
+<h4>Properties of the expected value<a href="random-variables.html#properties-of-the-expected-value-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><span class="math inline">\(\mathbb E(a X + b) = a \mathbb E (X) + b\)</span> (linear transformation)</li>
+<li><span class="math inline">\(\mathbb E(X+Y) = \mathbb E(X) + \mathbb E(Y)\)</span> (expected value of a sum = sum of expected values)</li>
+<li><span class="math inline">\(\mathbb E(X\cdot Y) = \mathbb E(X)\cdot \mathbb E(Y)\)</span> if <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are stochastically independent.</li>
+</ul>
+</div>
+<div id="variance-and-standard-deviation-1" class="section level4 unnumbered hasAnchor">
+<h4>Variance and standard deviation<a href="random-variables.html#variance-and-standard-deviation-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The <strong>variance</strong> of a continuous random variable <span class="math inline">\(X\)</span> is</p>
+<p><span class="math display">\[\begin{equation*}
+    \sigma^2 = \text{Var}(X) = \mathbb E((X-\mathbb E(X))^2)=
+         = \int_{-\infty}^\infty (x-\mathbb E(X))^2\, f(x)\, dx.
+\end{equation*}\]</span></p>
+<p>The <strong>standard deviation</strong> is <span class="math inline">\(\sigma = \sqrt{\text{Var}(X)}.\)</span></p>
+<ul>
+<li><p>Best suited for calculating variance:
+<span class="math display">\[\begin{equation*}
+  \text{Var}(X)=\mathbb E(X^2) - (\mathbb E(X))^2.
+\end{equation*}\]</span></p></li>
+<li><p>For continuous random variables this means:
+<span class="math display">\[\begin{align}
+  \text{Var}(X)&amp;=\int_{-\infty}^{\infty} x^2f(x)dx- (\mathbb E(X))^2.
+  \end{align}\]</span></p></li>
+</ul>
+</div>
+<div id="properties-of-variance-1" class="section level4 unnumbered hasAnchor">
+<h4>Properties of Variance<a href="random-variables.html#properties-of-variance-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><span class="math inline">\(\text{Var}(aX+b)= a^2\text{Var}(X)\)</span> (linear transformation)</li>
+<li><span class="math inline">\(\text{Var}(X+Y) = \text{Var}(X) + \text{Var}(Y)\)</span> if <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are stochastically independent.</li>
+</ul>
+<p>This results in the calculation rules for linear transformations (<span class="math inline">\(Y=a X + b\)</span>):
+<span class="math display">\[\begin{align}
+      \mathbb E(Y) &amp;= \mathbb E (a X + b)=a \mathbb E(X) + b,\\
+      \text{Var}(Y)&amp;=\text{Var}(a X + b) = a^2\text{Var}(X).
+\end{align}\]</span></p>
+<hr />
+<div class="example">
+<p><span id="exm:stZVkenz" class="example"><strong>Example 2.7  (Time in the online shop as a continuous random variable) </strong></span>The random variable <span class="math inline">\(X=\)</span> time in the online shop in minutes has the density:</p>
+<p><span class="math display">\[
+f(x) = \begin{cases}0,001\cdot x , &amp;\text{ für } 0\leq x\leq 20,\\
+                      0,025 -0,00025\cdot x, &amp;\text{ für } 20&lt; x\leq 100.\end{cases}
+\]</span></p>
+<p>We have:</p>
+<ul>
+<li>Expected value:</li>
+</ul>
+<p><span class="math display">\[\begin{align}
+\mathbb E(X) &amp;= \int_{-\infty}^{\infty}x\cdot f(x)dx = \int_{0}^{20}x\cdot f(x)dx + \int_{20}^{100}x\cdot f(x)dx\\
+&amp;=\int_{0}^{20}x\cdot(0,001\cdot x )dx + \int_{20}^{100}x\cdot (0,025 -0,00025\cdot x)dx\\
+&amp;=\int_{0}^{20}0,001\cdot x^2 dx + \int_{20}^{100}0,025\cdot x -0,00025\cdot x^2dx\\
+&amp;=\Big[0,001\cdot \frac{x^3}3\Big]_{0}^{20} + \Big[0,025\cdot \frac{x^2}2 -0,00025\cdot \frac{x^3}3\Big]_{20}^{100}\\
+&amp;=2,6667 + 37,3333 = 40.
+\end{align}\]</span></p>
+<ul>
+<li>Variance:</li>
+</ul>
+<p><span class="math display">\[\begin{align}
+\text{Var}(X) &amp;= \mathbb E(X^2) - \mathbb E(X) = \int_{-\infty}^{\infty}x^2\cdot f(x)dx  - 40^2\\
+&amp;\ldots \text{ (analog zu dem Erwartungswert) }\\
+&amp;=\int_{0}^{20}0,001\cdot x^3 dx + \int_{20}^{100}\big(0,025\cdot x^2 -0,00025\cdot x^3\big)dx - 40^2\\
+&amp;=\Big[0,001\cdot \frac{x^4}4\Big]_{0}^{20} + \Big[0,025\cdot \frac{x^3}3 -0,00025\cdot \frac{x^4}4\Big]_{20}^{100}- 40^2\\
+&amp;=40 + 2026,6667 - 40^2= 466,6667.
+\end{align}\]</span></p>
+</div>
+<hr />
+<div id="q3" class="quiz">
+<p id="question">
+<span id="question-text24"></span>
+</p>
+<input type="number" id="answer24" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj24)">Submit</button>
+<p id="result24">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj24 = generateQuestion_num(24);
+// Display the question
+    document.getElementById('question-text24').textContent = "\\(X=\\) 'Proportion of the customers who are sattisfied with your serice' follows the distribution with the cumulative distribution function:\\[F(x)=\\begin{cases}x^2,&\\text{ if } 0\\leq x\\leq 1,\\\\0,&\\text{ if }x<0,\\\\1,&\\text{ if }x>1.\\end{cases}\\] Compute the expected value for \\(X\\):";
+    questionObj24.answer = 0.6667
+</script>
+<p id="question">
+<span id="question-text25"></span>
+<input type="number" id="answer25" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj25)">Submit</button>
+</p>
+<p id="result25">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj25 = generateQuestion_num(25);
+// Display the question
+    document.getElementById('question-text25').textContent = "Now the proportion is transformed as follows: \\[Y=" + questionObj25.question[0] + "X-" + questionObj25.question[1] + ".\\] \\(\\mathbb E(Y)=\\)";
+    questionObj25.answer = questionObj25.question[0]*0.6667-questionObj25.question[1]
+</script>
+</div>
+<!--::: {.exercise name="Erwartungswert und Varianz"}
+
+
+```{=html}
+<iframe title="Erwartungswert und Varianz" src="./htmls/quiz_kennz.html" width="700" height="500"></iframe>
+```
+
+:::-->
+<hr />
+</div>
+</div>
+<div id="quantiles-of-continuous-random-variables" class="section level3 hasAnchor" number="2.2.4">
+<h3><span class="header-section-number">2.2.4</span> Quantiles of continuous random variables<a href="random-variables.html#quantiles-of-continuous-random-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In the first part of statistics, we determined empirical quantiles. They helped us to understand which value divides the ordered observations so that at least a proportion <span class="math inline">\(p\)</span> of the observations are less than or equal and at least a proportion <span class="math inline">\(1-p\)</span> - greater or equal. In other words, <span class="math inline">\(\hat q_p\)</span> has answered the question: which value is fallen below with frequency <span class="math inline">\(p\)</span> or exceeded with frequency <span class="math inline">\(1-p\)</span>? The same logic is used to define <strong>quantiles</strong> for random variables, except that it is now about the probability of falling below or exceeding this value.</p>
+<p>The <strong><span class="math inline">\(p\)</span>-quantile</strong> of a <strong>continuous</strong> random variable <span class="math inline">\(X\)</span> with density <span class="math inline">\(f(x)&gt;0\)</span> on an interval in <span class="math inline">\(\mathbb R\)</span> is the number <span class="math inline">\(q_p\)</span> with <span class="math inline">\(0&lt;p&lt; 1\)</span>, for which applies:
+<span class="math display">\[\begin{equation*}
+      \mathbb P(X&lt;q_p)=\mathbb P(X\leq q_p)=F(q_p)=p.
+\end{equation*}\]</span></p>
+<p>The quantile is (for continuous random variables) clearly determined by the inverse of the distribution function,
+<span class="math display">\[\begin{equation*}
+    q_p=F^{(-1)}(p).
+\end{equation*}\]</span></p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-53"></span>
+<img src="_main_files/figure-html/unnamed-chunk-53-1.png" alt="Quantil der Standardnormalverteilung für p=0,9" width="80%" />
+<p class="caption">
+Figure 2.9: Quantil der Standardnormalverteilung für p=0,9
+</p>
+</div>
+<p>Special cases:</p>
+<ul>
+<li><p><span class="math inline">\(p=0.25\)</span>, then <span class="math inline">\(Q_p\)</span> is called lower quartile</p></li>
+<li><p><span class="math inline">\(p=0.50\)</span>, then <span class="math inline">\(Q_p\)</span> is called median</p></li>
+<li><p><span class="math inline">\(p=0.75\)</span>, then <span class="math inline">\(Q_p\)</span> is called upper quartile</p></li>
+</ul>
+<hr />
+<div class="example">
+<p><span id="exm:stZVqp" class="example"><strong>Example 2.8  (Time in the online shop as a continuous random variable) </strong></span>See empirical data on this <a href="random-variables.html#exm:stZV">2.6</a>.</p>
+<p>The random variable <span class="math inline">\(X=\)</span> time in the online shop in minutes has the distribution function:</p>
+<p><span class="math display">\[
+F(x) =
+    \begin{cases}
+    0,&amp;x&lt;0,\\
+    0,0005x^2,&amp;0\leq x\leq 20,\\
+    -0.25 + 0.025x -0.000125x^2,&amp;20&lt;x\leq 100,\\
+    1,&amp;x&gt;100.
+    \end{cases}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(0.1\)</span> quantile:
+The distribution function takes the value <span class="math inline">\(0.1\)</span> on the intercept <span class="math inline">\(0\leq x \leq 20\)</span>, so we set <span class="math display">\[F(q_{0,1})=0.1\rightarrow 0.0005q_{0.1}^ 2 = 0.1\]</span> and solve for <span class="math inline">\(q_{0.1}\)</span>: <span class="math display">\[q_{0.1} = \pm\sqrt{\frac{0.1}{0.0005}} = \pm 14, 1421,\]</span> so <span class="math inline">\(q_{0,1} =14.1421\)</span>, since <span class="math inline">\(0\leq q_{0,1} \leq 20\)</span> must hold.</li>
+</ul>
+<p>With a probability of 10%, the time spent in the online shop is shorter than <span class="math inline">\(14.1421\)</span> minutes.</p>
+<ul>
+<li><span class="math inline">\(0.9\)</span> quantile:
+The distribution function takes the value <span class="math inline">\(0.9\)</span> on the intercept <span class="math inline">\(20\leq x \leq 100\)</span>, so we set <span class="math display">\[F(q_{0.9})=0.9\rightarrow -0.25 + 0.025 q_{ 0.9} - 0.000125q_{0.1}^2 = 0.9.\]</span> Then (<span class="math inline">\(abc\)</span> formula for quadratic equations <span class="math inline">\(ax^2 + bx + c=0\)</span>: <span class="math inline">\(x_{1,2}=\frac{-b\pm\sqrt{b^2 - 4ac}}{2a}\)</span>) we have <span class="math display">\[q_{0.9} = \frac{-0.025\pm\sqrt{0.025^2 - 4\cdot(-0.000125)\cdot(-1.15)}}{2\cdot ( -0.000125)}.\]</span> In addition, <span class="math inline">\(q_{0.9}\)</span> should be between <span class="math inline">\(20\)</span> and <span class="math inline">\(100\)</span>. So, let’s take the “<span class="math inline">\(+\)</span> version” and calculate <span class="math inline">\(q_{0.9} = 71.7157\)</span>.</li>
+</ul>
+<p>With a probability of 10%, time spent in the online shop is longer than <span class="math inline">\(71.7157\)</span> minutes.</p>
+</div>
+<hr />
+<div id="q2quant" class="quiz">
+<div class="sourceCode" id="cb2"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb2-1"><a href="random-variables.html#cb2-1" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Generate a random question</span></span>
+<span id="cb2-2"><a href="random-variables.html#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> questionObj215 <span class="op">=</span> {</span>
+<span id="cb2-3"><a href="random-variables.html#cb2-3" aria-hidden="true" tabindex="-1"></a>      <span class="dt">question</span><span class="op">:</span> <span class="st">&#39;Let X be a continuous random variable with the distribution function:</span><span class="sc">\\</span><span class="st">[F(x)=</span><span class="sc">\\</span><span class="st">begin{cases}x^2,&amp;</span><span class="sc">\\</span><span class="st">text{ if }0</span><span class="sc">\\</span><span class="st">leq x </span><span class="sc">\\</span><span class="st">leq 1,</span><span class="sc">\\\\</span><span class="st">0,&amp;</span><span class="sc">\\</span><span class="st">text{ if } x&lt;0,</span><span class="sc">\\\\</span><span class="st">1,&amp;</span><span class="sc">\\</span><span class="st">text{ if }x&gt;1.</span><span class="sc">\\</span><span class="st">end{cases}</span><span class="sc">\\</span><span class="st">] Its quartile is:</span><span class="sc">\\</span><span class="st">[</span><span class="sc">\\</span><span class="st">]</span><span class="sc">\\</span><span class="st">(q_{0.25}=</span><span class="sc">\\</span><span class="st">)&#39;</span><span class="op">,</span></span>
+<span id="cb2-4"><a href="random-variables.html#cb2-4" aria-hidden="true" tabindex="-1"></a>      <span class="dt">options</span><span class="op">:</span> [<span class="fl">0.1111</span><span class="op">,</span><span class="fl">0.1667</span><span class="op">,</span> <span class="fl">0.3333</span><span class="op">,</span> <span class="fl">0.5</span><span class="op">,</span> <span class="fl">0.6667</span>]<span class="op">,</span></span>
+<span id="cb2-5"><a href="random-variables.html#cb2-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">answer</span><span class="op">:</span> <span class="st">&#39;4&#39;</span><span class="op">,</span></span>
+<span id="cb2-6"><a href="random-variables.html#cb2-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">id</span><span class="op">:</span> <span class="dv">215</span></span>
+<span id="cb2-7"><a href="random-variables.html#cb2-7" aria-hidden="true" tabindex="-1"></a>    }<span class="op">;</span></span></code></pre></div>
+<script>
+  // Generate a random question
+    const questionObj215 = {
+      question: 'Let X be a continuous random variable with the distribution function:\\[F(x)=\\begin{cases}x^2,&\\text{ if }0\\leq x \\leq 1,\\\\0,&\\text{ if } x<0,\\\\1,&\\text{ if }x>1.\\end{cases}\\] Its quartile is:\\[\\]\\(q_{0.25}=\\)',
+      options: [0.1111,0.1667, 0.3333, 0.5, 0.6667],
+      answer: '4',
+      id: 215
+    };
+</script>
+<p class="question">
+<span id="question-text215"></span>
+</p>
+<div class="options">
+<label>
+<input type="radio" name="option215" value=1> 0.1111
+</label>
+<label>
+<input type="radio" name="option215" value=2> 0.25
+</label>
+<label>
+<input type="radio" name="option215" value=3> 0.3333
+</label>
+<label>
+<input type="radio" name="option215" value=4> 0.5
+</label>
+<label>
+<input type="radio" name="option215" value=5> 0.6667
+</label>
+</div>
+<button onclick="checkAnswer_match(questionObj215)">Submit</button>
+<p id="result215">
+</p>
+<script>
+  // Display the question
+    document.getElementById('question-text215').textContent = questionObj215.question;
+</script>
+</div>
+<!--::: {.exercise name="Quantile von Zufallsvariablen"}
+
+
+```{=html}
+<iframe title="Aufgabe_QUantileZV" src="./htmls/Aufgabe_QuantileZV.html" width="700" height="500"></iframe>
+```
+
+:::-->
+<hr />
+<!--
+## Rückblick{-}
+
+
+```{=html}
+<iframe title="Wortwolke" src="http://learning-dashboard.lehre.hwr-berlin.de:3838/Apps_RBook/#section-wortwolke" width="760" height="600"></iframe>
+```
+
+-->
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="random-events-and-probability---a-short-review.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="some-important-distribution-models.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/02-randomVariables.rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

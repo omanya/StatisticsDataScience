@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 1 Random events and probability - a short review | Statistics and Data Science Applications</title>
+  <meta name="description" content="This is the script for the course." />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 1 Random events and probability - a short review | Statistics and Data Science Applications" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is the script for the course." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 1 Random events and probability - a short review | Statistics and Data Science Applications" />
+  
+  <meta name="twitter:description" content="This is the script for the course." />
+  
+
+<meta name="author" content="Maria Osipenko" />
+
+
+<meta name="date" content="2024-02-23" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="random-variables.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-goals-and-context"><i class="fa fa-check"></i>Course goals and context</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-goals"><i class="fa fa-check"></i>Course goals</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html"><i class="fa fa-check"></i><b>1</b> Random events and probability - a short review</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#outcomes-and-events"><i class="fa fa-check"></i><b>1.1</b> Outcomes and Events</a></li>
+<li class="chapter" data-level="1.2" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#probabilities"><i class="fa fa-check"></i><b>1.2</b> Probabilities</a>
+<ul>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#laplaces-probability-model"><i class="fa fa-check"></i>Laplace’s probability model</a></li>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#finite-probability-spaces"><i class="fa fa-check"></i>Finite probability spaces</a></li>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#calculating-with-probabilities"><i class="fa fa-check"></i>Calculating with probabilities</a></li>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#joint-and-conditional-probabilities-independence-of-events"><i class="fa fa-check"></i>Joint and conditional probabilities, independence of events</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#sampling-as-a-random-process"><i class="fa fa-check"></i><b>1.3</b> Sampling as a random process</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="random-variables.html"><a href="random-variables.html"><i class="fa fa-check"></i><b>2</b> Random variables</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="random-variables.html"><a href="random-variables.html#discrete-random-variable"><i class="fa fa-check"></i><b>2.1</b> Discrete random variable</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="random-variables.html"><a href="random-variables.html#probability-and-distribution-functions"><i class="fa fa-check"></i><b>2.1.1</b> Probability and distribution functions</a></li>
+<li class="chapter" data-level="2.1.2" data-path="random-variables.html"><a href="random-variables.html#expected-value-and-variance"><i class="fa fa-check"></i><b>2.1.2</b> Expected value and variance</a></li>
+<li class="chapter" data-level="2.1.3" data-path="random-variables.html"><a href="random-variables.html#covariance-and-correlation"><i class="fa fa-check"></i><b>2.1.3</b> Covariance and correlation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="random-variables.html"><a href="random-variables.html#continuous-random-variables"><i class="fa fa-check"></i><b>2.2</b> Continuous random variables</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="random-variables.html"><a href="random-variables.html#density-function"><i class="fa fa-check"></i><b>2.2.1</b> Density function</a></li>
+<li class="chapter" data-level="2.2.2" data-path="random-variables.html"><a href="random-variables.html#distribution-function-1"><i class="fa fa-check"></i><b>2.2.2</b> Distribution function</a></li>
+<li class="chapter" data-level="2.2.3" data-path="random-variables.html"><a href="random-variables.html#expected-value-and-variance-1"><i class="fa fa-check"></i><b>2.2.3</b> Expected value and variance</a></li>
+<li class="chapter" data-level="2.2.4" data-path="random-variables.html"><a href="random-variables.html#quantiles-of-continuous-random-variables"><i class="fa fa-check"></i><b>2.2.4</b> Quantiles of continuous random variables</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html"><i class="fa fa-check"></i><b>3</b> Some important distribution models</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#discrete-distributions"><i class="fa fa-check"></i><b>3.1</b> Discrete distributions</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#discrete-uniform-distribution"><i class="fa fa-check"></i><b>3.1.1</b> Discrete uniform distribution</a></li>
+<li class="chapter" data-level="3.1.2" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#bernoulli-distribution"><i class="fa fa-check"></i><b>3.1.2</b> Bernoulli distribution</a></li>
+<li class="chapter" data-level="3.1.3" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#binomial-distribution"><i class="fa fa-check"></i><b>3.1.3</b> Binomial distribution</a></li>
+<li class="chapter" data-level="3.1.4" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#geometric-distribution"><i class="fa fa-check"></i><b>3.1.4</b> Geometric distribution</a></li>
+<li class="chapter" data-level="3.1.5" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#poisson-distribution"><i class="fa fa-check"></i><b>3.1.5</b> Poisson distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#continuous-distributions"><i class="fa fa-check"></i><b>3.2</b> Continuous distributions</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#normal-distribution"><i class="fa fa-check"></i><b>3.2.1</b> Normal distribution</a></li>
+<li class="chapter" data-level="3.2.2" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#exponential-distribution"><i class="fa fa-check"></i><b>3.2.2</b> Exponential distribution</a></li>
+<li class="chapter" data-level="3.2.3" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#uniform-distribution"><i class="fa fa-check"></i><b>3.2.3</b> Uniform distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#further-distributions"><i class="fa fa-check"></i><b>3.3</b> Further distributions</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#chi2-distribution"><i class="fa fa-check"></i><b>3.3.1</b> <span class="math inline">\(\chi^2\)</span>-distribution</a></li>
+<li class="chapter" data-level="3.3.2" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#t-distribution"><i class="fa fa-check"></i><b>3.3.2</b> t-distribution</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="limit-theorems.html"><a href="limit-theorems.html"><i class="fa fa-check"></i><b>4</b> Limit theorems</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="limit-theorems.html"><a href="limit-theorems.html#strong-law-of-large-numbers"><i class="fa fa-check"></i><b>4.1</b> Strong law of large numbers 💪</a></li>
+<li class="chapter" data-level="4.2" data-path="limit-theorems.html"><a href="limit-theorems.html#central-limit-theorem"><i class="fa fa-check"></i><b>4.2</b> Central limit theorem</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="iii-inductive-statistics.html"><a href="iii-inductive-statistics.html"><i class="fa fa-check"></i>III Inductive Statistics</a></li>
+<li class="chapter" data-level="5" data-path="parameter-estimation.html"><a href="parameter-estimation.html"><i class="fa fa-check"></i><b>5</b> Parameter estimation</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#basic-ideas-of-inductive-statistics"><i class="fa fa-check"></i><b>5.1</b> Basic ideas of inductive statistics</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#parameter-estimation-theoretically"><i class="fa fa-check"></i><b>5.1.1</b> Parameter estimation theoretically</a></li>
+<li class="chapter" data-level="5.1.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#parameter-estimation-practically"><i class="fa fa-check"></i><b>5.1.2</b> Parameter estimation practically</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#point-estimation"><i class="fa fa-check"></i><b>5.2</b> Point estimation</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#estimation-functions"><i class="fa fa-check"></i><b>5.2.1</b> Estimation functions</a></li>
+<li class="chapter" data-level="5.2.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#properties-of-estimators"><i class="fa fa-check"></i><b>5.2.2</b> Properties of estimators</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="parameter-estimation.html"><a href="parameter-estimation.html#construction-of-estimators"><i class="fa fa-check"></i><b>5.3</b> Construction of estimators</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#method-of-moments"><i class="fa fa-check"></i><b>5.3.1</b> Method of moments</a></li>
+<li class="chapter" data-level="5.3.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#maximum-likelihood-method"><i class="fa fa-check"></i><b>5.3.2</b> Maximum likelihood method</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="parameter-estimation.html"><a href="parameter-estimation.html#interval-estimation"><i class="fa fa-check"></i><b>5.4</b> Interval estimation</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#alpha-confidence-interval-for-mu"><i class="fa fa-check"></i><b>5.4.1</b> <span class="math inline">\((1-\alpha)\)</span> confidence interval for <span class="math inline">\(\mu\)</span></a></li>
+<li class="chapter" data-level="5.4.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#alpha-confidence-interval-for-sigma2"><i class="fa fa-check"></i><b>5.4.2</b> <span class="math inline">\((1-\alpha)\)</span> confidence interval for <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="5.4.3" data-path="parameter-estimation.html"><a href="parameter-estimation.html#alpha-confidence-interval-for-probability-p"><i class="fa fa-check"></i><b>5.4.3</b> <span class="math inline">\((1-\alpha)\)</span> confidence interval for probability <span class="math inline">\(p\)</span></a></li>
+<li class="chapter" data-level="5.4.4" data-path="parameter-estimation.html"><a href="parameter-estimation.html#determining-n-based-on-the-length-of-confidence-intervals"><i class="fa fa-check"></i><b>5.4.4</b> Determining <span class="math inline">\(n\)</span> based on the length of confidence intervals</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>6</b> Hypothesis testing</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-basic-idea-of-statistical-testing"><i class="fa fa-check"></i><b>6.1</b> The basic idea of statistical testing</a></li>
+<li class="chapter" data-level="6.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hypothesis-tests-for-p"><i class="fa fa-check"></i><b>6.2</b> Hypothesis tests for <span class="math inline">\(p\)</span></a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-exact-binomial-test"><i class="fa fa-check"></i><b>6.2.1</b> The exact binomial test</a></li>
+<li class="chapter" data-level="6.2.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-approximate-binomial-test"><i class="fa fa-check"></i><b>6.2.2</b> The approximate binomial test</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hypothesis-tests-for-mu"><i class="fa fa-check"></i><b>6.3</b> Hypothesis tests for <span class="math inline">\(\mu\)</span></a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-gauss-test"><i class="fa fa-check"></i><b>6.3.1</b> The Gauss test</a></li>
+<li class="chapter" data-level="6.3.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-t-test"><i class="fa fa-check"></i><b>6.3.2</b> The <span class="math inline">\(t\)</span> test</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#type-1-and-type-2-errors"><i class="fa fa-check"></i><b>6.4</b> Type 1 and Type 2 errors</a></li>
+<li class="chapter" data-level="6.5" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#exceeding-probability-p-value"><i class="fa fa-check"></i><b>6.5</b> Exceeding probability: <span class="math inline">\(p\)</span> value</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="regression-analysis.html"><a href="regression-analysis.html"><i class="fa fa-check"></i><b>7</b> Regression analysis</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="regression-analysis.html"><a href="regression-analysis.html#linear-regression-model-from-descriptive-statistics"><i class="fa fa-check"></i><b>7.1</b> Linear regression model from descriptive Statistics</a></li>
+<li class="chapter" data-level="7.2" data-path="regression-analysis.html"><a href="regression-analysis.html#simple-linear-regression-from-a-probabilistic-perspective"><i class="fa fa-check"></i><b>7.2</b> Simple linear regression from a probabilistic perspective</a></li>
+<li class="chapter" data-level="7.3" data-path="regression-analysis.html"><a href="regression-analysis.html#estimating-testing-and-forecasting"><i class="fa fa-check"></i><b>7.3</b> Estimating, testing and forecasting</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="regression-analysis.html"><a href="regression-analysis.html#estimating-the-parameters-of-a-linear-regression-model"><i class="fa fa-check"></i><b>7.3.1</b> Estimating the parameters of a linear regression model</a></li>
+<li class="chapter" data-level="7.3.2" data-path="regression-analysis.html"><a href="regression-analysis.html#testing-in-linear-regression-model"><i class="fa fa-check"></i><b>7.3.2</b> Testing in linear regression model</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="regression-analysis.html"><a href="regression-analysis.html#forecast-in-linear-regression-models"><i class="fa fa-check"></i><b>7.4</b> Forecast in linear regression models</a></li>
+<li class="chapter" data-level="7.5" data-path="regression-analysis.html"><a href="regression-analysis.html#multivariate-linear-regression"><i class="fa fa-check"></i><b>7.5</b> Multivariate linear regression</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistics and Data Science Applications</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="random-events-and-probability---a-short-review" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">Chapter 1</span> Random events and probability - a short review<a href="random-events-and-probability---a-short-review.html#random-events-and-probability---a-short-review" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<!--In the first statistics course, you learned how to summarize, visualize and analyze the data from an **existing** sample (from a partial survey, i.e.) into one or more characteristics. However, our goal has not yet been achieved at this point, because what we should *really* strive for are valid **conclusions** about the distribution in the population based on this **sample realization**. It is currently not clear:
+
+- whether such conclusions are even permissible,
+- and if so, what do you have to take into account?
+- Which key figures from Part I provide information about which parameters of the population and
+- why did we calculate the key figures the way we calculated them? (where do the formulas come from?)
+
+In order to answer these and other questions in this regard, we must first understand how such a possible sample realization can be modeled as the result of a **random selection** from a population, i.e. a **random process**.
+-->
+<script>
+function checkAnswer_mmc(q) {
+      const selectedOptions = document.querySelectorAll('input[name="option'+q.id+'"]:checked');
+      if (selectedOptions.length === 2) {
+        const userAnswers = Array.from(selectedOptions).map(option => option.value);
+        const correctAnswers = q.answer;
+        const isCorrect = userAnswers.every(answer => correctAnswers.includes(answer));
+
+if (isCorrect) {
+          document.getElementById('result'+q.id).textContent = 'Congratulations! Your answer is correct.';
+        } else {
+          document.getElementById('result'+q.id).textContent = `Sorry, incorrect.`;
+        }
+      } else {
+        document.getElementById('result'+q.id).textContent = 'Please select two options.';
+      }
+    }
+// numeric
+function generateQuestion_num(id) {
+      // Generate two random numbers between 2 and 10
+      const num1 = Math.floor(Math.random() * 10) + 2;
+      const num2 = Math.floor(Math.random() * 10) + 2;
+      const x1 = Math.floor(Math.random() * 100) + 2;
+      const x2 = Math.floor(Math.random() * 100) + 2;
+      const x3 = Math.floor(Math.random() * 100) + 2;
+      const x4 = Math.floor(Math.random() * 100) + 2;
+      const x5 = Math.floor(Math.random() * 100) + 2;
+      const x6 = Math.floor(Math.random() * 100) + 2;
+
+       // Calculate the correct answer
+      let answer = num1*Math.sqrt(x1) + num2*Math.sqrt(x2);
+
+      // Return the question and answer as an object
+      return {
+       // question: num1 + "\\(\\sqrt{x}+\\)"+ num2 + "\\(\\sqrt{y}\\)" + " for \\(x=\\)" + x1 + " and \\(y=\\)" + x2,
+        question: [num1,num2,x1,x2,x3,x4,x5,x6],
+        answer: answer,
+        id: id
+      };
+    }
+
+function checkAnswer_num(q) {
+      const userAnswer = document.getElementById('answer'+q.id).value;
+      const isCorrect = Math.round(parseFloat(userAnswer)*100)/100 === Math.round(q.answer*100)/100;
+
+      if (isCorrect) {
+        document.getElementById('result'+q.id).textContent = 'Congratulations! Your answer is correct.';
+      } else {
+        document.getElementById('result'+q.id).textContent = `Sorry, incorrect.`;
+      }
+  }
+
+// plain multiple choice
+  function checkAnswer_match(q) {
+      const selectedOption = document.querySelector('input[name="option'+q.id+'"]:checked');
+      if (selectedOption) {
+        const userAnswer = selectedOption.value;
+        const isCorrect = userAnswer === q.answer;
+
+        if (isCorrect) {
+          document.getElementById('result'+q.id).textContent = 'Congratulations! Your answer is correct.';
+        } else {
+          document.getElementById('result'+q.id).textContent = `Sorry, incorrect.`;
+        }
+      } else {
+        document.getElementById('result'+q.id).textContent = 'Please select an option.';
+      }
+    }
+</script>
+<p>Probability theory describes <strong>random events</strong> such as:</p>
+<ul>
+<li>throwing a certain number when rolling the dice,</li>
+<li>having a positive return in a portfolio of stocks in fututre,</li>
+<li>future default of a borrower</li>
+<li>Online customer clicking or not on an ad</li>
+<li>…</li>
+</ul>
+<!--as well as sampling using suitable **stochastic models**. From a probabilistic perspective, the term  a **characteristic (Merkmal)** now corresponds to the new term **random variable**. As with characteristics and their empirical distributions, we are now primarily interested in modeling **distributions of random variables**.-->
+<hr />
+<p>In this chapter we review how to:</p>
+<ul>
+<li>Model random events using probabilities</li>
+<li>Calculate and interpret different kinds of probabilites: marginal, joint, and conditional ones</li>
+<li>Determine whether two events are independent or not</li>
+</ul>
+<hr />
+<p>We use the following very simple example to recall the basics of randomness and probability.</p>
+<div class="example">
+<p><span id="exm:roll123" class="example"><strong>Example 1.1  (rolling two dice with faces 1,2,3) </strong></span>We conduct the experiment: rolling two fair dice with the faces 1, 2 and 3 on two sides of each die.</p>
+<p><img src="images/dice.png" style="width:50.0%" /></p>
+<p>Different outcomes are possible:</p>
+<p><img src="images/outcome_dice1.png" style="width:30.0%" /> <img src="images/outcome_dice2.png" style="width:30.0%" /> <img src="images/outcome_dice3.png" style="width:30.0%" /></p>
+<p>Since we do not know the outcome prior to conducting the action, it is a <strong>random process</strong> or a <strong>random experiment</strong>, which outcomes we observe at the end.</p>
+</div>
+<div id="outcomes-and-events" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Outcomes and Events<a href="random-events-and-probability---a-short-review.html#outcomes-and-events" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Normally when modelling a random process, we are interested in certain <strong>outcomes</strong> of interest, which can be numbers, or more complex objects. The outcome should be a complete description of the end state of a random process, in the sense that everything we are interested in can be defined in terms of the single outcome denoted as <span class="math inline">\(\omega\)</span>. All possible outcomes are gathered in the sample space <span class="math inline">\(\Omega.\)</span></p>
+<div class="example">
+<p><span id="exm:roll1232" class="example"><strong>Example 1.2  (Outcomes and Sample space in rolling the dice twice) </strong></span>Example <a href="random-events-and-probability---a-short-review.html#exm:roll123">1.1</a> cont.</p>
+<ul>
+<li><p>The outcomes of folling the dice with faces 1,2,3 can be defined as a pair of two numbers <span class="math inline">\((a,b)\)</span> describing the faces shown as a result of the first (<span class="math inline">\(\color{red}a\)</span>) and of the second (<span class="math inline">\(\color{blue}b\)</span>) die:
+<span class="math display">\[(\color{red}2,\color{blue}3); (\color{red}3,\color{blue}3); (\color{red}1,\color{blue}2); \ldots\]</span></p></li>
+<li><p>Sample space (the collection of all possible outcomes):
+<span class="math display">\[\begin{align*}
+      \Omega &amp;= \{(1;1), (1;2), (1;3), (2;1),\ldots, (3;3)\}\\
+      &amp;=\{(a,b) | a,b\in \{1; 2; 3\}\},
+\end{align*}\]</span>
+where <span class="math inline">\(a=\text {result of the 1st throw}\)</span> and <span class="math inline">\(b=\text {result of the 2nd throw}\)</span></p></li>
+<li><p>The cardinality (the number of elements) of <span class="math inline">\(\Omega\)</span> is: <span class="math display">\[|\Omega| = \text{possibilities}^\text{number of repetitions} = 3^2=9.\]</span></p></li>
+</ul>
+</div>
+<p>Sometimes we are interested in a single outcome, but most of the time we favor a couple of outcomes with a certain property. For example, if we play a board game, where you win if you get the same number twice (outcomes <span class="math inline">\((1,1); (2,2); (3;3)\)</span>) or the sum of the faces is greater than four (outcomes <span class="math inline">\((2,3); (3,2); (3;3)\)</span>). Therefore, we define <strong>events</strong> which are sets of outcomes that we are interested in. We can think of an event as either:</p>
+<ul>
+<li>A statement that is either true or false</li>
+<li>A subset of the sample space</li>
+</ul>
+<p>These two concepts are equivalent, though the subset concept makes the math clearer.</p>
+<div class="example">
+<p><span id="exm:roll1233" class="example"><strong>Example 1.3  (Possible events in rolling the dice twice) </strong></span>Example <a href="random-events-and-probability---a-short-review.html#exm:roll1232">1.2</a> cont.</p>
+<p>Events:</p>
+<ul>
+<li><span class="math inline">\(A=\)</span>“The numbers on both dice are the same”: <span class="math display">\[A=\{(a,b)\in \Omega | a=b\} =\{(1;1), (2;2), (3;3)\}\]</span></li>
+</ul>
+<!--  - $A=$“The sum of both dice is 4”; formally: $A=\{(a,b)\in \Omega | a+b=4\} =$ $\{(1;3), (2;2), (3;1)\}$-->
+<ul>
+<li><span class="math inline">\(B=\)</span>“The numbers on both dice are odd”: <span class="math display">\[B=\{(a,b)\in \Omega | a, b \text{ odd}\} =\{(1;1), (1;3), (3;1), (3;3)\}\]</span></li>
+</ul>
+<!--  - $A\cup B=$“The sum of both dice is 4 or the numbers are odd”; formally: $A\cup B=\{(a,b)\in \Omega | a+b=4 \text{ or } a,b \text{ odd }\} =$ $\{(1;1), (1;3), (2;2), (3;1), ( 3;3)\}$-->
+<ul>
+<li><span class="math inline">\(A\cup B=\)</span>“The numbers on both dice are the same and /or the numbers are odd”: <span class="math display">\[A\cup B=\{(a,b)\in \Omega | a=b \text{ or } a,b \text{ odd }\} =\{(1;1), (1;3), (2;2), (3;1), ( 3;3)\}\]</span></li>
+</ul>
+<!--- $A\cap B=$“The sum of both dice is 4 and at the same time the numbers are odd”; formally: $A\cup B=\{(a,b)\in \Omega | a+b=4 \text{ and } a,b \text{ odd }\} =$ $\{(1;3), (3;1)\}$-->
+<ul>
+<li><p><span class="math inline">\(A\cup B=\)</span>“The numbers on both dice are the same and odd”: <span class="math display">\[A\cup B=\{(a,b)\in \Omega | a=b \text{ or } a,b \text{ odd }\} =\{(1;1), ( 3;3)\}\]</span></p></li>
+<li><p><span class="math inline">\(C=\)</span>“The sum of both dice faces is four”: <span class="math display">\[C=\{(a,b)\in\Omega| a+b=4\} =\{(1,3); (2,2); (3,1)\}\]</span></p></li>
+</ul>
+</div>
+<p>Beside the set operations <span class="math inline">\(\cup\)</span> and <span class="math inline">\(\cap\)</span> in example <a href="random-events-and-probability---a-short-review.html#exm:roll1233">1.3</a>, it is useful to state further possible relations between events, such as:</p>
+<ul>
+<li>A complement <span class="math inline">\(A^c\)</span> of an event <span class="math inline">\(A\)</span> contains all possible outcome from <span class="math inline">\(\Omega\)</span> which are <strong>not</strong> contained in <span class="math inline">\(A.\)</span>
+<ul>
+<li>The complement of the event “The numbers on both dice are odd” is the event “At least one number is even”.</li>
+<li>The complements of the event “The numbers on both dice are the same” is the event “The numbers on both dice are different”</li>
+</ul></li>
+<li>Two events are disjoint (<span class="math inline">\(A\cap B=\emptyset\)</span>) if they share no outcomes.
+<ul>
+<li>The events “The numbers on both dice are odd” and “The numbers on both dice are even” are disjoint.</li>
+</ul></li>
+<li>An event <span class="math inline">\(A\)</span> implies another event (<span class="math inline">\(A\subset B\)</span>) if all of its outcomes are also in the implied event <span class="math inline">\(B.\)</span>
+<ul>
+<li>The event “The numbers on both dice are even” implies the event “The sum of both dice is four”.</li>
+</ul></li>
+</ul>
+<hr />
+<p>All events for which a probability can be calculated are summarized in the <strong>event space</strong> <span class="math inline">\(\mathcal F\)</span>.</p>
+<ul>
+<li><p>Formally <span class="math inline">\(\mathcal F\)</span> is a set of subsets
+of <span class="math inline">\(\Omega\)</span>, i.e. a subset of the power set <span class="math inline">\(\mathcal P(\Omega)\)</span> (the set of all subsets).</p></li>
+<li><p>For a finite and countable set of outcomes, one usually chooses <span class="math inline">\(\mathcal F=\mathcal P(\Omega)\)</span>, since this event space then contains all events that can be defined for the random experiment at hand.</p></li>
+</ul>
+</div>
+<div id="probabilities" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Probabilities<a href="random-events-and-probability---a-short-review.html#probabilities" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Event probabilities quantify the <strong>uncertainty</strong> associated with the outcome of a random experiment. <strong>The probability measure</strong> assigns a number between <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span> to each event.</p>
+<p>For <span class="math inline">\(\omega\in\Omega\)</span> the map is called <span class="math inline">\(\omega\mapsto\mathbb P(\omega)\)</span> <strong>probability measure</strong>. For an event <span class="math inline">\(A\in \mathcal F\)</span>, the probability of <span class="math inline">\(A\)</span> is equal to the sum of the probabilities for the outcomes contained in <span class="math inline">\(A\)</span>:
+<span class="math display">\[\mathbb P(A) = \sum _{\omega \in A } \mathbb P(\omega).\]</span></p>
+<p>Any probability measure must satisfy <strong>Kolmogorov’s axioms</strong>:</p>
+<ul>
+<li><span class="math inline">\(\mathbb P(A)\geq 0\)</span>,</li>
+<li><span class="math inline">\(\mathbb P(\Omega )=1\)</span>,</li>
+<li>If <span class="math inline">\(A\cap B=\emptyset\)</span>, then <span class="math inline">\(\mathbb P(A\cup B)=\mathbb P(A)+\mathbb P(B)\)</span>.</li>
+</ul>
+<div id="laplaces-probability-model" class="section level3 unnumbered hasAnchor">
+<h3>Laplace’s probability model<a href="random-events-and-probability---a-short-review.html#laplaces-probability-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>With <span class="math inline">\((\Omega, \mathcal F,\mathbb P)\)</span> there is a <strong>Laplace model</strong> if
+the following conditions are met:</p>
+<ul>
+<li><p>The sample space <span class="math inline">\(\Omega\)</span> is finite and <strong>all outcomes are equally probable</strong>.</p></li>
+<li><p>The power set <span class="math inline">\(\mathcal P(\Omega)\)</span> is chosen as the <strong>event space</strong>, i.e. every subset <span class="math inline">\(A\subseteq \Omega\)</span> is an event.</p></li>
+</ul>
+<p>The <strong>probability of an event</strong> <span class="math inline">\(A\in \mathcal F\)</span> is then calculated by
+<span class="math display">\[\begin{equation*}
+    \mathbb P(A) = \frac{|A|}{|\Omega|} = \frac{\text{Number of outcomes favorable for $A$ to occur}} {\text{Number of all possible outcomes}}
+  \end{equation*}\]</span></p>
+<hr />
+<div class="example">
+<p><span id="exm:roll1234" class="example"><strong>Example 1.4  (roll the dice twice) </strong></span>Continuation of <a href="random-events-and-probability---a-short-review.html#exm:roll123">1.1</a> and <a href="random-events-and-probability---a-short-review.html#exm:roll1232">1.2</a>.</p>
+<p>In this experiment, the sample space is finite, the outcomes are equally likely and we can choose the power set of <span class="math inline">\(\Omega\)</span> as the event space. Consequently, Laplace’s probability model can be applied here.</p>
+<p><span class="math display">\[\begin{align}
+\mathbb P(A) &amp;= \frac{|A|}{|\Omega|}=\frac 39 = \frac 13,\\
+\mathbb P(B) &amp;= \frac{|B|}{|\Omega|}=\frac 49.
+\end{align}\]</span></p>
+</div>
+<hr />
+</div>
+<div id="finite-probability-spaces" class="section level3 unnumbered hasAnchor">
+<h3>Finite probability spaces<a href="random-events-and-probability---a-short-review.html#finite-probability-spaces" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The triple <span class="math inline">\((\Omega,\mathcal F,\mathbb P)\)</span> is a <strong>finite probability space</strong> if the following conditions are met:</p>
+<ul>
+<li><p>The result set <span class="math inline">\(\Omega\)</span> is finite.</p></li>
+<li><p>The power set <span class="math inline">\(\mathcal P(\Omega)\)</span> is chosen as the event set.</p></li>
+<li><p>The individual probabilities <span class="math inline">\(\mathbb P(\omega)\)</span> of all outcomes <span class="math inline">\(\omega\in\Omega\)</span> are non-negative and add up
+<span class="math inline">\(1\)</span>.</p></li>
+</ul>
+<p>The <strong>probability of an event</strong> <span class="math inline">\(A\subseteq \Omega\)</span> is then calculated by
+<span class="math display">\[\begin{equation*}
+        \mathbb P(A) = \sum _{\omega\in A} \mathbb P(\omega) = \text{Sum of all function values} \mathbb P(\omega)\text{ with } \omega\in A.
+\end{equation*}\]</span>
+If <span class="math inline">\(\mathbb P(\omega)=\displaystyle\frac{1}{N}\)</span> for all <span class="math inline">\(\omega\in\Omega=\{\omega_1, \ldots, \omega_N\}\)</span>, this is the special case of a Laplace model.</p>
+<hr />
+<div class="example">
+<p><span id="exm:roll1235" class="example"><strong>Example 1.5  (Sum of two dice) </strong></span>Continuation of <a href="random-events-and-probability---a-short-review.html#exm:roll123">1.1</a> and <a href="random-events-and-probability---a-short-review.html#exm:roll1234">1.4</a>.</p>
+<p>If we are now interested in the resulting sum of two dice instead of the resulting two numbers, the new probability space is:</p>
+<ul>
+<li><span class="math inline">\(\Omega = \{2;3;4;5;6\}\)</span>,</li>
+<li><span class="math inline">\(\mathcal F=\mathcal P(\Omega)\)</span>: we still choose the power set as the event space,</li>
+<li><span class="math inline">\(\mathbb P\)</span>:</li>
+</ul>
+<p><span class="math display">\[
+\begin{array}{c|ccccc}\omega_i&amp;2&amp;3&amp;4&amp;5&amp;6\\\hline
+\mathbb P(\{\omega_i\})&amp;\frac 19&amp;\frac 29&amp;\frac 39&amp;\frac 29&amp;\frac 19
+\end{array}
+\]</span></p>
+<p>In this new experiment, the sample space is still finite and the event space is the power set of <span class="math inline">\(\Omega\)</span>. Still, the outcomes are <strong>not equally likely</strong>. Consequently, the general finite probability space applies here.</p>
+<p>For the events <span class="math inline">\(S_{&gt;4}\)</span>: “The sum of the numbers is greater than 4” and <span class="math inline">\(S_{even}\)</span>: “The sum of the numbers is even” applies:</p>
+<p><span class="math display">\[\begin{align}
+\mathbb P(S_{&gt;4}) &amp;= \mathbb P(\{5\}) + \mathbb P(\{6\}) = \frac 13,\\
+\mathbb P(S_{even}) &amp;= \mathbb P(\{2\}) + \mathbb P(\{4\}) + \mathbb P(\{6\})=\frac 59.
+\end{align}\]</span></p>
+</div>
+</div>
+<div id="calculating-with-probabilities" class="section level3 unnumbered hasAnchor">
+<h3>Calculating with probabilities<a href="random-events-and-probability---a-short-review.html#calculating-with-probabilities" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The following properties of <span class="math inline">\(\mathbb P\)</span> hold in general models and facilitate the calculation of probabilities for complex events:</p>
+<ol style="list-style-type: decimal">
+<li><p><span class="math inline">\(\mathbb P(\emptyset)=0\)</span></p></li>
+<li><p><span class="math inline">\(A\subseteq B\)</span> <span class="math inline">\(\Rightarrow\)</span> <span class="math inline">\(\mathbb P(A)\leq \mathbb P(B)\)</span> and <span class="math inline">\(\mathbb P(B\setminus A)= \mathbb P(B)-\mathbb P( A)\)</span></p></li>
+<li><p><span class="math inline">\(\mathbb P(A^c) = 1-\mathbb P(A)\)</span></p></li>
+<li><p><span class="math inline">\(\mathbb P(A\cup B) = \mathbb P(A) + \mathbb P(B) - \mathbb P(A\cap B)\)</span></p></li>
+</ol>
+<!--5. $\mathbb P(A\cap B) = \mathbb P(A)\cdot\mathbb P(B),$ for independent events $A$ and $B$.-->
+<!--
+- $\mathbb P(A\cup B\cup C) = \mathbb P(A) + \mathbb P(B) + \mathbb P(C) - \mathbb P(A\cap B) -\mathbb P( A\cap C) - \mathbb P(B\cap C) + \mathbb P(A\cap B\cap C)$
+
+- $\mathbb P\left(\bigcup_{n=1}^N A_n\right) = \sum_{n=1}^N \mathbb P(A_n)$
+      for $A_1, \ldots, A_N$ pairwise disjoint
+
+- $\mathbb P\left(\bigcup_{n=1}^N A_n\right) \leq \sum_{n=1}^N\mathbb P(A_n)$
+-->
+<hr />
+<div class="example">
+<p><span id="exm:roll1236" class="example"><strong>Example 1.6  (Sum of two dice) </strong></span>Continuation of <a href="random-events-and-probability---a-short-review.html#exm:roll1235">1.5</a>.</p>
+<ul>
+<li><span class="math inline">\(\Omega = \{2;3;4;5;6\}\)</span>,</li>
+<li><span class="math inline">\(\mathcal F=\mathcal P(\Omega)\)</span>: we still choose the power set as the event space,</li>
+<li><span class="math inline">\(\mathbb P\)</span>:</li>
+</ul>
+<p><span class="math display">\[
+\begin{array}{c|ccccc}\omega_i&amp;2&amp;3&amp;4&amp;5&amp;6\\\hline
+\mathbb P(\{\omega_i\})&amp;\frac 19&amp;\frac 29&amp;\frac 39&amp;\frac 29&amp;\frac 19
+\end{array}
+\]</span>
+<!--The following applies: $S_{>4}: \text{the sum of the numbers is greater than 4}$ with $\mathbb P(S_{>4}) =\frac 13$, $S_{even}: \text{the The sum of the numbers is even}$ with $\mathbb P(S_{even}) =\frac 59.$--></p>
+<ul>
+<li>For <span class="math inline">\(S_{&gt;2}\)</span>:“The sum of two dice is greater than 2” applies:<span class="math display">\[S_{&gt;4}\subset S_{&gt;2}.\]</span> Hence with rule 2:</li>
+</ul>
+<p><span class="math display">\[\mathbb P(S_{&gt;2}\setminus S_{&gt;4})=\mathbb P(S_{&gt;2}) - \mathbb P(S_{&gt;4}) =\frac 89 - \frac 13 =\frac 59.\]</span></p>
+<ul>
+<li><p><span class="math inline">\(S_{&gt;4}^c = S_{\leq 4}\)</span>: “The sum of two dice is smaller or equal to 4” holds (rule 3):
+<span class="math display">\[\mathbb P(S_{\leq 4})=\mathbb P(S_{&gt;4}^c)=1-\mathbb P(S_{&gt;4}) = 1 - \frac 13=\frac 23.\]</span></p></li>
+<li><p>For <span class="math inline">\(S_{&gt;4}\cap S_{even}\)</span>: “The sum of the numbers is greater than 4 and even” applies:
+<span class="math display">\[\mathbb P(S_{&gt;4}\cap S_{even}) = \mathbb P(\{6\}) = \frac 19.\]</span></p></li>
+<li><p>For <span class="math inline">\(S_{&gt;4}\cup S_{even}\)</span>: “The sum of the numbers is greater than 4 or even” applies (rule 4):
+<span class="math display">\[\mathbb P(S_{&gt;4}\cup S_{even}) = \mathbb P(S_{&gt;4}) + \mathbb P(S_{even}) - \mathbb P(S_{&gt;4}\cap S_{even}) = \frac 13 + \frac 59 - \frac 19 = \frac 79.\]</span></p></li>
+</ul>
+</div>
+</div>
+<div id="joint-and-conditional-probabilities-independence-of-events" class="section level3 unnumbered hasAnchor">
+<h3>Joint and conditional probabilities, independence of events<a href="random-events-and-probability---a-short-review.html#joint-and-conditional-probabilities-independence-of-events" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="joint-probabilities" class="section level4 unnumbered hasAnchor">
+<h4>Joint probabilities<a href="random-events-and-probability---a-short-review.html#joint-probabilities" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The <strong>joint probability</strong> of two events <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> is the probability that <em>both</em> happen:</p>
+<p><span class="math display">\[\mathbb P(A\cap B).\]</span></p>
+<div class="example">
+<p><span id="exm:roll1237" class="example"><strong>Example 1.7  (Joint probabilities for two dice) </strong></span>Continuation of <a href="random-events-and-probability---a-short-review.html#exm:roll1234">1.4</a> and <a href="random-events-and-probability---a-short-review.html#exm:roll1235">1.5</a>.</p>
+<p>Consider the events:</p>
+<ul>
+<li><span class="math inline">\(S_4=\)</span>“The sum of the dice numbers is four”</li>
+<li><span class="math inline">\(B=\)</span>“The dice numbers are both odd”</li>
+</ul>
+<p><span class="math display">\[\mathbb P(S_4\cap B) = \mathbb P(\{(1,3); (3,1)\}) = \frac 29.\]</span></p>
+</div>
+<p>Joint probabilities are just probabilities, so they obey all of the axioms and rules of probability.</p>
+</div>
+<div id="conditional-probabilities" class="section level4 unnumbered hasAnchor">
+<h4>Conditional probabilities<a href="random-events-and-probability---a-short-review.html#conditional-probabilities" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The conditional probability of an event <span class="math inline">\(A\)</span> given another event <span class="math inline">\(B\)</span> is defined as:</p>
+<p><span class="math display">\[\mathbb P(A|B) = \frac{\mathbb P(A\cap B)}{\mathbb P(B)} = \frac{joint~probability}{probability~of~the~given~event}.\]</span></p>
+<p>The conditional probability answers the question: if we already know that <span class="math inline">\(B\)</span> is true, what are the chances that <span class="math inline">\(A\)</span> is true?</p>
+<div class="example">
+<p><span id="exm:roll123b" class="example"><strong>Example 1.8  (Conditional probabilities for two dice) </strong></span>Continuation of <a href="random-events-and-probability---a-short-review.html#exm:roll1237">1.7</a>.</p>
+<p>Consider the events:</p>
+<ul>
+<li><span class="math inline">\(S_4=\)</span>“The sum of the dice numbers is four”</li>
+<li><span class="math inline">\(B=\)</span>“The dice numbers are both odd”</li>
+</ul>
+<p><span class="math display">\[\mathbb P(S_4|B) = \frac{\mathbb P(S_4\cap B)}{\mathbb P(B)} = \frac{\frac 29}{\frac 49} = \frac 12.\]</span></p>
+</div>
+</div>
+<div id="independence-of-events" class="section level4 unnumbered hasAnchor">
+<h4>Independence of events<a href="random-events-and-probability---a-short-review.html#independence-of-events" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>If we assume that certain events are unrelated to each other, we say that the two events<br />
+are independent. Formally, <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are independend, if their joint probability is just the two individual probabilities multiplied together:</p>
+<p><span class="math display">\[\mathbb P(A\cap B) = \mathbb P(A)\cdot \mathbb P(B).\]</span></p>
+<p>This definition is based in the premise, that the conditional probability corresponds to the simple probability, if the two events are unrelated:</p>
+<p><span class="math display">\[\begin{align}\mathbb P(A|B) &amp;= \mathbb P(A)\Leftrightarrow\\
+\frac{\mathbb P(A\cap B)}{\mathbb P(B)} &amp;= \mathbb P(A)\Leftrightarrow\\
+\mathbb P(A\cap B) &amp;= \mathbb P(A)\cdot {\mathbb P(B)}
+\end{align}\]</span></p>
+<div class="example">
+<p><span id="exm:roll123abh" class="example"><strong>Example 1.9  (roll the dice twice) </strong></span>Continuation of <a href="random-events-and-probability---a-short-review.html#exm:roll123b">1.8</a>.</p>
+<p>In the experiment: rolling two fair dice, the defined events <span class="math inline">\(S_4\)</span> and <span class="math inline">\(B\)</span> are dependent, since:</p>
+<p><span class="math display">\[\begin{align}
+\mathbb P(S_4\cap B) &amp;=\frac 29\not = \frac 13\cdot\frac 49.
+\end{align}\]</span></p>
+<p>So, <span class="math inline">\(S_4\)</span> and <span class="math inline">\(B\)</span> are dependent. The same can be deduced from <span class="math inline">\(\mathbb P(S_4|B)=\frac 12\not=\frac 13=\mathbb P(S_4)\)</span>.</p>
+</div>
+<p>Now try to calculate some probabilities yourself!</p>
+<div id="q1" class="quiz">
+<p id="question">
+<span id="question-text1"></span>
+</p>
+<input type="number" id="answer1" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj1)">Submit</button>
+<p id="result1">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj1 = generateQuestion_num(1);
+// Display the question
+    document.getElementById('question-text1').textContent = "Assume you roll two fair dices with faces \\(1,2,3,4,5,6\\). Compute the probability of getting a sum of two dice equal or greater than \\(10.\\)";
+    questionObj1.answer = 6/36
+</script>
+<hr />
+<p id="question">
+<span id="question-text2"></span>
+</p>
+<input type="number" id="answer2" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj2)">Submit</button>
+<p id="result2">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj2 = generateQuestion_num(2);
+// Display the question
+    document.getElementById('question-text2').textContent = "Assume you roll two fair dices with faces \\(1,2,3,4,5,6\\). Compute the probability of getting a sum of two dice smaller than \\(10.\\)"
+    questionObj2.answer = 1-6/36
+</script>
+<hr />
+<p id="question">
+<span id="question-text3"></span>
+</p>
+<input type="number" id="answer3" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj3)">Submit</button>
+<p id="result3">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj3 = generateQuestion_num(3);
+// Display the question
+    document.getElementById('question-text3').textContent = "Assume you roll two fair dices with faces \\(1,2,3,4,5,6\\). Compute the probability of getting a sum of two dice equal to or greater than \\(10\\), when known that the first die shows the face with the number \\(5.\\)";
+    questionObj3.answer = 2/36/(6/36)
+</script>
+</div>
+</div>
+</div>
+</div>
+<div id="sampling-as-a-random-process" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> Sampling as a random process<a href="random-events-and-probability---a-short-review.html#sampling-as-a-random-process" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Now we will look at (somewhat simplified) examples of how sampling can be modeled as a random process.</p>
+<hr />
+<div class="example">
+<p><span id="exm:ziehungnutz" class="example"><strong>Example 1.10  (Random selection of customers) </strong></span>We first reconstruct the sampling mechanism in a simplified form.</p>
+<p>Suppose we have a total of <span class="math inline">\(5\)</span> customers (denoted as <span class="math inline">\(x_1\)</span> to <span class="math inline">\(x_5\)</span>) and select <span class="math inline">\(3\)</span> customers randomly and independently (we “put” the drawn customers back into the customer pot before we choose the next one, i.e. one and the other the same customer can appear multiple times).</p>
+<p><strong>How can one describe this random selection with an appropriate probability space?</strong></p>
+<ul>
+<li><p>The sample space (<span class="math inline">\(\leadsto\)</span> <span class="math inline">\(\Omega\)</span>): Outcomes are <strong>sample realizations</strong> or <strong>sample outcomes</strong>.
+<span class="math display">\[\begin{align}
+\Omega &amp;=\{(x_1,x_1,x_1),(x_1,x_2,x_2), \ldots, (x_1,x_2,x_3), \ldots, (x_5, x_2,x_4), \ldots, (x_5,x_5,x_5)\}\\
+|\Omega|&amp;=5^3 = 125.
+\end{align}\]</span></p></li>
+<li><p>Event space (since <span class="math inline">\(\Omega\)</span> is finite <span class="math inline">\(\leadsto\)</span> the power set):</p></li>
+</ul>
+<p><span class="math display">\[
+\mathcal F = \mathcal P(\Omega).
+\]</span></p>
+<ul>
+<li><p>Probabilities: every outcome is equally likely (we draw with replacement), i.e. <span class="math display">\[\mathbb P(\{(x_i,x_j,x_k)\} = \frac 1{|\Omega|} = \frac 1{125}.\]</span> So Laplace’s probability model applies.</p>
+<ul>
+<li><p>For <span class="math inline">\(A\)</span>: The combination of certain customers 1, 2 and 3 is selected (in different order), <span class="math inline">\(A = \{(x_1,x_2,x_3),(x_2,x_1,x_3),\ldots,(x_3,x_2,x_1) \}\)</span>) we have <span class="math inline">\(|A|=3!\)</span> (permutations) and <span class="math display">\[\mathbb P(A) = \frac{|A|}{|\Omega|} = \frac 6{125}.\]</span></p></li>
+<li><p>For <span class="math inline">\(B\)</span>: Customer 1 is randomly selected at least once, <span class="math inline">\(B = \{(x_1,x_1,x_1),\ldots, (x_5,x_1,x_2),\ldots, (x_5,x_5,x_1)\},\)</span>) we have <span class="math inline">\(\mathbb P(B) = 1-\mathbb P(B^c)\)</span> with <span class="math inline">\(|B^c|=4^3 = 64\)</span> (selecting out of four possibilities <span class="math inline">\(x_2,x_3,x_4\)</span> or <span class="math inline">\(x_5\)</span> three times.):
+<span class="math display">\[\mathbb P(B) = 1-\frac{|B^c|}{|\Omega|} = \frac {61}{125}.\]</span></p></li>
+</ul></li>
+</ul>
+<!--
+    - For $C$: Three **different** customers are chosen randomly (without repetition), $C = \{(x_1,x_2,x_3),(x_2,x_4,x_3),\ldots,(x_3,x_2,x_5)\},$) we have $|C|=\frac{5!}{(5-3)!} = 60$ and $\mathbb P(C) = \frac{|C|}{|\Omega|} = \frac {12}{25}.$-->
+</div>
+<hr />
+<!--
+(x1,x1,x1) = 1
+
+(x1,x1,2:5)
+(2:5,x1,x1)
+(x1,2:5,x1) = 3*4
+
+(x1,2:5,2:5)
+(2:5,x1,2:5)
+(2:5,2:5,x1) = 3*4*4
+
+= 61
+-->
+<p>For operational questions, it is less interesting which customers are specifically selected, but rather what characteristics they have. That’s why we’re modifying our modeling by looking at the specific feature “use of app or web interface”.</p>
+<hr />
+<div class="example">
+<p><span id="exm:ziehungapp" class="example"><strong>Example 1.11  (Random selection of customers: app vs web) </strong></span>Example <a href="random-events-and-probability---a-short-review.html#exm:ziehungnutz">1.10</a> cont.</p>
+<!--We had already looked at the feature “Use of app or web interface” by our customers (see \@ref(exm:nutz)). Now we recreate the sampling mechanism for this feature.-->
+<p>Assume that the distribution among the <span class="math inline">\(5\)</span> customers looks like this:</p>
+<p><span class="math display">\[
+\begin{array}{c|ccccc}\hline
+Customer~i&amp;1&amp;2&amp;3&amp;4&amp;5\\\hline
+Usage~a_i&amp;App&amp;Web&amp;App&amp;App&amp;Web\\\hline
+\end{array}
+\]</span>
+That is, <span class="math inline">\(\mathbb P(App) = 0.6\)</span> und <span class="math inline">\(\mathbb P(Web)=0.4.\)</span></p>
+<p><strong>What are the different sample outcomes, that we can draw, and what is their probability?</strong></p>
+<ul>
+<li>Sample space: <span class="math inline">\(x_i\)</span> gets the corresponding values (e.g. <span class="math inline">\(x_1=App\)</span>, <span class="math inline">\(x_2=Web\)</span>)</li>
+</ul>
+<p><span class="math display">\[\begin{align}
+\Omega &amp;= \{(App; App; App), (App; Web; Web),\ldots, (App; Web; App),\ldots, \\
+&amp;~~~~(Web; Web; App),\ldots,(Web; Web; Web) \}\\
+|\Omega|&amp;=5^3 = 125.
+\end{align}\]</span></p>
+<ul>
+<li><p>Event space: <span class="math inline">\(\mathcal F=\mathcal P(\Omega).\)</span></p></li>
+<li><p>Probability measure: equal probabilities</p></li>
+<li><p>Events:</p>
+<ul>
+<li><p><span class="math inline">\(A_3=\)</span> “all three selected customers are app users”: only customers 1, 3 and 4 may be selected <span class="math inline">\(\leadsto\)</span> <span class="math inline">\(|A_3|=3^3=27\)</span> and <span class="math display">\[\mathbb P(A_3)=\frac{27}{ 125}.\]</span></p></li>
+<li><p><span class="math inline">\(A_0=\)</span> “all three selected customers are web users”: only customers 2 and 5 may be selected <span class="math inline">\(\leadsto\)</span> <span class="math inline">\(|A_0|=2^3=8\)</span> and <span class="math display">\[\mathbb P(A)=\frac{8}{125}.\]</span></p></li>
+<li><p><span class="math inline">\(A_1=\)</span> “only one of the selected customers uses the app”: one place is occupied by customer 1, 3 or 4 (three cases times three possible placements); two other places - by customers 2 or 5 (select out of two possibilities two times) <span class="math inline">\(\leadsto\)</span> <span class="math inline">\(|A_1|=3\cdot 3\cdot 2^2=36\)</span> and <span class="math display">\[\mathbb P(A_1)=\frac{36}{125}.\]</span></p></li>
+<li><p><span class="math inline">\(A_2=\)</span> “two of the selected customers use the app” <span class="math inline">\(\leadsto\)</span> <span class="math inline">\(\mathbb P(A_2)=1-\mathbb P(A_2^c) = 1-(P(A_0) + P(A_1) + P(A_3)) = 1-\frac{71}{125} = \frac{54}{125}.\)</span></p></li>
+</ul></li>
+</ul>
+<p><strong>What do you expect on average (across all sample results)?</strong></p>
+<p><span class="math display">\[
+0\cdot \frac{8}{125} + 1\cdot \frac{36}{125}+2\cdot \frac{54}{125}+3\cdot \frac{27}{125} = 1.8
+\]</span>
+or as a share <span class="math inline">\(\frac{1.8}{3}=0.6\)</span> <span class="math inline">\(\leadsto\)</span> so on average we have the same share (60%) of app users as in the entire customer base!</p>
+</div>
+<hr />
+<p>Sometimes two or more features are of interest: in our example it will be the “Number of orders” which we now model in the context of an additional feature “Usage of app or web interface”. What happens when a sample with respect to the both characteristics is taken?</p>
+<hr />
+<div class="example">
+<p><span id="exm:ziehungbest" class="example"><strong>Example 1.12  (Orders and Usage) </strong></span>Here too, let’s simplify things a bit and assume that we already know the <strong>joint probabilities</strong>. Now we randomly select user accounts and determine how many orders were made and via which system (app or web) they were made.</p>
+<p><strong>What different sample results and with what probability can we draw?</strong></p>
+<ul>
+<li>Sample space:</li>
+</ul>
+<p><span class="math display">\[\begin{align}
+\Omega &amp;= \{(App; 1), (App; 2),\ldots, (App; 6),\ldots, \\
+&amp;~~~~(Web;1),\ldots,(Web; 6) \}\\
+|\Omega|&amp;=2\cdot 6=12.
+\end{align}\]</span></p>
+<ul>
+<li><p>Event space: <span class="math inline">\(\mathcal F=\mathcal P(\Omega).\)</span></p></li>
+<li><p>Probability measure: (assuming we know the joint probabilities):</p></li>
+</ul>
+<p><span class="math display">\[
+\begin{array}{c|cccccc}
+\mathbb P((a_i,b_i))&amp;b_1=1&amp;b_2=2&amp;b_3=3&amp;b_4=4&amp;b_5=5&amp;b_6=6\\\hline
+a_1=App&amp;0.02&amp;0.06&amp;0.12&amp;0.2&amp;0.12&amp;0.08\\
+a_2=Web&amp;0.08&amp;0.09&amp;0.13&amp;0.05&amp;0.03&amp;0.02\\
+\end{array}
+\]</span></p>
+<ul>
+<li><p>Events:</p>
+<ul>
+<li><p><span class="math inline">\(A_1 =\)</span> Orders via app <span class="math inline">\(\leadsto\)</span>
+<span class="math display">\[\begin{align}\mathbb P(A_1)&amp;=\mathbb P((App;1),\ldots,(App;6)) =\\&amp;~~0.02 + \ldots + 0.08 = 0.6.\end{align}\]</span></p></li>
+<li><p><span class="math inline">\(B_{\geq 3}=\)</span> Min. 3 orders <span class="math inline">\(\leadsto\)</span>
+<span class="math display">\[\begin{align}\mathbb P(B_{\geq 3})&amp;=\mathbb P((App;3),\ldots,(App;6),(Web;3),\ldots,(Web;6 )) =\\&amp;~~0.12 + \ldots + 0.08 + 0.13 + \ldots + 0.02 = 0.75.\end{align}\]</span></p></li>
+<li><p><span class="math inline">\(A_1\cap B_{\geq 3}=\)</span> Min. 3 orders via app <span class="math inline">\(\leadsto\)</span> <span class="math inline">\(A_1\cap B_{\geq 3}=\{(App;3),(App;4),(App;5),(App;6)\}\)</span>
+<span class="math display">\[\begin{align}\mathbb P(A_1\cap B_{\geq 3})&amp;=\mathbb P((App;3),(App;4),(App;5),(App;6)) = \\&amp;~~0.12 + 0.2 + 0.12 + 0.08 = 0.52.\end{align}\]</span></p></li>
+</ul></li>
+</ul>
+</div>
+<hr />
+<!--
+## Rückblick{-}
+
+
+```{=html}
+<iframe title="Wortwolke" src="http://learning-dashboard.lehre.hwr-berlin.de:3838/Apps_RBook/#section-wortwolke" width="760" height="600"></iframe>
+```
+-->
+<p>When analyzing customer characteristics, it is often necessary to model probabilities conditioned on certain characteristic. For example, if it is known that a randomly selected customer uses the app, how many orders per month could you expect from that customer?</p>
+<div class="example">
+<p><span id="exm:ziehungbed" class="example"><strong>Example 1.13  (Orders and Usage) </strong></span>Example <a href="random-events-and-probability---a-short-review.html#exm:ziehungbest">1.12</a> cont.</p>
+<p>We assume that we already know the <strong>joint probabilities</strong>.</p>
+<p><strong>What is the distribution of the number of orders among app users?</strong></p>
+<ul>
+<li>Result set:</li>
+</ul>
+<p><span class="math display">\[\begin{align}
+\Omega &amp;= \{(App; 1), (App; 2),\ldots, (App; 6),\ldots, \\
+&amp;~~~~(Web;1),\ldots,(Web; 6) \}\\
+|\Omega|&amp;=12.
+\end{align}\]</span></p>
+<ul>
+<li><p>Event space: <span class="math inline">\(\mathcal F=\mathcal P(\Omega).\)</span></p></li>
+<li><p>Probability measure: (assuming we know the joint probabilities)</p></li>
+</ul>
+<p><span class="math display" id="eq:vertab">\[\begin{equation}
+\begin{array}{c|cccccc}
+\mathbb P((a_i,b_i))&amp;b_1=1&amp;b_2=2&amp;b_3=3&amp;b_4=4&amp;b_5=5&amp;b_6=6\\\hline
+a_1=App&amp;0,02&amp;0,06&amp;0,12&amp;0,2&amp;0,12&amp;0,08\\
+a_2=Web&amp;0,08&amp;0,09&amp;0,13&amp;0,05&amp;0,03&amp;0,02\\
+\end{array} \tag{1.1}
+\end{equation}\]</span></p>
+<ul>
+<li><p>Events:</p>
+<ul>
+<li><p><span class="math inline">\(A_1 =\)</span> Use of the app:
+<span class="math display">\[\begin{align}\mathbb P(A_1)&amp;= 0,6.\end{align}\]</span></p></li>
+<li><p><span class="math inline">\(B_{i}=\)</span> number of orders <span class="math inline">\(=i\)</span> <span class="math inline">\(\leadsto\)</span>
+<span class="math display">\[\begin{align}\mathbb P(B_{i})&amp;=\mathbb P((App;i),(Web;i)):\end{align}\]</span>
+<span class="math display">\[
+  \begin{array}{c|cccccc}
+  i&amp;1&amp;2&amp;3&amp;4&amp;5&amp;6\\\hline
+  \mathbb P(B_i) &amp;0,1&amp;0,15&amp;0,25&amp;0,25&amp;0,15&amp;0,1
+  \end{array}
+\]</span></p></li>
+<li><p><span class="math inline">\(A_1\cap B_{i}=\)</span> <span class="math inline">\(i\)</span> Orders via app <span class="math inline">\(\leadsto\)</span> <span class="math inline">\(A_1\cap B_{i}=\{(App;i),(App;i),(App;i), (App;i)\}\)</span>
+<span class="math display">\[\begin{align}\mathbb P(A_1\cap B_{i})&amp;=\mathbb P((App;i)).\end{align}\]</span>
+<span class="math inline">\(\leadsto\)</span> first line in <a href="random-events-and-probability---a-short-review.html#eq:vertab">(1.1)</a>.</p></li>
+</ul></li>
+<li><p>Conditional distribution of <span class="math inline">\(B_i\)</span> given <span class="math inline">\(A_1\)</span> is (<span class="math inline">\(\mathbb P(B_i|A_1 = \frac{\mathbb P(A_1\cap B_{i})}{\mathbb P(A_1)}\)</span>):
+<span class="math display">\[
+  \begin{array}{c|cccccc}
+  i&amp;1&amp;2&amp;3&amp;4&amp;5&amp;6\\\hline
+  \mathbb P(B_i|A_1) &amp;0,0333&amp;0,1&amp;0,2&amp;0,3333&amp;0,2&amp;0,1333
+  \end{array}
+\]</span></p></li>
+</ul>
+<p><strong>So what average number of orders do we expect from app users?</strong></p>
+<p><span class="math display">\[
+1\cdot 0,0333 + 2\cdot 0,1 + 3\cdot 0,2 + 4\cdot 0,3333 + 5\cdot 0,2 + 6\cdot 0,1333 = 3,9663
+\]</span></p>
+<p><strong>…and from web users?</strong></p>
+</div>
+<hr />
+<div class="exercise">
+<p><span id="exr:unlabeled-div-1" class="exercise"><strong>Exercise 1.1  (average number of orders) </strong></span></p>
+<iframe title="Aufgabe_Bestellungen" src="./htmls/aufgabe_mittlere_anzahl_bestellungen.html" width="700" height="440"></iframe>
+</div>
+<hr />
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="random-variables.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/01-Probability.rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 7 Regression analysis | Statistics and Data Science Applications</title>
+  <meta name="description" content="This is the script for the course." />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 7 Regression analysis | Statistics and Data Science Applications" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is the script for the course." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 7 Regression analysis | Statistics and Data Science Applications" />
+  
+  <meta name="twitter:description" content="This is the script for the course." />
+  
+
+<meta name="author" content="Maria Osipenko" />
+
+
+<meta name="date" content="2024-02-23" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="hypothesis-testing.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-goals-and-context"><i class="fa fa-check"></i>Course goals and context</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-goals"><i class="fa fa-check"></i>Course goals</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html"><i class="fa fa-check"></i><b>1</b> Random events and probability - a short review</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#outcomes-and-events"><i class="fa fa-check"></i><b>1.1</b> Outcomes and Events</a></li>
+<li class="chapter" data-level="1.2" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#probabilities"><i class="fa fa-check"></i><b>1.2</b> Probabilities</a>
+<ul>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#laplaces-probability-model"><i class="fa fa-check"></i>Laplace’s probability model</a></li>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#finite-probability-spaces"><i class="fa fa-check"></i>Finite probability spaces</a></li>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#calculating-with-probabilities"><i class="fa fa-check"></i>Calculating with probabilities</a></li>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#joint-and-conditional-probabilities-independence-of-events"><i class="fa fa-check"></i>Joint and conditional probabilities, independence of events</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#sampling-as-a-random-process"><i class="fa fa-check"></i><b>1.3</b> Sampling as a random process</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="random-variables.html"><a href="random-variables.html"><i class="fa fa-check"></i><b>2</b> Random variables</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="random-variables.html"><a href="random-variables.html#discrete-random-variable"><i class="fa fa-check"></i><b>2.1</b> Discrete random variable</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="random-variables.html"><a href="random-variables.html#probability-and-distribution-functions"><i class="fa fa-check"></i><b>2.1.1</b> Probability and distribution functions</a></li>
+<li class="chapter" data-level="2.1.2" data-path="random-variables.html"><a href="random-variables.html#expected-value-and-variance"><i class="fa fa-check"></i><b>2.1.2</b> Expected value and variance</a></li>
+<li class="chapter" data-level="2.1.3" data-path="random-variables.html"><a href="random-variables.html#covariance-and-correlation"><i class="fa fa-check"></i><b>2.1.3</b> Covariance and correlation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="random-variables.html"><a href="random-variables.html#continuous-random-variables"><i class="fa fa-check"></i><b>2.2</b> Continuous random variables</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="random-variables.html"><a href="random-variables.html#density-function"><i class="fa fa-check"></i><b>2.2.1</b> Density function</a></li>
+<li class="chapter" data-level="2.2.2" data-path="random-variables.html"><a href="random-variables.html#distribution-function-1"><i class="fa fa-check"></i><b>2.2.2</b> Distribution function</a></li>
+<li class="chapter" data-level="2.2.3" data-path="random-variables.html"><a href="random-variables.html#expected-value-and-variance-1"><i class="fa fa-check"></i><b>2.2.3</b> Expected value and variance</a></li>
+<li class="chapter" data-level="2.2.4" data-path="random-variables.html"><a href="random-variables.html#quantiles-of-continuous-random-variables"><i class="fa fa-check"></i><b>2.2.4</b> Quantiles of continuous random variables</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html"><i class="fa fa-check"></i><b>3</b> Some important distribution models</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#discrete-distributions"><i class="fa fa-check"></i><b>3.1</b> Discrete distributions</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#discrete-uniform-distribution"><i class="fa fa-check"></i><b>3.1.1</b> Discrete uniform distribution</a></li>
+<li class="chapter" data-level="3.1.2" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#bernoulli-distribution"><i class="fa fa-check"></i><b>3.1.2</b> Bernoulli distribution</a></li>
+<li class="chapter" data-level="3.1.3" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#binomial-distribution"><i class="fa fa-check"></i><b>3.1.3</b> Binomial distribution</a></li>
+<li class="chapter" data-level="3.1.4" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#geometric-distribution"><i class="fa fa-check"></i><b>3.1.4</b> Geometric distribution</a></li>
+<li class="chapter" data-level="3.1.5" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#poisson-distribution"><i class="fa fa-check"></i><b>3.1.5</b> Poisson distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#continuous-distributions"><i class="fa fa-check"></i><b>3.2</b> Continuous distributions</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#normal-distribution"><i class="fa fa-check"></i><b>3.2.1</b> Normal distribution</a></li>
+<li class="chapter" data-level="3.2.2" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#exponential-distribution"><i class="fa fa-check"></i><b>3.2.2</b> Exponential distribution</a></li>
+<li class="chapter" data-level="3.2.3" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#uniform-distribution"><i class="fa fa-check"></i><b>3.2.3</b> Uniform distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#further-distributions"><i class="fa fa-check"></i><b>3.3</b> Further distributions</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#chi2-distribution"><i class="fa fa-check"></i><b>3.3.1</b> <span class="math inline">\(\chi^2\)</span>-distribution</a></li>
+<li class="chapter" data-level="3.3.2" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#t-distribution"><i class="fa fa-check"></i><b>3.3.2</b> t-distribution</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="limit-theorems.html"><a href="limit-theorems.html"><i class="fa fa-check"></i><b>4</b> Limit theorems</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="limit-theorems.html"><a href="limit-theorems.html#strong-law-of-large-numbers"><i class="fa fa-check"></i><b>4.1</b> Strong law of large numbers 💪</a></li>
+<li class="chapter" data-level="4.2" data-path="limit-theorems.html"><a href="limit-theorems.html#central-limit-theorem"><i class="fa fa-check"></i><b>4.2</b> Central limit theorem</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="iii-inductive-statistics.html"><a href="iii-inductive-statistics.html"><i class="fa fa-check"></i>III Inductive Statistics</a></li>
+<li class="chapter" data-level="5" data-path="parameter-estimation.html"><a href="parameter-estimation.html"><i class="fa fa-check"></i><b>5</b> Parameter estimation</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#basic-ideas-of-inductive-statistics"><i class="fa fa-check"></i><b>5.1</b> Basic ideas of inductive statistics</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#parameter-estimation-theoretically"><i class="fa fa-check"></i><b>5.1.1</b> Parameter estimation theoretically</a></li>
+<li class="chapter" data-level="5.1.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#parameter-estimation-practically"><i class="fa fa-check"></i><b>5.1.2</b> Parameter estimation practically</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#point-estimation"><i class="fa fa-check"></i><b>5.2</b> Point estimation</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#estimation-functions"><i class="fa fa-check"></i><b>5.2.1</b> Estimation functions</a></li>
+<li class="chapter" data-level="5.2.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#properties-of-estimators"><i class="fa fa-check"></i><b>5.2.2</b> Properties of estimators</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="parameter-estimation.html"><a href="parameter-estimation.html#construction-of-estimators"><i class="fa fa-check"></i><b>5.3</b> Construction of estimators</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#method-of-moments"><i class="fa fa-check"></i><b>5.3.1</b> Method of moments</a></li>
+<li class="chapter" data-level="5.3.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#maximum-likelihood-method"><i class="fa fa-check"></i><b>5.3.2</b> Maximum likelihood method</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="parameter-estimation.html"><a href="parameter-estimation.html#interval-estimation"><i class="fa fa-check"></i><b>5.4</b> Interval estimation</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#alpha-confidence-interval-for-mu"><i class="fa fa-check"></i><b>5.4.1</b> <span class="math inline">\((1-\alpha)\)</span> confidence interval for <span class="math inline">\(\mu\)</span></a></li>
+<li class="chapter" data-level="5.4.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#alpha-confidence-interval-for-sigma2"><i class="fa fa-check"></i><b>5.4.2</b> <span class="math inline">\((1-\alpha)\)</span> confidence interval for <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="5.4.3" data-path="parameter-estimation.html"><a href="parameter-estimation.html#alpha-confidence-interval-for-probability-p"><i class="fa fa-check"></i><b>5.4.3</b> <span class="math inline">\((1-\alpha)\)</span> confidence interval for probability <span class="math inline">\(p\)</span></a></li>
+<li class="chapter" data-level="5.4.4" data-path="parameter-estimation.html"><a href="parameter-estimation.html#determining-n-based-on-the-length-of-confidence-intervals"><i class="fa fa-check"></i><b>5.4.4</b> Determining <span class="math inline">\(n\)</span> based on the length of confidence intervals</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>6</b> Hypothesis testing</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-basic-idea-of-statistical-testing"><i class="fa fa-check"></i><b>6.1</b> The basic idea of statistical testing</a></li>
+<li class="chapter" data-level="6.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hypothesis-tests-for-p"><i class="fa fa-check"></i><b>6.2</b> Hypothesis tests for <span class="math inline">\(p\)</span></a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-exact-binomial-test"><i class="fa fa-check"></i><b>6.2.1</b> The exact binomial test</a></li>
+<li class="chapter" data-level="6.2.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-approximate-binomial-test"><i class="fa fa-check"></i><b>6.2.2</b> The approximate binomial test</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hypothesis-tests-for-mu"><i class="fa fa-check"></i><b>6.3</b> Hypothesis tests for <span class="math inline">\(\mu\)</span></a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-gauss-test"><i class="fa fa-check"></i><b>6.3.1</b> The Gauss test</a></li>
+<li class="chapter" data-level="6.3.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-t-test"><i class="fa fa-check"></i><b>6.3.2</b> The <span class="math inline">\(t\)</span> test</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#type-1-and-type-2-errors"><i class="fa fa-check"></i><b>6.4</b> Type 1 and Type 2 errors</a></li>
+<li class="chapter" data-level="6.5" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#exceeding-probability-p-value"><i class="fa fa-check"></i><b>6.5</b> Exceeding probability: <span class="math inline">\(p\)</span> value</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="regression-analysis.html"><a href="regression-analysis.html"><i class="fa fa-check"></i><b>7</b> Regression analysis</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="regression-analysis.html"><a href="regression-analysis.html#linear-regression-model-from-descriptive-statistics"><i class="fa fa-check"></i><b>7.1</b> Linear regression model from descriptive Statistics</a></li>
+<li class="chapter" data-level="7.2" data-path="regression-analysis.html"><a href="regression-analysis.html#simple-linear-regression-from-a-probabilistic-perspective"><i class="fa fa-check"></i><b>7.2</b> Simple linear regression from a probabilistic perspective</a></li>
+<li class="chapter" data-level="7.3" data-path="regression-analysis.html"><a href="regression-analysis.html#estimating-testing-and-forecasting"><i class="fa fa-check"></i><b>7.3</b> Estimating, testing and forecasting</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="regression-analysis.html"><a href="regression-analysis.html#estimating-the-parameters-of-a-linear-regression-model"><i class="fa fa-check"></i><b>7.3.1</b> Estimating the parameters of a linear regression model</a></li>
+<li class="chapter" data-level="7.3.2" data-path="regression-analysis.html"><a href="regression-analysis.html#testing-in-linear-regression-model"><i class="fa fa-check"></i><b>7.3.2</b> Testing in linear regression model</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="regression-analysis.html"><a href="regression-analysis.html#forecast-in-linear-regression-models"><i class="fa fa-check"></i><b>7.4</b> Forecast in linear regression models</a></li>
+<li class="chapter" data-level="7.5" data-path="regression-analysis.html"><a href="regression-analysis.html#multivariate-linear-regression"><i class="fa fa-check"></i><b>7.5</b> Multivariate linear regression</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistics and Data Science Applications</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="regression-analysis" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">Chapter 7</span> Regression analysis<a href="regression-analysis.html#regression-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<script>
+function checkAnswer_mmc(q) {
+      const selectedOptions = document.querySelectorAll('input[name="option'+q.id+'"]:checked');
+      if (selectedOptions.length === 2) {
+        const userAnswers = Array.from(selectedOptions).map(option => option.value);
+        const correctAnswers = q.answer;
+        const isCorrect = userAnswers.every(answer => correctAnswers.includes(answer));
+
+if (isCorrect) {
+          document.getElementById('result'+q.id).textContent = 'Congratulations! Your answer is correct.';
+          document.getElementById('result'+q.id).style.color = "green";
+        } else {
+          document.getElementById('result'+q.id).textContent = `Sorry, incorrect.`;
+          document.getElementById('result'+q.id).style.color = "red";
+        }
+      } else {
+        document.getElementById('result'+q.id).textContent = 'Please select two options.';
+      }
+    }
+// numeric
+function generateQuestion_num(id) {
+      // Generate two random numbers between 2 and 10
+      const num1 = Math.floor(Math.random() * 10) + 2;
+      const num2 = Math.floor(Math.random() * 10) + 2;
+      const x1 = Math.floor(Math.random() * 100) + 2;
+      const x2 = Math.floor(Math.random() * 100) + 2;
+      const x3 = Math.floor(Math.random() * 100) + 2;
+      const x4 = Math.floor(Math.random() * 100) + 2;
+      const x5 = Math.floor(Math.random() * 100) + 2;
+      const x6 = Math.floor(Math.random() * 100) + 2;
+
+       // Calculate the correct answer
+      let answer = num1*Math.sqrt(x1) + num2*Math.sqrt(x2);
+
+      // Return the question and answer as an object
+      return {
+       // question: num1 + "\\(\\sqrt{x}+\\)"+ num2 + "\\(\\sqrt{y}\\)" + " for \\(x=\\)" + x1 + " and \\(y=\\)" + x2,
+        question: [num1,num2,x1,x2,x3,x4,x5,x6],
+        answer: answer,
+        id: id
+      };
+    }
+
+function checkAnswer_num(q) {
+      const userAnswer = document.getElementById('answer'+q.id).value;
+      const isCorrect = Math.round(parseFloat(userAnswer)*100)/100 === Math.round(q.answer*100)/100;
+
+      if (isCorrect) {
+        document.getElementById('result'+q.id).textContent = 'Congratulations! Your answer is correct.';
+        document.getElementById('result'+q.id).style.color = "green";
+      } else {
+        document.getElementById('result'+q.id).textContent = `Sorry, incorrect.`;
+        document.getElementById('result'+q.id).style.color = "red";
+      }
+  }
+
+// plain multiple choice
+  function checkAnswer_match(q) {
+      const selectedOption = document.querySelector('input[name="option'+q.id+'"]:checked');
+      if (selectedOption) {
+        const userAnswer = selectedOption.value;
+        const isCorrect = userAnswer === q.answer;
+
+        if (isCorrect) {
+          document.getElementById('result'+q.id).textContent = 'Congratulations! Your answer is correct.';
+          document.getElementById('result'+q.id).style.color = "green";
+        } else {
+          document.getElementById('result'+q.id).textContent = `Sorry, incorrect.`;
+          document.getElementById('result'+q.id).style.color = "red";
+        }
+      } else {
+        document.getElementById('result'+q.id).textContent = 'Please select an option.';
+      }
+    }
+</script>
+<p>Now we can apply both interval estimation techniques and hypothesis testing in the context of linear regression.</p>
+<hr />
+<p>In this chapter we will learn:</p>
+<ul>
+<li>How to analyze the linear regression model from a probabilistic perspective,</li>
+<li>how to carry out <strong>interval estimation</strong> or <strong>hypothesis testing</strong> for the coefficients and</li>
+<li>how to make a <strong>prediction</strong>..</li>
+</ul>
+<hr />
+<div id="linear-regression-model-from-descriptive-statistics" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Linear regression model from descriptive Statistics<a href="regression-analysis.html#linear-regression-model-from-descriptive-statistics" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p>For two metric features, <span class="math inline">\(Y\)</span> and <span class="math inline">\(X\)</span>, the following relationship postulates
+<strong>linear regression model</strong>:
+<span class="math display">\[\begin{equation*}
+    Y=\alpha + \beta X.
+\end{equation*}\]</span></p></li>
+<li><p>Given <span class="math inline">\(n\)</span> observations <span class="math inline">\((y_i,x_i)\)</span>, <span class="math inline">\(i=1,\ldots, n\)</span>, (of two
+features <span class="math inline">\(Y\)</span> and <span class="math inline">\(X\)</span>) the following system of equations is set up:
+<span class="math display">\[\begin{equation*}
+    y_i = \alpha + \beta\, x_i + \varepsilon_i,\quad i=1,\ldots, n,
+\end{equation*}\]</span>
+where <span class="math inline">\(\varepsilon_1, \ldots, \varepsilon_n\)</span> are <strong>error terms</strong>, which
+are chosen so that equality applies.</p></li>
+<li><p>The coefficients <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> are calculated using the method
+of least squares, which is determined by:
+<span class="math display">\[\begin{equation*}
+    \sum_{i=1}^n \varepsilon_i^2 = \sum_{i=1}^n (y_i - (\alpha+\beta\,
+    x_i))^2 \quad\rightarrow\quad \text{minimum}.
+\end{equation*}\]</span></p></li>
+</ul>
+<div class="example">
+<p><span id="exm:linreg" class="example"><strong>Example 7.1  (Forecasting the number of orders) </strong></span>We have already seen, that app usage and number of orders are positively associated to each other (see example <a href="random-variables.html#exm:ziehungbestKov">2.5</a>) Plus we have a strong feeling, that time spent in shop could be a driver for the number of orders. So now we would like to forecast the average number of orders in the next six months using the information on app usage and time spend in shop via a linear regression model:</p>
+<p><span class="math display">\[Y\approx \alpha + \beta X,\]</span></p>
+<p>where <span class="math inline">\(Y\)</span> is the average number of orders, <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> are some numbers, and <span class="math inline">\(X\)</span> contains a binary variable for the app usage (with values eighter <span class="math inline">\(0\)</span> (no app) or <span class="math inline">\(1\)</span> (app)) and the time spent in shop.</p>
+<p>If we can estimate <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> from the data, we would be able to compute <span class="math inline">\(Y\)</span> from knowing just <span class="math inline">\(X.\)</span> So before a customer makes some product orders, we can forecast their number, if we know whether this customer uses the app or not and what is his/her average time spent in shop. 😎</p>
+</div>
+</div>
+<div id="simple-linear-regression-from-a-probabilistic-perspective" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> Simple linear regression from a probabilistic perspective<a href="regression-analysis.html#simple-linear-regression-from-a-probabilistic-perspective" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<!--- In the linear empirical relationship
+\begin{equation*}
+      y_i = \alpha + \beta\, x_i + \varepsilon_i, \quad i=1,\ldots, n,
+\end{equation*}
+    let the error terms be $\varepsilon_i$
+      
+      - unobservable, independent realizations of a random variables,
+      - identically distributed with $\mathbb E(\varepsilon_i)=0$ and
+      $\text{Var}(\varepsilon_i)=\sigma^2$.
+
+- The values $x_i$, $i=1,\ldots, n$, can
+
+    - Be deterministic (e.g.\dose of a drug in an attempt),
+    - Realizations of random variables $X_i$ (**stochastic regressor**).
+
+- In the case of a stochastic regressor, the assumptions apply
+    over $\varepsilon_i$ then only conditionally, so
+    $\mathbb E(\varepsilon_i|X_i=x_i)=0$, etc.
+
+- In the following we assume for the sake of simplicity that
+      Regressor is deterministic.
+-->
+<p>In the following, we extend this purely data-based view to a probabilistic setting with dependent variable <span class="math inline">\(Y\)</span> and error
+<span class="math inline">\(\varepsilon\)</span> being random variables with certain properties.</p>
+<p>We start with a simple (or <strong>univariate</strong>) linear regression model, where the following relationship between a dependent random variable <span class="math inline">\(Y\)</span> and a <strong>single</strong> independent (random) variable <span class="math inline">\(X\)</span> applies:
+<span class="math display">\[\begin{equation*}
+      Y_i = \alpha + \beta\, x_i + \varepsilon_i, \quad i=1,\ldots, n,
+\end{equation*}\]</span></p>
+<p>where</p>
+<ul>
+<li><p><span class="math inline">\(Y_1,\ldots, Y_n\)</span>: observable metric random variable, aka <strong>dependent variable</strong>;</p></li>
+<li><p><span class="math inline">\(x_1,\ldots, x_n\)</span>: given deterministic values (or
+Realizations of a RV <span class="math inline">\(X\)</span>), aka <strong>regressor</strong> or <strong>independent variable</strong>;</p></li>
+<li><p><span class="math inline">\(\varepsilon_1, \ldots, \varepsilon_n\)</span>: <strong>error terms</strong>, unobservable
+RV’s that are independent and identically distributed with
+<span class="math inline">\(\mathbb E(\varepsilon_i)=0\)</span>, <span class="math inline">\(\text{Var}(\varepsilon_i)=\sigma^2\)</span>. (In the case of a stochastic regressor, the assumptions apply
+over <span class="math inline">\(\varepsilon_i\)</span> then only conditionally, so
+<span class="math inline">\(\mathbb E(\varepsilon_i|X_i=x_i)=0\)</span>, etc.)</p></li>
+<li><p>The regression coefficients <span class="math inline">\(\alpha,\beta\)</span> and the variance of the error terms
+<span class="math inline">\(\sigma^2\)</span> are unknown parameters which have to be estimated from the data
+<span class="math inline">\((y_i,x_i)\)</span>, <span class="math inline">\(i=1,\ldots, n.\)</span></p></li>
+<li><p>It holds:
+<span class="math display">\[\begin{align}
+      \mathbb E(Y_i) &amp;= \mathbb E(\alpha + \beta x_i + \varepsilon_i) = \alpha +
+                \beta x_i\\
+      \text{Var}(Y_i) &amp;= \text{Var}(\alpha + \beta x_i + \varepsilon)
+                        = \sigma^2.
+\end{align}\]</span></p></li>
+</ul>
+<p>Statements about distributions of estimators and test statistics,
+also for small <span class="math inline">\(n\)</span>, is obtained by the following - stronger - assumption.</p>
+<ul>
+<li><strong>Normal distribution assumption</strong>:
+<span class="math display">\[\begin{equation*}
+    \varepsilon_i \sim N(0,\sigma^2),\quad i=1,\ldots,n,
+\end{equation*}\]</span>
+and
+<span class="math display">\[\begin{equation*}
+    Y_i\sim N(\alpha+ \beta x_i,\sigma^2), \quad i=1,\ldots,n.
+\end{equation*}\]</span></li>
+</ul>
+</div>
+<div id="estimating-testing-and-forecasting" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> Estimating, testing and forecasting<a href="regression-analysis.html#estimating-testing-and-forecasting" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In the following we will deal with the following aspects of linear regression model:</p>
+<ul>
+<li>Point and interval estimation of the unknown parameters
+<span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>, <span class="math inline">\(\sigma^2\)</span></li>
+<li>Testing hypotheses about the regression coefficients
+<span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span></li>
+<li>Prediction of target variable <span class="math inline">\(Y\)</span> for a new value of <span class="math inline">\(x\)</span></li>
+</ul>
+<div id="estimating-the-parameters-of-a-linear-regression-model" class="section level3 hasAnchor" number="7.3.1">
+<h3><span class="header-section-number">7.3.1</span> Estimating the parameters of a linear regression model<a href="regression-analysis.html#estimating-the-parameters-of-a-linear-regression-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>As for the distributional parameters in the previous chapters, we can conduct point and interval estimation in the linear regression setup.</p>
+<div id="points-estimators" class="section level4 hasAnchor" number="7.3.1.1">
+<h4><span class="header-section-number">7.3.1.1</span> Points estimators<a href="regression-analysis.html#points-estimators" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Parameter estimation is conducted via the ordinary <strong>Least Squares</strong> method (OLS)
+The idea of the method is: Determine <span class="math inline">\(\hat\alpha\)</span> and
+<span class="math inline">\(\hat\beta\)</span> such that
+<span class="math display">\[\begin{equation*}
+        \sum_{i=1}^n (Y_i-\alpha-\beta x_i)^2 \quad\rightarrow\quad \min_{\alpha,\beta}
+\end{equation*}\]</span></p>
+<ul>
+<li><p>Minimizing the objective above, results in:
+<span class="math display">\[\begin{align*}
+      \hat\beta &amp;= \frac{\sum _{i=1}^n (x_i-\overline x)
+                  (Y_i-\overline Y)} {\sum_{i=1}^n (x_i-\overline
+                  x)^2} = \hat\rho _{XY} \frac{\hat\sigma_Y}{\hat\sigma_X},\\[5pt]
+      \hat\alpha &amp;= \overline Y-\hat\beta \overline x,\\[5pt]
+      \hat\sigma^2&amp;= \frac{1}{n-2} \sum_{i=1}^n \hat\varepsilon_i^2
+                    = \frac{1}{n-2} \sum_{i=1}^n (Y_i-\hat\alpha -
+                    \hat\beta x_i)^2,
+\end{align*}\]</span>
+with <strong>residuals</strong> <span class="math inline">\(\hat\varepsilon_i=Y_i-\hat Y_i\)</span> and <strong>fitted values</strong> <span class="math inline">\(\hat Y_i=\hat\alpha + \hat\beta\, x_i\)</span>,
+<span class="math inline">\(i=1,\ldots, n\)</span>.</p></li>
+<li><p>Note that <span class="math inline">\(\hat\alpha\)</span>, <span class="math inline">\(\hat\beta\)</span> and
+<span class="math inline">\(\hat\sigma^2\)</span> expression depend on random variables <span class="math inline">\(Y_1,\ldots, Y_n\)</span>, therefore, they are themselves random estimation functions.</p></li>
+<li><p>These are unbiased:
+<span class="math display">\[\begin{equation*}
+    \mathbb E(\hat\alpha)=\alpha, \quad \mathbb E(\hat\beta)=\beta, \quad \mathbb E(\hat\sigma^2)=\sigma^2,
+\end{equation*}\]</span></p></li>
+<li><p>For the variance estimation the following applies:
+<span class="math display">\[\begin{align*}
+      \text{Var}(\hat\alpha) &amp;= \sigma_{\hat\alpha}^2 = \sigma^2 \frac{\sum x_i^2}
+                               {n\left(\sum x_i^2 - n\overline
+                               x^2\right)}\\
+      \text{Var}(\hat\beta) &amp;= \sigma_{\hat\beta}^2 = \frac{\sigma^2} {\sum x_i^2 -
+                              n\overline x^2}
+\end{align*}\]</span></p></li>
+<li><p>Since <span class="math inline">\(\sum (x_i-\overline x)^2\rightarrow\infty\)</span> for
+<span class="math inline">\(n\rightarrow\infty\)</span>, the estimators are also <strong>consistent</strong>.</p></li>
+</ul>
+<!--
+%\note{%
+%  For the proof of the variance of $\hat\beta$ it is useful to
+%  re-write
+%  \begin{equation*}
+%    \hat\beta = \frac{\sum_{i=1}^n x_i Y_i - n\overline x\overline Y}
+%    {\sum_{i=1}^n x_i^2 - n\overline x^2}
+%  \end{equation*}
+%}-->
+<ul>
+<li>Under the normal distribution assumption:
+<span class="math display">\[\begin{equation*}
+    \varepsilon_i \sim N(0,\sigma^2), \quad Y_i\sim
+   N(\alpha+\beta x_i, \sigma^2), \quad \hat\alpha \sim
+   N(\alpha, \sigma_{\hat\alpha}^2), \quad \hat\beta\sim
+   N(\beta, \sigma_{\hat\beta}^2).
+\end{equation*}\]</span></li>
+</ul>
+<p>Returning to our example <a href="regression-analysis.html#exm:linreg">7.1</a>:</p>
+<div class="example">
+<p><span id="exm:linreg2" class="example"><strong>Example 7.2  (Forecasting number of orders) </strong></span>Now we use historical data on the amount of orders and the information on app usage to estimate the parameters of the linear relationship assumed.</p>
+<p>The output of running a linear regression is:</p>
+<p><img src="images/linreg2.png" style="width:70.0%" /></p>
+<p>We see, that the estimates are:</p>
+<p><span class="math display">\[\hat\alpha=2.85\]</span></p>
+<p>and</p>
+<p><span class="math display">\[\hat\beta=0.8108.\]</span></p>
+<p>The estimated residual standard deviation is:</p>
+<p><span class="math display">\[\hat \sigma_\varepsilon = 0.4534.\]</span></p>
+<!--Now we have a formula for forecasting the average amount of orders using the information on app usage:
+
+\[norders \approx 2.85 + 0.8108\cdot app.\]
+
+Using the result above, we can now forecast the average amount of orders depending on whether a customer uses the app or not.
+
+- for an app user, we have:
+
+\[norders \approx 2.85 + 0.8108\cdot 1 = 3.6607.\]
+
+- for a web user, we have:
+
+\[norders \approx 2.85 + 0.8108\cdot 1 = 2.85.\]-->
+</div>
+</div>
+<div id="interval-estimators" class="section level4 hasAnchor" number="7.3.1.2">
+<h4><span class="header-section-number">7.3.1.2</span> Interval estimators<a href="regression-analysis.html#interval-estimators" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Under the normal distribution assumption, we have:
+<span class="math display">\[\begin{equation*}
+      \frac{\hat\alpha-\alpha}{\hat\sigma_{\hat\alpha}} \sim t(n-2),
+      \quad \frac{\hat\beta-\beta}{\hat\sigma_{\hat\beta}} \sim
+      t(n-2).
+\end{equation*}\]</span></p>
+<p><span class="math inline">\(\leadsto\)</span> <strong>Confidence intervals</strong> for <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>
+<span class="math display">\[\begin{equation*}
+    \hat\alpha \pm \hat\sigma_{\hat\alpha} \,
+    t_{1-\alpha/2}(n-2),\quad \hat\beta \pm \hat\sigma_{\hat\beta}\,
+    t_{1-\alpha/2}(n-2).
+\end{equation*}\]</span></p>
+<p>For <span class="math inline">\(n&gt;30\)</span> the <span class="math inline">\(t\)</span> quantiles can be replaced by <span class="math inline">\(N(0,1)\)</span> quantiles
+be replaced. If the normal distribution assumption is not met, the above results apply approximately
+for sufficiently large <span class="math inline">\(n\)</span>.</p>
+<div class="example">
+<p><span id="exm:linreg3" class="example"><strong>Example 7.3  (Forecasting number of orders) </strong></span>For our linear model in example <a href="regression-analysis.html#exm:linreg2">7.2</a>, we can confidence intervall for the coefficients based on the results returned.</p>
+<p><img src="images/linreg3.png" style="width:70.0%" /></p>
+<ul>
+<li><span class="math inline">\(95\%\)</span>-CI for <span class="math inline">\(\hat\alpha\)</span> (<span class="math inline">\(n=100\)</span>):</li>
+</ul>
+<p><span class="math display">\[[2.85 - t_{0.975, 98}\cdot 0.0745; 2.85 + t_{0.975, 98}\cdot 0.0745] = [2.7021; 2.9979]\]</span></p>
+<ul>
+<li><span class="math inline">\(95\%\)</span>-CI for <span class="math inline">\(\hat\beta\)</span> (<span class="math inline">\(n=100\)</span>):</li>
+</ul>
+<p><span class="math display">\[[0.8108 - t_{0.975, 99}\cdot 0.0939; 0.8108 + t_{0.975, 99}\cdot 0.0939] = [0.6244; 0.9971]\]</span></p>
+</div>
+</div>
+</div>
+<div id="testing-in-linear-regression-model" class="section level3 hasAnchor" number="7.3.2">
+<h3><span class="header-section-number">7.3.2</span> Testing in linear regression model<a href="regression-analysis.html#testing-in-linear-regression-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Note that in our model, we assume that there <strong>is</strong> a linear relationship between the dependent and the independent variables. However, this assumption may not be fulfilled. If there is no linear relationship, then <span class="math inline">\(\beta=0.\)</span> However, the resulting estimate of <span class="math inline">\(\beta\)</span> may be different from zero, just because of random fluctuations. So, our first task is to check, whether the coefficients of the linear regression model are <strong>significant</strong> in the sense, that they are <strong>significantly different from zero</strong>.</p>
+<p>The so-called <strong>significance tests</strong> allow us to do that.</p>
+<ul>
+<li><p>The pair of hypotheses is of particular importance
+<span class="math display">\[\begin{equation*}
+    H_0: \beta=0, \quad H_1:\beta\not=0.
+\end{equation*}\]</span></p></li>
+<li><p>Here, <span class="math inline">\(H_0:\beta=0\)</span> means that <span class="math inline">\(Y_i=\alpha +\varepsilon_i\)</span>, <span class="math inline">\(i=1,\ldots, n\)</span>, actually applies, and therefore <span class="math inline">\(X\)</span> none
+has explanatory value for <span class="math inline">\(Y\)</span>.</p></li>
+</ul>
+<p>The relevant test type is the <span class="math inline">\(t\)</span>-test.The <span class="math inline">\(t\)</span>-test should be used to test
+the Hypotheses regarding <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\alpha_0\)</span>, or <span class="math inline">\(\beta\)</span> and
+<span class="math inline">\(\beta_0\)</span>.</p>
+<ul>
+<li>The test statistics are:
+<span class="math display">\[\begin{equation*}
+    T_{\alpha_0} = \frac{\hat\alpha -
+      \alpha_0}{\hat\sigma_{\hat\alpha}},\quad
+    T_{\beta_0} = \frac{\hat\beta- \beta_0}
+    {\hat\sigma_{\hat\beta}}.
+\end{equation*}\]</span></li>
+</ul>
+<!--<li>The <strong>$F$ Test</strong> is another test to check
+    $H_0:\beta=0$.
+</li>-->
+<ul>
+<li><p>Statistical program packages typically provide the
+<strong><span class="math inline">\(t\)</span> values</strong> and <strong><span class="math inline">\(p\)</span> values</strong> to the
+hypotheses <span class="math inline">\(H_0:\alpha=\alpha_0\)</span> or <span class="math inline">\(H_0:\beta=\beta_0\)</span> with
+<span class="math inline">\(\alpha_0=0\)</span> and <span class="math inline">\(\beta_0=0\)</span>.</p></li>
+<li><p>This shows whether the inclusion of <span class="math inline">\(\alpha\)</span>,
+or <span class="math inline">\(\beta\)</span> makes sense in the regression equation.</p></li>
+</ul>
+<div class="example">
+<p><span id="exm:linreg4" class="example"><strong>Example 7.4  (Forecasting number of orders) </strong></span>For our linear model in example <a href="regression-analysis.html#exm:linreg2">7.2</a>, we can conduct significance testing based on the results returned.</p>
+<p><img src="images/linreg4.png" style="width:70.0%" /></p>
+<p>Since both <span class="math inline">\(p\)</span>-values are very small, we reject the Null hypothesis of zero coefficients. Of course, we can also use the <span class="math inline">\(t\)</span>-values (the <span class="math inline">\(t\)</span>-test statistics values) and check whether they lie in the rejection region instead.</p>
+</div>
+<p>Besides the significance tests, also other hypothesis can be tested using the results. For example, we could test, whether the obtained <span class="math inline">\(\beta\)</span> is significantly smaller than <span class="math inline">\(1.\)</span></p>
+<div class="example">
+<p><span id="exm:linreg5" class="example"><strong>Example 7.5  (Forecasting number of orders) </strong></span>For our linear model in example <a href="regression-analysis.html#exm:linreg2">7.2</a>, we can test the hypothesis whether the obtained <span class="math inline">\(\beta\)</span> is significantly smaller than <span class="math inline">\(1.\)</span> based on the results returned.</p>
+<p><img src="images/linreg3.png" style="width:70.0%" /></p>
+<ul>
+<li><p>Hypothesis: <span class="math inline">\(H_0: \beta=1\)</span> vs <span class="math inline">\(H_1: \beta&lt;1\)</span></p></li>
+<li><p>Test statistics value: <span class="math display">\[t=\frac{0.8108 - 1}{0.0939} = -2.0152\]</span></p></li>
+<li><p><span class="math inline">\(p\)</span>-value: <span class="math display">\[\mathbb P(T&gt;|t|) = 0.0233\]</span></p></li>
+<li><p>So we reject <span class="math inline">\(H_0\)</span> on the singificance level of <span class="math inline">\(5\%.\)</span></p></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="forecast-in-linear-regression-models" class="section level2 hasAnchor" number="7.4">
+<h2><span class="header-section-number">7.4</span> Forecast in linear regression models<a href="regression-analysis.html#forecast-in-linear-regression-models" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Forecasting aims at finding a point estimate to a new value <span class="math inline">\(x_0\)</span>:
+<span class="math display">\[\begin{equation*}
+      \hat y_0 = \hat\alpha + \hat\beta x_0.
+\end{equation*}\]</span></p>
+<p>The quality of the model (and its forecast) can be assessed by <span class="math inline">\(R^2\)</span>.
+The so-called <strong>coefficient of determination</strong> <span class="math inline">\(R^2\)</span> gives the relative proportion
+the variance of the sample <span class="math inline">\((y_1,\ldots, y_n)\)</span>, which is explained by the regression.</p>
+<p>In the case of linear regression, it is defined as
+<span class="math display">\[\begin{equation*}
+      R^2 = 1-\frac{\sum_{i=1}^n (Y_i - \hat \alpha -\hat \beta x_i)^2} {\sum _{i=1}^n(Y_i-\overline Y)^2}.
+\end{equation*}\]</span></p>
+<p>One can show that
+<span class="math display">\[\begin{equation*}
+      R^2 = \frac{\hat\beta^2 \hat\sigma_x^2}{\hat\sigma_y^2} =
+      \frac{\hat\rho_{xy}^2 \, \hat\sigma_y^2}{\hat\sigma_y^2} =
+      \hat\rho _{xy}^2.
+\end{equation*}\]</span></p>
+<p>It holds <span class="math inline">\(0\leq R^2\leq 1\)</span>, where <span class="math inline">\(R^2=0\)</span> the uncorrelated case, and <span class="math inline">\(R^2=1\)</span> the case of a perfect linear relationship between the features <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</p>
+<div class="example">
+<p><span id="exm:linreg5" class="example"><strong>Example 7.5  (Forecasting number of orders) </strong></span>Let us take a look on the output of running a linear regression is from example <a href="regression-analysis.html#exm:linreg">7.1</a> again.</p>
+<p><img src="images/linreg5.png" style="width:70.0%" /></p>
+<p>Now we have a formula for forecasting the average amount of orders using the information on app usage:</p>
+<p><span class="math display">\[norders \approx 2.85 + 0.8108\cdot app.\]</span></p>
+<p>Using the result above, we can now forecast the average amount of orders depending on whether a customer uses the app or not.</p>
+<ul>
+<li>for an app user, we have:</li>
+</ul>
+<p><span class="math display">\[norders \approx 2.85 + 0.8108\cdot 1 = 3.6607.\]</span></p>
+<ul>
+<li>for a web user, we have:</li>
+</ul>
+<p><span class="math display">\[norders \approx 2.85 + 0.8108\cdot 0 = 2.85.\]</span></p>
+<p>With our model, we explained a fairly large proportion <span class="math inline">\(43.2\%\)</span> of the variation in the number of orders data.</p>
+</div>
+<!--::: {.example #linregth name="Log-linearized demand"}
+
+
+
+:::
+-->
+<div id="q71" class="quiz">
+<script>
+
+
+// Generate a random question
+  const questionObj73 = {
+      question: 'In a linear regression model \\(Y=\\alpha + \\beta x+\\varepsilon,\\) \\(Y\\) is called',
+      options: ['the regressor', 'the error term','the dependent variable','the independent variable', 'the regressand', 'the residuum'],
+      answer: ['5','3'],
+      id: 73
+    };
+</script>
+<p class="question">
+<span id="question-text73"></span>
+</p>
+<div class="options">
+<p><label>
+<input type="checkbox" name="option73" value=1> the regressor
+</label>
+<label>
+<input type="checkbox" name="option73" value=2> the error term
+</label>
+<label>
+<input type="checkbox" name="option73" value=3> the dependent variable
+</label>
+<label>
+<input type="checkbox" name="option73" value=4> the independent variable
+</label>
+<label>
+<input type="checkbox" name="option73" value=5> the regressand
+</label>
+<label>
+<input type="checkbox" name="option73" value=6> the residuum
+</label></p>
+</div>
+<button onclick="checkAnswer_mmc(questionObj73)">
+Submit
+</button>
+<p id="result73">
+</p>
+<script>
+    // Display the question
+    document.getElementById('question-text73').textContent = questionObj73.question;
+
+</script>
+<script>
+
+
+// Generate a random question
+  const questionObj74 = {
+      question: 'In a linear regression model \\(Y=\\alpha + \\beta x+\\varepsilon,\\) \\(x\\) is called',
+      options: ['regressor', 'error term','dependent variable','independent variable', 'regressand', 'residuum'],
+      answer: ['1','4'],
+      id: 74
+    };
+</script>
+<p class="question">
+<span id="question-text74"></span>
+</p>
+<div class="options">
+<p><label>
+<input type="checkbox" name="option74" value=1> the regressor
+</label>
+<label>
+<input type="checkbox" name="option74" value=2> the error term
+</label>
+<label>
+<input type="checkbox" name="option74" value=3> the dependent variable
+</label>
+<label>
+<input type="checkbox" name="option74" value=4> the independent variable
+</label>
+<label>
+<input type="checkbox" name="option74" value=5> the regressand
+</label>
+<label>
+<input type="checkbox" name="option74" value=6> the residuum
+</label></p>
+</div>
+<button onclick="checkAnswer_mmc(questionObj74)">
+Submit
+</button>
+<p id="result74">
+</p>
+<script>
+    // Display the question
+    document.getElementById('question-text74').textContent = questionObj74.question;
+
+</script>
+<hr />
+<script>
+  // Generate a random question
+    const questionObj75 = {
+      question: 'The coefficient of determination measures',
+      options: ['the proportion of variance in the regression.','the proportion of variance that was not explained by the regression.' ,'the correlation.', 'the proportion of variance explained by the regression.', 'the proportion of variance in the error terms.'],
+      answer: '4',
+      id: 75
+    };
+</script>
+<p class="question">
+<span id="question-text75"></span>
+</p>
+<div class="options">
+<label>
+<input type="radio" name="option75" value=1> the proportion of variance in the regression.
+</label>
+<label>
+<input type="radio" name="option75" value=2> the proportion of variance that was not explained by the regression.
+</label>
+<label>
+<input type="radio" name="option75" value=3> the correlation.
+</label>
+<label>
+<input type="radio" name="option75" value=4> the proportion of variance explained by the regression.
+</label>
+<label>
+<input type="radio" name="option75" value=5> the proportion of variance in the error terms.
+</label>
+</div>
+<button onclick="checkAnswer_match(questionObj75)">Submit</button>
+<p id="result75">
+</p>
+<script>
+  // Display the question
+    document.getElementById('question-text75').textContent = questionObj75.question;
+</script>
+<hr />
+<p id="question">
+<span id="question-text76"></span>
+</p>
+<input type="number" id="answer76" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj76)">Submit</button>
+<p id="result76">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj76 = generateQuestion_num(76);
+// Display the question
+    document.getElementById('question-text76').textContent = "What is the coefficient of determination if the correlation of the dependent and the independent variables is \\("+ questionObj76.question[0]*10/100 + "\\)";
+    questionObj76.answer = Math.pow(questionObj76.question[0]*10/100,2)
+</script>
+</div>
+<hr />
+</div>
+<div id="multivariate-linear-regression" class="section level2 hasAnchor" number="7.5">
+<h2><span class="header-section-number">7.5</span> Multivariate linear regression<a href="regression-analysis.html#multivariate-linear-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Using <strong>Univariate linear regression</strong> (only one explanatory variable) we found a functional relationship between the sales <span class="math inline">\(U\)</span> and the average temperature <span class="math inline">\(T\)</span>.</p>
+<p><strong>Can we take other influences into account (time spend in online shop)?</strong></p>
+<p>Multivariate linear regression:</p>
+<ul>
+<li><p>Approach: <span class="math inline">\(y=b_0 + b_1\, x_1 + b_2\, x_2 + \cdots + b_L\, x_L,\)</span></p></li>
+<li><p>with the regressand or dependent variable <span class="math inline">\(y\)</span> and <span class="math inline">\(L\)</span> regressors
+<span class="math inline">\(x_1, \ldots, x_L\)</span> (multivariate regression);</p></li>
+<li><p>Sample:</p></li>
+</ul>
+<p><span class="math display">\[
+      ((x_{11}, \ldots, x_{L1}), y_1), \ldots, ((x_{1n}, \ldots, x_{Ln}), y_n)
+\]</span></p>
+<ul>
+<li>System of linear equations:</li>
+</ul>
+<p><span class="math display">\[\begin{align*}
+        y_1 &amp;= b_0 + b_1\, x_{11} + b_2\, x_{21} + \cdots + b_L\, x_{L1}
+              + \varepsilon_1\\
+        \vdots\\
+        y_n &amp;= b_0+  b_1\, x_{1n} + b_2\, x_{2n} + \cdots + b_L\, x_{Ln}
+              + \varepsilon_n
+      \end{align*}\]</span></p>
+<ul>
+<li>Representation in matrix form:</li>
+</ul>
+<p><span class="math display">\[
+      \bf{y} = \bf{X}\bf{b} + \bf{\varepsilon},
+\]</span></p>
+<p>with the design matrix</p>
+<p><span class="math display">\[
+        \bf{X}=
+        \begin{pmatrix}
+          1 &amp; x_{11} &amp; x_{21} &amp; \cdots &amp; x_{L1}\\
+          \vdots &amp; \vdots &amp; \vdots &amp; &amp; \vdots\\
+          1 &amp; x_{1n} &amp; x_{2n} &amp; \cdots &amp; x_{Ln}
+        \end{pmatrix}
+\]</span></p>
+<ul>
+<li>OLS-Solution:</li>
+</ul>
+<p><span class="math display">\[
+        \bf{b} = (\bf{X}^T \bf{X})^{-1}\, \bf{X}^T\, \bf{y}
+\]</span></p>
+<div class="example">
+<p><span id="exm:unlabeled-div-4" class="example"><strong>Example 7.6  (Forecasting number of orders) </strong></span>example <a href="regression-analysis.html#exm:linreg">7.1</a> cont.</p>
+<ul>
+<li><p>Design matrix <span class="math inline">\(\bf X\)</span> with columns:</p>
+<ul>
+<li><ol style="list-style-type: decimal">
+<li>constant (vector of ones),</li>
+</ol></li>
+<li><ol start="2" style="list-style-type: decimal">
+<li>app indicator,</li>
+</ol></li>
+<li><ol start="3" style="list-style-type: decimal">
+<li>time spend in shop</li>
+</ol></li>
+</ul></li>
+</ul>
+<p><span class="math display">\[\bf{X} =
+        \begin{pmatrix}
+          1&amp;1 &amp; 41.80\\
+          1&amp;1 &amp; 21.16\\
+          1&amp;1 &amp; 26.89\\
+          1&amp;0 &amp; 51.89\\
+          1&amp;0 &amp; 61.99\\
+          \ldots &amp; \ldots &amp;\ldots\\
+          \\
+\end{pmatrix}\]</span></p>
+<ul>
+<li>OLS-Solution:
+<span class="math display">\[\begin{align*}
+  \beta&amp;=(\bf{X}^\top \bf{X})^{-1}\, \bf{X}^\top\, \bf{Y}
+  \end{align*}\]</span></li>
+</ul>
+<p><img src="images/linreg6.png" /></p>
+<ul>
+<li><p>Function to forecast the number of orders:
+<span class="math display">\[norders\approx 2.0121 + 0.7941\cdot app + 0.0198\cdot times.\]</span></p></li>
+<li><p>Which number of order would you forecast for an app user with <span class="math inline">\(41.8\)</span> minutes spend in shop?</p></li>
+</ul>
+</div>
+<div id="q2" class="quiz">
+<p id="question">
+<span id="question-text7"></span>
+</p>
+<input type="number" id="answer7" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj7)">Submit</button>
+<p id="result7">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj7 = generateQuestion_num(7);
+// Display the question
+    document.getElementById('question-text7').textContent = "Which average number of orders would you forecast for an app user with \\(41.8\\) minutes spend in shop? (Round to four decimal places.)";
+    questionObj7.answer = 2.0121 + 0.7941*1 + 0.0198*41.8
+</script>
+<p id="question">
+<span id="question-text71"></span>
+</p>
+<input type="number" id="answer71" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj71)">Submit</button>
+<p id="result71">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj71 = generateQuestion_num(71);
+// Display the question
+    document.getElementById('question-text71').textContent = "Assuming that the actual average number of orders for the same customer is \\(3.5\\), what is the residual \\(\\hat\\varepsilon\\) for this value? (Round to four decimal places.)";
+    questionObj71.answer = 3.5 - (2.0121 + 0.7941*1 + 0.0198*41.8)
+</script>
+<p id="question">
+<span id="question-text72"></span>
+<input type="number" id="answer72" placeholder="Enter your answer">\(\%\)
+</p>
+<button onclick="checkAnswer_num(questionObj72)">
+Submit
+</button>
+<p id="result72">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj72 = generateQuestion_num(72);
+// Display the question
+    document.getElementById('question-text72').textContent = "What is the explained proportion of variance (in %) in the model above? (Round to two decimal places.) \\[\\]\\(R^2=\\)";
+    questionObj72.answer = 97.62
+</script>
+</div>
+<hr />
+<!--::: {.exercise name="Lineare Regression"}
+
+
+
+
+
+
+:::
+
+***
+-->
+<!--
+
+## Rückblick{-}
+
+
+```{=html}
+<iframe title="Wortwolke" src="http://learning-dashboard.lehre.hwr-berlin.de:3838/Apps_RBook/#section-wortwolke" width="760" height="600"></iframe>
+```
+-->
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="hypothesis-testing.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/07-Linreg.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

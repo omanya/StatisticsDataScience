@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 6 Hypothesis testing | Statistics and Data Science Applications</title>
+  <meta name="description" content="This is the script for the course." />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 6 Hypothesis testing | Statistics and Data Science Applications" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is the script for the course." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 6 Hypothesis testing | Statistics and Data Science Applications" />
+  
+  <meta name="twitter:description" content="This is the script for the course." />
+  
+
+<meta name="author" content="Maria Osipenko" />
+
+
+<meta name="date" content="2024-02-23" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="parameter-estimation.html"/>
+<link rel="next" href="regression-analysis.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-goals-and-context"><i class="fa fa-check"></i>Course goals and context</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-goals"><i class="fa fa-check"></i>Course goals</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html"><i class="fa fa-check"></i><b>1</b> Random events and probability - a short review</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#outcomes-and-events"><i class="fa fa-check"></i><b>1.1</b> Outcomes and Events</a></li>
+<li class="chapter" data-level="1.2" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#probabilities"><i class="fa fa-check"></i><b>1.2</b> Probabilities</a>
+<ul>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#laplaces-probability-model"><i class="fa fa-check"></i>Laplace’s probability model</a></li>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#finite-probability-spaces"><i class="fa fa-check"></i>Finite probability spaces</a></li>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#calculating-with-probabilities"><i class="fa fa-check"></i>Calculating with probabilities</a></li>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#joint-and-conditional-probabilities-independence-of-events"><i class="fa fa-check"></i>Joint and conditional probabilities, independence of events</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#sampling-as-a-random-process"><i class="fa fa-check"></i><b>1.3</b> Sampling as a random process</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="random-variables.html"><a href="random-variables.html"><i class="fa fa-check"></i><b>2</b> Random variables</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="random-variables.html"><a href="random-variables.html#discrete-random-variable"><i class="fa fa-check"></i><b>2.1</b> Discrete random variable</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="random-variables.html"><a href="random-variables.html#probability-and-distribution-functions"><i class="fa fa-check"></i><b>2.1.1</b> Probability and distribution functions</a></li>
+<li class="chapter" data-level="2.1.2" data-path="random-variables.html"><a href="random-variables.html#expected-value-and-variance"><i class="fa fa-check"></i><b>2.1.2</b> Expected value and variance</a></li>
+<li class="chapter" data-level="2.1.3" data-path="random-variables.html"><a href="random-variables.html#covariance-and-correlation"><i class="fa fa-check"></i><b>2.1.3</b> Covariance and correlation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="random-variables.html"><a href="random-variables.html#continuous-random-variables"><i class="fa fa-check"></i><b>2.2</b> Continuous random variables</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="random-variables.html"><a href="random-variables.html#density-function"><i class="fa fa-check"></i><b>2.2.1</b> Density function</a></li>
+<li class="chapter" data-level="2.2.2" data-path="random-variables.html"><a href="random-variables.html#distribution-function-1"><i class="fa fa-check"></i><b>2.2.2</b> Distribution function</a></li>
+<li class="chapter" data-level="2.2.3" data-path="random-variables.html"><a href="random-variables.html#expected-value-and-variance-1"><i class="fa fa-check"></i><b>2.2.3</b> Expected value and variance</a></li>
+<li class="chapter" data-level="2.2.4" data-path="random-variables.html"><a href="random-variables.html#quantiles-of-continuous-random-variables"><i class="fa fa-check"></i><b>2.2.4</b> Quantiles of continuous random variables</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html"><i class="fa fa-check"></i><b>3</b> Some important distribution models</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#discrete-distributions"><i class="fa fa-check"></i><b>3.1</b> Discrete distributions</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#discrete-uniform-distribution"><i class="fa fa-check"></i><b>3.1.1</b> Discrete uniform distribution</a></li>
+<li class="chapter" data-level="3.1.2" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#bernoulli-distribution"><i class="fa fa-check"></i><b>3.1.2</b> Bernoulli distribution</a></li>
+<li class="chapter" data-level="3.1.3" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#binomial-distribution"><i class="fa fa-check"></i><b>3.1.3</b> Binomial distribution</a></li>
+<li class="chapter" data-level="3.1.4" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#geometric-distribution"><i class="fa fa-check"></i><b>3.1.4</b> Geometric distribution</a></li>
+<li class="chapter" data-level="3.1.5" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#poisson-distribution"><i class="fa fa-check"></i><b>3.1.5</b> Poisson distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#continuous-distributions"><i class="fa fa-check"></i><b>3.2</b> Continuous distributions</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#normal-distribution"><i class="fa fa-check"></i><b>3.2.1</b> Normal distribution</a></li>
+<li class="chapter" data-level="3.2.2" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#exponential-distribution"><i class="fa fa-check"></i><b>3.2.2</b> Exponential distribution</a></li>
+<li class="chapter" data-level="3.2.3" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#uniform-distribution"><i class="fa fa-check"></i><b>3.2.3</b> Uniform distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#further-distributions"><i class="fa fa-check"></i><b>3.3</b> Further distributions</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#chi2-distribution"><i class="fa fa-check"></i><b>3.3.1</b> <span class="math inline">\(\chi^2\)</span>-distribution</a></li>
+<li class="chapter" data-level="3.3.2" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#t-distribution"><i class="fa fa-check"></i><b>3.3.2</b> t-distribution</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="limit-theorems.html"><a href="limit-theorems.html"><i class="fa fa-check"></i><b>4</b> Limit theorems</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="limit-theorems.html"><a href="limit-theorems.html#strong-law-of-large-numbers"><i class="fa fa-check"></i><b>4.1</b> Strong law of large numbers 💪</a></li>
+<li class="chapter" data-level="4.2" data-path="limit-theorems.html"><a href="limit-theorems.html#central-limit-theorem"><i class="fa fa-check"></i><b>4.2</b> Central limit theorem</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="iii-inductive-statistics.html"><a href="iii-inductive-statistics.html"><i class="fa fa-check"></i>III Inductive Statistics</a></li>
+<li class="chapter" data-level="5" data-path="parameter-estimation.html"><a href="parameter-estimation.html"><i class="fa fa-check"></i><b>5</b> Parameter estimation</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#basic-ideas-of-inductive-statistics"><i class="fa fa-check"></i><b>5.1</b> Basic ideas of inductive statistics</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#parameter-estimation-theoretically"><i class="fa fa-check"></i><b>5.1.1</b> Parameter estimation theoretically</a></li>
+<li class="chapter" data-level="5.1.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#parameter-estimation-practically"><i class="fa fa-check"></i><b>5.1.2</b> Parameter estimation practically</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#point-estimation"><i class="fa fa-check"></i><b>5.2</b> Point estimation</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#estimation-functions"><i class="fa fa-check"></i><b>5.2.1</b> Estimation functions</a></li>
+<li class="chapter" data-level="5.2.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#properties-of-estimators"><i class="fa fa-check"></i><b>5.2.2</b> Properties of estimators</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="parameter-estimation.html"><a href="parameter-estimation.html#construction-of-estimators"><i class="fa fa-check"></i><b>5.3</b> Construction of estimators</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#method-of-moments"><i class="fa fa-check"></i><b>5.3.1</b> Method of moments</a></li>
+<li class="chapter" data-level="5.3.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#maximum-likelihood-method"><i class="fa fa-check"></i><b>5.3.2</b> Maximum likelihood method</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="parameter-estimation.html"><a href="parameter-estimation.html#interval-estimation"><i class="fa fa-check"></i><b>5.4</b> Interval estimation</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#alpha-confidence-interval-for-mu"><i class="fa fa-check"></i><b>5.4.1</b> <span class="math inline">\((1-\alpha)\)</span> confidence interval for <span class="math inline">\(\mu\)</span></a></li>
+<li class="chapter" data-level="5.4.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#alpha-confidence-interval-for-sigma2"><i class="fa fa-check"></i><b>5.4.2</b> <span class="math inline">\((1-\alpha)\)</span> confidence interval for <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="5.4.3" data-path="parameter-estimation.html"><a href="parameter-estimation.html#alpha-confidence-interval-for-probability-p"><i class="fa fa-check"></i><b>5.4.3</b> <span class="math inline">\((1-\alpha)\)</span> confidence interval for probability <span class="math inline">\(p\)</span></a></li>
+<li class="chapter" data-level="5.4.4" data-path="parameter-estimation.html"><a href="parameter-estimation.html#determining-n-based-on-the-length-of-confidence-intervals"><i class="fa fa-check"></i><b>5.4.4</b> Determining <span class="math inline">\(n\)</span> based on the length of confidence intervals</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>6</b> Hypothesis testing</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-basic-idea-of-statistical-testing"><i class="fa fa-check"></i><b>6.1</b> The basic idea of statistical testing</a></li>
+<li class="chapter" data-level="6.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hypothesis-tests-for-p"><i class="fa fa-check"></i><b>6.2</b> Hypothesis tests for <span class="math inline">\(p\)</span></a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-exact-binomial-test"><i class="fa fa-check"></i><b>6.2.1</b> The exact binomial test</a></li>
+<li class="chapter" data-level="6.2.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-approximate-binomial-test"><i class="fa fa-check"></i><b>6.2.2</b> The approximate binomial test</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hypothesis-tests-for-mu"><i class="fa fa-check"></i><b>6.3</b> Hypothesis tests for <span class="math inline">\(\mu\)</span></a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-gauss-test"><i class="fa fa-check"></i><b>6.3.1</b> The Gauss test</a></li>
+<li class="chapter" data-level="6.3.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-t-test"><i class="fa fa-check"></i><b>6.3.2</b> The <span class="math inline">\(t\)</span> test</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#type-1-and-type-2-errors"><i class="fa fa-check"></i><b>6.4</b> Type 1 and Type 2 errors</a></li>
+<li class="chapter" data-level="6.5" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#exceeding-probability-p-value"><i class="fa fa-check"></i><b>6.5</b> Exceeding probability: <span class="math inline">\(p\)</span> value</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="regression-analysis.html"><a href="regression-analysis.html"><i class="fa fa-check"></i><b>7</b> Regression analysis</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="regression-analysis.html"><a href="regression-analysis.html#linear-regression-model-from-descriptive-statistics"><i class="fa fa-check"></i><b>7.1</b> Linear regression model from descriptive Statistics</a></li>
+<li class="chapter" data-level="7.2" data-path="regression-analysis.html"><a href="regression-analysis.html#simple-linear-regression-from-a-probabilistic-perspective"><i class="fa fa-check"></i><b>7.2</b> Simple linear regression from a probabilistic perspective</a></li>
+<li class="chapter" data-level="7.3" data-path="regression-analysis.html"><a href="regression-analysis.html#estimating-testing-and-forecasting"><i class="fa fa-check"></i><b>7.3</b> Estimating, testing and forecasting</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="regression-analysis.html"><a href="regression-analysis.html#estimating-the-parameters-of-a-linear-regression-model"><i class="fa fa-check"></i><b>7.3.1</b> Estimating the parameters of a linear regression model</a></li>
+<li class="chapter" data-level="7.3.2" data-path="regression-analysis.html"><a href="regression-analysis.html#testing-in-linear-regression-model"><i class="fa fa-check"></i><b>7.3.2</b> Testing in linear regression model</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="regression-analysis.html"><a href="regression-analysis.html#forecast-in-linear-regression-models"><i class="fa fa-check"></i><b>7.4</b> Forecast in linear regression models</a></li>
+<li class="chapter" data-level="7.5" data-path="regression-analysis.html"><a href="regression-analysis.html#multivariate-linear-regression"><i class="fa fa-check"></i><b>7.5</b> Multivariate linear regression</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistics and Data Science Applications</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="hypothesis-testing" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Chapter 6</span> Hypothesis testing<a href="hypothesis-testing.html#hypothesis-testing" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<script>
+function checkAnswer_mmc(q) {
+      const selectedOptions = document.querySelectorAll('input[name="option'+q.id+'"]:checked');
+      if (selectedOptions.length === 2) {
+        const userAnswers = Array.from(selectedOptions).map(option => option.value);
+        const correctAnswers = q.answer;
+        const isCorrect = userAnswers.every(answer => correctAnswers.includes(answer));
+
+if (isCorrect) {
+          document.getElementById('result'+q.id).textContent = 'Congratulations! Your answer is correct.';
+          document.getElementById('result'+q.id).style.color = "green";
+        } else {
+          document.getElementById('result'+q.id).textContent = `Sorry, incorrect.`;
+          document.getElementById('result'+q.id).style.color = "red";
+        }
+      } else {
+        document.getElementById('result'+q.id).textContent = 'Please select two options.';
+      }
+    }
+// numeric
+function generateQuestion_num(id) {
+      // Generate two random numbers between 2 and 10
+      const num1 = Math.floor(Math.random() * 10) + 2;
+      const num2 = Math.floor(Math.random() * 10) + 2;
+      const x1 = Math.floor(Math.random() * 100) + 2;
+      const x2 = Math.floor(Math.random() * 100) + 2;
+      const x3 = Math.floor(Math.random() * 100) + 2;
+      const x4 = Math.floor(Math.random() * 100) + 2;
+      const x5 = Math.floor(Math.random() * 100) + 2;
+      const x6 = Math.floor(Math.random() * 100) + 2;
+
+       // Calculate the correct answer
+      let answer = num1*Math.sqrt(x1) + num2*Math.sqrt(x2);
+
+      // Return the question and answer as an object
+      return {
+       // question: num1 + "\\(\\sqrt{x}+\\)"+ num2 + "\\(\\sqrt{y}\\)" + " for \\(x=\\)" + x1 + " and \\(y=\\)" + x2,
+        question: [num1,num2,x1,x2,x3,x4,x5,x6],
+        answer: answer,
+        id: id
+      };
+    }
+
+function checkAnswer_num(q) {
+      const userAnswer = document.getElementById('answer'+q.id).value;
+      const isCorrect = Math.round(parseFloat(userAnswer)*10000)/10000 === Math.round(q.answer*10000)/10000;
+
+      if (isCorrect) {
+        document.getElementById('result'+q.id).textContent = 'Congratulations! Your answer is correct.';
+        document.getElementById('result'+q.id).style.color = "green";
+      } else {
+        document.getElementById('result'+q.id).textContent = `Sorry, incorrect. The correct answer is ` + Math.round(q.answer*10000)/10000 + '.';
+        document.getElementById('result'+q.id).style.color = "red";
+      }
+  }
+
+// plain multiple choice
+  function checkAnswer_match(q) {
+      const selectedOption = document.querySelector('input[name="option'+q.id+'"]:checked');
+      if (selectedOption) {
+        const userAnswer = selectedOption.value;
+        const isCorrect = userAnswer === q.answer;
+
+        if (isCorrect) {
+          document.getElementById('result'+q.id).textContent = 'Congratulations! Your answer is correct.';
+          document.getElementById('result'+q.id).style.color = "green";
+        } else {
+          document.getElementById('result'+q.id).textContent = `Sorry, incorrect.`;
+          document.getElementById('result'+q.id).style.color = "red";
+        }
+      } else {
+        document.getElementById('result'+q.id).textContent = 'Please select an option.';
+      }
+    }
+    
+function factorial(n){
+  let answer = 1;
+  if (n == 0 || n == 1){
+    return answer;
+  }
+  else if(n > 1){
+    for(var i = n; i >= 1; i--){
+      answer = answer * i;
+    }
+    return answer;
+  }
+  else{
+    return "number has to be positive."
+  }  
+}
+
+function binomial(n, k) {
+     if ((typeof n !== 'number') || (typeof k !== 'number')) 
+  return false; 
+    var coeff = 1;
+    for (var x = n-k+1; x <= n; x++) coeff *= x;
+    for (x = 1; x <= k; x++) coeff /= x;
+    return coeff;
+}
+
+function binomialCDF(k,n,p) {
+    let answer = 0;
+
+    for(var i = 0; i <= k; i++){
+      answer = answer + binomial(n,i)*Math.pow(p,i)*Math.pow((1-p),(n-i));
+    }
+    return answer;
+}
+function normalCDF(x, mean, std) {
+  var x = (x - mean) / std
+  var t = 1 / (1 + .2315419 * Math.abs(x))
+  var d =.3989423 * Math.exp( -x * x / 2)
+  var prob = d * t * (.3193815 + t * ( -.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274))))
+  if( x > 0 ) prob = 1 - prob
+  return prob
+}
+</script>
+<p>So far we have made statistical inferences based on numerical estimators (point estimators and interval estimators). Well, there are problems where you want to test a certain assumption. It’s less about getting a number and more about supporting a hypothesis based on the data (e.g. was a marketing campaign effective?).</p>
+<p>Test procedures answer the questions regarding these <strong>possible conclusions</strong> of a random process (<strong>hypotheses</strong>) and bring about a <strong>decision</strong> for one of the possibilities using tools of probability theory.</p>
+<hr />
+<p>In this chapter we will learn:</p>
+<ul>
+<li>How to formulate the <strong>hypotheses</strong>,</li>
+<li>which <strong>test procedures</strong> should be used and when?</li>
+<li>how to make a <strong>test decision</strong>.</li>
+</ul>
+<hr />
+<div id="the-basic-idea-of-statistical-testing" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> The basic idea of statistical testing<a href="hypothesis-testing.html#the-basic-idea-of-statistical-testing" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<hr />
+<div class="example">
+<p><span id="exm:test" class="example"><strong>Example 6.1  (Discount campaign) </strong></span>You want to check whether a discount campaign has contributed to increasing sales.</p>
+<p>In a pilot study, <span class="math inline">\(n=30\)</span> randomly selected customers were offered the discount.
+The remaining customers did not receive a discount and have an average invoice amount of <span class="math inline">\(25\)</span> EUR with a known
+standard deviation of <span class="math inline">\(\sigma=2.4\)</span>.</p>
+<p>The discount group has an average invoice amount of <span class="math inline">\(\overline y=26.3\)</span> EUR.
+There are two possibilities:</p>
+<ul>
+<li><p><strong>The campaign is actually effective</strong>: it increases sales sustainably and we would be making a wrong decision if we assume that the increase in sales is random <span class="math inline">\(\Rightarrow\)</span> Company may abandon an effective campaign.</p></li>
+<li><p><strong>The campaign is actually ineffective</strong>: sales in the pilot group increased due to random fluctuations and we would be making a wrong decision if we assumed that the increase in sales was due to the promotion <span class="math inline">\(\Rightarrow\)</span> cost for a pointless discount campaign.</p></li>
+</ul>
+<p>In the case of two possible, mutually exclusive conclusions, a distinction is made:</p>
+<ul>
+<li><p><strong>null hypothesis</strong> <span class="math inline">\(H_0\)</span> (status quo <span class="math inline">\(\leadsto\)</span> action does not change behavior, sales, …) is not rejected as long as there is not enough evidence to refute it.</p></li>
+<li><p><strong>Alternative hypothesis</strong> <span class="math inline">\(H_1\)</span> (<span class="math inline">\(\leadsto\)</span> action is effective, favorably changes behavior, sales, …) is accepted if “sufficient” evidence speaks against the null hypothesis.</p></li>
+</ul>
+</div>
+<hr />
+<p>Possible conclusions and consequences:</p>
+<p><span class="math display">\[
+\begin{array}{c|cc}
+      \hline
+      &amp;H_0\text{ not rejected }&amp; H_0\text{ rejected }\\\hline
+      H_0\text{ is correct }&amp;\text{decision correct }&amp; \text{decision incorrect}\\
+      &amp;&amp;\text{(Type 1 error)}\\
+      H_0\text{ is wrong }&amp;\text{decision incorrect}&amp;\text{decision correct}\\
+      &amp;\text{(Type 2 error)}&amp;\\\hline
+\end{array}
+\]</span></p>
+<p>Wrong decisions are always possible and it is not possible to judge whether a given test decision is right or wrong. However, we construct statistical test in a way, that incorrect decisions have low probability.</p>
+<p>Two types of incorrect decisions can occur: incorrectly rejecting or incorrectly maintaining the null hypothesis:</p>
+<ul>
+<li><p><strong>Type 1 error</strong> when <span class="math inline">\(H_0\)</span> is rejected even though <span class="math inline">\(H_0\)</span> is true,</p></li>
+<li><p><strong>Type 2 error</strong> when <span class="math inline">\(H_0\)</span> is retained even though <span class="math inline">\(H_1\)</span> is true.</p></li>
+</ul>
+<p>The aim is to define a decision-making strategy so that Type 1 and Type 2 errors are kept as small as possible.</p>
+<hr />
+<div class="example">
+<p><span id="exm:test0" class="example"><strong>Example 6.2  (Discount campaign) </strong></span>Example <a href="hypothesis-testing.html#exm:test">6.1</a> cont.</p>
+<p>Probabilistic formulation of the problem:</p>
+<ul>
+<li><p>Sample <span class="math inline">\(Y_1,Y_2,\ldots,Y_{30}\)</span>: Sales from pilot customers.</p></li>
+<li><p>Assumption: <span class="math inline">\((Y_i)_{i=1,\ldots,30}\)</span> are independent repetitions of a normally distributed random variable <span class="math inline">\(Y\)</span> with unknown expected value <span class="math inline">\(\mu\)</span> and known standard deviation <span class="math inline">\(\sigma=2.4\)</span>.</p></li>
+</ul>
+<p>Then, sample mean <span class="math inline">\(\overline Y\)</span> of the <span class="math inline">\(30\)</span> realizations is a normally distributed random variable with expected value <span class="math inline">\(\mu\)</span> and standard deviation <span class="math inline">\(\sigma/\sqrt{30}\)</span>.</p>
+<p>Setting up the hypotheses:</p>
+<ul>
+<li><p><span class="math inline">\(H_0\)</span>: <span class="math inline">\(\mu=25.0\)</span> (action not effective,“Status Quo”)</p></li>
+<li><p><span class="math inline">\(H_1\)</span>: <span class="math inline">\(\mu&gt;25.0\)</span> (action effective)</p></li>
+</ul>
+<p>Basis for decision:</p>
+<ul>
+<li><p>makes sense to keep <span class="math inline">\(H_0\)</span> if <span class="math inline">\(\overline y\)</span> is only slightly larger than <span class="math inline">\(25\)</span>.</p></li>
+<li><p>makes sense to reject <span class="math inline">\(H_0\)</span> if <span class="math inline">\(\overline y\)</span> is significantly larger, e.g. <span class="math inline">\(35.0\)</span>.</p></li>
+</ul>
+<p><span class="math inline">\(\leadsto\)</span> Find critical <span class="math inline">\(\overline y^\ast\)</span> from which on <span class="math inline">\(H_0\)</span> is rejected.</p>
+<p>Choosing <span class="math inline">\(\overline y^\ast\)</span> using probabilistic considerations:</p>
+<ul>
+<li><p>1st attempt: <span class="math inline">\(\overline y^\ast=25.25\)</span>
+Then <span class="math inline">\(H_0\)</span> is rejected with a probability of <span class="math inline">\(28\%\)</span>, assuming that <span class="math inline">\(H_0\)</span> is true (Error Type 1):
+<span class="math display">\[\begin{align*}
+      \mathbb P(H_0 \text{ reject}|H_0 \text{ is true})&amp;= \mathbb P(\overline Y\geq
+        25.25|\mu=25.0)\\
+        &amp;= \mathbb P\left(\frac{\overline Y-25,0}{2.4/\sqrt{30}} \geq
+          \frac{25.25-25.0}{2.4/\sqrt{30}}\right)\\
+        &amp;= 1-N(0.57) = 0.2843.
+\end{align*}\]</span>
+<span class="math inline">\(\leadsto\)</span> Probability of type I error too high.</p></li>
+<li><p>2nd attempt: <span class="math inline">\(\overline y^\ast=26.5\)</span>
+<span class="math inline">\(H_0\)</span> is “only” rejected incorrectly with probability <span class="math inline">\(0.03\%\)</span>:
+<span class="math display">\[\begin{equation*}
+  \mathbb P(H_0 \text{ reject}| H_0 \text{ is true}) = \mathbb P(\overline
+  Y\geq 26.50|\mu=25.0) = 0.0003.
+\end{equation*}\]</span>
+<span class="math inline">\(\leadsto\)</span> probability of error 1. type very small (good!)</p></li>
+</ul>
+<p><strong>But</strong>: Probability of type 2 error may be high (a distribution other than <span class="math inline">\(H_0\)</span> might be more plausible in the range of values lying very far from the mean).</p>
+<p><strong>Idea</strong>: Choose <span class="math inline">\(\overline y^\ast\)</span> so that <span class="math inline">\(H_0\)</span> is (falsely) rejected with a given small probability <span class="math inline">\(\alpha\)</span>, e.g. <span class="math inline">\(\alpha=0.05\)</span>:
+<span class="math display">\[\begin{align*}
+        \mathbb P(H_0 \text{ reject}|H_0 \text{ is true})&amp; =
+        \mathbb P(\overline Y
+        \geq \overline y^{\ast}|\mu=25.0) =0.05.
+\end{align*}\]</span></p>
+<p>This gives <span class="math inline">\(\overline y^\ast=25.718\)</span>.</p>
+<p>Our decision would be: Reject the hypothesis that action has no effect because <span class="math inline">\(\overline Y=26.3\geq 25.718\)</span>.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-162-1.png" width="672" /></p>
+<p>This is <strong>not</strong> proof that <span class="math inline">\(H_0\)</span> is false. <strong>High evidence against</strong> <span class="math inline">\(H_0\)</span> leads to rejection. Because: If the true expected value is <span class="math inline">\(25.0\)</span>, samples with <span class="math inline">\(\overline Y\geq 25.718\)</span> will only occur with a probability of <span class="math inline">\(5\%\)</span>.</p>
+<p>Decision rule: Reject <span class="math inline">\(H_0\)</span> if <span class="math inline">\(\overline Y\geq 25.718\)</span>.</p>
+<p>The following key figure is also interesting: Assuming that <span class="math inline">\(H_0\)</span> holds, what is the probability - if the experiment is repeated - of obtaining a result that is at least as extreme as the one observed?
+This key figure is called the <strong><span class="math inline">\(p\)</span> value</strong> and is calculated as follows:</p>
+<p><span class="math display">\[\begin{equation*}
+        \mathbb P(\overline Y_{\text{Rep.}}\geq \overline Y|H_0)
+        = \mathbb P(\overline Y_{\text{Rep.}} \geq 26.3|\mu=25.0)
+        = 0.0015 = 0.15%.
+\end{equation*}\]</span></p>
+</div>
+<hr />
+</div>
+<div id="hypothesis-tests-for-p" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Hypothesis tests for <span class="math inline">\(p\)</span><a href="hypothesis-testing.html#hypothesis-tests-for-p" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Now we formally define hypothesis testing starting with tests for proportion <span class="math inline">\(p\)</span>. Consider the following example:</p>
+<hr />
+<div class="example">
+<p><span id="exm:testp0" class="example"><strong>Example 6.3  (Quality inspection) </strong></span>Before a batch of goods is delivered, the quality should be checked on the basis of a random sample.</p>
+<ul>
+<li><p>An attribute check is carried out. This means that for each piece produced, it is recorded whether it meets the quality standards (“good”) or not (“bad”). The bad pieces are counted - the number can be assumed to be binomial distributed with parameter <span class="math inline">\(p\)</span> (proportion of the defect pieces).</p></li>
+<li><p>A customer accepts delivery of goods if percentage of defect is less than <span class="math inline">\(10\%\)</span>.</p></li>
+<li><p>For cost reasons, not the entire delivery can be checked.</p></li>
+<li><p>A sample of <span class="math inline">\(n=1000\)</span> pieces results in <span class="math inline">\(102\)</span> defect pieces.</p></li>
+<li><p>Is the difference between <span class="math inline">\(10.2\%\)</span> and <span class="math inline">\(10\%\)</span> small enough to conclude that the actual share is less than <span class="math inline">\(10\%\)</span>?</p></li>
+</ul>
+</div>
+<hr />
+<div id="the-exact-binomial-test" class="section level3 hasAnchor" number="6.2.1">
+<h3><span class="header-section-number">6.2.1</span> The exact binomial test<a href="hypothesis-testing.html#the-exact-binomial-test" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>General: Let <span class="math inline">\(X_1, \ldots, X_n\)</span> be sample variables with
+<span class="math display">\[\begin{equation*}
+      X_i=
+      \begin{cases}
+        1, &amp;\text{ if } A \text{ occurs},\\
+        0, &amp;\text{ if } \overline A \text{ occurs}.
+      \end{cases}
+\end{equation*}\]</span></p>
+<ul>
+<li><p>Let the probability of the event <span class="math inline">\(\{X_i=1\}\)</span> be <span class="math inline">\(p\)</span> (unknown!).</p></li>
+<li><p><strong>Statistical testing problem</strong>:</p>
+<ul>
+<li><p>The hypothesis of interest is formulated as <strong>alternative hypothesis</strong> <span class="math inline">\(H_1\)</span>. It must prevail against the <strong>null hypothesis</strong> <span class="math inline">\(H_0\)</span>.</p></li>
+<li><p>A statistical test is about deciding whether the observed behavior also applies to the population.</p></li>
+</ul></li>
+<li><p><strong>Test statistic</strong> is the quantity for which we know the distribution under <span class="math inline">\(H_0\)</span>:
+<span class="math display">\[\begin{equation*}
+      \text{Number of &quot;successes&quot;: } X=\sum_{i=1}^n X_i
+\end{equation*}\]</span></p></li>
+</ul>
+<p>If the assumption of independent draws is justified, then <span class="math inline">\(X=\sum_{i=1}^n X_i\)</span> is binomially distributed with parameters <span class="math inline">\(n\)</span> and <span class="math inline">\(p\)</span>.</p>
+<ul>
+<li><strong>Rejection region</strong>:
+How large does <span class="math inline">\(X\)</span> have to be so that it is extremely unlikely that <span class="math inline">\(X\)</span> follows the distribution under <span class="math inline">\(H_0\)</span>?
+First, specify “extremely unlikely”; usual values <span class="math inline">\(0.01\)</span>; <span class="math inline">\(0.05\)</span>; <span class="math inline">\(0.1\)</span>, denoted as <strong>significance level</strong>/ <strong>confidence level</strong> with symbol <span class="math inline">\(\alpha\)</span>.</li>
+</ul>
+<p>This results in the <strong>rejection region</strong>, i.e. those values of the random experiment,
+which <strong>point in the direction of the alternative</strong>, and whose probability under <span class="math inline">\(H_0\)</span> is <strong>less than</strong> <span class="math inline">\(\alpha\)</span>.</p>
+<hr />
+<div class="example">
+<p><span id="exm:testp1" class="example"><strong>Example 6.4  (Quality inspection) </strong></span>Example <a href="hypothesis-testing.html#exm:testp0">6.3</a> cont.</p>
+<p><span class="math display">\[
+\begin{array}{cccccccc}\hline
+x_i&amp;101&amp;102&amp; 105 &amp;110 &amp;115&amp; 120&amp; 125\\
+\mathbb P(X&gt;x_i)&amp;0,432 &amp;0,391&amp; 0,278&amp; 0,135&amp; 0,053&amp; 0,017&amp; 0,005\\\hline
+\end{array}
+\]</span></p>
+<p><span class="math inline">\(\mathbb P(X&gt;102) = 0.391\)</span> i.e. not small enough (this should be smaller than the error probability <span class="math inline">\(\alpha=0.01/0.05/0.1\)</span>).</p>
+<p>What is the critical value? At what point would we decline? (<span class="math inline">\(\mathbb P(X&gt;x_i)\leq \alpha\)</span>)</p>
+<p><span class="math display">\[
+\begin{array}{ccccc}\hline
+x_i&amp;115&amp; \color{red}{116}&amp; 120&amp; 125\\
+\mathbb P(X&gt;x_i)&amp; 0,053&amp;\color{red}{0,04334} &amp;0,017&amp; 0,005\\\hline
+\end{array}
+\]</span></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-164-1.png" width="100%" /></p>
+</div>
+<hr />
+</div>
+<div id="the-approximate-binomial-test" class="section level3 hasAnchor" number="6.2.2">
+<h3><span class="header-section-number">6.2.2</span> The approximate binomial test<a href="hypothesis-testing.html#the-approximate-binomial-test" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>For large <span class="math inline">\(n\)</span>, the binomial distribution can be approximated by the normal distribution <span class="math inline">\(\leadsto\)</span> <strong>approximative binomial test</strong>.</p>
+<p>Let <span class="math inline">\(X=\sum_{i=1}^n X_i\sim B(n,p)\)</span> be sufficiently large for <span class="math inline">\(np\)</span> and <span class="math inline">\(n(1-p)\)</span>. Then the following applies:
+<span class="math display">\[\begin{align*}
+      X&amp;\stackrel{\text{approx.}}{\sim} N(np, np(1-p))\quad \text{
+         or. }\\
+      Z=\frac{X-n\, p}{\sqrt{n\, p(1-p)}}
+      &amp;\stackrel{\text{approx.}}\sim N(0,1).
+\end{align*}\]</span></p>
+<p>Rule of thumb for “sufficiently large”: <span class="math inline">\(np&gt;5\)</span> and <span class="math inline">\(n(1-p)&gt;5\)</span>.</p>
+<div class="example">
+<p><span id="exm:testp2" class="example"><strong>Example 6.5  (Quality inspection) </strong></span>Example <a href="hypothesis-testing.html#exm:testp1">6.4</a> cont.</p>
+<ul>
+<li><p>Formulation of the test problem (status quo corresponds to the defect pieces proportion of <span class="math inline">\(0.1\)</span>):
+<span class="math display">\[\begin{equation*}
+    H_0: p = 0.1\quad\text{ versus }\quad H_1: p&gt;0.1.
+\end{equation*}\]</span></p></li>
+<li><p>In a sample size of <span class="math inline">\(n=1000\)</span> <span class="math inline">\(x=102\)</span> defect pieces are observed.</p></li>
+<li><p>Approximation: <span class="math inline">\(\displaystyle Z=\frac{X-1000\cdot 0,1}{\sqrt{1000\cdot 0,1\cdot 0.9}}=\frac{X-100}{\sqrt{90}} \stackrel{\text{approx.}}{\sim}N(0;1).\)</span></p></li>
+<li><p>Rejection region <span class="math inline">\(C=\{z:z&gt;N_{1-\alpha}\}\)</span>, where <span class="math inline">\(N_{1-\alpha}\)</span> is the <span class="math inline">\((1-\alpha)\)</span>-quantile of the standard normal distribution (also called <strong>critical value</strong>).</p></li>
+<li><p>Let <span class="math inline">\(\alpha=0.05\)</span>, then the critical value is <span class="math inline">\(N_{1-\alpha}=N_{0.95} = 1.64\)</span>.</p></li>
+<li><p>Test statistic: <span class="math inline">\(\displaystyle z=\frac{102-100}{9.5} = 0.21\)</span>.</p></li>
+<li><p>Test decision: because <span class="math inline">\(0.21&lt;1.64\)</span>, <span class="math inline">\(H_0\)</span> cannot be rejected.</p></li>
+</ul>
+<p>In words: The number of <span class="math inline">\(102\)</span> defective pieces in the sample does not allow us to conclude that the proportion of defect pieces in the <strong>entire</strong> batch deliverred lies over <span class="math inline">\(10\%.\)</span></p>
+<ul>
+<li>Alternatively, one could ask how many pieces <span class="math inline">\(x^\ast\)</span> would result in a rejection of <span class="math inline">\(H_0\)</span>? Solving
+<span class="math display">\[\begin{equation*}
+  \frac{x^\ast-n\, p}{\sqrt{n\, p (1-p)}} &gt;N_{1-\alpha},
+\end{equation*}\]</span>
+for <span class="math inline">\(x^\ast\)</span> results
+<span class="math display">\[\begin{equation*}
+  x^\ast&gt;\sqrt{n\, p(1-p)} N_{1-\alpha} + n\, p = 9.5\cdot 1.64 +
+  100 = 115.58.
+\end{equation*}\]</span></li>
+</ul>
+<p><img src="_main_files/figure-html/unnamed-chunk-165-1.png" width="100%" /></p>
+</div>
+<hr />
+<p>Approximate binomial test (summary)</p>
+<ul>
+<li>Given the following test problems over the parameter <span class="math inline">\(p\)</span> one
+<span class="math inline">\(B(n,p)\)</span> distribution:</li>
+</ul>
+<p><span class="math display">\[\begin{align*}
+  (a) \quad&amp; H_0:p=p_0\quad\text{ versus } \quad H_1:p\not=p_0 \text{(two-sided)}\\
+  (b) \quad &amp; H_0:p=p_0\quad\text{ versus } \quad H_1:p&lt;p_0 \text{(left-sided)}\\
+  (c) \quad &amp; H_0:p=p_0\quad\text{ versus } \quad H_1:p&gt;p_0 \text{ (right-hand side)}.
+\end{align*}\]</span></p>
+<ul>
+<li><p>Based on the test size
+<span class="math inline">\(\displaystyle Z = \frac{X-n\, p_0}{\sqrt{n\, p_0 (1-p_0)}}\stackrel{\text{approx.}}\sim N(0,1)\)</span>
+and the given level <span class="math inline">\(\alpha\)</span></p></li>
+<li><p>the decision is made for <span class="math inline">\(H_1\)</span> in the test problem</p></li>
+</ul>
+<p><span class="math display">\[\begin{align*}
+  (a),\quad&amp; \text{ if } |z|&gt;N_{1-\alpha/2}\\
+  (b),\quad&amp; \text{ if } z&lt;-N_{1-\alpha}\\
+  (c),\quad&amp;\text{ if } z&gt;N_{1-\alpha}.
+\end{align*}\]</span></p>
+</div>
+</div>
+<div id="hypothesis-tests-for-mu" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> Hypothesis tests for <span class="math inline">\(\mu\)</span><a href="hypothesis-testing.html#hypothesis-tests-for-mu" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We have already seen the example with the discount campaign, where we actually care about mean sales <span class="math inline">\(\rightarrow \mu\)</span>! The population mean <span class="math inline">\(\mu\)</span> is another distribution parameter, that builds frequently a basis for hypothesis testing. Below we specify the test concerning hypothesis testing about <span class="math inline">\(\mu.\)</span></p>
+<div id="the-gauss-test" class="section level3 hasAnchor" number="6.3.1">
+<h3><span class="header-section-number">6.3.1</span> The Gauss test<a href="hypothesis-testing.html#the-gauss-test" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Assume that independent, identically distributed random variables are given
+<span class="math inline">\(X_1, \ldots, X_n\)</span> with</p>
+<ul>
+<li><p><span class="math inline">\(X_i\sim N(\mu,\sigma^2)\)</span>, or</p></li>
+<li><p><span class="math inline">\(X_i\)</span> with any continuous distribution, <span class="math inline">\(\mathbb E(X_i)=\mu\)</span>, <span class="math inline">\(\text{Var}(X_i)=\sigma^2\)</span>, <span class="math inline">\(n\)</span> big enough (rule of thumb <span class="math inline">\(n\geq 30\)</span> ).</p></li>
+<li><p><mark><span class="math inline">\(\sigma^2\)</span> is known</mark>.</p></li>
+</ul>
+<p>Consider the following test problems:
+<span class="math display">\[\begin{align*}
+      (a) \quad&amp; H_0:\mu=\mu_0\quad\text{ versus } \quad H_1:\mu\not=\mu_0\\
+      (b) \quad &amp; H_0:\mu=\mu_0\quad\text{ versus } \quad H_1:\mu&lt;\mu_0\\
+      (c) \quad &amp; H_0:\mu=\mu_0\quad\text{ versus } \quad H_1:\mu&gt;\mu_0.
+\end{align*}\]</span></p>
+<p>and test statistics:</p>
+<p><span class="math display">\[\displaystyle Z= \frac{\overline X-\mu_0}{\sigma/ \sqrt{n}}\stackrel{\text{approx.}}{\sim} N(0,1).\]</span></p>
+<p>Based on the test statistic <span class="math inline">\(Z\)</span>, the decision in favor of <span class="math inline">\(H_1\)</span> in the test problem:</p>
+<p><span class="math display">\[\begin{align*}
+      (a),\quad&amp; \text{ if } |z|&gt;N_{1-\alpha/2}\\
+      (b),\quad&amp; \text{ if } z&lt;-N_{1-\alpha}\\
+      (c),\quad&amp;\text{ if } z&gt;N_{1-\alpha}.
+\end{align*}\]</span></p>
+<div class="example">
+<p><span id="exm:testgauss" class="example"><strong>Example 6.6  (Quality inspection of pencils) </strong></span>Pencils are produced with a should be length of <span class="math inline">\(17\)</span> cm.</p>
+<ul>
+<li><p>Test problem: <span class="math inline">\(\displaystyle H_0: \mu=17\text{ versus } H_1: \mu\not=17\)</span>.</p></li>
+<li><p><span class="math inline">\(\alpha=0.01\)</span> is chosen as the significance level.</p></li>
+<li><p>The length <span class="math inline">\(X\)</span> of the pencils is approx. normally distributed with <span class="math inline">\(\mathbb E(X)=\mu\)</span> and <span class="math inline">\(\text{Var}(X)=\sigma^2=2.25\)</span>.</p></li>
+<li><p>A sample (<span class="math inline">\(n=5\)</span>) is taken from current production; The following lengths are measured:</p>
+<p><span class="math display">\[19.2\mathrm{cm};\ 17.4\mathrm{cm};\ 18.5\mathrm{cm};\ 16.5\mathrm{cm};\ 18.9\mathrm{cm}\]</span></p></li>
+<li><p>This results in <span class="math inline">\(\overline x=18.1\text{cm}\)</span> and as a test variable</p></li>
+</ul>
+<p><span class="math display">\[\begin{equation*}
+      z=\frac{\overline x-\mu_0}{\sigma/sqrt n} =
+      \frac{18.1-17}{\sqrt{2.25}/\sqrt{5}} = 1.64.
+\end{equation*}\]</span></p>
+<ul>
+<li><p>The rejection region is given as the <span class="math inline">\((1-\alpha/2)=(1-0.005) = 0.995\)</span>-quantile of the standard normal distribution, so <span class="math inline">\(H_0\)</span> is rejected if <span class="math inline">\(|z| &gt;2.5758.\)</span></p></li>
+<li><p>Because <span class="math inline">\(|z|=1.64\)</span>, <span class="math inline">\(H_0\)</span> is not rejected.</p></li>
+</ul>
+<p><img src="_main_files/figure-html/unnamed-chunk-166-1.png" width="100%" /></p>
+</div>
+<hr />
+</div>
+<div id="the-t-test" class="section level3 hasAnchor" number="6.3.2">
+<h3><span class="header-section-number">6.3.2</span> The <span class="math inline">\(t\)</span> test<a href="hypothesis-testing.html#the-t-test" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>As in the case of the Gauss test, a hypothetical expected value <span class="math inline">\(\mu_0\)</span> should be compared with an actual, unknown expected value. In contrast to the assumption in the Gauss test, <mark>the variance <span class="math inline">\(\sigma^2\)</span> is assumed to be unknown</mark> here.</p>
+<p>This leads to a different normalization in the denominator than in the Gaussian test, namely the unknown variance
+<span class="math inline">\(\sigma^2\)</span> is replaced by sample variance <span class="math inline">\(S^2=\sum_i (X_i-\overline X)^2/(n-1)\)</span>.</p>
+<p>In the following, let <span class="math inline">\(t(n-1)\)</span> denote the Student <span class="math inline">\(t\)</span> distribution with parameter <span class="math inline">\(n-1\)</span> (degrees of freedom).</p>
+<ul>
+<li><p>Assumptions: <span class="math inline">\(X_1,\ldots, X_n\)</span> are independent and
+identically distributed with <span class="math inline">\(X\sim N(\mu,\sigma^2)\)</span> or arbitrarily distributed and <span class="math inline">\(n&gt;30\)</span>.</p></li>
+<li><p>Hypotheses:
+<span class="math display">\[\begin{align*}
+\text{(a)} \quad &amp; H_0:\mu=\mu_0\quad\text{ versus } \quad H_1:\mu\not=\mu_0\\
+\text{(b)} \quad &amp; H_0:\mu=\mu_0\quad\text{ versus } \quad H_1:\mu&lt;\mu_0\\
+\text{(c)} \quad &amp; H_0:\mu=\mu_0\quad\text{ versus } \quad H_1:\mu&gt;\mu_0.
+\end{align*}\]</span></p></li>
+<li><p>Test statistics:
+<span class="math display">\[\displaystyle T=\frac{\overline X-\mu_0}{S/\sqrt{n}}\sim t(n-1)\]</span></p></li>
+</ul>
+<p>under <span class="math inline">\(H_0.\)</span></p>
+<ul>
+<li>Rejection region:</li>
+</ul>
+<p><span class="math display">\[\begin{align*}
+\text{(a)} \quad &amp; |t|&gt;t_{1-\alpha/2}(n-1)\\
+\text{(b)} \quad &amp; t&lt;t_\alpha(n-1)=-t_{1-\alpha}(n-1)\\
+\text{(c)} \quad &amp; t&gt;t_{1-\alpha}(n-1)
+\end{align*}\]</span></p>
+<ul>
+<li>For <span class="math inline">\(n &gt; 30\)</span> quantiles of <span class="math inline">\(t(n-1)\)</span> can be replaced by the quantiles of
+<span class="math inline">\(N(0,1)\)</span> because for more thatn <span class="math inline">\(30\)</span> degrees of freedom, <span class="math inline">\(t\)</span>-distribution can be well-approximated by the normal distribution.</li>
+</ul>
+<div class="example">
+<p><span id="exm:testt" class="example"><strong>Example 6.7  (Quality inspection of pencils) </strong></span>Example <a href="hypothesis-testing.html#exm:testgauss">6.6</a> cont.</p>
+<p>We consider the same problem without the assumption of a known variance.</p>
+<ul>
+<li><p>Test problem:
+<span class="math inline">\(\displaystyle H_0: \mu=17\quad\text{ versus } \quad H_1: \mu\not=17\)</span>.</p></li>
+<li><p><span class="math inline">\(\alpha=0.01\)</span> is chosen as the significance level.</p></li>
+<li><p>The following pencil lengths are available as data:</p></li>
+</ul>
+<p><span class="math display">\[\begin{equation}
+19.2\mathrm{cm};\ 17.4\mathrm{cm};\ 18.5\mathrm{cm};\ 16.5\mathrm{cm};\
+18.9\text{cm}.
+\end{equation}\]</span>
+\end{equation}</p>
+<ul>
+<li><p>This results in <span class="math inline">\(\overline x=18.1cm\)</span> and <span class="math inline">\(s^2=1.265\)</span>.</p></li>
+<li><p>The test statistic is
+<span class="math inline">\(\displaystyle t = \frac{\overline x-\mu_0}{s/\sqrt{n}} = \frac{18.1-17}{1.125/\sqrt{5}} = 2.186\)</span>.</p></li>
+<li><p>The critical value is the <span class="math inline">\((1-\alpha/2)\)</span>-quantile of
+<span class="math inline">\(t(n-1)\)</span> distribution, so <span class="math inline">\(t_{0.995,4} = 4.604\)</span>.</p></li>
+<li><p>Since for the present realization of <span class="math inline">\(T\)</span> holds
+<span class="math inline">\(|2.186|&lt;4.604\)</span>, <span class="math inline">\(H_0\)</span> is not rejected.</p></li>
+</ul>
+<p><img src="_main_files/figure-html/unnamed-chunk-167-1.png" width="100%" /></p>
+</div>
+<div id="q61" class="quiz">
+<script>
+
+
+// Generate a random question
+  const questionObj61 = {
+      question: 'The claim, that the average height of people has changed over time, is to be tested by examining \\(100\\) people. In the following, assume that the height is normally distributed and choose the correct statements.',
+      options: ['The claim should be tested as part of a one-sided test.', 'The Gauss test is a suitable approach in this context.', 'The exact or approximative binomial test represents a suitable approach in this context.', 'The claim should be tested using a two-sided test.', 'The t-test represents a suitable approach in this context.'],
+      answer: ['4','5'],
+      id: 61
+    };
+</script>
+<p class="question">
+Frage: <span id="question-text61"></span>
+</p>
+<div class="options">
+<p><label>
+<input type="checkbox" name="option61" value=1> The claim should be tested as part of a one-sided test.
+</label>
+<br>
+<label>
+<input type="checkbox" name="option61" value=2> The Gauss test is a suitable approach in this context.
+</label>
+<br>
+<label>
+<input type="checkbox" name="option61" value=3> The exact binomial test represents a suitable approach in this context.
+</label>
+<br>
+<label>
+<input type="checkbox" name="option61" value=4> The claim should be tested using a two-sided test.
+</label>
+<br>
+<label>
+<input type="checkbox" name="option61" value=5> The t-test represents a suitable approach in this context.
+</label></p>
+</div>
+<button onclick="checkAnswer_mmc(questionObj61)">
+Submit
+</button>
+<p id="result61">
+</p>
+<script>
+    // Display the question
+    document.getElementById('question-text61').textContent = questionObj61.question;
+
+</script>
+<hr />
+<script>
+
+
+// Generate a random question
+  const questionObj62 = {
+      question: 'The claim whether it rains \\(50\\%\\) of the time in Berlin or not should be checked using a sample of \\(50\\) days. Choose the correct statements.',
+      options: ['The claim should be tested as part of a one-sided test.', 'The Gauss test is a suitable approach in this context.', 'The exact or approximative binomial test represents a suitable approach in this context.', 'The claim should be tested using a two-sided test.', 'The t-test represents a suitable approach in this context.'],
+      answer: ['4','3'],
+      id: 62
+    };
+</script>
+<p class="question">
+Frage: <span id="question-text62"></span>
+</p>
+<div class="options">
+<p><label>
+<input type="checkbox" name="option62" value=1> The claim should be tested as part of a one-sided test.
+</label>
+<br>
+<label>
+<input type="checkbox" name="option62" value=2> The Gauss test is a suitable approach in this context.
+</label>
+<br>
+<label>
+<input type="checkbox" name="option62" value=3> The exact or approximative binomial test represents a suitable approach in this context.
+</label>
+<br>
+<label>
+<input type="checkbox" name="option62" value=4> The claim should be tested using a two-sided test.
+</label>
+<br>
+<label>
+<input type="checkbox" name="option62" value=5> The t-test represents a suitable approach in this context.
+</label></p>
+</div>
+<button onclick="checkAnswer_mmc(questionObj62)">
+Submit
+</button>
+<p id="result62">
+</p>
+<script>
+    // Display the question
+    document.getElementById('question-text62').textContent = questionObj62.question;
+
+</script>
+<hr />
+<script>
+
+
+// Generate a random question
+  const questionObj63 = {
+      question: 'The claim that the average number of needles on Christmas trees is a maximum of \\(200\\) thousand needles should be statistically verified. The standard deviation of the number of needles is known from many years of experience. In the following, assume that the number of needles is normally distributed and choose the correct statements.',
+      options: ['The claim should be tested as part of a one-sided test.', 'The Gauss test is a suitable approach in this context.', 'The exact or approximative binomial test represents a suitable approach in this context.', 'The claim should be tested using a two-sided test.', 'The t-test represents a suitable approach in this context.'],
+      answer: ['1','2'],
+      id: 63
+    };
+</script>
+<p class="question">
+Frage: <span id="question-text63"></span>
+</p>
+<div class="options">
+<p><label>
+<input type="checkbox" name="option63" value=1> The claim should be tested as part of a one-sided test.
+</label>
+<br>
+<label>
+<input type="checkbox" name="option63" value=2> The Gauss test is a suitable approach in this context.
+</label>
+<br>
+<label>
+<input type="checkbox" name="option63" value=3> The exact or approximative binomial test represents a suitable approach in this context.
+</label>
+<br>
+<label>
+<input type="checkbox" name="option63" value=4> The claim should be tested using a two-sided test.
+</label>
+<br>
+<label>
+<input type="checkbox" name="option63" value=5> The t-test represents a suitable approach in this context.
+</label></p>
+</div>
+<button onclick="checkAnswer_mmc(questionObj63)">
+Submit
+</button>
+<p id="result63">
+</p>
+<script>
+    // Display the question
+    document.getElementById('question-text63').textContent = questionObj63.question;
+
+</script>
+</div>
+<hr />
+</div>
+</div>
+<div id="type-1-and-type-2-errors" class="section level2 hasAnchor" number="6.4">
+<h2><span class="header-section-number">6.4</span> Type 1 and Type 2 errors<a href="hypothesis-testing.html#type-1-and-type-2-errors" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>
+<p>The probability of a type I error (wrongly rejecting <span class="math inline">\(H_0\)</span>):
+<span class="math display">\[\mathbb P(H_0\text{ reject}|H_0\text{ true})\leq \alpha\]</span>
+is <strong>controlled</strong> by the error probability <span class="math inline">\(\alpha\)</span>, also referred to as the <strong>significance level</strong>.</p>
+<ul>
+<li>
+A statistical test is called <strong>significance test</strong> at level <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(0&lt;\alpha&lt;1\)</span>, if
+<span class="math display">\[\begin{equation*}
+      \mathbb P(H_0\text{ reject}|H_0\text{ true}) \leq \alpha,
+\end{equation*}\]</span>
+i.e.
+<span class="math display">\[\begin{equation*}
+      \mathbb P(\text{Type 1 error})\leq \alpha.
+\end{equation*}\]</span>
+</li>
+<li>
+In the case of rejecting the null hypothesis one can also says: “the
+result is <strong>statistically significant</strong> at level <span class="math inline">\(\alpha\)</span>”.
+</li>
+<li>
+Interpretation: if <span class="math inline">\(100\)</span> diefferent samples
+are drawn from the distribution under the null hypothesis, then
+the proportion of false rejections in a statistical test at the level <span class="math inline">\(\alpha=5\%\)</span> will be (approximately/in the expectation) equal to <span class="math inline">\(\frac 5{100}.\)</span>
+</li>
+</ul>
+</li>
+<li>
+<p>The probability of a type II error, denoted as <span class="math inline">\(\beta\)</span>,
+is not controlled:
+<span class="math display">\[\mathbb P(H_0\text{ not rejected}|H_1\text{ true}) = \beta\]</span></p>
+<p>Statisticians look for tests that keep type 2 error low.</p>
+</div>
+<div id="exceeding-probability-p-value" class="section level2 hasAnchor" number="6.5">
+<h2><span class="header-section-number">6.5</span> Exceeding probability: <span class="math inline">\(p\)</span> value<a href="hypothesis-testing.html#exceeding-probability-p-value" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The <span class="math inline">\(p\)</span>-value is defined as the probability to obtain under <span class="math inline">\(H_0\)</span> a more extreme value for the test statistics in the direction of <span class="math inline">\(H_1\)</span> than the value observed in the sample.</p>
+<ul>
+<li><p>If the <span class="math inline">\(p\)</span>-value is smaller than the specified significance level
+<span class="math inline">\(\alpha\)</span>, then <span class="math inline">\(H_0\)</span> is rejected.</p></li>
+<li><p>Otherwise (<span class="math inline">\(p\)</span>-value larger than <span class="math inline">\(\alpha\)</span>), <span class="math inline">\(H_0\)</span> is not rejected.</p></li>
+<li><p>If the <span class="math inline">\(p\)</span> value is very small, it means that it is very unlikely to observe the present test value under <span class="math inline">\(H_0.\)</span></p></li>
+</ul>
+<p>The <strong><span class="math inline">\(p\)</span>-value</strong> is commonly used by software packages to facilitate decisions in statistical tests.</p>
+<hr />
+<div class="example">
+<p><span id="exm:testtpw" class="example"><strong>Example 6.8  (Quality inspection of pencils) </strong></span>Example <a href="hypothesis-testing.html#exm:testgauss">6.6</a> cont.</p>
+<p>In the quality inspection example, the test variable value is <span class="math inline">\(z=0.21\)</span>.</p>
+<p>The <span class="math inline">\(p\)</span> value is given as:
+<span class="math display">\[\begin{equation*}
+      p = \mathbb P(Z&gt; 0.21|H_0) = 1-\mathbb P(Z\leq 0.21|H_0) =
+      1-N(0.21) = 1-0.5832 = 0.4168.
+\end{equation*}\]</span></p>
+<p>Since the <span class="math inline">\(p\)</span>-value is greater than the specified
+Significance level <span class="math inline">\(\alpha=0.05\)</span>, the null hypothesis cannot
+be discarded.</p>
+</div>
+<hr />
+<p>Calculating the <span class="math inline">\(p\)</span>-value (<span class="math inline">\(Z\)</span> is the test statistic):</p>
+<ul>
+<li>two-sided test:</li>
+</ul>
+<p><span class="math display">\[\begin{align}
+p-\text{value} &amp;= \mathbb P(Z&gt;|z|\text{ under } H_0) + \mathbb P(Z&lt;-|z|\text{ under } H_0)\\
+&amp;= 2\cdot \mathbb P(Z&gt;|z|\text{ under } H_0) \text{ with a symmetrical distribution of }Z.
+\end{align}\]</span></p>
+<ul>
+<li>left-sided test:</li>
+</ul>
+<p><span class="math display">\[
+p-\text{value} = \mathbb P(Z&lt; z\text{ under } H_0).
+\]</span></p>
+<ul>
+<li>right-sided test:</li>
+</ul>
+<p><span class="math display">\[
+p-\text{value} = \mathbb P(Z&gt; z\text{ under } H_0).
+\]</span></p>
+<hr />
+<!--::: {.exercise name="Hypothesentests"}
+
+
+```{=html}
+<iframe title="Quiz_Hypoth" src="./htmls/quiz_hypoth.html" width="760" height="500"></iframe>
+```
+
+:::
+-->
+<div id="q62" class="quiz">
+<p id="question">
+<span id="question-text64"></span>
+</p>
+<input type="number" id="answer64" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj64)">Submit</button>
+<p id="result64">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj64 = generateQuestion_num(64);
+// Display the question
+    document.getElementById('question-text64').textContent = "Calculate the \\(p\\)-value for a left-sided Gauss test with test statistics value \\(z=-2.1.\\)";
+    questionObj64.answer = 0.01786442//pnorm(-2.1)
+</script>
+<hr />
+<p id="question">
+<span id="question-text65"></span>
+</p>
+<input type="number" id="answer65" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj65)">Submit</button>
+<p id="result65">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj65 = generateQuestion_num(65);
+// Display the question
+    document.getElementById('question-text65').textContent = "Calculate the \\(p\\)-value for a two-sided t-test with test statistics value \\(t=1.9\\) and sample size \\(n=25.\\)";
+    questionObj65.answer = 0.0695131//2*(1-pt(1.9,24))
+</script>
+<hr />
+<p id="question">
+<span id="question-text66"></span>
+</p>
+<input type="number" id="answer66" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj66)">Submit</button>
+<p id="result66">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj66 = generateQuestion_num(66);
+// Display the question
+    document.getElementById('question-text66').textContent = "Calculate the \\(p\\)-value for a right-sided approximative binomial test with test statistics value \\(z=0.61.\\)";
+    questionObj66.answer = 0.2709309 //1-pnorm(0.61)
+</script>
+</div>
+<hr />
+<!--
+## Rückblick{-}
+
+
+```{=html}
+<iframe title="Wortwolke" src="http://learning-dashboard.lehre.hwr-berlin.de:3838/Apps_RBook/#section-wortwolke" width="760" height="600"></iframe>
+```
+-->
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="parameter-estimation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="regression-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/06-Hypothesistest.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

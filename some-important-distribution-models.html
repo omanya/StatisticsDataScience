@@ -1,0 +1,1619 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Some important distribution models | Statistics and Data Science Applications</title>
+  <meta name="description" content="This is the script for the course." />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Some important distribution models | Statistics and Data Science Applications" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is the script for the course." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Some important distribution models | Statistics and Data Science Applications" />
+  
+  <meta name="twitter:description" content="This is the script for the course." />
+  
+
+<meta name="author" content="Maria Osipenko" />
+
+
+<meta name="date" content="2024-02-23" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="random-variables.html"/>
+<link rel="next" href="limit-theorems.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-goals-and-context"><i class="fa fa-check"></i>Course goals and context</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-goals"><i class="fa fa-check"></i>Course goals</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html"><i class="fa fa-check"></i><b>1</b> Random events and probability - a short review</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#outcomes-and-events"><i class="fa fa-check"></i><b>1.1</b> Outcomes and Events</a></li>
+<li class="chapter" data-level="1.2" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#probabilities"><i class="fa fa-check"></i><b>1.2</b> Probabilities</a>
+<ul>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#laplaces-probability-model"><i class="fa fa-check"></i>Laplace’s probability model</a></li>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#finite-probability-spaces"><i class="fa fa-check"></i>Finite probability spaces</a></li>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#calculating-with-probabilities"><i class="fa fa-check"></i>Calculating with probabilities</a></li>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#joint-and-conditional-probabilities-independence-of-events"><i class="fa fa-check"></i>Joint and conditional probabilities, independence of events</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#sampling-as-a-random-process"><i class="fa fa-check"></i><b>1.3</b> Sampling as a random process</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="random-variables.html"><a href="random-variables.html"><i class="fa fa-check"></i><b>2</b> Random variables</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="random-variables.html"><a href="random-variables.html#discrete-random-variable"><i class="fa fa-check"></i><b>2.1</b> Discrete random variable</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="random-variables.html"><a href="random-variables.html#probability-and-distribution-functions"><i class="fa fa-check"></i><b>2.1.1</b> Probability and distribution functions</a></li>
+<li class="chapter" data-level="2.1.2" data-path="random-variables.html"><a href="random-variables.html#expected-value-and-variance"><i class="fa fa-check"></i><b>2.1.2</b> Expected value and variance</a></li>
+<li class="chapter" data-level="2.1.3" data-path="random-variables.html"><a href="random-variables.html#covariance-and-correlation"><i class="fa fa-check"></i><b>2.1.3</b> Covariance and correlation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="random-variables.html"><a href="random-variables.html#continuous-random-variables"><i class="fa fa-check"></i><b>2.2</b> Continuous random variables</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="random-variables.html"><a href="random-variables.html#density-function"><i class="fa fa-check"></i><b>2.2.1</b> Density function</a></li>
+<li class="chapter" data-level="2.2.2" data-path="random-variables.html"><a href="random-variables.html#distribution-function-1"><i class="fa fa-check"></i><b>2.2.2</b> Distribution function</a></li>
+<li class="chapter" data-level="2.2.3" data-path="random-variables.html"><a href="random-variables.html#expected-value-and-variance-1"><i class="fa fa-check"></i><b>2.2.3</b> Expected value and variance</a></li>
+<li class="chapter" data-level="2.2.4" data-path="random-variables.html"><a href="random-variables.html#quantiles-of-continuous-random-variables"><i class="fa fa-check"></i><b>2.2.4</b> Quantiles of continuous random variables</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html"><i class="fa fa-check"></i><b>3</b> Some important distribution models</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#discrete-distributions"><i class="fa fa-check"></i><b>3.1</b> Discrete distributions</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#discrete-uniform-distribution"><i class="fa fa-check"></i><b>3.1.1</b> Discrete uniform distribution</a></li>
+<li class="chapter" data-level="3.1.2" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#bernoulli-distribution"><i class="fa fa-check"></i><b>3.1.2</b> Bernoulli distribution</a></li>
+<li class="chapter" data-level="3.1.3" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#binomial-distribution"><i class="fa fa-check"></i><b>3.1.3</b> Binomial distribution</a></li>
+<li class="chapter" data-level="3.1.4" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#geometric-distribution"><i class="fa fa-check"></i><b>3.1.4</b> Geometric distribution</a></li>
+<li class="chapter" data-level="3.1.5" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#poisson-distribution"><i class="fa fa-check"></i><b>3.1.5</b> Poisson distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#continuous-distributions"><i class="fa fa-check"></i><b>3.2</b> Continuous distributions</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#normal-distribution"><i class="fa fa-check"></i><b>3.2.1</b> Normal distribution</a></li>
+<li class="chapter" data-level="3.2.2" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#exponential-distribution"><i class="fa fa-check"></i><b>3.2.2</b> Exponential distribution</a></li>
+<li class="chapter" data-level="3.2.3" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#uniform-distribution"><i class="fa fa-check"></i><b>3.2.3</b> Uniform distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#further-distributions"><i class="fa fa-check"></i><b>3.3</b> Further distributions</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#chi2-distribution"><i class="fa fa-check"></i><b>3.3.1</b> <span class="math inline">\(\chi^2\)</span>-distribution</a></li>
+<li class="chapter" data-level="3.3.2" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#t-distribution"><i class="fa fa-check"></i><b>3.3.2</b> t-distribution</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="limit-theorems.html"><a href="limit-theorems.html"><i class="fa fa-check"></i><b>4</b> Limit theorems</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="limit-theorems.html"><a href="limit-theorems.html#strong-law-of-large-numbers"><i class="fa fa-check"></i><b>4.1</b> Strong law of large numbers 💪</a></li>
+<li class="chapter" data-level="4.2" data-path="limit-theorems.html"><a href="limit-theorems.html#central-limit-theorem"><i class="fa fa-check"></i><b>4.2</b> Central limit theorem</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="iii-inductive-statistics.html"><a href="iii-inductive-statistics.html"><i class="fa fa-check"></i>III Inductive Statistics</a></li>
+<li class="chapter" data-level="5" data-path="parameter-estimation.html"><a href="parameter-estimation.html"><i class="fa fa-check"></i><b>5</b> Parameter estimation</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#basic-ideas-of-inductive-statistics"><i class="fa fa-check"></i><b>5.1</b> Basic ideas of inductive statistics</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#parameter-estimation-theoretically"><i class="fa fa-check"></i><b>5.1.1</b> Parameter estimation theoretically</a></li>
+<li class="chapter" data-level="5.1.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#parameter-estimation-practically"><i class="fa fa-check"></i><b>5.1.2</b> Parameter estimation practically</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#point-estimation"><i class="fa fa-check"></i><b>5.2</b> Point estimation</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#estimation-functions"><i class="fa fa-check"></i><b>5.2.1</b> Estimation functions</a></li>
+<li class="chapter" data-level="5.2.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#properties-of-estimators"><i class="fa fa-check"></i><b>5.2.2</b> Properties of estimators</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="parameter-estimation.html"><a href="parameter-estimation.html#construction-of-estimators"><i class="fa fa-check"></i><b>5.3</b> Construction of estimators</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#method-of-moments"><i class="fa fa-check"></i><b>5.3.1</b> Method of moments</a></li>
+<li class="chapter" data-level="5.3.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#maximum-likelihood-method"><i class="fa fa-check"></i><b>5.3.2</b> Maximum likelihood method</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="parameter-estimation.html"><a href="parameter-estimation.html#interval-estimation"><i class="fa fa-check"></i><b>5.4</b> Interval estimation</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#alpha-confidence-interval-for-mu"><i class="fa fa-check"></i><b>5.4.1</b> <span class="math inline">\((1-\alpha)\)</span> confidence interval for <span class="math inline">\(\mu\)</span></a></li>
+<li class="chapter" data-level="5.4.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#alpha-confidence-interval-for-sigma2"><i class="fa fa-check"></i><b>5.4.2</b> <span class="math inline">\((1-\alpha)\)</span> confidence interval for <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="5.4.3" data-path="parameter-estimation.html"><a href="parameter-estimation.html#alpha-confidence-interval-for-probability-p"><i class="fa fa-check"></i><b>5.4.3</b> <span class="math inline">\((1-\alpha)\)</span> confidence interval for probability <span class="math inline">\(p\)</span></a></li>
+<li class="chapter" data-level="5.4.4" data-path="parameter-estimation.html"><a href="parameter-estimation.html#determining-n-based-on-the-length-of-confidence-intervals"><i class="fa fa-check"></i><b>5.4.4</b> Determining <span class="math inline">\(n\)</span> based on the length of confidence intervals</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>6</b> Hypothesis testing</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-basic-idea-of-statistical-testing"><i class="fa fa-check"></i><b>6.1</b> The basic idea of statistical testing</a></li>
+<li class="chapter" data-level="6.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hypothesis-tests-for-p"><i class="fa fa-check"></i><b>6.2</b> Hypothesis tests for <span class="math inline">\(p\)</span></a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-exact-binomial-test"><i class="fa fa-check"></i><b>6.2.1</b> The exact binomial test</a></li>
+<li class="chapter" data-level="6.2.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-approximate-binomial-test"><i class="fa fa-check"></i><b>6.2.2</b> The approximate binomial test</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hypothesis-tests-for-mu"><i class="fa fa-check"></i><b>6.3</b> Hypothesis tests for <span class="math inline">\(\mu\)</span></a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-gauss-test"><i class="fa fa-check"></i><b>6.3.1</b> The Gauss test</a></li>
+<li class="chapter" data-level="6.3.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-t-test"><i class="fa fa-check"></i><b>6.3.2</b> The <span class="math inline">\(t\)</span> test</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#type-1-and-type-2-errors"><i class="fa fa-check"></i><b>6.4</b> Type 1 and Type 2 errors</a></li>
+<li class="chapter" data-level="6.5" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#exceeding-probability-p-value"><i class="fa fa-check"></i><b>6.5</b> Exceeding probability: <span class="math inline">\(p\)</span> value</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="regression-analysis.html"><a href="regression-analysis.html"><i class="fa fa-check"></i><b>7</b> Regression analysis</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="regression-analysis.html"><a href="regression-analysis.html#linear-regression-model-from-descriptive-statistics"><i class="fa fa-check"></i><b>7.1</b> Linear regression model from descriptive Statistics</a></li>
+<li class="chapter" data-level="7.2" data-path="regression-analysis.html"><a href="regression-analysis.html#simple-linear-regression-from-a-probabilistic-perspective"><i class="fa fa-check"></i><b>7.2</b> Simple linear regression from a probabilistic perspective</a></li>
+<li class="chapter" data-level="7.3" data-path="regression-analysis.html"><a href="regression-analysis.html#estimating-testing-and-forecasting"><i class="fa fa-check"></i><b>7.3</b> Estimating, testing and forecasting</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="regression-analysis.html"><a href="regression-analysis.html#estimating-the-parameters-of-a-linear-regression-model"><i class="fa fa-check"></i><b>7.3.1</b> Estimating the parameters of a linear regression model</a></li>
+<li class="chapter" data-level="7.3.2" data-path="regression-analysis.html"><a href="regression-analysis.html#testing-in-linear-regression-model"><i class="fa fa-check"></i><b>7.3.2</b> Testing in linear regression model</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="regression-analysis.html"><a href="regression-analysis.html#forecast-in-linear-regression-models"><i class="fa fa-check"></i><b>7.4</b> Forecast in linear regression models</a></li>
+<li class="chapter" data-level="7.5" data-path="regression-analysis.html"><a href="regression-analysis.html#multivariate-linear-regression"><i class="fa fa-check"></i><b>7.5</b> Multivariate linear regression</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistics and Data Science Applications</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="some-important-distribution-models" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Some important distribution models<a href="some-important-distribution-models.html#some-important-distribution-models" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<script>
+function checkAnswer_mmc(q) {
+      const selectedOptions = document.querySelectorAll('input[name="option'+q.id+'"]:checked');
+      if (selectedOptions.length === 2) {
+        const userAnswers = Array.from(selectedOptions).map(option => option.value);
+        const correctAnswers = q.answer;
+        const isCorrect = userAnswers.every(answer => correctAnswers.includes(answer));
+
+if (isCorrect) {
+          document.getElementById('result'+q.id).textContent = 'Congratulations! Your answer is correct.';
+          document.getElementById('result'+q.id).style.color = "green";
+        } else {
+          document.getElementById('result'+q.id).textContent = `Sorry, incorrect.`;
+          document.getElementById('result'+q.id).style.color = "red";
+        }
+      } else {
+        document.getElementById('result'+q.id).textContent = 'Please select two options.';
+      }
+    }
+// numeric
+function generateQuestion_num(id) {
+      // Generate two random numbers between 2 and 10
+      const num1 = Math.floor(Math.random() * 10) + 2;
+      const num2 = Math.floor(Math.random() * 10) + 2;
+      const x1 = Math.floor(Math.random() * 100) + 2;
+      const x2 = Math.floor(Math.random() * 100) + 2;
+      const x3 = Math.floor(Math.random() * 100) + 2;
+      const x4 = Math.floor(Math.random() * 100) + 2;
+      const x5 = Math.floor(Math.random() * 100) + 2;
+      const x6 = Math.floor(Math.random() * 100) + 2;
+
+       // Calculate the correct answer
+      let answer = num1*Math.sqrt(x1) + num2*Math.sqrt(x2);
+
+      // Return the question and answer as an object
+      return {
+       // question: num1 + "\\(\\sqrt{x}+\\)"+ num2 + "\\(\\sqrt{y}\\)" + " for \\(x=\\)" + x1 + " and \\(y=\\)" + x2,
+        question: [num1,num2,x1,x2,x3,x4,x5,x6],
+        answer: answer,
+        id: id
+      };
+    }
+
+function checkAnswer_num(q) {
+      const userAnswer = document.getElementById('answer'+q.id).value;
+      const isCorrect = Math.round(parseFloat(userAnswer)*1000)/1000 === Math.round(q.answer*1000)/1000;
+
+      if (isCorrect) {
+        document.getElementById('result'+q.id).textContent = 'Congratulations! Your answer is correct.';
+        document.getElementById('result'+q.id).style.color = "green";
+      } else {
+        document.getElementById('result'+q.id).textContent = `Sorry, incorrect. The correct answer is ` + Math.round(q.answer*10000)/10000 + '.';
+        document.getElementById('result'+q.id).style.color = "red";
+      }
+  }
+
+// plain multiple choice
+  function checkAnswer_match(q) {
+      const selectedOption = document.querySelector('input[name="option'+q.id+'"]:checked');
+      if (selectedOption) {
+        const userAnswer = selectedOption.value;
+        const isCorrect = userAnswer === q.answer;
+
+        if (isCorrect) {
+          document.getElementById('result'+q.id).textContent = 'Congratulations! Your answer is correct.';
+          document.getElementById('result'+q.id).style.color = "green";
+        } else {
+          document.getElementById('result'+q.id).textContent = `Sorry, incorrect.`;
+          document.getElementById('result'+q.id).style.color = "red";
+        }
+      } else {
+        document.getElementById('result'+q.id).textContent = 'Please select an option.';
+      }
+    }
+    
+function factorial(n){
+  let answer = 1;
+  if (n == 0 || n == 1){
+    return answer;
+  }
+  else if(n > 1){
+    for(var i = n; i >= 1; i--){
+      answer = answer * i;
+    }
+    return answer;
+  }
+  else{
+    return "number has to be positive."
+  }  
+}
+
+function binomial(n, k) {
+     if ((typeof n !== 'number') || (typeof k !== 'number')) 
+  return false; 
+    var coeff = 1;
+    for (var x = n-k+1; x <= n; x++) coeff *= x;
+    for (x = 1; x <= k; x++) coeff /= x;
+    return coeff;
+}
+
+function binomialCDF(k,n,p) {
+    let answer = 0;
+
+    for(var i = 0; i <= k; i++){
+      answer = answer + binomial(n,i)*Math.pow(p,i)*Math.pow((1-p),(n-i));
+    }
+    return answer;
+}
+
+function normalCDF(x, mean, std) {
+  var x = (x - mean) / std
+  var t = 1 / (1 + .2315419 * Math.abs(x))
+  var d =.3989423 * Math.exp( -x * x / 2)
+  var prob = d * t * (.3193815 + t * ( -.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274))))
+  if( x > 0 ) prob = 1 - prob
+  return prob
+}
+</script>
+<p>We have already modeled some random variables and it was always quite time-consuming to derive the distribution of random variables. We had to look at the original random process and determine for each result what value the random variable takes on for this result and derive the probability of the values based on that. Or with the continuous random variables, we had to laboriously calculate the distribution function, the expected value and the variance based on the density 💩.</p>
+<p>Luckily 😍 there are some pretty universal <strong>distribution models</strong> with variable parameters for which nice properties are already known and key figures can be determined using the parameters, so you don’t have to use them every time must be derived again.</p>
+<hr />
+<p>In this chapter we will learn:</p>
+<ul>
+<li>Which typical <strong>distribution models</strong> exist for discrete and continuous random variables?</li>
+<li>which <strong>requirements</strong> must be met so that a distribution model can be used in a specific case and</li>
+<li>how to determine the <strong>parameters</strong> of these distributions from the facts.</li>
+</ul>
+<hr />
+<p>Since distributions associate values with probabilities, there are special distribution models for <strong>discrete</strong> random variables with discrete values and for <strong>continuous</strong> random variables that have intervals of sets of values.</p>
+<div id="discrete-distributions" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Discrete distributions<a href="some-important-distribution-models.html#discrete-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Discrete distributions describe probabilities concerning discrete random variables.</p>
+<!--
+<iframe src="http://learning-dashboard.lehre.hwr-berlin.de:3838/Apps_RBook/#section-verteilungen" width="672" height="600px" data-external="1"></iframe>
+-->
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-61"></span>
+<img src="_main_files/figure-html/unnamed-chunk-61-1.png" alt="Distributional models for discrete random variables" width="672" />
+<p class="caption">
+Figure 3.1: Distributional models for discrete random variables
+</p>
+</div>
+<div id="discrete-uniform-distribution" class="section level3 hasAnchor" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Discrete uniform distribution<a href="some-important-distribution-models.html#discrete-uniform-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A discrete random variable <span class="math inline">\(X\)</span> is <strong>uniformly distributed</strong> on the value set <span class="math inline">\(\mathcal T=\{x_1,x_2,\ldots, x_n\}\)</span> if for all <span class="math inline">\(i=1,\ldots, n\)</span> the following holds:
+<span class="math display">\[\begin{equation*}
+      f(x_i)=\frac{1}{n}.
+\end{equation*}\]</span></p>
+<ul>
+<li><p>The following applies to such random variables:
+<span class="math display">\[\begin{align*}
+    \mathbb E(X) &amp;= \frac{1}{n} \sum_{i=1}^n x_i\\
+    \text{Var}(X) &amp;= \frac{1}{n}\sum_{i=1}^n x_i^2 - (\mathbb E(X))^2
+\end{align*}\]</span></p></li>
+<li><p>Application examples:</p>
+<ul>
+<li>Rolling a fair game dice</li>
+<li>Selecting a customer from the pool of <span class="math inline">\(n\)</span> customers</li>
+</ul></li>
+</ul>
+<div class="example">
+<p><span id="exm:dgleichvert" class="example"><strong>Example 3.1  (Product recommendations) </strong></span>To test how many product recommendations should be displayed to the customer during a shop visit in order to achieve the greatest effect, one could use discrete uniform distribution. (We want to recommend our products 🤑 but at the same time we don’t want to annoy you too much or distract you from shopping 🤯)</p>
+<p>This would mean choosing a number between a minimum number of product recommendations per shop visit (e.g. only one recommendation) and a maximum (e.g. five product recommendations) for each customer with equal probability and then displaying this number of recommendations. You can then analyze what number of product recommendations would be optimal.</p>
+<p>So in the background there is a uniform distribution and <span class="math inline">\(X=\)</span> ‘The number of product recommendations displayed’ is discretely equally distributed between <span class="math inline">\(x_{min}=1\)</span> and <span class="math inline">\(x_{max}=5\)</span>.</p>
+<ul>
+<li><p>Set of values: <span class="math inline">\(\{x_1=1;x_2=2;\ldots;x_5=5\}\)</span></p></li>
+<li><p>Parameters: <span class="math inline">\(n=5\)</span></p></li>
+<li><p>Probability function: <span class="math inline">\(f(x_i) = \frac 15\)</span></p></li>
+<li><p>Parameters:</p>
+<ul>
+<li>Expected value: <span class="math inline">\(\mathbb E(X) = \frac 15(1 + 2 + \ldots +5) = 3\)</span>. On average, around 3 product recommendations are displayed.</li>
+<li>Variance: <span class="math inline">\(\text{Var}(X)=\frac 15 (1^2 + 2^2 + \ldots + 5^2) - 3^2 = 2\)</span>. So the standard deviation of the NUMBER of product recommendations is <span class="math inline">\(\sqrt{2}\)</span>.</li>
+</ul></li>
+</ul>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-63"></span>
+<img src="_main_files/figure-html/unnamed-chunk-63-1.png" alt="Discrete uniform distribution with n=5" width="672" />
+<p class="caption">
+Figure 3.2: Discrete uniform distribution with n=5
+</p>
+</div>
+</div>
+<hr />
+</div>
+<div id="bernoulli-distribution" class="section level3 hasAnchor" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> Bernoulli distribution<a href="some-important-distribution-models.html#bernoulli-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let <span class="math inline">\(A\in\mathcal F\)</span> be an event with <span class="math inline">\(p=\mathbb P(A)\)</span>.
+The random variable <span class="math inline">\(X=1_A\)</span> indicating whether an event <span class="math inline">\(A\)</span> occurs or not (the indicator of <span class="math inline">\(A\)</span>):
+<span class="math display">\[\begin{equation*}
+    1_A=
+      \begin{cases}
+        1,&amp;\text{ if $A$ occurs},\\
+        0,&amp;\text{ if $A$ does not occur}.
+      \end{cases}
+\end{equation*}\]</span>
+is <strong>Bernoulli distributed</strong> with parameter <span class="math inline">\(p\)</span> (<span class="math inline">\(X\sim Ber(p)\)</span>).</p>
+<p>The indicator function <span class="math inline">\(1_A\)</span> takes the value <span class="math inline">\(1\)</span> if event <span class="math inline">\(A\)</span> occurs and the value <span class="math inline">\(0\)</span> if <span class="math inline">\(A\)</span> does not occur.</p>
+<p>Examples of <span class="math inline">\(A\)</span>:</p>
+<ul>
+<li>an even number is obtained when rolling the dice;</li>
+<li>a loan customer does not repay his loan;</li>
+<li>a patient is cured by a specific therapy;</li>
+<li>the product of a delivery of goods is defective.</li>
+</ul>
+<p>A random variable <span class="math inline">\(X\)</span> is <strong>Bernoulli distributed</strong> with parameter <span class="math inline">\(p\in (0,1)\)</span> if:</p>
+<ul>
+<li>Set of values: <span class="math inline">\(\mathcal T=\{0,1\}\)</span></li>
+<li>Probability function: <span class="math inline">\(f(1)=p\)</span>, <span class="math inline">\(f(0)=1-p\)</span></li>
+</ul>
+<p>Parameters:</p>
+<ul>
+<li><p>Expected value:
+<span class="math display">\[\begin{equation*}
+    \mathbb E(X)=p.
+\end{equation*}\]</span></p></li>
+<li><p>Variance:
+<span class="math display">\[\begin{equation*}
+    \text{Var}(X)=p(1-p).
+\end{equation*}\]</span></p></li>
+</ul>
+<p>You can easily check:
+<span class="math display">\[\begin{align*}
+      \mathbb E(X) &amp;= 1\cdot f(1) + 0\cdot f(0) = p\\[3pt]
+      \text{Var}(X) &amp;= 1^2\cdot f(1) + 0^2\cdot f(0) - (\mathbb E(X))^2 %
+                      = p - p^2 = p(1-p).
+\end{align*}\]</span></p>
+<hr />
+<div class="example">
+<p><span id="exm:dbernvert" class="example"><strong>Example 3.2  (Indicator of app usage) </strong></span>In example <a href="random-variables.html#exm:ziehungbestKov">2.5</a>, we defined the random variable <span class="math inline">\(A=\)</span>“app usage indicator”:</p>
+<p><span class="math inline">\(A=\begin{cases}1, &amp;\text{ if } App\\0, &amp;\text{ if } Web.\end{cases}\)</span></p>
+<p><span class="math inline">\(A\)</span> only takes two values <span class="math inline">\(\{0;1\}\)</span> and based on the occurrence of the event <span class="math inline">\(App=\)</span>“a randomly selected customer uses the app”. The probability <span class="math inline">\(\mathbb P(App)=0.6\)</span>. This means:</p>
+<ul>
+<li><span class="math inline">\(A\sim Ber(p=0.6)\)</span></li>
+<li><span class="math inline">\(\mathbb E(A) = 0.6\)</span> and</li>
+<li><span class="math inline">\(\text{Var}(A) = 0.6\cdot (1-0.6) = 0.24.\)</span></li>
+</ul>
+<p>We took a little longer when we had to calculate these metrics “from scratch” in <a href="random-variables.html#exm:ziehungbestKov">2.5</a> 😏</p>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-64"></span>
+<img src="_main_files/figure-html/unnamed-chunk-64-1.png" alt="Bernoulli distribution with p=0.6" width="672" />
+<p class="caption">
+Figure 3.3: Bernoulli distribution with p=0.6
+</p>
+</div>
+</div>
+<hr />
+</div>
+<div id="binomial-distribution" class="section level3 hasAnchor" number="3.1.3">
+<h3><span class="header-section-number">3.1.3</span> Binomial distribution<a href="some-important-distribution-models.html#binomial-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The binomial distribution results when the sum of hits is formed from <span class="math inline">\(n\)</span> independent repetitions of a Bernoulli experiment with constant probability <span class="math inline">\(p\)</span>.</p>
+<p>I.e., if a Bernoulli random process is repeated <span class="math inline">\(n\)</span> times with constant probability <span class="math inline">\(p=\mathbb P(A)\)</span>, then
+is the random variable
+<span class="math display">\[\begin{equation*}
+      X=\text{&quot;Number of attempts in which $A$ occurs&#39;&#39;}
+\end{equation*}\]</span>
+binomially distributed with parameters <span class="math inline">\(n\)</span> and <span class="math inline">\(p\)</span>.</p>
+<p>A random variable is called <strong>binomially distributed</strong> with the parameters <span class="math inline">\(n\)</span> and <span class="math inline">\(p\)</span>, for short <span class="math inline">\(X\sim B(n,p)\)</span>, if the following applies:
+<span class="math display">\[\begin{equation*}
+      \mathbb P(X=k) = f(k) = \binom{n}{k} p^k\,
+      (1-p)^{n-k},\quad\text{ for } k=0,1,\ldots, n,
+\end{equation*}\]</span>
+and <span class="math inline">\(f(k)=0\)</span> otherwise.Remember: Binomial coefficient: <span class="math inline">\(\displaystyle\binom{n}{k} = \frac{n!}{k!(n-k)!}\)</span> with <span class="math inline">\(n!=1\cdot 2\cdot \ldots \cdot n\)</span> and <span class="math inline">\(0!=1\)</span>.</p>
+<ul>
+<li><p>Parameters:
+<span class="math display">\[\begin{equation*}
+    \mathbb E(X) = np\quad\text{ and }\quad \text{Var}(X) = n p(1-p)
+\end{equation*}\]</span></p></li>
+<li><p><strong>Additive property</strong>: The sum of independent binomial distributed random variables with the same parameter <span class="math inline">\(p\)</span> is again
+binomially distributed:</p></li>
+</ul>
+<p>if <span class="math inline">\(X\sim B(n,p)\)</span> and <span class="math inline">\(Y\sim B(m,p)\)</span> are independent, then <span class="math inline">\(X+Y\sim B(n+m,p)\)</span>.</p>
+<ul>
+<li><p>Application examples:</p>
+<ul>
+<li>Number of loans in a portfolio that are not being serviced (assumption: loans default independently of each other.)</li>
+<li>Number of patients cured by therapy;</li>
+<li>Number of products in a delivery that are defective.</li>
+</ul></li>
+</ul>
+<div class="example">
+<p><span id="exm:dbinvert" class="example"><strong>Example 3.3  (Number of app users) </strong></span>If we select <span class="math inline">\(n=10\)</span> customers randomly (with replacement) from the customer pool and state whether they are app users or not, then we repeat the Bernoulli process: ‘Drawing a random customer and determining the <span class="math inline">\(App\)</span>-property’ independently ten times.</p>
+<p>The <strong>probability of success</strong>, here the probability of selecting an app user, corresponds to <span class="math inline">\(\mathbb P(App)=0.6\)</span> the proportion of app users in the entire customer pool.</p>
+<p>So <span class="math inline">\(X=\)</span>’The number of app users among the randomly selected ten customers’ is binomially distributed:
+<span class="math inline">\(X\sim B(\color{green}{n=10}; \color{blue}{p=0.6})\)</span></p>
+<ul>
+<li><p>We can now calculate the probabilities 😎:
+<span class="math display">\[\begin{align}
+\mathbb P(X=\color{red}{5}) &amp;=\binom{\color{green}{10}}{\color{red}{5}} \color{blue}{0.6}^\color{red}{5}\,(1-\color{blue}{0.6})^{\color{green}{10}-\color{red}{5}} = 0.2007,\\
+\mathbb P(X&lt;2) &amp;=\mathbb P(X=0) + \mathbb P(X=1)=\binom{\color{green}{10}}{0} \color{blue}{0.6}^0\cdot(1-\color{blue}{0.6}) ^{{\color{green}{10}}-0} + \binom{\color{green}{10}}{1} \color{blue}{0.6}^1\,(1-\color{blue}{0.6})^{\color{green}{10}-1} \\
+&amp;= 0.0017,\\
+\mathbb P(X=8) &amp;=\binom{\color{green}{10}}{8} \color{blue}{0.6}^8\,(1-\color{blue}{0.6})^{\color{green}{10}-8} = 0.1209.
+\end{align}
+\]</span></p></li>
+<li><p>Parameters:
+<span class="math display">\[\begin{align}
+\mathbb E(X) &amp;= n\cdot \color{blue}{p} = 10\cdot \color{blue}{0.6} = 6\\
+\text{Var}(X)&amp;= n\cdot \color{blue}{p}\cdot(1-\color{blue}{p}) = 10\cdot \color{blue}{0.6}\cdot (1-\color{blue}{0.6}) = 2.4.
+\end{align}\]</span></p></li>
+</ul>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-65"></span>
+<img src="_main_files/figure-html/unnamed-chunk-65-1.png" alt="Binomial distribution with n=10 and p=0.6" width="672" />
+<p class="caption">
+Figure 3.4: Binomial distribution with n=10 and p=0.6
+</p>
+</div>
+</div>
+<div class="example">
+<p><span id="exm:dbinvertKredit" class="example"><strong>Example 3.4  (Loan portfolio) </strong></span>Consider a homogeneous loan portfolio with <span class="math inline">\(500\)</span> loans and default probability of <span class="math inline">\(1\)</span>%.</p>
+<ul>
+<li>Random variable <span class="math inline">\(A = \text{&#39;default of a loan&#39;}\)</span> with values <span class="math inline">\(a\in \{0 (\text{no default}),1 (\text{default})\}\)</span> is Bernoulli distributed with <span class="math inline">\(p=0.01\)</span>.</li>
+<li>Random variable <span class="math inline">\(P = \text{&#39;Number of defaults in the loan portfolio&#39;}\)</span> (assumptions: defaults occur independently of one another).</li>
+<li>Under the assumptions, <span class="math inline">\(P\)</span> is <span class="math inline">\(\text{binomially distributed}\)</span> with <span class="math inline">\(\color{blue}{p=0.01}\)</span> and <span class="math inline">\(\color{green}{n=500}\)</span>: <span class="math inline">\(P\sim B(500,0.01)\)</span>.</li>
+</ul>
+<p><span class="math display">\[\begin{align*}
+        \mathbb E(P) &amp;= \color{green}{n}\color{blue}{p} = \color{green}{500}\cdot \color{blue}{0.01} = 5,\\
+        \text{Var}(P) &amp;=\color{green}{n}\color{blue}{p}(1-\color{blue}{p})=\color{green}{500}\cdot \color{blue}{0.01}\cdot (1-\color{blue}{0.01}) = 4.95,\\
+        \mathbb P(P&gt;1) &amp;=1-\mathbb P(P\leq 1) =1-\sum_{k=0}^1\binom{n}{k}p^k(1-p)^{n-k} \\
+        &amp;=1- \Big(\frac{500!}{0!500!}(\color{blue}{0,01})^0(1-\color{blue}{0.01})^{500} + \frac{500!}{1!499!}(\color{blue}{0.01})^1(1-\color{blue}{0.01})^{499}\Big)=0,9602.
+\end{align*}\]</span></p>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-66"></span>
+<img src="_main_files/figure-html/unnamed-chunk-66-1.png" alt="Binomial distribution with n=500 and p=0.01" width="672" />
+<p class="caption">
+Figure 3.5: Binomial distribution with n=500 and p=0.01
+</p>
+</div>
+</div>
+<hr />
+<div id="q31" class="quiz">
+<p id="question">
+<span id="question-text31"></span>
+<input type="number" id="answer31" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj31)">Submit</button>
+</p>
+<p id="result31">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj31 = generateQuestion_num(31);
+// Display the question
+    document.getElementById('question-text31').textContent = "An insurance company has insurance contracts with \\(100\\) independent corporate customers who have a probability of \\(" + questionObj31.question[0] + "\\%\\) of claiming compensation for some damage. How likely is it that not a single corporate customer will apply for compensation? (Round to four decimal places).\\[\\]\\(X= \\) 'Number of compensation payments'  follows a Binomial distribution with \\(n=\\)";
+    questionObj31.answer = 100
+</script>
+<p id="question">
+<span id="question-text32"></span>
+<input type="number" id="answer32" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj32)">Submit</button>
+</p>
+<p id="result32">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj32 = generateQuestion_num(32);
+// Display the question
+    document.getElementById('question-text32').textContent = "and \\(p=\\)";
+    questionObj32.answer = questionObj31.question[0]/100
+</script>
+<p id="question">
+<span id="question-text33"></span>
+<input type="number" id="answer33" placeholder="Enter your answer">\()\)
+<button onclick="checkAnswer_num(questionObj33)">Submit</button>
+</p>
+<p id="result33">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj33 = generateQuestion_num(33);
+// Display the question
+    document.getElementById('question-text33').textContent = "The desired probability \\(\\mathbb P(X=\\)";
+    questionObj33.answer = 0
+    
+</script>
+<p id="question">
+<span id="question-text34"></span>
+<input type="number" id="answer34" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj34)">Submit</button>
+</p>
+<p id="result34">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj34 = generateQuestion_num(34);
+// Display the question
+    document.getElementById('question-text34').textContent = "is therefore:";
+    questionObj34.answer = binomialCDF(0,100,questionObj31.question[0]/100)
+</script>
+<hr />
+<p id="question">
+<span id="question-text35"></span>
+<input type="number" id="answer35" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj35)">Submit</button>
+</p>
+<p id="result35">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj35 = generateQuestion_num(35);
+// Display the question
+    document.getElementById('question-text35').textContent = "A statistics test consists of \\(" + (questionObj35.question[0]*10) + "\\) multiple-choice questions, where each question has four possible answers and only one answer is correct. What is the probability of getting at least \\(" + Math.floor(questionObj35.question[0]*8) + "\\) points if you try to guess the answers? (round to four decimal places).\\[\\]\\(X= \\) 'Number of questions answered correctly'  follows a Binomial distribution with \\(n=\\)";
+    questionObj35.answer = (questionObj35.question[0]*10)
+</script>
+<p id="question">
+<span id="question-text36"></span>
+<input type="number" id="answer36" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj36)">Submit</button>
+</p>
+<p id="result36">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj36 = generateQuestion_num(36);
+// Display the question
+    document.getElementById('question-text36').textContent = "and \\(p=\\)";
+    questionObj36.answer = 0.25
+</script>
+<p id="question">
+<span id="question-text37"></span>
+<input type="number" id="answer37" placeholder="Enter your answer">\()\)
+<button onclick="checkAnswer_num(questionObj37)">Submit</button>
+</p>
+<p id="result37">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj37 = generateQuestion_num(37);
+// Display the question
+    document.getElementById('question-text37').textContent = "The desired probability \\(\\mathbb P(X\\geq \\)";
+    questionObj37.answer = Math.floor(questionObj35.question[0]*8)
+    
+</script>
+<p id="question">
+<span id="question-text38"></span>
+<input type="number" id="answer38" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj38)">Submit</button>
+</p>
+<p id="result38">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj38 = generateQuestion_num(38);
+// Display the question
+    document.getElementById('question-text38').textContent = "is therefore:";
+    questionObj38.answer = binomialCDF(Math.floor(questionObj35.question[0]*8),(questionObj35.question[0]*10),0.25)
+</script>
+</div>
+<!--::: {.exercise name="Discrete distributions"}
+
+
+```{=html}
+<iframe title="quiz_dv" src="./htmls/quiz_dv.html" width="760" height="500"></iframe>
+```
+
+:::-->
+<hr />
+</div>
+<div id="geometric-distribution" class="section level3 hasAnchor" number="3.1.4">
+<h3><span class="header-section-number">3.1.4</span> Geometric distribution<a href="some-important-distribution-models.html#geometric-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>If a Bernoulli experiment is repeated with the same probability <span class="math inline">\(p=\mathbb P(A)\)</span> until the first one
+The random variable is the time the event of interest <span class="math inline">\(A\)</span> occurs
+<span class="math display">\[\begin{equation*}
+      X=\text{&quot;Number of attempts until $A$ occurs for the first time&#39;&#39;}
+\end{equation*}\]</span>
+is <strong>geometrically distributed</strong> with parameter <span class="math inline">\(p\)</span>.</p>
+<p>Application examples:</p>
+<ul>
+<li>Duration (“discrete waiting time” in days) until the first failure of one
+device,</li>
+<li>Duration in days until an insurance customer makes one for the first time
+reports damage,</li>
+<li>Number of customers interviewed (waiting time in customers 😄), until the first time a customer with the desired characteristic is interviewed.</li>
+</ul>
+<p>A random variable <span class="math inline">\(X\)</span> is said to be <strong>geometrically distributed</strong> (<span class="math inline">\(X\sim G(p)\)</span>) with parameter <span class="math inline">\(p\)</span> if:
+<span class="math display">\[\begin{equation*}
+      \mathbb P(X=k)=f(k) = (1-p)^{k-1}\cdot p, \quad \text{ for }
+      k=1,\ldots,
+\end{equation*}\]</span>
+and <span class="math inline">\(f(k)=0\)</span> else.</p>
+<ul>
+<li>Parameters:
+<span class="math display">\[\begin{align*}
+     \mathbb E(X) &amp;= \sum _{k=1}^\infty k\, p\, (1-p)^{k-1} = \frac{1}{p}\\
+     \text{Var}(X) &amp;= \sum_{k=1}^\infty k^2 \, p\, (1-p)^{k-1} -
+            \frac{1}{p^2} = \frac{1-p}{p^2}
+\end{align*}\]</span></li>
+</ul>
+<hr />
+<div class="example">
+<p><span id="exm:dgeomvert" class="example"><strong>Example 3.5  (App user in a customer Survey) </strong></span>A survey of <span class="math inline">\(n=50\)</span> customers is conducted. Customers are randomly selected in the survey and can take part multiple times. The proportion of customers who use the app is 60%.</p>
+<ul>
+<li><p>Random variable: <span class="math inline">\(M = \text{&#39;Number of app users in the customer survey&#39;}\)</span>, <span class="math inline">\(M\sim B(n=50,p=0.6)\)</span>.</p></li>
+<li><p>Random variable <span class="math inline">\(V = \text{&#39;Number of respondents until an app user is interviewed&#39;}\)</span> is geometrically distributed <span class="math inline">\(V\sim G(p=0.6)\)</span>.
+<span class="math display">\[\begin{align*}
+\mathbb E(V) &amp;= \frac 1p = 1.6667,\\
+\text{Var}(V) &amp;=\frac{1-p}{p^2}=\frac{0.4}{0.36} = 1.1111,\\
+\mathbb P(V&lt; 5)&amp; = \mathbb P(V\leq 4) =f_{G_{0.6}}(1) + f_{G_{0.6}}(2) + \ldots + f_ {G_{0,6}}(4),\\
+&amp;=(1-0.6)^0\cdot 0.6 + (1-0.6)^1\cdot 0.6 + \ldots + (1-0.6)^3\cdot 0.6 = 0,9898.
+\end{align*}\]</span></p></li>
+</ul>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-76"></span>
+<img src="_main_files/figure-html/unnamed-chunk-76-1.png" alt="Geometric distribution with p=0.6" width="672" />
+<p class="caption">
+Figure 3.6: Geometric distribution with p=0.6
+</p>
+</div>
+</div>
+<hr />
+</div>
+<div id="poisson-distribution" class="section level3 hasAnchor" number="3.1.5">
+<h3><span class="header-section-number">3.1.5</span> Poisson distribution<a href="some-important-distribution-models.html#poisson-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Sometimes we also need a distribution that indicates the number of “successes” <strong>per unit of time</strong>. For example, if the random process “continues”, such as an online shop is always available and the number of customers who log in per hour is of interest.</p>
+<p>We may be interested in the following random variable:
+<span class="math display">\[\begin{equation*}
+      X=\text{&quot;Number of events that occur within a time interval $[0,1]$&#39;&#39;}.
+\end{equation*}\]</span></p>
+<p>Under the following assumptions, <span class="math inline">\(X\)</span> is <strong>Poisson distributed</strong>:</p>
+<ul>
+<li>Two events cannot occur at the same time.</li>
+<li>The probability that an event occurs in a small time interval of length <span class="math inline">\(\Delta t\)</span> is approximately <span class="math inline">\(\lambda\Delta t\)</span>.</li>
+<li>The probability of occurrence depends only on the length of the time interval, not on the location.</li>
+<li>The numbers of events in disjoint subintervals are independent.</li>
+</ul>
+<p>A random variable <span class="math inline">\(X\)</span> is <strong>Poisson distributed</strong> (<span class="math inline">\(X\sim Poi(\lambda)\)</span>) with parameter <span class="math inline">\(\lambda\)</span> if:
+<span class="math display">\[\begin{equation*}
+      \mathbb P(X=k) = f(k) = \frac{\lambda^k}{k!}\, \text{e}^{-\lambda}, \quad
+      k=0,1,2,\ldots,
+\end{equation*}\]</span>
+and <span class="math inline">\(f(k)=0\)</span> else.</p>
+<p>The parameter <span class="math inline">\(\lambda\)</span> is also called <strong>intensity rate</strong>.</p>
+<ul>
+<li><p>Parameters:
+<span class="math display">\[\begin{equation*}
+    \mathbb E(X)=\lambda\quad \text{ and } \quad \text{Var}(X)=\lambda.
+\end{equation*}\]</span></p></li>
+<li><p><strong>Addition property</strong>:
+If <span class="math inline">\(X\sim Poi(\lambda)\)</span> and <span class="math inline">\(Y\sim Poi(\mu)\)</span> are independent, then:
+<span class="math display">\[\begin{equation*}
+  X+Y\sim Poi(\lambda+\mu).
+\end{equation*}\]</span></p></li>
+</ul>
+<p>In particular, it follows that the number of events in an interval of length <span class="math inline">\(t\)</span> is Poisson distributed with parameters
+<span class="math inline">\(\lambda t\)</span>.</p>
+<ul>
+<li><p>Application examples:</p>
+<ul>
+<li>the number of loan defaults by a bank in a given accounting period;</li>
+<li>the number of customers arriving at a counter during a certain period of time;</li>
+</ul></li>
+</ul>
+<hr />
+<div class="example">
+<p><span id="exm:dpoisvert" class="example"><strong>Example 3.6  (Advertisement) </strong></span>An advertising banner will be displayed on your website between 8 a.m. and 10 a.m. or 7 p.m. and 8 p.m. The visitors to your website act independently and the click rate (<span class="math inline">\(\lambda\)</span>) in the two time periods is constant and is 5 thousand clicks per hour.</p>
+<ul>
+<li><p><span class="math inline">\(B_{morning} = \text{&#39;Number of clicks between 8 and 10 a.m.&#39;}\)</span>, <span class="math inline">\(B_M\sim Poi(\lambda_{morning}=2\cdot\lambda=10)\)</span>.</p></li>
+<li><p><span class="math inline">\(B_{evening} = \text{&#39;Number of clicks between 7 p.m. and 8 p.m.&#39;}\)</span>, <span class="math inline">\(B_A\sim Poi(\lambda_{evening}=\lambda=5)\)</span>.</p></li>
+<li><p>Because of the addition property of the Poisson distribution: <span class="math inline">\(B_{total} = \text{&#39;number of clicks on your advertising banner in the two time periods&#39;}\)</span> is also Poisson distributed <span class="math inline">\(B_{total}\sim Poi(\lambda_{total} =\lambda _{morning}+\lambda _{evening}=15)\)</span>.
+<span class="math display">\[\begin{align}
+\mathbb E(B_{total}) &amp;= \lambda_{total} = 15,\\
+\text{Var}(B_{total}) &amp;=\lambda_{total}=15,\\
+\mathbb P(B_{total}&gt;10)&amp;=1-\mathbb P(B_{total}\leq 10) = 1-(f_{poi_{15}}(0) + f_{poi_{15}}( 1) + \ldots+ f_{poi_{15}}(10))\\ &amp;=1-\exp(-15)\cdot\Big(\frac{15^0}{0!}+\frac{15^ 1}{1!}+\ldots+\frac{15^{10}}{10!}\Big)= 0.8815.
+\end{align}\]</span></p></li>
+</ul>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-77"></span>
+<img src="_main_files/figure-html/unnamed-chunk-77-1.png" alt="Poisson distribution with \(\lambda=15\)" width="672" />
+<p class="caption">
+Figure 3.7: Poisson distribution with <span class="math inline">\(\lambda=15\)</span>
+</p>
+</div>
+</div>
+<hr />
+<!--
+#### Poissonverteilung approximiert Binomialverteilung{-}
+
+Unter bestimmten Voraussetzungen ($n\gg 1$ und $p\ll 1$, d.h.$n$ groß und $p$ klein) kann die Binomialverteilung durch die Poisson-verteilung mit $\lambda=n\, p$ approximieren (annähern). Dies erleichtert etwas die Berechnungen (die Wahrscheinlichkeitsfunktion der Poisson-Verteilung ist etwas einfacher zu berechnen).
+
+Approximation & Binomialverteilung $B(n,p)$ $\approx$ Poissonverteilung $Poi(\lambda)$:
+
+\begin{equation*}
+      f_B(k) = \binom{n}{k} p^k (1-p)^{n-k} \approx f_P(k) =
+      \text e^{-\lambda}\, \frac{\lambda^k}{k!}
+\end{equation*}
+
+Also, wenn $X$: Anzahl des Eintretens eines zufälligen Ereignisses $A$ mit kleiner Wahrscheinlichkeit $\mathbb P(A)$ in einer langen Serie unabhängiger Versuche darstellt, ist $X$ is approximativ Poisson-verteilt. Poisson-Verteilung ist in diesem Fall als die **Verteilung der seltenen Ereignisse** zu interpretieren.
+
+::: {.example #dbinpoisaprox name="Kreditportfolio approximiert"}
+
+Fortführung von \@ref(exm:dbinvertKredit)
+
+Betrachte ein homogenes Kreditportfolio mit $500$ Krediten und Ausfallwahrscheinlichkeit von $1$%.
+
+$P = \text{'Anzahl der Ausfälle im Kreditportfolio'}$, $P\sim B(n=500,p=0,01)$.
+$\lambda=n\, p= 500\cdot 0,01 = 5$ und $P\stackrel{approx.}{\sim}{} Poi(5).$
+
+$$
+\begin{array}{rcc}
+  \hline 
+  k & f_B(k) & f_{Poi}(k)\\
+  \hline
+  0 & 0,0066 & 0,0067\\
+  1 & 0,0332 & 0,0337\\
+  2 & 0,0836 & 0,0842\\
+  3 & 0,1402 & 0,1404\\
+  4 & 0,1760 & 0,1755\\
+  5 & 0,1764 & 0,1755\\\hline
+\end{array}
+$$
+
+
+
+
+:::
+
+***
+-->
+<hr />
+<div id="q32" class="quiz">
+<div class="sourceCode" id="cb3"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb3-1"><a href="some-important-distribution-models.html#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2"><a href="some-important-distribution-models.html#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="some-important-distribution-models.html#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">// Generate a random question</span></span>
+<span id="cb3-4"><a href="some-important-distribution-models.html#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> questionObj39 <span class="op">=</span> {</span>
+<span id="cb3-5"><a href="some-important-distribution-models.html#cb3-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">question</span><span class="op">:</span> <span class="st">&quot;</span><span class="sc">\\</span><span class="st">(25</span><span class="sc">\\</span><span class="st">%</span><span class="sc">\\</span><span class="st">) of BVG buses on your route have working air conditioning. On a hot day, you will only ride if there is air conditioning to cool the bus. So you usually wait for an air-conditioned bus to arrive. Which distribution is relevant for the random variable </span><span class="sc">\\</span><span class="st">(X =</span><span class="sc">\\</span><span class="st">) &#39;Number of buses that you don&#39;t ride on until an air-conditioned bus finally pulls up&#39;?&quot;</span><span class="op">,</span></span>
+<span id="cb3-6"><a href="some-important-distribution-models.html#cb3-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">options</span><span class="op">:</span> [<span class="st">&#39;</span><span class="sc">\\</span><span class="st">(Ber(0.25)</span><span class="sc">\\</span><span class="st">)&#39;</span><span class="op">,</span> <span class="st">&#39;</span><span class="sc">\\</span><span class="st">(B(n=100,p=0.25)</span><span class="sc">\\</span><span class="st">)&#39;</span><span class="op">,</span> <span class="st">&#39; </span><span class="sc">\\</span><span class="st">(G(p=0.25)</span><span class="sc">\\</span><span class="st">)&#39;</span><span class="op">,</span> <span class="st">&#39;</span><span class="sc">\\</span><span class="st">(Poi(</span><span class="sc">\\</span><span class="st">lambda=0.25)</span><span class="sc">\\</span><span class="st">)&#39;</span>]<span class="op">,</span></span>
+<span id="cb3-7"><a href="some-important-distribution-models.html#cb3-7" aria-hidden="true" tabindex="-1"></a>      <span class="dt">answer</span><span class="op">:</span> <span class="st">&#39;3&#39;</span><span class="op">,</span></span>
+<span id="cb3-8"><a href="some-important-distribution-models.html#cb3-8" aria-hidden="true" tabindex="-1"></a>      <span class="dt">id</span><span class="op">:</span> <span class="dv">39</span></span>
+<span id="cb3-9"><a href="some-important-distribution-models.html#cb3-9" aria-hidden="true" tabindex="-1"></a>    }<span class="op">;</span></span></code></pre></div>
+<script>
+
+
+// Generate a random question
+  const questionObj39 = {
+      question: "\\(25\\%\\) of BVG buses on your route have working air conditioning. On a hot day, you will only ride if there is air conditioning to cool the bus. So you usually wait for an air-conditioned bus to arrive. Which distribution is relevant for the random variable \\(X =\\) 'Number of buses that you don't ride on until an air-conditioned bus finally pulls up'?",
+      options: ['\\(Ber(0.25)\\)', '\\(B(n=100,p=0.25)\\)', ' \\(G(p=0.25)\\)', '\\(Poi(\\lambda=0.25)\\)'],
+      answer: '3',
+      id: 39
+    };
+</script>
+<p class="question">
+<span id="question-text39"></span>
+</p>
+<div class="options">
+<label>
+<input type="radio" name="option39" value=1> \(Ber(0.25)\)
+</label>
+<label>
+<input type="radio" name="option39" value=2> \(B(n=100,p=0.25)\)
+</label>
+<label>
+<input type="radio" name="option39" value=3> \(G(p=0.25)\)
+</label>
+<label>
+<input type="radio" name="option39" value=4> \(Poi(\lambda=0.25)\)
+</label>
+</div>
+<button onclick="checkAnswer_match(questionObj39)">Submit</button>
+<p id="result39">
+</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb4-1"><a href="some-important-distribution-models.html#cb4-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Display the question</span></span>
+<span id="cb4-2"><a href="some-important-distribution-models.html#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">&#39;question-text39&#39;</span>)<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> questionObj39<span class="op">.</span><span class="at">question</span><span class="op">;</span></span></code></pre></div>
+<script>
+    // Display the question
+    document.getElementById('question-text39').textContent = questionObj39.question;
+
+</script>
+<p id="question">
+<span id="question-text310"></span>
+</p>
+<input type="number" id="answer310" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj310)">Submit</button>
+<p id="result310">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj310 = generateQuestion_num(310);
+// Display the question
+    document.getElementById('question-text310').textContent = "On average, how many buses have to pull up before you get on?";
+    questionObj310.answer = 4
+</script>
+<div class="sourceCode" id="cb5"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb5-1"><a href="some-important-distribution-models.html#cb5-1" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Generate a random question</span></span>
+<span id="cb5-2"><a href="some-important-distribution-models.html#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> questionObj311 <span class="op">=</span> {</span>
+<span id="cb5-3"><a href="some-important-distribution-models.html#cb5-3" aria-hidden="true" tabindex="-1"></a>      <span class="dt">question</span><span class="op">:</span> <span class="st">&#39;Five buses have already left without air conditioning. So you give up and go to the S-Bahn - at least you can open the windows there. S-Bahn traffic is once again irregular due to a police operation. On average, </span><span class="sc">\\</span><span class="st">(2</span><span class="sc">\\</span><span class="st">) S-Bahn trains run every hour at irregular intervals. If </span><span class="sc">\\</span><span class="st">(Y = </span><span class="sc">\\</span><span class="st">)&quot;The number of S-Bahn trains that will run in the next </span><span class="sc">\\</span><span class="st">(15</span><span class="sc">\\</span><span class="st">) minutes&quot; is modeled, then:&#39;</span><span class="op">,</span></span>
+<span id="cb5-4"><a href="some-important-distribution-models.html#cb5-4" aria-hidden="true" tabindex="-1"></a>      <span class="dt">options</span><span class="op">:</span> [<span class="st">&#39;</span><span class="sc">\\</span><span class="st">(Ber(0.5)</span><span class="sc">\\</span><span class="st">)&#39;</span><span class="op">,</span> <span class="st">&#39;</span><span class="sc">\\</span><span class="st">(B(n=4,p=0.5)</span><span class="sc">\\</span><span class="st">)&#39;</span><span class="op">,</span> <span class="st">&#39; </span><span class="sc">\\</span><span class="st">(G(p=0.5)</span><span class="sc">\\</span><span class="st">)&#39;</span><span class="op">,</span> <span class="st">&#39;</span><span class="sc">\\</span><span class="st">(Poi(</span><span class="sc">\\</span><span class="st">lambda=0.5)</span><span class="sc">\\</span><span class="st">)&#39;</span>]<span class="op">,</span></span>
+<span id="cb5-5"><a href="some-important-distribution-models.html#cb5-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">answer</span><span class="op">:</span> <span class="st">&#39;4&#39;</span><span class="op">,</span></span>
+<span id="cb5-6"><a href="some-important-distribution-models.html#cb5-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">id</span><span class="op">:</span> <span class="dv">311</span></span>
+<span id="cb5-7"><a href="some-important-distribution-models.html#cb5-7" aria-hidden="true" tabindex="-1"></a>    }<span class="op">;</span></span></code></pre></div>
+<script>
+  // Generate a random question
+    const questionObj311 = {
+      question: 'Five buses have already left without air conditioning. So you give up and go to the S-Bahn - at least you can open the windows there. S-Bahn traffic is once again irregular due to a police operation. On average, \\(2\\) S-Bahn trains run every hour at irregular intervals. If \\(Y = \\)"The number of S-Bahn trains that will run in the next \\(15\\) minutes" is modeled, then:',
+      options: ['\\(Ber(0.5)\\)', '\\(B(n=4,p=0.5)\\)', ' \\(G(p=0.5)\\)', '\\(Poi(\\lambda=0.5)\\)'],
+      answer: '4',
+      id: 311
+    };
+</script>
+<p class="question">
+<span id="question-text311"></span>
+</p>
+<div class="options">
+<label>
+<input type="radio" name="option311" value=1> \(Ber(0.5)\)
+</label>
+<label>
+<input type="radio" name="option311" value=2> \(B(n=4,p=0.5)\)
+</label>
+<label>
+<input type="radio" name="option311" value=3> \(G(p=0.5)\)
+</label>
+<label>
+<input type="radio" name="option311" value=4> \(Poi(\lambda=0.5)\)
+</label>
+</div>
+<button onclick="checkAnswer_match(questionObj311)">Submit</button>
+<p id="result311">
+</p>
+<script>
+  // Display the question
+    document.getElementById('question-text311').textContent = questionObj311.question;
+</script>
+<p id="question">
+<span id="question-text312"></span>
+</p>
+<input type="number" id="answer312" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj312)">Submit</button>
+<p id="result312">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj312 = generateQuestion_num(312);
+// Display the question
+    document.getElementById('question-text312').textContent = "The probability that no S-Bahn will come in the next 15 minutes is:";
+    questionObj312.answer = Math.pow(0.5,0)/factorial(0)*Math.pow(Math.E,-0.5)
+</script>
+</div>
+<!--::: {.exercise name="Spezielle diskrete Verteilungen"}
+
+
+```{=html}
+<iframe title="zusatz_dv" src="./htmls/zusatz_dv.html" width="760" height="500"></iframe>
+```
+
+:::-->
+<hr />
+</div>
+</div>
+<div id="continuous-distributions" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Continuous distributions<a href="some-important-distribution-models.html#continuous-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>There are also continuous random variables distribution models that are used in several contexts. We will learn about a pair of continuous distributions here.</p>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-86"></span>
+<img src="_main_files/figure-html/unnamed-chunk-86-1.png" alt="Distributional models for continuous random variables" width="672" />
+<p class="caption">
+Figure 3.8: Distributional models for continuous random variables
+</p>
+</div>
+<div id="normal-distribution" class="section level3 hasAnchor" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> Normal distribution<a href="some-important-distribution-models.html#normal-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <strong>normal distribution</strong> is the best known and most important distribution. In many applications, the empirical distribution of a feature can be approximated sufficiently well using a normal distribution.</p>
+<p>In particular, the normal distribution is a good model if the underlying variable results from the additive overlap of a large number of independent, random individual effects. The theoretical justification for this empirically observable phenomenon is provided by the <strong>Central Limit Theorem</strong> (<span class="math inline">\(\leadsto\)</span> next chapter)</p>
+<p>The normal distribution is often called the <strong>Gauss distribution</strong>, named after the mathematician Carl Friedrich Gauß (1777–1855).</p>
+<p>A random variable <span class="math inline">\(X\)</span> is said to be <strong>normally distributed</strong> with parameters <span class="math inline">\(\mu\in \mathbb R\)</span> and <span class="math inline">\(\sigma&gt;0\)</span>, for short <span class="math inline">\(X\sim N(\mu,\sigma^2)\)</span>, if it has the has the following density:
+<span class="math display">\[\begin{equation*}
+      \varphi(x) = \frac{1}{\sqrt{2\pi\sigma^2}}
+      \exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right), \quad x\in \mathbb R.
+\end{equation*}\]</span></p>
+<ul>
+<li><p>Key figures:
+<span class="math display">\[\begin{equation*}
+    \mathbb E(X)=\mu\quad\text{ and }\quad \text{Var}(X)=\sigma^2.
+\end{equation*}\]</span></p></li>
+<li><p>With <span class="math inline">\(\mu=0\)</span> and <span class="math inline">\(\sigma^2=1\)</span> you get the <strong>standard normal distribution</strong> <span class="math inline">\(N(0,1)\)</span> with density
+<span class="math display">\[\begin{equation*}
+    \varphi(x)=\frac{1}{\sqrt{2\pi}}
+    \exp\left(-\frac{x^2}{2}\right), \quad x\in \mathbb R.
+\end{equation*}\]</span></p></li>
+<li><p>The density of the standard normal distribution is denoted as <span class="math inline">\(\varphi(x)\)</span> and the distribution function as <span class="math inline">\(N(x)\)</span>.</p></li>
+<li><p>Properties of normal distribution</p>
+<ul>
+<li><p>The density is <strong>symmetrical about <span class="math inline">\(\mu\)</span></strong>, i.e.
+<span class="math display">\[\begin{equation*}
+  \varphi(\mu-x) = \varphi(\mu+x), \quad x\in \mathbb R.
+  \end{equation*}\]</span>
+In particular in the case <span class="math inline">\(\mu=0\)</span>: <span class="math inline">\(\varphi(-x)=\varphi(x)\)</span>.</p></li>
+<li><p>The following applies to the distribution function of the standard normal distribution: <span class="math inline">\(N(-x) = 1- N(x)\)</span></p></li>
+<li><p><strong>Standardize</strong>:</p>
+<ul>
+<li><span class="math inline">\(X\)</span> is <span class="math inline">\(N(\mu,\sigma^2)\)</span>-distributed <span class="math inline">\(\iff\)</span> <span class="math inline">\(\displaystyle\frac{X-\mu}{\sigma}\)</span> is <span class="math inline">\(N(0,1)\)</span>-distributed .</li>
+<li><span class="math inline">\(Y\)</span> is <span class="math inline">\(N(0,1)\)</span>-distributed <span class="math inline">\(\iff\)</span> <span class="math inline">\(\mu + \sigma Y\)</span> is <span class="math inline">\(N(\mu,\sigma^2)\)</span>-distributed.</li>
+</ul></li>
+<li><p>Probabilities within <span class="math inline">\(\sigma\)</span> bounds
+<span class="math display">\[\begin{align*}
+  \mathbb P(|X-\mu|\leq \sigma) &amp;= 0.6827\\
+  \mathbb P(|X-\mu|\leq 2\sigma) &amp;= 0.9545\\
+  \mathbb P(|X-\mu|\leq 3\sigma) &amp;= 0.9973
+  \end{align*}\]</span></p></li>
+<li><p>Addition property: If <span class="math inline">\(X\sim N(\mu_X,\sigma_X^2)\)</span> and <span class="math inline">\(Y\sim N(\mu_Y,\sigma_Y^2)\)</span> are independent, then
+<span class="math display">\[\begin{equation*}
+  X+Y\sim
+  N(\mu_X+\mu_Y, \sigma_X^2+\sigma_Y^2).
+  \end{equation*}\]</span></p></li>
+</ul></li>
+<li><p>Probability with which an <span class="math inline">\(N(\mu,\sigma^2)\)</span>-distributed random variable lies between the boundaries <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>:</p></li>
+</ul>
+<p><span class="math display">\[\begin{equation*}
+      \mathbb P(a\leq X\leq b) = \mathbb P\left(\frac{a-\mu}{\sigma}\leq
+        \frac{X-\mu}{\sigma} \leq \frac{b-\mu}{\sigma}\right)
+      = N\left(\frac{b-\mu}{\sigma}\right) -
+      N\left(\frac{a-\mu}{\sigma}\right)
+\end{equation*}\]</span></p>
+<hr />
+<div class="example">
+<p><span id="exm:normverttemp" class="example"><strong>Example 3.7  (Average temperature) </strong></span>We model the average temperature in Berlin in July as a random variable <span class="math inline">\(T: \text{&#39;Average temperature in Berlin in July&#39;}\)</span> with values <span class="math inline">\(t\in \mathbb R\)</span>.</p>
+<ul>
+<li><p><span class="math inline">\(T\stackrel{}{\sim}{} N(\mu_T,\sigma_T)\)</span> with <span class="math inline">\(\mu_T=\mathbb E(T)=20\)</span>, <span class="math inline">\(\text{Var}(T)=16\)</span> and <span class="math inline">\(\sigma_T = 4\)</span>.</p></li>
+<li><p>Probability:
+<span class="math display">\[\begin{align*}
+\mathbb P(|T-20|\leq 4) &amp;\approx 0.68,\\
+\mathbb P(|T-20|\leq 8) &amp;\approx 0.95,\\
+\mathbb P(15\leq T\leq 25)&amp; = \mathbb P(T\leq 25)-\mathbb P(T&lt;15) =N\Big(\frac{25-20}{4}\Big) - N\Big(\frac{15-20}{4}\Big)\\
+&amp; = 0.8944 - 0.1056 = 0.7887.
+\end{align*}\]</span></p></li>
+</ul>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-88"></span>
+<img src="_main_files/figure-html/unnamed-chunk-88-1.png" alt="Distributional models for continuous random variables" width="672" />
+<p class="caption">
+Figure 3.9: Distributional models for continuous random variables
+</p>
+</div>
+</div>
+<hr />
+<div class="example">
+<p><span id="exm:normvertmittel" class="example"><strong>Example 3.8  (Sample mean of normally distributed random variables) </strong></span>If we make a random selection (with replacement) from a normally distributed population and write down a possible result as <span class="math inline">\(n\)</span> random variable “placeholders” as <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span>, or calculate the mean <span class="math inline">\(\bar X\)</span> , then:</p>
+<ul>
+<li><p><span class="math inline">\(X_i\sim N(\mu_X,\sigma_X^2)\)</span> by assumption, since we are selecting from a normally distributed population.</p></li>
+<li><p><span class="math inline">\(X_i\)</span> independent, as you move with replacement</p></li>
+<li><p><span class="math inline">\(\bar X = \frac 1n\sum_{i=1}^n\)</span> using the additive property of the normal distribution,</p></li>
+<li><p><span class="math inline">\(\bar X\sim N(\mu_X,\frac{\sigma_X^2}n)\)</span>, since <span class="math inline">\(\mathbb E(\bar n X_i) = \frac 1n\cdot n\cdot \mu_X\)</span> and <span class="math inline">\(\text{Var}(\bar frac 1{n^2}\cdot n\cdot \sigma_X^2\)</span>.</p></li>
+<li><p>Or <span class="math inline">\(\frac{\bar X-\mu_X}{\frac{\sigma_X}{\sqrt n}}\sim N(0;1)\)</span>.</p></li>
+</ul>
+</div>
+<hr />
+<div class="example">
+<p><span id="exm:normvertlinreg" class="example"><strong>Example 3.9  (Linear regression under the normal distribution assumption) </strong></span>Standard Single Linear Regression Model:</p>
+<p><span class="math display">\[\begin{equation*}
+      Y_i = \alpha + \beta\, x_i + \varepsilon_i, \quad i=1,\ldots, n.
+\end{equation*}\]</span></p>
+<p>These include:</p>
+<ul>
+<li><span class="math inline">\(Y_1,\ldots, Y_n\)</span>: observable metric random variable;</li>
+<li><span class="math inline">\(x_1,\ldots, x_n\)</span>: given deterministic values ​​(or
+Realizations of a ZV <span class="math inline">\(X\)</span>);</li>
+<li><span class="math inline">\(\varepsilon_1, \ldots, \varepsilon_n\)</span>: unobservables
+ZV’s that are independent and identically distributed with
+<span class="math inline">\(\mathbb E(\varepsilon_i)=0\)</span>, <span class="math inline">\(\text{Var}(\varepsilon_i)=\sigma^2\)</span>.</li>
+</ul>
+<p>Under the normal distribution assumption <span class="math inline">\(\varepsilon_i\sim N(0,\sigma^2)\quad i=1,\ldots,n\)</span> independent of <span class="math inline">\(X_i\sim N(\mu_X,\sigma_X^2)\)</span> (in case $X $ random) applies:</p>
+<p><span class="math display">\[\begin{equation*}
+      Y_i\sim N(\alpha+ \beta x_i,\sigma^2), \quad i=1,\ldots,n.
+\end{equation*}\]</span></p>
+<p>and</p>
+<p><span class="math display">\[\begin{align*}
+\hat\beta &amp;= \frac{\sum _{i=1}^n (x_i-\overline x) (Y_i-\overline Y)} {\sum _{i=1}^n (x_i-\overline x) ^2}\\
+&amp;\sim N(\beta, \sigma_{\hat\beta}^2),\\
+\hat\alpha &amp;=\overline Y-\hat\beta \overline x\\
+&amp;\sim N(\alpha, \sigma_{\hat\alpha}^2).
+\end{align*}\]</span></p>
+<p>since these random variables represent a linear combination of independent, normally distributed random variables.</p>
+</div>
+<div id="q33" class="quiz">
+<p id="question">
+<span id="question-text313"></span>
+<input type="number" id="answer313" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj313)">Submit</button>
+</p>
+<p id="result313">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj313 = generateQuestion_num(313);
+// Display the question
+    document.getElementById('question-text313').textContent = "If \\(X\\sim N(\\mu="+ questionObj310.question[0]+ ";\\sigma^2=" + Math.pow(questionObj312.question[0],2)+ ")\\) then \\(\\mathbb P(X>" + questionObj313.question[0] + ")=\\)";
+    questionObj313.answer = 1-normalCDF(questionObj313.question[0],questionObj310.question[0],questionObj312.question[0])
+</script>
+<hr />
+<p id="question">
+<span id="question-text314"></span>
+</p>
+<input type="number" id="answer314" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj314)">Submit</button>
+<p id="result314">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj314 = generateQuestion_num(314);
+// Display the question
+    document.getElementById('question-text314').textContent = "\\(Z\\) is a standard normally distributed random variable. What is \\(c\\) such that: \\(\\mathbb P(-c\\leq Z\\leq c)=90\\%\\)?";
+    questionObj314.answer = 1.644854
+</script>
+<hr />
+<p id="question">
+<span id="question-text315"></span>
+</p>
+<input type="number" id="answer315" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj315)">Submit</button>
+<p id="result315">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj315 = generateQuestion_num(315);
+// Display the question
+    document.getElementById('question-text315').textContent = "The weekly demand for an art object in an online art store is normally distributed with mean \\(50\\) and standard deviation \\(5\\). The store typically has an inventory of \\(60\\) pieces and orders once a week.\\[\\] What is the probability that demand will not be met in a week?";
+    questionObj315.answer = 1-normalCDF(60,50,5)
+</script>
+<p id="question">
+<span id="question-text316"></span>
+</p>
+<input type="number" id="answer316" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj316)">Submit</button>
+<p id="result316">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj316 = generateQuestion_num(316);
+// Display the question
+    document.getElementById('question-text316').textContent = "How high should the inventory be so that a week's demand is not met only 10% of the time? (round to the next higher whole number)";
+    questionObj316.answer = 57
+</script>
+<div class="sourceCode" id="cb6"><pre class="sourceCode js"><code class="sourceCode javascript"><span id="cb6-1"><a href="some-important-distribution-models.html#cb6-1" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Generate a random question</span></span>
+<span id="cb6-2"><a href="some-important-distribution-models.html#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> questionObj317 <span class="op">=</span> {</span>
+<span id="cb6-3"><a href="some-important-distribution-models.html#cb6-3" aria-hidden="true" tabindex="-1"></a>      <span class="dt">question</span><span class="op">:</span> <span class="st">&quot;Now we are interested in the random variable </span><span class="sc">\\</span><span class="st">(Z=</span><span class="sc">\\</span><span class="st">) &#39;Number of weeks in the year when the inventory is not sufficient&#39; (hint: </span><span class="sc">\\</span><span class="st">(52</span><span class="sc">\\</span><span class="st">) weeks in the year). How is </span><span class="sc">\\</span><span class="st">(Z</span><span class="sc">\\</span><span class="st">) distributed?&quot;</span><span class="op">,</span></span>
+<span id="cb6-4"><a href="some-important-distribution-models.html#cb6-4" aria-hidden="true" tabindex="-1"></a>      <span class="dt">options</span><span class="op">:</span> [<span class="st">&#39;</span><span class="sc">\\</span><span class="st">(B(50,0.0228)</span><span class="sc">\\</span><span class="st">)&#39;</span> <span class="op">,</span><span class="st">&#39;</span><span class="sc">\\</span><span class="st">(B(52;0.0228)</span><span class="sc">\\</span><span class="st">)&#39;</span><span class="op">,</span><span class="st">&#39;</span><span class="sc">\\</span><span class="st">(N(50,25)</span><span class="sc">\\</span><span class="st">)&#39;</span><span class="op">,</span> <span class="st">&#39;</span><span class="sc">\\</span><span class="st">(N(52,25)</span><span class="sc">\\</span><span class="st">)&#39;</span>]<span class="op">,</span></span>
+<span id="cb6-5"><a href="some-important-distribution-models.html#cb6-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">answer</span><span class="op">:</span> <span class="st">&#39;2&#39;</span><span class="op">,</span></span>
+<span id="cb6-6"><a href="some-important-distribution-models.html#cb6-6" aria-hidden="true" tabindex="-1"></a>      <span class="dt">id</span><span class="op">:</span> <span class="dv">317</span></span>
+<span id="cb6-7"><a href="some-important-distribution-models.html#cb6-7" aria-hidden="true" tabindex="-1"></a>    }<span class="op">;</span></span></code></pre></div>
+<script>
+  // Generate a random question
+    const questionObj317 = {
+      question: "Now we are interested in the random variable \\(Z=\\) 'Number of weeks in the year when the inventory is not sufficient' (hint: \\(52\\) weeks in the year). How is \\(Z\\) distributed?",
+      options: ['\\(B(50,0.0228)\\)' ,'\\(B(52;0.0228)\\)','\\(N(50,25)\\)', '\\(N(52,25)\\)'],
+      answer: '2',
+      id: 317
+    };
+</script>
+<p class="question">
+<span id="question-text317"></span>
+</p>
+<div class="options">
+<label>
+<input type="radio" name="option317" value=1> \(B(26,0.0228)\)
+</label>
+<label>
+<input type="radio" name="option317" value=2> \(B(52;0.0228)\)
+</label>
+<label>
+<input type="radio" name="option317" value=3> \(N(26,25)\)
+</label>
+<label>
+<input type="radio" name="option317" value=4> \(N(52,5)\)
+</label>
+<label>
+<input type="radio" name="option317" value=5> \(N(52,25)\)
+</label>
+</div>
+<button onclick="checkAnswer_match(questionObj317)">Submit</button>
+<p id="result317">
+</p>
+<script>
+  // Display the question
+    document.getElementById('question-text317').textContent = questionObj317.question;
+</script>
+</div>
+<hr />
+</div>
+<div id="exponential-distribution" class="section level3 hasAnchor" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> Exponential distribution<a href="some-important-distribution-models.html#exponential-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <strong>exponential distribution</strong> is often used to model waiting times under the assumption that the remaining waiting time does not depend on the lifespan that has already elapsed (“<strong>memorylessness</strong>”).</p>
+<p>Application examples:</p>
+<ul>
+<li>Lifespan of products or technical systems</li>
+<li>Processing time of customer orders</li>
+<li>Waiting time until the next call arrives in the call center</li>
+</ul>
+<p>A continuous random variable <span class="math inline">\(X\)</span> is called <strong>exponentially distributed</strong> with parameter <span class="math inline">\(\lambda&gt;0\)</span>, for short <span class="math inline">\(X\sim E(\lambda)\)</span>, if it has the density:
+<span class="math display">\[\begin{equation*}
+      f(x) = \lambda\, \text e^{-\lambda x}, \quad \text{ for } x\geq 0,
+\end{equation*}\]</span>
+and <span class="math inline">\(f(x)=0\)</span> else.</p>
+<ul>
+<li><p>The distribution function is
+<span class="math inline">\(F(x)=1-\text e^{-\lambda x}\)</span>, for <span class="math inline">\(x&gt;0\)</span>.</p></li>
+<li><p>Key figures:
+<span class="math display">\[\begin{equation*}
+    \mathbb E(X) = \frac{1}{\lambda} \quad\text{ and }\quad
+    \text{Var}(X)=\frac{1}{\lambda^2}.
+\end{equation*}\]</span></p></li>
+</ul>
+<hr />
+<div class="example">
+<p><span id="exm:dexptrans" class="example"><strong>Example 3.10  (Transaction duration in payment service) </strong></span>As part of fraud prevention, you monitor transaction times (i.e. the waiting times until a payment transaction is completed) in seconds.</p>
+<p>You model the random variable <span class="math inline">\(X =\)</span>“transaction duration in seconds” as exponentially distributed. The average transaction duration is <span class="math inline">\(5\)</span> seconds.</p>
+<ul>
+<li><p><span class="math inline">\(\mathbb E(X) = 10\)</span> <span class="math inline">\(\leadsto\)</span> <span class="math inline">\(\lambda = \frac 1{\mathbb E(X)}=\frac 1{10}=0,1\)</span></p></li>
+<li><p><span class="math inline">\(X\sim E(0,1)\)</span> and</p></li>
+<li><p>the probability of transaction times less than 5 seconds:</p></li>
+</ul>
+<p><span class="math display">\[
+\mathbb P(X&lt;5) = F_{E}(5) = 1-\text{e}^{-0,1\cdot 5} = 0,3935
+\]</span></p>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-96"></span>
+<img src="_main_files/figure-html/unnamed-chunk-96-1.png" alt="Distributional models for continuous random variables" width="672" />
+<p class="caption">
+Figure 3.10: Distributional models for continuous random variables
+</p>
+</div>
+<p>Transactions with long transaction times are suspicious of fraud and may need to be checked manually. You now want to set the threshold for the duration of the transaction: if the threshold is exceeded, the accuracy of the transaction is checked again manually by an employee. However, a maximum of $10% of transactions should be checked.</p>
+<p><strong>How do you choose an appropriate threshold?</strong></p>
+<ul>
+<li><p>The approach (<span class="math inline">\(x_0\)</span> is the threshold):
+<span class="math display">\[\begin{equation*}
+    \mathbb P(X &gt; x_0) = 1-F_E(x_0)= 1-(1-\text e^{-0,1 x_0}) = 0.1,
+\end{equation*}\]</span></p></li>
+<li><p>Solving for <span class="math inline">\(x_0\)</span> gives:</p></li>
+</ul>
+<p><span class="math display">\[\begin{equation*}
+    x_0 =-\ln (0.1)/0,1 = 1,0536\text{ Sekunden}.
+\end{equation*}\]</span></p>
+<ul>
+<li>The threshold value should therefore be approximately 1,05 seconds.</li>
+</ul>
+</div>
+<hr />
+</div>
+<div id="uniform-distribution" class="section level3 hasAnchor" number="3.2.3">
+<h3><span class="header-section-number">3.2.3</span> Uniform distribution<a href="some-important-distribution-models.html#uniform-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The continuous random variable <span class="math inline">\(X\)</span> is <strong>uniformly distributed</strong> with the parameters <span class="math inline">\(a\in \mathbb R\)</span> and <span class="math inline">\(b\in \mathbb R\)</span>, in short <span class="math inline">\(X\sim U(a,b)\)</span>, if it has the density
+<span class="math display">\[\begin{equation*}
+      f(x)=\frac{1}{b-a}, \quad x\in [a,b],
+\end{equation*}\]</span>
+(and <span class="math inline">\(f(x)=0\)</span> otherwise).</p>
+<ul>
+<li><p>The distribution function is <span class="math inline">\(F(x) = \frac{x-a}{b-a} 1_{[a,b]}(x) +1_{(b,\infty)}(x)\)</span>.</p></li>
+<li><p>Key figures:</p></li>
+</ul>
+<p><span class="math display">\[\begin{align*}
+      \mathbb E(X)&amp;= \int_a^b x\cdot
+                       \frac{1}{b-a}\, d x = \frac{a+b}{2},\\
+      \text{Var}(X)&amp;=\int_a^b x^2\cdot
+                \frac{1}{b-a}\, d x - \frac{(a+b)^2}{4} =
+                \frac{(b-a)^2}{12}.
+\end{align*}\]</span></p>
+<hr />
+<div class="example">
+<p><span id="exm:dunif" class="example"><strong>Example 3.11  (Update banner ads) </strong></span>In the last example for advertising banners <a href="some-important-distribution-models.html#exm:dpoisvert">3.6</a> we modeled clicks. Well, advertising banners change and then have to be updated on the SHop website.</p>
+<p>You’ve created a new banner ad template and want to update your ads. A transport script fetches all advertising updates every <span class="math inline">\(20\)</span> minutes. After the transport script picks up your new template, it is immediately online.</p>
+<ul>
+<li><p>Random variable <span class="math inline">\(Z: \text{&#39;Waiting time in minutes until the web display is updated&#39;}\)</span> follows a continuous uniform distribution on the time interval <span class="math inline">\([0,20]\)</span>: <span class="math inline">\(Z\sim U([0,20])\)</span>.</p></li>
+<li><p>Expected value and variance:
+<span class="math display">\[\begin{align*}
+\mathbb E(Z)&amp;=\frac{a+b}2=\frac{20}2=10,\\
+\text{Var}(Z)&amp;=\frac{(b-a)^2}{12} = \frac{400}{12}=33\frac13.
+\end{align*}\]</span></p></li>
+</ul>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-97"></span>
+<img src="_main_files/figure-html/unnamed-chunk-97-1.png" alt="Distributional models for continuous random variables" width="672" />
+<p class="caption">
+Figure 3.11: Distributional models for continuous random variables
+</p>
+</div>
+</div>
+<hr />
+<div id="q34" class="quiz">
+<p id="question">
+<span id="question-text318"></span>
+<input type="number" id="answer318" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj318)">Submit</button>
+</p>
+<p id="result318">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj318 = generateQuestion_num(318);
+// Display the question
+    document.getElementById('question-text318').textContent = "You get to the subway station without looking at the clock. The display is broken, but according to a BVG employee, the subways run on time, every 5 minutes. How many minutes will you wait on average?";
+    questionObj318.answer = 2.5
+</script>
+<p id="question">
+<span id="question-text319"></span>
+<input type="number" id="answer319" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj319)">Submit</button>
+</p>
+<p id="result319">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj319 = generateQuestion_num(319);
+// Display the question
+    document.getElementById('question-text319').textContent = "What is the probability that you will catch a subway after just one minute?";
+    questionObj319.answer = 0.2
+</script>
+<p id="question">
+<span id="question-text320"></span>
+<input type="number" id="answer320" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj320)">Submit</button>
+</p>
+<p id="result320">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj320 = generateQuestion_num(320);
+// Display the question
+    document.getElementById('question-text320').textContent = "Which waiting time is only exceeded in \\(5\\%\\) of cases?";
+    questionObj320.answer = 4.75
+</script>
+<hr />
+<p id="question">
+<span id="question-text321"></span>
+</p>
+<input type="number" id="answer321" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj321)">Submit</button>
+<p id="result321">
+</p>
+<script>
+
+ // Generate a random question
+    const questionObj321 = generateQuestion_num(321);
+// Display the question
+    document.getElementById('question-text321').textContent = "Let the random variable \\(X\\) describe the lifespan of a laptop in hours. The average lifespan of laptops of this type is \\(4000\\) hours. The manufacturer wants to guarantee a minimum number of \\(x_0\\) operating hours, so that only \\(5\\%\\) of the devices need the guarantee service. The manufacturer will in this case guarantee the following amount of operation hours: (Hint: Use exponential distribution. It should hold: \\(\\mathbb P(X\\leq x_0)<0.05.\\) What is \\(x_0\\)?)";
+    questionObj321.answer = 205.1732
+</script>
+</div>
+<!--::: {.exercise name="stetige Verteilungen"}
+
+
+
+:::-->
+<hr />
+</div>
+</div>
+<div id="further-distributions" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Further distributions<a href="some-important-distribution-models.html#further-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="chi2-distribution" class="section level3 hasAnchor" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> <span class="math inline">\(\chi^2\)</span>-distribution<a href="some-important-distribution-models.html#chi2-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Some distributions are related to each other (such as Bernoulli and binomial distributions). They come about by transforming a random variable with a specific distribution. The <span class="math inline">\(\chi^2\)</span> distribution also represents the distribution of the sum of squared independent standard normally distributed random variables.</p>
+<p>This distribution is important for many estimation and test functions such as bpw. <span class="math inline">\(\hat \sigma^2\)</span>. Under suitable conditions they have at least an approximate <span class="math inline">\(\chi^2\)</span> distribution.</p>
+<ul>
+<li><p>Let <span class="math inline">\(X_1, \ldots, X_n\)</span> be independent and identically <span class="math inline">\(N(0,1)\)</span>-distributed random variables. Then the distribution of the random variables is called
+<span class="math display">\[\begin{equation*}
+    Z=X_1^2 + \cdots + X_n^2
+\end{equation*}\]</span></p></li>
+<li><p><strong>Chi-square distribution</strong> with <span class="math inline">\(n\)</span> degrees of freedom, short <span class="math inline">\(\chi^2(n)\)</span>-distribution, and <span class="math inline">\(Z\)</span> is called <span class="math inline">\(\chi^2\)</span>-distributed, short <span class="math inline">\(Z\sim \chi ^2(n)\)</span>.</p></li>
+<li><p>Parameters:
+<span class="math display">\[\begin{equation*}
+    \mathbb E(Z)=n\quad\text{ and }\quad \text{Var}(Z)=2n.
+\end{equation*}\]</span></p></li>
+<li><p>Some <span class="math inline">\(\chi^2\)</span> distributions:</p></li>
+</ul>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-103"></span>
+<img src="_main_files/figure-html/unnamed-chunk-103-1.png" alt="Einige Chi-Quadrat-Verteilungen" width="80%" />
+<p class="caption">
+Figure 3.12: Einige Chi-Quadrat-Verteilungen
+</p>
+</div>
+<ul>
+<li>For the estimation we will need quantiles of this distribution. These are calculated using software or taken from the distribution table, where various degrees of freedom can be found in the left column and some probabilities in the top row.</li>
+</ul>
+<hr />
+<div class="example">
+<p><span id="exm:chivertmittel" class="example"><strong>Example 3.12  (Stichprobenvarianz von normalverteilten Zufallsvariablen) </strong></span>Example <a href="some-important-distribution-models.html#exm:normvertmittel">3.8</a> cont.</p>
+<p>If we also estimate the variance from the sample using the sample variance:</p>
+<p><span class="math display">\[
+S^2=\frac 1{n-1}\Big((X_1 - \bar X)^2 + \ldots + (X_n - \bar X)^2 \Big)
+\]</span>
+Then the random variable <span class="math inline">\(\frac{(n-1)S^2}{\sigma^2}\)</span> is <span class="math inline">\(\chi^2\)</span>-distributed with <span class="math inline">\(n-1\)</span> degrees of freedom.</p>
+</div>
+<hr />
+</div>
+<div id="t-distribution" class="section level3 hasAnchor" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> t-distribution<a href="some-important-distribution-models.html#t-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <span class="math inline">\(t\)</span> distribution is particularly used in parametric tests and confidence intervals. It comes about by dividing a standard normally distributed quantity by the root of a suitably transformed <span class="math inline">\(\chi^2\)</span>-distributed random variable.</p>
+<ul>
+<li><p>Let <span class="math inline">\(X\sim N(0,1)\)</span> and <span class="math inline">\(Z\sim\chi^2(n)\)</span> be independent. Then the distribution of the random variables is called
+<span class="math display">\[\begin{equation*}
+    T=\frac{X}{\sqrt{Z/n}}
+\end{equation*}\]</span>
+<strong><span class="math inline">\(t\)</span>-distributed</strong> with <span class="math inline">\(n\)</span> degrees of freedom, short <span class="math inline">\(T\sim t(n)\)</span>.</p></li>
+<li><p>Key figures:</p></li>
+</ul>
+<p><span class="math display">\[\begin{equation*}
+      \mathbb E(T)=0 \quad (n&gt;1)\quad\text{ and }\quad
+      \text{Var}(T)=\frac{n}{n-2} \quad (n&gt;2).
+\end{equation*}\]</span></p>
+<ul>
+<li>Some <span class="math inline">\(t\)</span> distributions:</li>
+</ul>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-105"></span>
+<img src="_main_files/figure-html/unnamed-chunk-105-1.png" alt="Einige t-Verteilungen" width="80%" />
+<p class="caption">
+Figure 3.13: Einige t-Verteilungen
+</p>
+</div>
+<ul>
+<li><p>The <span class="math inline">\(t\)</span> distribution has more distribution mass in the tails (“heavy tails”) compared to the normal distribution.</p></li>
+<li><p>For <span class="math inline">\(n\rightarrow\infty\)</span>, the density function of the <span class="math inline">\(t\)</span> distribution converges to the density of the standard normal distribution.</p></li>
+<li><p>For the estimation we will need quantiles of this distribution. These are calculated using software or taken from the distribution table, where various degrees of freedom can be found in the left column and some probabilities in the top row.</p></li>
+</ul>
+<hr />
+<div class="example">
+<p><span id="exm:tvertmittel" class="example"><strong>Example 3.13  (Sample mean of normally distributed random variables) </strong></span>Continuation of examples <a href="some-important-distribution-models.html#exm:normvertmittel">3.8</a> and <a href="some-important-distribution-models.html#exm:chivertmittel">3.12</a>.</p>
+<p>In the example above we saw that under the normal distribution assumption:</p>
+<ul>
+<li><span class="math inline">\(\frac{\bar X-\mu_X}{\frac{\sigma_X}{\sqrt n}}\sim N(0;1)\)</span>.</li>
+</ul>
+<p>But if <span class="math inline">\(\sigma_X^2\)</span> is unknown and is estimated, one replaces the true standard deviation in standardization with the estimate <span class="math inline">\(S\)</span> (<span class="math inline">\(S_X=\sqrt{S_X^2}\)</span>, <span class="math inline">\(S_X^2\)</span> is the sample variance) , then:</p>
+<ul>
+<li><p><span class="math inline">\(\frac{\bar X-\mu_X}{\frac{S_X}{\sqrt n}}\sim t(n-1)\)</span>.</p></li>
+<li><p>Calculations<span class="math inline">\(^\ast\)</span>:</p></li>
+</ul>
+<p><span class="math display">\[\begin{align}
+\frac{\bar X-\mu_X}{\frac{S_X}{\sqrt n}} &amp;= \frac{\overbrace{\frac{\bar X-\mu_X}{\sigma_X/\sqrt n}}^{N(0,1)}}{\underbrace{\sqrt\frac{(n-1)S^2_X}{\sigma^2_X}}_{()^2\sim \chi^2(n-1)}/\sqrt{n-1}}\sim t(n-1).
+\end{align}\]</span></p>
+<p>So a standard normally distributed ZV <span class="math inline">\(\frac{\bar /\sigma_X/(n-1)\)</span> (divided by the degrees of freedom of the latter) and by definition of the <span class="math inline">\(t\)</span> distribution <span class="math inline">\(\frac{\bar X-\mu_X}{\frac{S_X}{\sqrt n} So }\)</span> is <span class="math inline">\(t\)</span>-distributed with <span class="math inline">\(n-1\)</span> degrees of freedom.</p>
+</div>
+<hr />
+<div class="example">
+<p><span id="exm:tlinreg" class="example"><strong>Example 3.14  (Linear regression under normal distribution assumption) </strong></span>Example <a href="some-important-distribution-models.html#exm:normvertlinreg">3.9</a> cont.</p>
+<ul>
+<li><p>Since <span class="math inline">\(\sigma^2\)</span> - the variance of the unobservable error terms <span class="math inline">\(\varepsilon_i\)</span> is always estimated by <span class="math inline">\(\hat\sigma^2 = \frac 1{n-2}\sum_{i=1}^n\big (Y_i - (\hat \alpha + \hat \beta x_i)\big)^2\)</span> (<span class="math inline">\(n-2\)</span> comes from the fact that we now estimate two parameters <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> and <span class="math inline">\(2\)</span> degrees of freedom as a result lose) and</p></li>
+<li><p>The variances of the estimators <span class="math inline">\(\sigma_{\hat\alpha}^2\)</span> and <span class="math inline">\(\sigma_{\hat\beta}^2\)</span> are based on this and must therefore also be determined by the estimates <span class="math inline">\(\hat\sigma_{\hat\alpha }^2\)</span> and <span class="math inline">\(\hat\sigma_{\hat\beta}^2\)</span> are replaced, the following applies:</p></li>
+</ul>
+<p><span class="math display">\[
+\frac{\hat\beta - \beta}{\hat\sigma_{\hat\beta}}\sim t(n-2)\,\
+\frac{\hat\alpha - \alpha}{\hat\sigma_{\hat\alpha}}\sim t(n-2).
+\]</span></p>
+<p>These derived distributions will be useful to us later when we quantify the uncertainty associated with an estimate.</p>
+</div>
+<hr />
+<!--::: {.exercise name="Continuous distributions"}
+
+
+
+:::-->
+<!--
+## Rückblick{-}
+
+
+```{=html}
+<iframe title="Wortwolke" src="http://learning-dashboard.lehre.hwr-berlin.de:3838/Apps_RBook/#section-wortwolke" width="760" height="600"></iframe>
+```
+-->
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="random-variables.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="limit-theorems.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/03-Distributions.rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
