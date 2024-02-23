@@ -1,0 +1,2 @@
+"0","  #arrows(bpm-0.05*input$nbin,0.5,bpm+0.05*input$nbin,0.5,lty=1,code=3,col=3)"
+"0","  text(bpm+0.01*input$nbin,0.5,paste0(""Var(X)="",round(input$nbin*input$pbin*(1-input$pbin),4)),col=3)"

@@ -1,0 +1,1 @@
+"0","  text(1/lam+5,0.2,paste(""Var(X)="",round(1/lam^2,2)),col=3)"

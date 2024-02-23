@@ -1,0 +1,26 @@
+h1:iii-inductive-statistics III Inductive Statistics
+h1:parameter-estimation Parameter estimation
+h2:basic-ideas-of-inductive-statistics Basic ideas of inductive statistics
+h3:parameter-estimation-theoretically Parameter estimation theoretically
+h4:modeling-the-quantities-of-interest Modeling the quantities of interest
+h4:random-sample Random sample
+h4:estimation Estimation
+h3:parameter-estimation-practically Parameter estimation practically
+h2:point-estimation Point estimation
+h3:estimation-functions Estimation functions
+h3:properties-of-estimators Properties of estimators
+h4:unbiasedness Unbiasedness
+h4:consistency Consistency
+h4:efficiency Efficiency
+h2:construction-of-estimators-r-emojiemojialien Construction of estimators 
+h3:method-of-moments Method of moments
+h3:maximum-likelihood-method Maximum likelihood method
+h2:interval-estimation Interval estimation
+h3:alpha-confidence-interval-for-mu  confidence interval for 
+h4:type-a-confidence-interval-for-mu-with-known-variance-sigma2-nmusigma2-distributed-random-variables Type A: Confidence interval for  with known variance  (-distributed random variables)
+h4:type-b-confidence-interval-for-mu-with-unknown-variance-sigma2-nmusigma2-distributed-random-variables Type B: Confidence interval for  with unknown variance  (-distributed random variables)
+h4:type-c-approximate-confidence-interval-for-mu-for-any-distribution Type C: Approximate confidence interval for  for any distribution
+h3:alpha-confidence-interval-for-sigma2  confidence interval for 
+h3:alpha-confidence-interval-for-probability-p  confidence interval for probability 
+h3:determining-n-based-on-the-length-of-confidence-intervals-r-emojiemojialien Determining  based on the length of confidence intervals 
+

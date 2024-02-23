@@ -1,0 +1,7 @@
+"0","  "
+"0","  # pois"
+"0","  input$lam=10"
+"0","   x<-seq(0,2*input$lam,1)"
+"0","  px<-dpois(x,input$lam)"
+"0","  plot(x,px,xlab=""k"",type=""h"",main=paste0(""X~Poi("",input$lam,"")"")"
+"0","       ,ylab=""f(k)"",ylim=c(0,0.5),axes=F,lwd=5,col=alpha(""gray44"",0.5))"

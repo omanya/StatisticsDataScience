@@ -1,0 +1,2 @@
+"0","  #text(-15,0.6,bquote(bar(y)))"
+"0","  par(xpd=F)"

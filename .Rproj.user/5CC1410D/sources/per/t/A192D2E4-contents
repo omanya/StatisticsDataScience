@@ -1,0 +1,1132 @@
+# Hypothesis testing `r #emoji::emoji("alien")`
+
+```{js, echo=F}
+function checkAnswer_mmc(q) {
+      const selectedOptions = document.querySelectorAll('input[name="option'+q.id+'"]:checked');
+      if (selectedOptions.length === 2) {
+        const userAnswers = Array.from(selectedOptions).map(option => option.value);
+        const correctAnswers = q.answer;
+        const isCorrect = userAnswers.every(answer => correctAnswers.includes(answer));
+
+if (isCorrect) {
+          document.getElementById('result'+q.id).textContent = 'Congratulations! Your answer is correct.';
+          document.getElementById('result'+q.id).style.color = "green";
+        } else {
+          document.getElementById('result'+q.id).textContent = `Sorry, incorrect.`;
+          document.getElementById('result'+q.id).style.color = "red";
+        }
+      } else {
+        document.getElementById('result'+q.id).textContent = 'Please select two options.';
+      }
+    }
+// numeric
+function generateQuestion_num(id) {
+      // Generate two random numbers between 2 and 10
+      const num1 = Math.floor(Math.random() * 10) + 2;
+      const num2 = Math.floor(Math.random() * 10) + 2;
+      const x1 = Math.floor(Math.random() * 100) + 2;
+      const x2 = Math.floor(Math.random() * 100) + 2;
+      const x3 = Math.floor(Math.random() * 100) + 2;
+      const x4 = Math.floor(Math.random() * 100) + 2;
+      const x5 = Math.floor(Math.random() * 100) + 2;
+      const x6 = Math.floor(Math.random() * 100) + 2;
+
+       // Calculate the correct answer
+      let answer = num1*Math.sqrt(x1) + num2*Math.sqrt(x2);
+
+
+      // Return the question and answer as an object
+      return {
+       // question: num1 + "\\(\\sqrt{x}+\\)"+ num2 + "\\(\\sqrt{y}\\)" + " for \\(x=\\)" + x1 + " and \\(y=\\)" + x2,
+        question: [num1,num2,x1,x2,x3,x4,x5,x6],
+        answer: answer,
+        id: id
+      };
+    }
+
+function checkAnswer_num(q) {
+      const userAnswer = document.getElementById('answer'+q.id).value;
+      const isCorrect = Math.round(parseFloat(userAnswer)*10000)/10000 === Math.round(q.answer*10000)/10000;
+
+      if (isCorrect) {
+        document.getElementById('result'+q.id).textContent = 'Congratulations! Your answer is correct.';
+        document.getElementById('result'+q.id).style.color = "green";
+      } else {
+        document.getElementById('result'+q.id).textContent = `Sorry, incorrect. The correct answer is ` + Math.round(q.answer*10000)/10000 + '.';
+        document.getElementById('result'+q.id).style.color = "red";
+      }
+  }
+
+// plain multiple choice
+  function checkAnswer_match(q) {
+      const selectedOption = document.querySelector('input[name="option'+q.id+'"]:checked');
+      if (selectedOption) {
+        const userAnswer = selectedOption.value;
+        const isCorrect = userAnswer === q.answer;
+
+        if (isCorrect) {
+          document.getElementById('result'+q.id).textContent = 'Congratulations! Your answer is correct.';
+          document.getElementById('result'+q.id).style.color = "green";
+        } else {
+          document.getElementById('result'+q.id).textContent = `Sorry, incorrect.`;
+          document.getElementById('result'+q.id).style.color = "red";
+        }
+      } else {
+        document.getElementById('result'+q.id).textContent = 'Please select an option.';
+      }
+    }
+    
+function factorial(n){
+  let answer = 1;
+  if (n == 0 || n == 1){
+    return answer;
+  }
+  else if(n > 1){
+    for(var i = n; i >= 1; i--){
+      answer = answer * i;
+    }
+    return answer;
+  }
+  else{
+    return "number has to be positive."
+  }  
+}
+
+function binomial(n, k) {
+     if ((typeof n !== 'number') || (typeof k !== 'number')) 
+  return false; 
+    var coeff = 1;
+    for (var x = n-k+1; x <= n; x++) coeff *= x;
+    for (x = 1; x <= k; x++) coeff /= x;
+    return coeff;
+}
+
+function binomialCDF(k,n,p) {
+    let answer = 0;
+
+    for(var i = 0; i <= k; i++){
+      answer = answer + binomial(n,i)*Math.pow(p,i)*Math.pow((1-p),(n-i));
+    }
+    return answer;
+}
+function normalCDF(x, mean, std) {
+  var x = (x - mean) / std
+  var t = 1 / (1 + .2315419 * Math.abs(x))
+  var d =.3989423 * Math.exp( -x * x / 2)
+  var prob = d * t * (.3193815 + t * ( -.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274))))
+  if( x > 0 ) prob = 1 - prob
+  return prob
+}
+```
+
+So far we have made statistical inferences based on numerical estimators (point estimators and interval estimators). Well, there are problems where you want to test a certain assumption. It's less about getting a number and more about supporting a hypothesis based on the data (e.g. was a marketing campaign effective?).
+
+Test procedures answer the questions regarding these **possible conclusions** of a random process (**hypotheses**) and bring about a **decision** for one of the possibilities using tools of probability theory.
+
+***
+
+In this chapter we will learn:
+  
+- How to formulate the **hypotheses**,
+- which **test procedures** should be used and when?
+- how to make a **test decision**.
+
+***
+
+## The basic idea of statistical testing
+
+***
+
+::: {.example #test name="Discount campaign"}
+
+You want to check whether a discount campaign has contributed to increasing sales.
+
+In a pilot study, $n=30$ randomly selected customers were offered the discount.
+The remaining customers did not receive a discount and have an average invoice amount of $25$ EUR with a known
+standard deviation of $\sigma=2.4$.
+
+The discount group has an average invoice amount of $\overline y=26.3$ EUR.
+There are two possibilities:
+
+- **The campaign is actually effective**: it increases sales sustainably and we would be making a wrong decision if we assume that the increase in sales is random $\Rightarrow$ Company may abandon an effective campaign.
+
+- **The campaign is actually ineffective**: sales in the pilot group increased due to random fluctuations and we would be making a wrong decision if we assumed that the increase in sales was due to the promotion $\Rightarrow$ cost for a pointless discount campaign.
+
+
+In the case of two possible, mutually exclusive conclusions, a distinction is made:
+
+- **null hypothesis** $H_0$ (status quo $\leadsto$ action does not change behavior, sales, ...) is not rejected as long as there is not enough evidence to refute it.
+
+- **Alternative hypothesis** $H_1$ ($\leadsto$ action is effective, favorably changes behavior, sales, ...) is accepted if "sufficient" evidence speaks against the null hypothesis.
+
+:::
+
+***
+
+Possible conclusions and consequences:
+
+$$
+\begin{array}{c|cc}
+      \hline
+      &H_0\text{ not rejected }& H_0\text{ rejected }\\\hline
+      H_0\text{ is correct }&\text{decision correct }& \text{decision incorrect}\\
+      &&\text{(Type 1 error)}\\
+      H_0\text{ is wrong }&\text{decision incorrect}&\text{decision correct}\\
+      &\text{(Type 2 error)}&\\\hline
+\end{array}
+$$
+
+Wrong decisions are always possible and it is not possible to judge whether a given test decision is right or wrong. However, we construct statistical test in a way, that incorrect decisions have low probability.
+
+Two types of incorrect decisions can occur: incorrectly rejecting or incorrectly maintaining the null hypothesis:
+
+- **Type 1 error** when $H_0$ is rejected even though $H_0$ is true,
+
+- **Type 2 error** when $H_0$ is retained even though $H_1$ is true.
+
+The aim is to define a decision-making strategy so that Type 1 and Type 2 errors are kept as small as possible.
+
+***
+
+::: {.example #test0 name="Discount campaign"}
+
+Example \@ref(exm:test) cont.
+
+Probabilistic formulation of the problem:
+
+- Sample $Y_1,Y_2,\ldots,Y_{30}$: Sales from pilot customers.
+
+- Assumption: $(Y_i)_{i=1,\ldots,30}$ are independent repetitions of a normally distributed random variable $Y$ with unknown expected value $\mu$ and known standard deviation $\sigma=2.4$.
+
+Then, sample mean $\overline Y$ of the $30$ realizations is a normally distributed random variable with expected value $\mu$ and standard deviation $\sigma/\sqrt{30}$.
+
+Setting up the hypotheses:
+
+- $H_0$: $\mu=25.0$ (action not effective,"Status Quo")
+
+- $H_1$: $\mu>25.0$ (action effective)
+
+Basis for decision:
+
+- makes sense to keep $H_0$ if $\overline y$ is only slightly larger than $25$.
+
+- makes sense to reject $H_0$ if $\overline y$ is significantly larger, e.g. $35.0$.
+
+$\leadsto$ Find critical $\overline y^\ast$ from which on $H_0$ is rejected.
+
+Choosing $\overline y^\ast$ using probabilistic considerations:
+
+- 1st attempt: $\overline y^\ast=25.25$
+Then $H_0$ is rejected with a probability of $28\%$, assuming that $H_0$ is true (Error Type 1):
+\begin{align*}
+        \mathbb P(H_0 \text{ reject}|H_0 \text{ is true})&= \mathbb P(\overline Y\geq
+          25.25|\mu=25.0)\\
+          &= \mathbb P\left(\frac{\overline Y-25,0}{2.4/\sqrt{30}} \geq
+            \frac{25.25-25.0}{2.4/\sqrt{30}}\right)\\
+          &= 1-N(0.57) = 0.2843.
+\end{align*}
+$\leadsto$ Probability of type I error too high.
+
+- 2nd attempt: $\overline y^\ast=26.5$
+$H_0$ is "only" rejected incorrectly with probability $0.03\%$:
+\begin{equation*}
+    \mathbb P(H_0 \text{ reject}| H_0 \text{ is true}) = \mathbb P(\overline
+    Y\geq 26.50|\mu=25.0) = 0.0003.
+\end{equation*}
+$\leadsto$ probability of error 1.\ type very small (good!)
+
+**But**: Probability of type 2 error may be high (a distribution other than $H_0$ might be more plausible in the range of values lying very far from the mean).
+
+**Idea**: Choose $\overline y^\ast$ so that $H_0$ is (falsely) rejected with a given small probability $\alpha$, e.g. $\alpha=0.05$:
+\begin{align*}
+        \mathbb P(H_0 \text{ reject}|H_0 \text{ is true})& =
+        \mathbb P(\overline Y
+        \geq \overline y^{\ast}|\mu=25.0) =0.05.
+\end{align*}
+
+This gives $\overline y^\ast=25.718$.
+
+Our decision would be: Reject the hypothesis that action has no effect because $\overline Y=26.3\geq 25.718$.
+
+```{r, echo=F}
+ par(mar=c(4,6,1,1))
+  mu<-25; sig<-2.4/sqrt(30)
+  al=0.05
+  xseq<-seq(mu-6*sig,max(mu+6*sig,0.2),length=1000)
+  dseq<-dnorm(xseq,mu,sig)
+  plot(xseq, dseq,
+       type="l",col=4,axes=F,lwd=2,
+       xlim=range(xseq),
+       ylim=c(0,1),ylab="",xlab="",main=paste0("X~N(",mu,";",round(sig^2,4),")"))
+  lines(xseq,dnorm(xseq,0,1),col=alpha("gray44",0.5))
+  arrows(mu,0,mu,max(dseq),col=4,lty=2,code=0)
+  arrows(mu,max(dseq),min(xseq),max(dseq),col=4,lty=2,code=0)
+  par(xpd=F)
+  bpm<-26.3
+  apm<-qnorm(1-as.numeric(al),mu,sig)
+  axis(1,at=c(floor(min(xseq)),mu,bpm,apm,ceiling(max(xseq))), labels=c("",mu,"",round(apm,1),""))
+  axis(2,at=c(0,0.5,1),labels=c(0,0.5,1),las=2)
+  abline(v=bpm,lty=2,col=3)
+  abline(v=apm,lty=2,col=2)
+  text(bpm+0.1,0.65,
+       paste0("P(X>",round(bpm,1),")=",round(1-pnorm(bpm,mu,sig),4)),col=3)
+  arrows(bpm+0.1,0.6,bpm+0.05,0.5,lty=1,
+         code=2,col=3)
+  text(apm+0.1,0.6,paste0("P(X>",round(apm,1),")=",al),col=2)
+  arrows(apm+0.1,0.55,apm+0.05,0.3,lty=1,
+         code=2,col=2)
+  polygon(c(xseq[xseq>bpm][1],xseq[xseq>bpm],tail(xseq[xseq>bpm][1],1)),c(dseq[xseq>bpm][1],dseq[xseq>bpm], tail(dseq[xseq>bpm],1)),col=alpha(3,0.3),border=3)
+  polygon(c(xseq[xseq>apm][1],xseq[xseq>apm],tail(xseq[xseq>apm][1],1)),c(dseq[xseq>apm][1],dseq[xseq>apm], tail(dseq[xseq>apm],1))-0.01,col=alpha(2,0.5),border=2)
+  
+  
+```
+
+
+This is **not** proof that $H_0$ is false. **High evidence against** $H_0$ leads to rejection. Because: If the true expected value is $25.0$, samples with $\overline Y\geq 25.718$ will only occur with a probability of $5\%$.
+
+Decision rule: Reject $H_0$ if $\overline Y\geq 25.718$.
+
+
+The following key figure is also interesting: Assuming that $H_0$ holds, what is the probability - if the experiment is repeated - of obtaining a result that is at least as extreme as the one observed?
+This key figure is called the **$p$ value** and is calculated as follows:
+
+\begin{equation*}
+        \mathbb P(\overline Y_{\text{Rep.}}\geq \overline Y|H_0)
+        = \mathbb P(\overline Y_{\text{Rep.}} \geq 26.3|\mu=25.0)
+        = 0.0015 = 0.15%.
+\end{equation*}
+
+
+```{r, echo=FALSE,out.width="100%"}
+#htmltools::tags$iframe(title = "Stichprobenumfang", src =paste0(link,"Apps_RBook/#section-rabattaktion"),  width=760, height=500)
+```
+
+
+:::
+
+***
+
+## Hypothesis tests for $p$
+
+Now we formally define hypothesis testing starting with tests for proportion $p$. Consider the following example:
+
+***
+
+::: {.example #testp0 name="Quality inspection"}
+
+Before a batch of goods is delivered, the quality should be checked on the basis of a random sample.
+
+- An attribute check is carried out. This means that for each piece produced, it is recorded whether it meets the quality standards (“good”) or not (“bad”). The bad pieces are counted - the number can be assumed to be binomial distributed with parameter $p$ (proportion of the defect pieces).
+
+- A customer accepts delivery of goods if percentage of defect is less than $10\%$.
+
+- For cost reasons, not the entire delivery can be checked.
+
+- A sample of $n=1000$ pieces results in $102$ defect pieces.
+
+- Is the difference between $10.2\%$ and $10\%$ small enough to conclude that the actual share is less than $10\%$?
+
+:::
+
+***
+
+### The exact binomial test
+
+General: Let $X_1, \ldots, X_n$ be sample variables with
+\begin{equation*}
+      X_i=
+      \begin{cases}
+        1, &\text{ if } A \text{ occurs},\\
+        0, &\text{ if } \overline A \text{ occurs}.
+      \end{cases}
+\end{equation*}
+
+- Let the probability of the event $\{X_i=1\}$ be $p$ (unknown!).
+
+- **Statistical testing problem**:
+
+    - The hypothesis of interest is formulated as **alternative hypothesis** $H_1$. It must prevail against the **null hypothesis** $H_0$.
+
+    - A statistical test is about deciding whether the observed behavior also applies to the population.
+
+- **Test statistic** is the quantity for which we know the distribution under $H_0$:
+\begin{equation*}
+        \text{Number of "successes": } X=\sum_{i=1}^n X_i
+\end{equation*}
+
+If the assumption of independent draws is justified, then $X=\sum_{i=1}^n X_i$ is binomially distributed with parameters $n$ and $p$.
+
+- **Rejection region**:
+How large does $X$ have to be so that it is extremely unlikely that $X$ follows the distribution under $H_0$?
+First, specify “extremely unlikely”; usual values $0.01$; $0.05$; $0.1$, denoted as **significance level**/ **confidence level** with symbol $\alpha$.
+
+This results in the **rejection region**, i.e. those values of the random experiment,
+which **point in the direction of the alternative**, and whose probability under $H_0$ is **less than** $\alpha$.
+
+***
+
+::: {.example #testp1 name="Quality inspection"}
+
+Example \@ref(exm:testp0) cont.
+
+$$
+\begin{array}{cccccccc}\hline
+x_i&101&102& 105 &110 &115& 120& 125\\
+\mathbb P(X>x_i)&0,432 &0,391& 0,278& 0,135& 0,053& 0,017& 0,005\\\hline
+\end{array}
+$$
+
+$\mathbb P(X>102) = 0.391$ i.e. not small enough (this should be smaller than the error probability $\alpha=0.01/0.05/0.1$).
+
+What is the critical value? At what point would we decline? ($\mathbb P(X>x_i)\leq \alpha$)
+
+$$
+\begin{array}{ccccc}\hline
+x_i&115& \color{red}{116}& 120& 125\\
+\mathbb P(X>x_i)& 0,053&\color{red}{0,04334} &0,017& 0,005\\\hline
+\end{array}
+$$
+
+
+```{r, echo=FALSE,out.width="100%"}
+#htmltools::tags$iframe(title = "Binomialtest", src =paste0(link,"Apps_RBook/#section-binomialtest"),  width=760, height=700)
+
+ x<-seq(0,1000,1)
+  px<-dbinom(x,size=1000,prob=0.1)
+  bpm<-102
+  al=0.05
+  apm<-x[(1-cumsum(px))<al][1]
+  plot(x[x<bpm],px[x<bpm],type="h",xlab="k",main=paste0("X~B(n=",1000,"; p=",0.1,")"),ylab="f(k)",xlim=bpm*c(0.5,1.5),
+       ylim=c(0,0.05),axes=F,lwd=5,col=alpha("gray44",0.5))
+  lines(x[x>=bpm],px[x>=bpm],type="h",col=3)
+  lines(x[x>=apm]+0.4,px[x>=apm],type="h",col=2)
+  axis(2, at=c(0,0.05))
+  axis(1,at=c(0,bpm,apm,1000),labels=c("",bpm,apm,""))
+  abline(v=bpm,lty=2,col=3)
+  abline(v=apm,lty=2,col=2)
+  text(bpm+18,0.045,
+       paste0("P(X>",bpm,")=",round(1-pbinom(bpm,1000,0.1),3)),col=3)
+  arrows(bpm+15,0.035,bpm+5,0.01,lty=1,
+         code=2,col=3)
+  text(apm+18,0.04,
+       paste0("P(X>",apm,")<",al),col=2)
+  arrows(apm+15,0.03,apm+5,0.01,lty=1,
+         code=2,col=2)
+```
+
+:::
+
+***
+
+
+### The approximate binomial test
+
+For large $n$, the binomial distribution can be approximated by the normal distribution $\leadsto$ **approximative binomial test**.
+
+Let $X=\sum_{i=1}^n X_i\sim B(n,p)$ be sufficiently large for $np$ and $n(1-p)$. Then the following applies:
+\begin{align*}
+      X&\stackrel{\text{approx.}}{\sim} N(np, np(1-p))\quad \text{
+         or. }\\
+      Z=\frac{X-n\, p}{\sqrt{n\, p(1-p)}}
+      &\stackrel{\text{approx.}}\sim N(0,1).
+\end{align*}
+
+Rule of thumb for "sufficiently large": $np>5$ and $n(1-p)>5$.
+
+::: {.example #testp2 name="Quality inspection"}
+
+Example \@ref(exm:testp1) cont.
+
+- Formulation of the test problem (status quo corresponds to the defect pieces proportion of $0.1$):
+\begin{equation*}
+      H_0: p = 0.1\quad\text{ versus }\quad H_1: p>0.1.
+\end{equation*}
+
+- In a sample size of $n=1000$ $x=102$ defect pieces are observed.
+
+- Approximation: $\displaystyle Z=\frac{X-1000\cdot 0,1}{\sqrt{1000\cdot 0,1\cdot 0.9}}=\frac{X-100}{\sqrt{90}} \stackrel{\text{approx.}}{\sim}N(0;1).$
+
+- Rejection region $C=\{z:z>N_{1-\alpha}\}$, where $N_{1-\alpha}$ is the $(1-\alpha)$-quantile of the standard normal distribution (also called **critical value**).
+- Let $\alpha=0.05$, then the critical value is $N_{1-\alpha}=N_{0.95} = 1.64$.
+
+- Test statistic: $\displaystyle z=\frac{102-100}{9.5} = 0.21$.
+
+- Test decision: because $0.21<1.64$, $H_0$ cannot be rejected.
+
+In words: The number of $102$ defective pieces in the sample does not allow us to conclude that the proportion of defect pieces in the **entire** batch deliverred lies over $10\%.$
+
+- Alternatively, one could ask how many pieces $x^\ast$ would result in a rejection of $H_0$? Solving
+\begin{equation*}
+    \frac{x^\ast-n\, p}{\sqrt{n\, p (1-p)}} >N_{1-\alpha},
+\end{equation*}
+ for $x^\ast$  results
+\begin{equation*}
+    x^\ast>\sqrt{n\, p(1-p)} N_{1-\alpha} + n\, p = 9.5\cdot 1.64 +
+    100 = 115.58.
+\end{equation*}
+
+```{r, echo=FALSE,out.width="100%"}
+#htmltools::tags$iframe(title = "ABinomialtest", src =paste0(link,"Apps_RBook/#section-abinomialtest"),  width=760, height=500)
+
+ par(mar=c(4,6,1,1),mfrow=c(2,1))
+  mu<-0; sig<-1
+  al=0.05
+  xseq<-seq(mu-4*sig,max(mu+4*sig,0.2),length=1000)
+  dseq<-dnorm(xseq,mu,sig)
+  plot(xseq, dseq,
+       type="l",col=4,axes=F,lwd=2,
+       xlim=range(xseq),
+       ylim=c(0,0.5),ylab="",xlab="",main="Z~N(0;1)")
+  lines(xseq,dnorm(xseq,0,1),col=alpha("gray44",0.5))
+  arrows(mu,0,mu,max(dseq),col=4,lty=2,code=0, angle=15, length=0.15)
+  #arrows(mu,max(dseq),min(xseq),max(dseq),col=4,lty=2,code=0)
+  par(xpd=F)
+  bpm<-round((102-100)/sqrt(1000*0.1*0.9),4)
+  apm<-qnorm(1-as.numeric(al))
+  axis(1,at=c(floor(min(xseq)),0,bpm,apm,ceiling(max(xseq))),
+       labels=c("",0,"",round(apm,4),""))
+  axis(2,at=c(0,0.5),labels=c(0,0.5),las=2)
+  abline(v=bpm,lty=2,col=3)
+  abline(v=apm,lty=2,col=2)
+  text(bpm+0.8,0.45,
+       paste0("P(Z>",bpm,")=",round(1-pnorm(bpm),3)),col=3)
+  arrows(bpm+0.5,0.44,bpm+0.1,0.3,lty=1,
+         code=2,col=3, angle=15, length=0.15)
+  text(apm+0.8,0.4,
+       paste0("P(Z>",round(apm,4),")=",al),col=2)
+  arrows(apm+0.5,0.34,apm+0.1,0.3,lty=1,
+         code=2,col=2, angle=15, length=0.15)
+  polygon(c(xseq[xseq>bpm][1],xseq[xseq>bpm],tail(xseq[xseq>bpm][1],1)),c(dseq[xseq>bpm][1],dseq[xseq>bpm], tail(dseq[xseq>bpm],1)),col=alpha(3,0.3),border=3)
+  polygon(c(xseq[xseq>apm][1],xseq[xseq>apm],tail(xseq[xseq>apm][1],1)),c(dseq[xseq>apm][1],dseq[xseq>apm], tail(dseq[xseq>apm],1))-0.01,col=alpha(2,0.5),border=2)
+  
+  mu<-100; sig<-sqrt(90)
+  xseq<-seq(mu-4*sig,max(mu+4*sig,0.2),length=1000)
+  dseq<-dnorm(xseq,mu,sig)
+  plot(xseq, dseq,
+       type="l",col=4,axes=F,lwd=2,
+       xlim=range(xseq),
+       ylim=c(0,0.1),ylab="",xlab="",main="X~N(100;90)")
+  lines(xseq,dnorm(xseq,0,1),col=alpha("gray44",0.5))
+  arrows(mu,0,mu,max(dseq),col=4,lty=2,code=0, angle=15, length=0.15)
+  #arrows(mu,max(dseq),min(xseq),max(dseq),col=4,lty=2,code=0)
+  par(xpd=F)
+  bpm<-102
+  apm<-qnorm(1-as.numeric(al),mu,sig)
+  axis(1,at=c(floor(min(xseq)),mu,bpm,apm,ceiling(max(xseq))),
+       labels=c("",mu,"",round(apm,1),""))
+  axis(2,at=c(0,0.05),labels=c(0,0.05),las=2)
+  abline(v=bpm,lty=2,col=3)
+  abline(v=apm,lty=2,col=2)
+  text(bpm+8,0.05,
+       paste0("P(X>",round(bpm,1),")=",round(1-pnorm(bpm,mu,sig),3)),col=3)
+  arrows(bpm+5,0.044,bpm+1,0.03,lty=1,
+         code=2,col=3, angle=15, length=0.15)
+  text(apm+8,0.04,
+       paste0("P(X>",round(apm,1),")=",al),col=2)
+  arrows(apm+5,0.034,apm+1,0.03,lty=1,
+         code=2,col=2, angle=15, length=0.15)
+  polygon(c(xseq[xseq>bpm][1],xseq[xseq>bpm],tail(xseq[xseq>bpm][1],1)),c(dseq[xseq>bpm][1],dseq[xseq>bpm], tail(dseq[xseq>bpm],1)),col=alpha(3,0.3),border=3)
+  polygon(c(xseq[xseq>apm][1],xseq[xseq>apm],tail(xseq[xseq>apm][1],1)),c(dseq[xseq>apm][1],dseq[xseq>apm], tail(dseq[xseq>apm],1))-0.001,col=alpha(2,0.5),border=2)
+```
+
+
+:::
+
+***
+
+Approximate binomial test (summary)
+
+- Given the following test problems over the parameter $p$ one
+$B(n,p)$ distribution:
+
+\begin{align*}
+  (a) \quad& H_0:p=p_0\quad\text{ versus } \quad H_1:p\not=p_0 \text{(two-sided)}\\
+  (b) \quad & H_0:p=p_0\quad\text{ versus } \quad H_1:p<p_0 \text{(left-sided)}\\
+  (c) \quad & H_0:p=p_0\quad\text{ versus } \quad H_1:p>p_0 \text{ (right-hand side)}.
+\end{align*}
+
+- Based on the test size
+$\displaystyle Z = \frac{X-n\, p_0}{\sqrt{n\, p_0 (1-p_0)}}\stackrel{\text{approx.}}\sim N(0,1)$
+and the given level $\alpha$
+
+- the decision is made for $H_1$ in the test problem
+
+\begin{align*}
+  (a),\quad& \text{ if } |z|>N_{1-\alpha/2}\\
+  (b),\quad& \text{ if } z<-N_{1-\alpha}\\
+  (c),\quad&\text{ if } z>N_{1-\alpha}.
+\end{align*}
+
+
+## Hypothesis tests for $\mu$
+
+We have already seen the example with the discount campaign, where we actually care about mean sales $\rightarrow \mu$! The population mean $\mu$ is another distribution parameter, that builds frequently a basis for hypothesis testing. Below we specify the test concerning hypothesis testing about $\mu.$
+
+### The Gauss test
+
+Assume that independent, identically distributed random variables are given
+    $X_1, \ldots, X_n$ with
+    
+- $X_i\sim N(\mu,\sigma^2)$, or
+
+- $X_i$ with any continuous distribution, $\mathbb E(X_i)=\mu$, $\text{Var}(X_i)=\sigma^2$, $n$ big enough (rule of thumb $n\geq 30$ ).
+
+- <mark>$\sigma^2$ is known</mark>. 
+
+Consider the following test problems:
+\begin{align*}
+      (a) \quad& H_0:\mu=\mu_0\quad\text{ versus } \quad H_1:\mu\not=\mu_0\\
+      (b) \quad & H_0:\mu=\mu_0\quad\text{ versus } \quad H_1:\mu<\mu_0\\
+      (c) \quad & H_0:\mu=\mu_0\quad\text{ versus } \quad H_1:\mu>\mu_0.
+\end{align*}
+
+and  test statistics:
+
+\[\displaystyle Z= \frac{\overline X-\mu_0}{\sigma/ \sqrt{n}}\stackrel{\text{approx.}}{\sim} N(0,1).\]
+
+Based on the test statistic $Z$, the decision in favor of $H_1$ in the test problem:
+
+\begin{align*}
+      (a),\quad& \text{ if } |z|>N_{1-\alpha/2}\\
+      (b),\quad& \text{ if } z<-N_{1-\alpha}\\
+      (c),\quad&\text{ if } z>N_{1-\alpha}.
+\end{align*}
+
+::: {.example #testgauss name="Quality inspection of pencils"}
+
+
+Pencils are produced with a should be length of $17$ cm.
+
+- Test problem: $\displaystyle H_0: \mu=17\text{ versus } H_1: \mu\not=17$. 
+
+- $\alpha=0.01$ is chosen as the significance level.
+
+- The length $X$ of the pencils is approx. normally distributed with $\mathbb E(X)=\mu$ and $\text{Var}(X)=\sigma^2=2.25$.
+- A sample ($n=5$) is taken from current production; The following lengths are measured:
+
+  \[19.2\mathrm{cm};\ 17.4\mathrm{cm};\ 18.5\mathrm{cm};\ 16.5\mathrm{cm};\ 18.9\mathrm{cm}\]
+
+- This results in $\overline x=18.1\text{cm}$ and as a test variable
+
+\begin{equation*}
+      z=\frac{\overline x-\mu_0}{\sigma/sqrt n} =
+      \frac{18.1-17}{\sqrt{2.25}/\sqrt{5}} = 1.64.
+\end{equation*}
+
+- The rejection region is given as the $(1-\alpha/2)=(1-0.005) = 0.995$-quantile of the standard normal distribution, so $H_0$ is rejected if $|z| >2.5758.$
+
+- Because $|z|=1.64$, $H_0$ is not rejected.
+
+
+```{r, echo=FALSE,out.width="100%"}
+#htmltools::tags$iframe(title = "Gauss-Test", src =paste0(link,"Apps_RBook/#section-gauss-test"),  width=760, height=500)
+
+par(mar=c(2,4,1,0),mfrow=c(2,1),xpd=T)
+  mu<-0; sig<-1
+  al = 0.01
+  xseq<-seq(mu-4*sig,max(mu+4*sig,0.2),length=1000)
+  dseq<-dnorm(xseq,mu,sig)
+  plot(xseq, dseq,
+       type="l",col=4,axes=F,lwd=2,
+       xlim=range(xseq),
+       ylim=c(0,0.5),ylab="",xlab="",main="Z~N(0;1)")
+  lines(xseq,dnorm(xseq,0,1),col=alpha("gray44",0.5))
+  arrows(mu,0,mu,max(dseq),col=4,lty=2,code=0)
+  #arrows(mu,max(dseq),min(xseq),max(dseq),col=4,lty=2,code=0)
+  par(xpd=F)
+  bpm<-1.64
+  apm<-qnorm(1-as.numeric(al)/2)
+  axis(1,at=c(floor(min(xseq)),0,bpm,apm,ceiling(max(xseq))),
+       labels=c("",0,"",round(apm,4),""))
+  axis(2,at=c(0,0.5),labels=c(0,0.5),las=2)
+  abline(v=bpm,lty=2,col=3)
+  abline(v=-bpm,lty=2,col=alpha(3,0.3))
+  abline(v=apm,lty=2,col=2)
+  abline(v=-apm,lty=2,col=alpha(2,0.3))
+  par(xpd=T)
+  text(bpm+0.8,0.45,
+       paste0("P(Z>",bpm,")=",round(1-pnorm(bpm),3)),col=3)
+  arrows(bpm+0.5,0.44,bpm+0.1,0.3,lty=1,
+         code=2,col=3)
+  text(apm+0.7,0.4,
+       paste0("P(Z>",round(apm,4),")=",as.numeric(al)/2),col=2)
+  arrows(apm+0.5,0.34,apm+0.1,0.3,lty=1,
+         code=2,col=2)
+  polygon(c(xseq[xseq>bpm][1],xseq[xseq>bpm],tail(xseq[xseq>bpm][1],1)),c(dseq[xseq>bpm][1],dseq[xseq>bpm], tail(dseq[xseq>bpm],1)),col=alpha(3,0.3),border=3)
+  polygon(c(xseq[xseq>apm][1],xseq[xseq>apm],tail(xseq[xseq>apm][1],1)),c(dseq[xseq>apm][1],dseq[xseq>apm], tail(dseq[xseq>apm],1))-0.01,col=alpha(2,0.5),border=2)
+   text(-bpm-0.8,0.45,
+       paste0("P(Z<",-bpm,")=",round(pnorm(-bpm),3)),col=alpha(3,0.3))
+  arrows(-bpm-0.5,0.44,-bpm-0.1,0.3,lty=1,
+         code=2,col=alpha(3,0.3))
+  text(-apm-0.8,0.4,
+       paste0("P(Z<",-round(apm,4),")=",as.numeric(al)/2),col=alpha(2,0.3))
+  arrows(-apm-0.5,0.34,-apm-0.1,0.3,lty=1,
+         code=2,col=alpha(2,0.3))
+  
+  
+  
+  mu<-17; sig<-sqrt(2.25)
+  xseq<-seq(mu-4*sig,max(mu+4*sig,0.2),length=1000)
+  dseq<-dnorm(xseq,mu,sig)
+  plot(xseq, dseq,
+       type="l",col=4,axes=F,lwd=2,
+       xlim=range(xseq),
+       ylim=c(0,0.5),ylab="",xlab="",main="X~N(17;2,25)")
+  lines(xseq,dnorm(xseq,0,1),col=alpha("gray44",0.5))
+  arrows(mu,0,mu,max(dseq),col=4,lty=2,code=0)
+  #arrows(mu,max(dseq),min(xseq),max(dseq),col=4,lty=2,code=0)
+  par(xpd=F)
+  bpm<-1.64*sig + mu
+  apm<-qnorm(1-as.numeric(al)/2,mu,sig)
+  axis(1,at=c(floor(min(xseq)),mu,bpm,apm,ceiling(max(xseq))),
+       labels=c("",mu,"",round(apm,1),""))
+  axis(2,at=c(0,0.5),labels=c(0,0.05),las=2)
+  abline(v=bpm,lty=2,col=3)
+  abline(v=apm,lty=2,col=2)
+  text(bpm+1,0.45,
+       paste0("P(X>",round(bpm,1),")=",round(1-pnorm(bpm,mu,sig),3)),col=3)
+  arrows(bpm+0.5,0.44,bpm+0.1,0.3,lty=1,
+         code=2,col=3)
+  text(apm+1,0.4,
+       paste0("P(X>",round(apm,1),")=",as.numeric(al)/2),col=2)
+  arrows(apm+0.5,0.34,apm+0.1,0.3,lty=1,
+         code=2,col=2)
+  
+  polygon(c(xseq[xseq>bpm][1],xseq[xseq>bpm],tail(xseq[xseq>bpm][1],1)),c(dseq[xseq>bpm][1],dseq[xseq>bpm], tail(dseq[xseq>bpm],1)),col=alpha(3,0.3),border=3)
+  polygon(c(xseq[xseq>apm][1],xseq[xseq>apm],tail(xseq[xseq>apm][1],1)),c(dseq[xseq>apm][1],dseq[xseq>apm], tail(dseq[xseq>apm],1))-0.001,col=alpha(2,0.5),border=2)
+  
+  
+```
+
+:::
+
+***
+
+
+### The $t$ test
+
+As in the case of the Gauss test, a hypothetical expected value $\mu_0$ should be compared with an actual, unknown expected value. In contrast to the assumption in the Gauss test, <mark>the variance $\sigma^2$ is assumed to be unknown</mark> here.
+
+This leads to a different normalization in the denominator than in the Gaussian test, namely the unknown variance
+$\sigma^2$ is replaced by sample variance $S^2=\sum_i (X_i-\overline X)^2/(n-1)$.
+
+In the following, let $t(n-1)$ denote the Student $t$ distribution with parameter $n-1$ (degrees of freedom).
+
+- Assumptions: $X_1,\ldots, X_n$ are independent and
+identically distributed with $X\sim N(\mu,\sigma^2)$ or arbitrarily distributed and $n>30$.
+
+- Hypotheses:
+\[\begin{align*}
+\text{(a)} \quad & H_0:\mu=\mu_0\quad\text{ versus } \quad H_1:\mu\not=\mu_0\\
+\text{(b)} \quad & H_0:\mu=\mu_0\quad\text{ versus } \quad H_1:\mu<\mu_0\\
+\text{(c)} \quad & H_0:\mu=\mu_0\quad\text{ versus } \quad H_1:\mu>\mu_0.
+\end{align*}\]
+
+- Test statistics:
+\[\displaystyle T=\frac{\overline X-\mu_0}{S/\sqrt{n}}\sim t(n-1)\]
+
+under $H_0.$
+
+- Rejection region:
+
+\begin{align*}
+\text{(a)} \quad & |t|>t_{1-\alpha/2}(n-1)\\
+\text{(b)} \quad & t<t_\alpha(n-1)=-t_{1-\alpha}(n-1)\\
+\text{(c)} \quad & t>t_{1-\alpha}(n-1)
+\end{align*}
+
+- For $n > 30$ quantiles of $t(n-1)$ can be replaced by the quantiles of
+$N(0,1)$ because for more thatn $30$ degrees of freedom, $t$-distribution can be well-approximated by the normal distribution.
+
+
+::: {.example #testt name="Quality inspection of pencils"}
+
+Example \@ref(exm:testgauss) cont.
+
+We consider the same problem without the assumption of a known variance.
+
+- Test problem:
+$\displaystyle H_0: \mu=17\quad\text{ versus } \quad H_1: \mu\not=17$.
+
+- $\alpha=0.01$ is chosen as the significance level.
+
+- The following pencil lengths are available as data:
+
+\begin{equation}
+19.2\mathrm{cm};\ 17.4\mathrm{cm};\ 18.5\mathrm{cm};\ 16.5\mathrm{cm};\
+18.9\text{cm}.
+\end{equation}
+
+- This results in $\overline x=18.1cm$ and $s^2=1.265$.
+
+- The test statistic is
+$\displaystyle t = \frac{\overline x-\mu_0}{s/\sqrt{n}} = \frac{18.1-17}{1.125/\sqrt{5}} = 2.186$.
+
+- The critical value is the $(1-\alpha/2)$-quantile of
+$t(n-1)$ distribution, so $t_{0.995,4} = 4.604$.
+
+- Since for the present realization of $T$ holds
+$|2.186|<4.604$, $H_0$ is not rejected.
+
+```{r, echo=FALSE,out.width="100%"}
+#htmltools::tags$iframe(title = "t-Test", src =paste0(link,"Apps_RBook/#section-t-test"),  width=760, height=500)
+
+ par(mar=c(4,6,1,1))
+  mu<-0; sig<-1
+  al=0.01
+  frg = 4
+  xseq<-seq(mu-6*sig,max(mu+6*sig,0.2),length=1000)
+  dseq<-dt(xseq,frg)
+  plot(xseq, dseq,
+       type="l",col=4,axes=F,lwd=2,
+       xlim=range(xseq),
+       ylim=c(0,0.5),ylab="",xlab="",main=paste0("T~t(",frg,")"))
+  lines(xseq,dt(xseq,frg),col=alpha("gray44",0.5))
+  arrows(mu,0,mu,max(dseq),col=4,lty=2,code=0)
+  #arrows(mu,max(dseq),min(xseq),max(dseq),col=4,lty=2,code=0)
+  par(xpd=F)
+  bpm<-2.186
+  apm<-qt(1-as.numeric(al)/2,frg)
+  axis(1,at=c(floor(min(xseq)),0,bpm,apm,ceiling(max(xseq))),
+       labels=c("",0,"",round(apm,4),""))
+  axis(2,at=c(0,0.5),labels=c(0,0.5),las=2)
+  abline(v=bpm,lty=2,col=3)
+  abline(v=-bpm,lty=2,col=alpha(3,0.3))
+  abline(v=apm,lty=2,col=2)
+  abline(v=-apm,lty=2,col=alpha(2,0.3))
+  par(xpd=T)
+  text(bpm+0.8,0.45,
+       paste0("P(T>",bpm,")=",round(1-pt(bpm,frg),3)),col=3)
+  arrows(bpm+0.5,0.44,bpm+0.1,0.3,lty=1,
+         code=2,col=3)
+  text(apm+0.6,0.4,
+       paste0("P(T>",round(apm,4),")=",round(1-pt(apm,frg),3)),col=2)
+  arrows(apm+0.5,0.34,apm+0.1,0.3,lty=1,
+         code=2,col=2)
+  polygon(c(xseq[xseq>bpm][1],xseq[xseq>bpm],tail(xseq[xseq>bpm][1],1)),c(dseq[xseq>bpm][1],dseq[xseq>bpm], tail(dseq[xseq>bpm],1)),col=alpha(3,0.3),border=3)
+  polygon(c(xseq[xseq>apm][1],xseq[xseq>apm],tail(xseq[xseq>apm][1],1)),c(dseq[xseq>apm][1],dseq[xseq>apm], tail(dseq[xseq>apm],1))-0.001,col=alpha(2,0.5),border=2)
+  
+  
+  text(-bpm-1,0.45,
+       paste0("P(T<",-round(bpm,3),")=",round(pt(-bpm,frg),3)),col=alpha(3,0.3))
+  arrows(-bpm-0.5,0.44,-bpm-0.1,0.3,lty=1,
+         code=2,col=alpha(3,0.3))
+  text(-apm-0.6,0.4,
+       paste0("P(T<",-round(apm,4),")=",round(pt(-apm,frg),3)),col=alpha(2,0.3))
+  arrows(-apm-0.5,0.34,-apm-0.1,0.3,lty=1,
+         code=2,col=alpha(2,0.3))
+  
+```
+
+
+:::
+
+::: {#q61 .quiz }
+
+```{js, echo=F}
+
+
+// Generate a random question
+  const questionObj61 = {
+      question: 'The claim, that the average height of people has changed over time, is to be tested by examining \\(100\\) people. In the following, assume that the height is normally distributed and choose the correct statements.',
+      options: ['The claim should be tested as part of a one-sided test.', 'The Gauss test is a suitable approach in this context.', 'The exact or approximative binomial test represents a suitable approach in this context.', 'The claim should be tested using a two-sided test.', 'The t-test represents a suitable approach in this context.'],
+      answer: ['4','5'],
+      id: 61
+    };
+```
+
+<p class="question">Frage: <span id="question-text61"></span></p>
+<div class="options">
+<label>
+<input type="checkbox" name="option61" value=1> The claim should be tested as part of a one-sided test.
+</label>
+<br>
+<label>
+<input type="checkbox" name="option61" value=2>  The Gauss test is a suitable approach in this context.
+</label>
+<br>
+<label>
+<input type="checkbox" name="option61" value=3>  The exact binomial test represents a suitable approach in this context.
+</label>
+<br>
+<label>
+<input type="checkbox" name="option61" value=4>  The claim should be tested using a two-sided test.
+</label>
+<br>
+<label>
+<input type="checkbox" name="option61" value=5>  The t-test represents a suitable approach in this context.
+</label>
+
+</div>
+<button onclick="checkAnswer_mmc(questionObj61)">Submit</button>
+<p id="result61"></p> 
+
+```{js, echo=F}
+    // Display the question
+    document.getElementById('question-text61').textContent = questionObj61.question;
+
+```
+
+---
+
+```{js, echo=F}
+
+
+// Generate a random question
+  const questionObj62 = {
+      question: 'The claim whether it rains \\(50\\%\\) of the time in Berlin or not should be checked using a sample of \\(50\\) days. Choose the correct statements.',
+      options: ['The claim should be tested as part of a one-sided test.', 'The Gauss test is a suitable approach in this context.', 'The exact or approximative binomial test represents a suitable approach in this context.', 'The claim should be tested using a two-sided test.', 'The t-test represents a suitable approach in this context.'],
+      answer: ['4','3'],
+      id: 62
+    };
+```
+
+<p class="question">Frage: <span id="question-text62"></span></p>
+<div class="options">
+<label>
+<input type="checkbox" name="option62" value=1> The claim should be tested as part of a one-sided test.
+</label>
+<br>
+<label>
+<input type="checkbox" name="option62" value=2>  The Gauss test is a suitable approach in this context.
+</label>
+<br>
+<label>
+<input type="checkbox" name="option62" value=3>  The exact or approximative binomial test represents a suitable approach in this context.
+</label>
+<br>
+<label>
+<input type="checkbox" name="option62" value=4>  The claim should be tested using a two-sided test.
+</label>
+<br>
+<label>
+<input type="checkbox" name="option62" value=5>  The t-test represents a suitable approach in this context.
+</label>
+</div>
+<button onclick="checkAnswer_mmc(questionObj62)">Submit</button>
+<p id="result62"></p> 
+
+```{js, echo=F}
+    // Display the question
+    document.getElementById('question-text62').textContent = questionObj62.question;
+
+```
+
+---
+
+```{js, echo=F}
+
+
+// Generate a random question
+  const questionObj63 = {
+      question: 'The claim that the average number of needles on Christmas trees is a maximum of \\(200\\) thousand needles should be statistically verified. The standard deviation of the number of needles is known from many years of experience. In the following, assume that the number of needles is normally distributed and choose the correct statements.',
+      options: ['The claim should be tested as part of a one-sided test.', 'The Gauss test is a suitable approach in this context.', 'The exact or approximative binomial test represents a suitable approach in this context.', 'The claim should be tested using a two-sided test.', 'The t-test represents a suitable approach in this context.'],
+      answer: ['1','2'],
+      id: 63
+    };
+```
+
+<p class="question">Frage: <span id="question-text63"></span></p>
+<div class="options">
+<label>
+<input type="checkbox" name="option63" value=1> The claim should be tested as part of a one-sided test.
+</label>
+<br>
+<label>
+<input type="checkbox" name="option63" value=2>  The Gauss test is a suitable approach in this context.
+</label>
+<br>
+<label>
+<input type="checkbox" name="option63" value=3>  The exact or approximative binomial test represents a suitable approach in this context.
+</label>
+<br>
+<label>
+<input type="checkbox" name="option63" value=4>  The claim should be tested using a two-sided test.
+</label>
+<br>
+<label>
+<input type="checkbox" name="option63" value=5>  The t-test represents a suitable approach in this context.
+</label>
+
+</div>
+<button onclick="checkAnswer_mmc(questionObj63)">Submit</button>
+<p id="result63"></p> 
+
+```{js, echo=F}
+    // Display the question
+    document.getElementById('question-text63').textContent = questionObj63.question;
+
+```
+
+:::
+
+***
+
+
+## Type 1 and Type 2 errors
+
+
+<ul>
+<li>The probability of a type I error (wrongly rejecting $H_0$):
+\[\mathbb P(H_0\text{ reject}|H_0\text{ true})\leq \alpha\]
+is **controlled** by the error probability $\alpha$, also referred to as the **significance level**.
+
+<ul>
+<li>A statistical test is called **significance test** at level $\alpha$, $0<\alpha<1$, if
+\begin{equation*}
+      \mathbb P(H_0\text{ reject}|H_0\text{ true}) \leq \alpha,
+\end{equation*}
+    i.e.
+\begin{equation*}
+      \mathbb P(\text{Type 1 error})\leq \alpha.
+\end{equation*}
+</li>
+<li>In the case of rejecting the null hypothesis one can also says: "the
+    result is **statistically significant** at level $\alpha$".
+</li>
+<li>Interpretation: if $100$ diefferent samples
+    are drawn from the distribution under the null hypothesis, then
+    the proportion of false rejections in a statistical test at the level $\alpha=5\%$ will be (approximately/in the expectation) equal to $\frac 5{100}.$
+  </li>
+  </ul>
+</li>
+<li>The probability of a type II error, denoted as $\beta$,
+    is not controlled:
+    \[\mathbb P(H_0\text{ not rejected}|H_1\text{ true}) = \beta\]
+
+Statisticians look for tests that keep type 2 error low.
+
+## Exceeding probability: $p$ value
+
+The $p$-value is defined as the probability to obtain under $H_0$ a more extreme value for the test statistics in the direction of $H_1$ than the value observed in the sample.
+
+- If the $p$-value  is smaller than the specified significance level
+    $\alpha$, then $H_0$ is rejected. 
+
+- Otherwise ($p$-value larger than $\alpha$), $H_0$ is not rejected.
+
+- If the $p$ value is very small, it means that it is very unlikely to observe the present test value under $H_0.$
+
+The **$p$-value** is commonly used by software packages to facilitate decisions in statistical tests.
+
+***
+
+::: {.example #testtpw name="Quality inspection of pencils"}
+
+Example \@ref(exm:testgauss) cont.
+
+In the quality inspection example, the test variable value is $z=0.21$.
+
+The $p$ value is given as:
+\begin{equation*}
+      p = \mathbb P(Z> 0.21|H_0) = 1-\mathbb P(Z\leq 0.21|H_0) =
+      1-N(0.21) = 1-0.5832 = 0.4168.
+\end{equation*}
+
+Since the $p$-value is greater than the specified
+    Significance level $\alpha=0.05$, the null hypothesis cannot
+    be discarded.
+
+
+:::
+
+***
+
+Calculating the $p$-value ($Z$ is the test statistic):
+
+- two-sided test:
+
+\[\begin{align}
+p-\text{value} &= \mathbb P(Z>|z|\text{ under } H_0) + \mathbb P(Z<-|z|\text{ under } H_0)\\
+&= 2\cdot \mathbb P(Z>|z|\text{ under } H_0) \text{ with a symmetrical distribution of }Z.
+\end{align}\]
+
+- left-sided test:
+
+$$
+p-\text{value} = \mathbb P(Z< z\text{ under } H_0).
+$$
+
+- right-sided test:
+
+$$
+p-\text{value} = \mathbb P(Z> z\text{ under } H_0).
+$$
+
+
+***
+
+<!--::: {.exercise name="Hypothesentests"}
+
+```{r, echo=FALSE,out.width="100%"}
+htmltools::tags$iframe(title = "Quiz_Hypoth", src="./htmls/quiz_hypoth.html",  width=760, height=500)
+```
+
+:::
+-->
+
+::: {#q62 .quiz }
+
+<p id="question"> <span id="question-text64"></span></p>
+<input type="number" id="answer64" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj64)">Submit</button>
+<p id="result64"></p>
+
+
+
+```{js,echo=F}
+
+ // Generate a random question
+    const questionObj64 = generateQuestion_num(64);
+// Display the question
+    document.getElementById('question-text64').textContent = "Calculate the \\(p\\)-value for a left-sided Gauss test with test statistics value \\(z=-2.1.\\)";
+    questionObj64.answer = 0.01786442//pnorm(-2.1)
+```
+
+---
+
+<p id="question"> <span id="question-text65"></span></p>
+<input type="number" id="answer65" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj65)">Submit</button>
+<p id="result65"></p>
+
+
+
+```{js,echo=F}
+
+ // Generate a random question
+    const questionObj65 = generateQuestion_num(65);
+// Display the question
+    document.getElementById('question-text65').textContent = "Calculate the \\(p\\)-value for a two-sided t-test with test statistics value \\(t=1.9\\) and sample size \\(n=25.\\)";
+    questionObj65.answer = 0.0695131//2*(1-pt(1.9,24))
+```
+
+---
+
+<p id="question"> <span id="question-text66"></span></p>
+<input type="number" id="answer66" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj66)">Submit</button>
+<p id="result66"></p>
+
+
+
+```{js,echo=F}
+
+ // Generate a random question
+    const questionObj66 = generateQuestion_num(66);
+// Display the question
+    document.getElementById('question-text66').textContent = "Calculate the \\(p\\)-value for a right-sided approximative binomial test with test statistics value \\(z=0.61.\\)";
+    questionObj66.answer = 0.2709309 //1-pnorm(0.61)
+```
+
+:::
+
+***
+
+<!--
+## Rückblick{-}
+
+```{r, echo=FALSE,out.width="100%"}
+htmltools::tags$iframe(title = "Wortwolke", src =paste0(link,"Apps_RBook/#section-wortwolke"),  width=760, height=600)
+```
+-->

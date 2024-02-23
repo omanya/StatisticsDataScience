@@ -1,0 +1,2 @@
+"0","  text(bpm+0.8,0.45,"
+"0","       paste0(""P(T>"",bpm,"")="",round(1-pt(bpm,frg),3)),col=3)"

@@ -1,0 +1,21 @@
+h1:random-variables Random variables
+h2:discrete-random-variable Discrete random variable
+h3:probability-and-distribution-functions Probability and distribution functions
+h4:probability-function Probability function
+h4:distribution-function Distribution function
+h3:expected-value-and-variance Expected value and variance
+h4:expected-value Expected value
+h4:properties-of-the-expected-value Properties of the expected value
+h4:variance-and-standard-deviation Variance and standard deviation
+h4:properties-of-variance Properties of Variance
+h3:covariance-and-correlation Covariance and correlation
+h2:continuous-random-variables Continuous random variables
+h3:density-function Density function
+h3:distribution-function-1 Distribution function
+h3:expected-value-and-variance-1 Expected value and variance
+h4:expected-value-1 Expected value
+h4:properties-of-the-expected-value-1 Properties of the expected value
+h4:variance-and-standard-deviation-1 Variance and standard deviation
+h4:properties-of-variance-1 Properties of Variance
+h3:quantiles-of-continuous-random-variables Quantiles of continuous random variables
+

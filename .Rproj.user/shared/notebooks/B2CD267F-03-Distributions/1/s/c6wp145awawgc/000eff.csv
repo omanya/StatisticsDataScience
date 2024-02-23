@@ -1,0 +1,5 @@
+"0","  "
+"0","  plot(c(input$astet-0.1*input$bstet,input$astet,input$bstet,input$bstet+0.1*input$bstet), "
+"0","       c(0,0,1,1),type=""l"",col=2,axes=F,lwd=2,"
+"0","       xlim=c(input$astet-0.1*input$bstet,input$bstet+0.1*input$bstet),"
+"0","       ylim=c(0,1.1),ylab="""",xlab="""",main=""U(a,b)   F(x)"")"

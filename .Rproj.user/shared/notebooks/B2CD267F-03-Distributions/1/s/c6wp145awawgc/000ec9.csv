@@ -1,0 +1,2 @@
+"0","  #arrows(min(xseq),0.5,mu,0.5,col=4,lty=2,code=0)"
+"0","  axis(1,at=c(min(xseq),mu, 0,max(xseq)),labels=c("""","""","""",""""))"

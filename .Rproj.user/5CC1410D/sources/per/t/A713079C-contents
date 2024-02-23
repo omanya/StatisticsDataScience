@@ -1,0 +1,142 @@
+--- 
+title: "Statistics and Data Science Applications"
+subtitle: ""
+author: "Maria Osipenko"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: 
+    bookdown::bs4_book
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+description: "This is the script for the course."
+---
+
+
+# Introduction {-}
+
+<!-- change output to bookdown::gitbook for pdf 
+1.compile 
+  bookdown::render_book('index.Rmd',"bookdown::gitbook")
+2. put in the head of index.html (after compiling)
+  <script type="text/javascript">window.onload=function(){window.scrollTo(0,0);}</script>
+-->
+
+```{r echo=FALSE, width="200%"}
+#knitr::include_graphics("./images/housewife.png",dpi=100)#dpi=100
+#knitr::include_graphics("./images/rockstar.png",dpi=90)#dpi=90#online version
+
+#link="http://3.144.126.30:3838/"
+link="http://learning-dashboard.lehre.hwr-berlin.de:3838/"# link to the apps
+```
+
+## Course goals and context{-}
+
+This course follows the introductory statistics course and contains statistics concepts on intermediate and advanced level.
+
+### Course goals{-}
+
+1) You will become familiar with basic statistical concepts:
+
+- Calculate and interpret probabilities, expected values and other key parameters of distributions.
+- Explain the relationship between population and sample.
+- Describe the properties of a statistic or estimator including its probability distribution, expected value, variance, bias, and mean squared error.
+- State and apply the law of large numbers and central limit theorem.
+- Explain the principles of hypothesis testing, conduct hypothesis testing and interpret the results.
+- Explain and apply linear regression model, conduct hypothesis testing.
+
+2) You will apply these skills to analyse real-world data, in particular:
+
+- Prepare your data for the analysis.
+- Choose an appropriate distributional model/ statistical technique for analyzing your data.
+- Construct an estimator for the unknown parameters.
+- Compute and interpret point estimates.
+- Construct and interpret hypothesis tests and confidence intervals.
+
+We will be switching back and forth between theory, its applications, and data analysis. 
+
+Hopefully you are in this course because you are passionate about statistical data analysis and can’t wait to learn more about it `r emoji::emoji("smiling_face_with_heart_eyes")`. If you are taking the course just because it’s a required course, I hope you become at least a little bit a fan of statistics. So, to give you motivation for that, let's look at some examples of using statistics for solving business problems.
+
+We will be working with excel/calc for data manipulations under the assumption that you have basic skills in it. If you are not, please look at the tutorial here: https://bookdown.org/bkrauth/BOOK/basic-data-cleaning-with-excel.html#a-quick-tour-of-excel
+
+
+**Why Statistics and Data Science?**
+
+::: {.example #needs name="Analysing customer behavior"}
+
+Imaging that you work in a data analysts team for some company running online shops. Your customers order stuff online using either a mobile application (app) or web interface (web). They login, spend some time in the shop and then they (hopefully) buy a lot of your products.
+
+Your task is to improve customer experience in order to boost the sales. You may need to answer the following questions:
+
+- Do the customers order more, if they are using the app or the web?
+- How likely is that a customer, who just logged in, clicks on an advertisement shown in the shop?
+- Does the time spend in the shop by a person has anything to do with the amount of her orders?
+- Is the current discount campaign successful (meaning that it persistently increases the mean sales)?
+- Can we predict the sales in a new market segment?
+
+:::
+
+<!--::: {.example #survey name="Customer survey"}
+
+```{r, echo=FALSE,out.width="100%"}
+#htmltools::tags$iframe(title = "Example of sampling", src =paste0(link,"Apps_RBook/#section-stichprobenziehung"),  width=640, height=600)
+```
+
+:::-->
+
+---
+
+Data analysis using statistical methods:
+
+- Confirm or clarify assumptions through data
+
+- Discover new connections, determine influencing factors
+
+- (further) develop products/advertising, model behavior, predict business development, ...
+
+---
+
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+
+
+#setwd("C:/Users/osipenko/Documents/Lehre/Statistik/Rbook/bookdown-demo-main")
+```
+
+<!--
+### Terminology {-}
+
+```{js, echo=FALSE}
+window.onload=function(){window.scrollTo(0,0);}
+```
+
+
+- $\Omega$: **population**, a set of uniform objects, also called statistical units $\omega\in\Omega$, which are characterized by the same **characteristics**.
+- $X$: **feature**, observable property of the elements of $\Omega$. Each feature appears in different
+    **Types**.
+- $A_X$: Set of possible **values** for the feature $X$.
+- $X_1, X_2, \ldots , X_n$: **sample** is the **random** selection
+    of objects from the population. After a sample has been drawn, the series of measurements (determining the respective characteristics of one or more characteristics) is created on those randomly selected
+    objects.
+    - $n$: **sample size**
+    - $x_i$: $i$-th **sample value**/**measured value**
+    
+---
+-->
+
+
+
+
+
+<!--## Wortwolke{-}
+
+```{r, echo=FALSE,out.width="100%"}
+htmltools::tags$iframe(title = "Wortwolke", src =paste0(link,"Apps_RBook/#section-wortwolke"),  width=760, height=600)
+```
+-->
+

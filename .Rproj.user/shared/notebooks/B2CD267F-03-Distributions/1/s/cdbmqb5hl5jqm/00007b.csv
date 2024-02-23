@@ -1,0 +1,1 @@
+"0","  text(1/lam+5,0.4,paste(""E(X)="",round(1/lam,2)),col=2)"

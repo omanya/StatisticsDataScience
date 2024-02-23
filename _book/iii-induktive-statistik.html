@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>III Induktive Statistik | Statistics and Applications in Data Science</title>
+  <meta name="description" content="This is the script for the course." />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="III Induktive Statistik | Statistics and Applications in Data Science" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is the script for the course." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="III Induktive Statistik | Statistics and Applications in Data Science" />
+  
+  <meta name="twitter:description" content="This is the script for the course." />
+  
+
+<meta name="author" content="Maria Osipenko" />
+
+
+<meta name="date" content="2024-02-13" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="parameter-estimation.html"/>
+<link rel="next" href="parameterschätzung.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-goals-and-context"><i class="fa fa-check"></i>Course goals and context</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-goals"><i class="fa fa-check"></i>Course goals</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#terminology"><i class="fa fa-check"></i>Terminology</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html"><i class="fa fa-check"></i>Random events and probability - a short review</a>
+<ul>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#outcomes-and-events"><i class="fa fa-check"></i>Outcomes and Events</a></li>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#probabilities"><i class="fa fa-check"></i>Probabilities</a>
+<ul>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#calculating-with-probabilities"><i class="fa fa-check"></i>Calculating with probabilities</a></li>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#joint-and-conditional-probabilities-independence-of-events"><i class="fa fa-check"></i>Joint and conditional probabilities, independence of events</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="random-variables.html"><a href="random-variables.html"><i class="fa fa-check"></i><b>1</b> Random variables</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="random-variables.html"><a href="random-variables.html#discrete-random-variable"><i class="fa fa-check"></i><b>1.1</b> Discrete random variable</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="random-variables.html"><a href="random-variables.html#probability-and-distribution-functions"><i class="fa fa-check"></i><b>1.1.1</b> Probability and distribution functions</a></li>
+<li class="chapter" data-level="1.1.2" data-path="random-variables.html"><a href="random-variables.html#probability-and-distribution-functions-1"><i class="fa fa-check"></i><b>1.1.2</b> Probability and distribution functions</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="random-variables.html"><a href="random-variables.html#continuous-random-variable"><i class="fa fa-check"></i><b>1.2</b> Continuous random variable</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="random-variables.html"><a href="random-variables.html#density-function"><i class="fa fa-check"></i><b>1.2.1</b> Density function</a></li>
+<li class="chapter" data-level="1.2.2" data-path="random-variables.html"><a href="random-variables.html#distribution-function"><i class="fa fa-check"></i><b>1.2.2</b> Distribution function</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="random-variables.html"><a href="random-variables.html#key-figures-of-random-variables"><i class="fa fa-check"></i><b>1.3</b> Key figures of random variables</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="random-variables.html"><a href="random-variables.html#expected-value-and-variance"><i class="fa fa-check"></i><b>1.3.1</b> Expected value and variance</a></li>
+<li class="chapter" data-level="1.3.2" data-path="random-variables.html"><a href="random-variables.html#covariance-and-correlation"><i class="fa fa-check"></i><b>1.3.2</b> Covariance and correlation</a></li>
+<li class="chapter" data-level="1.3.3" data-path="random-variables.html"><a href="random-variables.html#quantiles-continuous-rv-only"><i class="fa fa-check"></i><b>1.3.3</b> Quantiles (continuous RV only)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="some-distribution-models.html"><a href="some-distribution-models.html"><i class="fa fa-check"></i><b>2</b> Some distribution models</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="some-distribution-models.html"><a href="some-distribution-models.html#discrete-distributions"><i class="fa fa-check"></i><b>2.1</b> Discrete distributions</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="some-distribution-models.html"><a href="some-distribution-models.html#discrete-uniform-distribution"><i class="fa fa-check"></i><b>2.1.1</b> Discrete uniform distribution</a></li>
+<li class="chapter" data-level="2.1.2" data-path="some-distribution-models.html"><a href="some-distribution-models.html#bernoulli-distribution"><i class="fa fa-check"></i><b>2.1.2</b> Bernoulli distribution</a></li>
+<li class="chapter" data-level="2.1.3" data-path="some-distribution-models.html"><a href="some-distribution-models.html#binomial-distribution"><i class="fa fa-check"></i><b>2.1.3</b> Binomial distribution</a></li>
+<li class="chapter" data-level="2.1.4" data-path="some-distribution-models.html"><a href="some-distribution-models.html#poisson-distribution"><i class="fa fa-check"></i><b>2.1.4</b> Poisson distribution 👽</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="some-distribution-models.html"><a href="some-distribution-models.html#some-continuous-distributions"><i class="fa fa-check"></i><b>2.2</b> Some continuous distributions</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="some-distribution-models.html"><a href="some-distribution-models.html#normal-distribution"><i class="fa fa-check"></i><b>2.2.1</b> Normal distribution</a></li>
+<li class="chapter" data-level="2.2.2" data-path="some-distribution-models.html"><a href="some-distribution-models.html#exponential-distribution"><i class="fa fa-check"></i><b>2.2.2</b> Exponential distribution 👽</a></li>
+<li class="chapter" data-level="2.2.3" data-path="some-distribution-models.html"><a href="some-distribution-models.html#uniform-distribution"><i class="fa fa-check"></i><b>2.2.3</b> Uniform distribution 👽</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="limit-theorems.html"><a href="limit-theorems.html"><i class="fa fa-check"></i><b>3</b> Limit theorems</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="limit-theorems.html"><a href="limit-theorems.html#strong-law-of-large-numbers"><i class="fa fa-check"></i><b>3.1</b> Strong law of large numbers 💪</a></li>
+<li class="chapter" data-level="3.2" data-path="limit-theorems.html"><a href="limit-theorems.html#central-limit-theorem"><i class="fa fa-check"></i><b>3.2</b> Central limit theorem</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="parameter-estimation.html"><a href="parameter-estimation.html"><i class="fa fa-check"></i><b>4</b> Parameter estimation</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#basic-ideas-of-inductive-statistics"><i class="fa fa-check"></i><b>4.1</b> Basic ideas of inductive statistics</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#parameter-estimation-theoretically"><i class="fa fa-check"></i><b>4.1.1</b> Parameter estimation theoretically</a></li>
+<li class="chapter" data-level="4.1.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#parameter-estimation-practical"><i class="fa fa-check"></i><b>4.1.2</b> Parameter estimation practical</a></li>
+<li class="chapter" data-level="4.1.3" data-path="parameter-estimation.html"><a href="parameter-estimation.html#random-sample-1"><i class="fa fa-check"></i><b>4.1.3</b> Random sample</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#point-estimation"><i class="fa fa-check"></i><b>4.2</b> Point estimation</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#estimation-functions-1"><i class="fa fa-check"></i><b>4.2.1</b> Estimation functions</a></li>
+<li class="chapter" data-level="4.2.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#properties-of-estimators"><i class="fa fa-check"></i><b>4.2.2</b> Properties of estimators</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="parameter-estimation.html"><a href="parameter-estimation.html#construction-of-estimators"><i class="fa fa-check"></i><b>4.3</b> Construction of estimators</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#method-of-moments"><i class="fa fa-check"></i><b>4.3.1</b> Method of moments</a></li>
+<li class="chapter" data-level="4.3.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#maximum-likelihood-method"><i class="fa fa-check"></i><b>4.3.2</b> Maximum likelihood method</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="parameter-estimation.html"><a href="parameter-estimation.html#interval-estimation"><i class="fa fa-check"></i><b>4.4</b> Interval estimation</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#alpha-confidence-interval-for-mu"><i class="fa fa-check"></i><b>4.4.1</b> <span class="math inline">\((1-\alpha)\)</span> confidence interval for <span class="math inline">\(\mu\)</span></a></li>
+<li class="chapter" data-level="4.4.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#alpha-confidence-interval-for-sigma2"><i class="fa fa-check"></i><b>4.4.2</b> <span class="math inline">\((1-\alpha)\)</span> confidence interval for <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="4.4.3" data-path="parameter-estimation.html"><a href="parameter-estimation.html#alpha-confidence-interval-for-probability-p"><i class="fa fa-check"></i><b>4.4.3</b> <span class="math inline">\((1-\alpha)\)</span> confidence interval for probability <span class="math inline">\(p\)</span></a></li>
+<li class="chapter" data-level="4.4.4" data-path="parameter-estimation.html"><a href="parameter-estimation.html#determining-n-based-on-the-length-of-confidence-intervals"><i class="fa fa-check"></i><b>4.4.4</b> Determining <span class="math inline">\(n\)</span> based on the length of confidence intervals</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="iii-induktive-statistik.html"><a href="iii-induktive-statistik.html"><i class="fa fa-check"></i>III Induktive Statistik</a></li>
+<li class="chapter" data-level="5" data-path="parameterschätzung.html"><a href="parameterschätzung.html"><i class="fa fa-check"></i><b>5</b> Parameterschätzung</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="parameterschätzung.html"><a href="parameterschätzung.html#grundideen-der-induktiven-statistik"><i class="fa fa-check"></i><b>5.1</b> Grundideen der Induktiven Statistik</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="parameterschätzung.html"><a href="parameterschätzung.html#parameterschätzung-theoretisch"><i class="fa fa-check"></i><b>5.1.1</b> Parameterschätzung theoretisch</a></li>
+<li class="chapter" data-level="5.1.2" data-path="parameterschätzung.html"><a href="parameterschätzung.html#parameterschätzung-praktisch"><i class="fa fa-check"></i><b>5.1.2</b> Parameterschätzung praktisch</a></li>
+<li class="chapter" data-level="5.1.3" data-path="parameterschätzung.html"><a href="parameterschätzung.html#zufallsstichprobe-1"><i class="fa fa-check"></i><b>5.1.3</b> Zufallsstichprobe</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="parameterschätzung.html"><a href="parameterschätzung.html#punktschätzung"><i class="fa fa-check"></i><b>5.2</b> Punktschätzung</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="parameterschätzung.html"><a href="parameterschätzung.html#schätzfunktionen-1"><i class="fa fa-check"></i><b>5.2.1</b> Schätzfunktionen</a></li>
+<li class="chapter" data-level="5.2.2" data-path="parameterschätzung.html"><a href="parameterschätzung.html#eigenschaften-von-schätzfunktionen"><i class="fa fa-check"></i><b>5.2.2</b> Eigenschaften von Schätzfunktionen</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="parameterschätzung.html"><a href="parameterschätzung.html#konstruktion-von-schätzfunktionen"><i class="fa fa-check"></i><b>5.3</b> Konstruktion von Schätzfunktionen 👽</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="parameterschätzung.html"><a href="parameterschätzung.html#momenten-methode"><i class="fa fa-check"></i><b>5.3.1</b> Momenten Methode</a></li>
+<li class="chapter" data-level="5.3.2" data-path="parameterschätzung.html"><a href="parameterschätzung.html#maximum-likelihood-methode"><i class="fa fa-check"></i><b>5.3.2</b> Maximum-Likelihood Methode</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="parameterschätzung.html"><a href="parameterschätzung.html#intervallschätzung"><i class="fa fa-check"></i><b>5.4</b> Intervallschätzung</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="parameterschätzung.html"><a href="parameterschätzung.html#alpha-konfidenzintervall-für-mu"><i class="fa fa-check"></i><b>5.4.1</b> <span class="math inline">\((1-\alpha)\)</span>-Konfidenzintervall für <span class="math inline">\(\mu\)</span></a></li>
+<li class="chapter" data-level="5.4.2" data-path="parameterschätzung.html"><a href="parameterschätzung.html#alpha-konfidenzintervall-für-sigma2"><i class="fa fa-check"></i><b>5.4.2</b> <span class="math inline">\((1-\alpha)\)</span>-Konfidenzintervall für <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="5.4.3" data-path="parameterschätzung.html"><a href="parameterschätzung.html#alpha-konfidenzintervall-für-wahrscheinlichkeit-p"><i class="fa fa-check"></i><b>5.4.3</b> <span class="math inline">\((1-\alpha)\)</span>-Konfidenzintervall für Wahrscheinlichkeit <span class="math inline">\(p\)</span></a></li>
+<li class="chapter" data-level="5.4.4" data-path="parameterschätzung.html"><a href="parameterschätzung.html#bestimmung-von-n-anhand-der-länge-von-konfidenzintervallen"><i class="fa fa-check"></i><b>5.4.4</b> Bestimmung von <span class="math inline">\(n\)</span> anhand der Länge von Konfidenzintervallen 👽</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="hypothesentests.html"><a href="hypothesentests.html"><i class="fa fa-check"></i><b>6</b> Hypothesentests 👽</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="hypothesentests.html"><a href="hypothesentests.html#grundidee-des-statistischen-testens"><i class="fa fa-check"></i><b>6.1</b> Grundidee des statistischen Testens</a></li>
+<li class="chapter" data-level="6.2" data-path="hypothesentests.html"><a href="hypothesentests.html#hypothesetests-für-den-anteilswert-p"><i class="fa fa-check"></i><b>6.2</b> Hypothesetests für den Anteilswert <span class="math inline">\(p\)</span></a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="hypothesentests.html"><a href="hypothesentests.html#der-exakte-binomialtest"><i class="fa fa-check"></i><b>6.2.1</b> Der exakte Binomialtest</a></li>
+<li class="chapter" data-level="6.2.2" data-path="hypothesentests.html"><a href="hypothesentests.html#der-approximative-binomialtest"><i class="fa fa-check"></i><b>6.2.2</b> Der approximative Binomialtest</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="hypothesentests.html"><a href="hypothesentests.html#hypothesentests-für-mu"><i class="fa fa-check"></i><b>6.3</b> Hypothesentests für <span class="math inline">\(\mu\)</span></a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="hypothesentests.html"><a href="hypothesentests.html#der-gauß-test"><i class="fa fa-check"></i><b>6.3.1</b> Der Gauß-Test</a></li>
+<li class="chapter" data-level="6.3.2" data-path="hypothesentests.html"><a href="hypothesentests.html#der-t-test"><i class="fa fa-check"></i><b>6.3.2</b> Der <span class="math inline">\(t\)</span>-Test</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="hypothesentests.html"><a href="hypothesentests.html#fehler-1.-art-und-2.-art"><i class="fa fa-check"></i><b>6.4</b> Fehler 1. Art und 2. Art</a></li>
+<li class="chapter" data-level="6.5" data-path="hypothesentests.html"><a href="hypothesentests.html#überschreitungswahrscheinlichkeit-p-wert"><i class="fa fa-check"></i><b>6.5</b> Überschreitungswahrscheinlichkeit <span class="math inline">\(p\)</span>-Wert</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="regressionsanalyse.html"><a href="regressionsanalyse.html"><i class="fa fa-check"></i><b>7</b> Regressionsanalyse 👽</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="regressionsanalyse.html"><a href="regressionsanalyse.html#schätzen-im-linearen-regressionsmodell"><i class="fa fa-check"></i><b>7.1</b> Schätzen im linearen Regressionsmodell</a></li>
+<li class="chapter" data-level="7.2" data-path="regressionsanalyse.html"><a href="regressionsanalyse.html#testen-im-linearen-regressionsmodell"><i class="fa fa-check"></i><b>7.2</b> Testen im linearen Regressionsmodell</a></li>
+<li class="chapter" data-level="7.3" data-path="regressionsanalyse.html"><a href="regressionsanalyse.html#prognose-im-linearen-regressionsmodell"><i class="fa fa-check"></i><b>7.3</b> Prognose im linearen Regressionsmodell</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistics and Applications in Data Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="iii-induktive-statistik" class="section level1 unnumbered hasAnchor">
+<h1>III Induktive Statistik<a href="iii-induktive-statistik.html#iii-induktive-statistik" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Im Teil I haben wir vorhandene Daten aus einer Stichprobenziehung analysiert. Dann wollten wir im Teil II verstehen, wie der Zufallsvorgang der Stichprobenziehung beschrieben werden kann und was passiert dabei. Wir haben gesehen, dass die Verteilung der Zufallsvariablen, die eine Schlußfolgerung auf die Eingenschaften der Grundgesamtheit ermöglichen sollen (wie das Stichprobenmittel <span class="math inline">\(\bar X\)</span> <span class="math inline">\(\leadsto\)</span> <span class="math inline">\(\mathbb E(X)\)</span>) aufgrund von ZGS durch die Normalverteilung approximiert werden kann. Nun wollen wir uns weiter unserer Frage: “Wie und unter welchen Vorraussetzungen können wir valide Rückschlüsse auf die Grundgesamtheit basierend auf Ergebnissen aus einer Stichprobe ziehen?” widmen.</p>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="parameter-estimation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="parameterschätzung.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/19-parameterschätzung.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,2 @@
+"0","  plot(apply(y,2,mean),type='p',pch=16,ylab="""",main=""Estimates for the expected value (n=20)"","
+"0","       xlab='sample number',col=4,lwd=2,ylim=c(15,35),cex=1,las=2)"

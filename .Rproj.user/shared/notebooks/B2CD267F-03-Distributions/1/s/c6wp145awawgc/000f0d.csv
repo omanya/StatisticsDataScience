@@ -1,0 +1,1 @@
+"0","  text((input$astet+input$bstet)/2,0.2,paste(""Var(X)="",round((input$bstet-input$astet)^2/12,2)),col=3)"

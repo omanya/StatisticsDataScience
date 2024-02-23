@@ -1,0 +1,1 @@
+"0","  text(22,0.1,paste0(""f(x="",lam,"")="",round(dexp(lam,lam),2)), col=4)"

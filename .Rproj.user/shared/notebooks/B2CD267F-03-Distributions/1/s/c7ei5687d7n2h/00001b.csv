@@ -1,0 +1,5 @@
+"0","n=5"
+"0","  x<-seq(1,n)"
+"0","  px<-rep(1/n,n)"
+"0","  plot(x,px,type=""h"",xlab=""x-values"",ylab=""f(x)"",main=paste0(""X~disc.Uniform(n="",n,"")""),"
+"0","       ylim=c(0,0.4),axes=F,lwd=5,col=scales::alpha(""gray44"",0.5))"

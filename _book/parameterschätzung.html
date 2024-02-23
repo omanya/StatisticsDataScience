@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 Parameterschätzung | Statistics and Applications in Data Science</title>
+  <meta name="description" content="This is the script for the course." />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 Parameterschätzung | Statistics and Applications in Data Science" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is the script for the course." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Parameterschätzung | Statistics and Applications in Data Science" />
+  
+  <meta name="twitter:description" content="This is the script for the course." />
+  
+
+<meta name="author" content="Maria Osipenko" />
+
+
+<meta name="date" content="2024-02-13" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="iii-induktive-statistik.html"/>
+<link rel="next" href="hypothesentests.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-goals-and-context"><i class="fa fa-check"></i>Course goals and context</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-goals"><i class="fa fa-check"></i>Course goals</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#terminology"><i class="fa fa-check"></i>Terminology</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html"><i class="fa fa-check"></i>Random events and probability - a short review</a>
+<ul>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#outcomes-and-events"><i class="fa fa-check"></i>Outcomes and Events</a></li>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#probabilities"><i class="fa fa-check"></i>Probabilities</a>
+<ul>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#calculating-with-probabilities"><i class="fa fa-check"></i>Calculating with probabilities</a></li>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#joint-and-conditional-probabilities-independence-of-events"><i class="fa fa-check"></i>Joint and conditional probabilities, independence of events</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="random-variables.html"><a href="random-variables.html"><i class="fa fa-check"></i><b>1</b> Random variables</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="random-variables.html"><a href="random-variables.html#discrete-random-variable"><i class="fa fa-check"></i><b>1.1</b> Discrete random variable</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="random-variables.html"><a href="random-variables.html#probability-and-distribution-functions"><i class="fa fa-check"></i><b>1.1.1</b> Probability and distribution functions</a></li>
+<li class="chapter" data-level="1.1.2" data-path="random-variables.html"><a href="random-variables.html#probability-and-distribution-functions-1"><i class="fa fa-check"></i><b>1.1.2</b> Probability and distribution functions</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="random-variables.html"><a href="random-variables.html#continuous-random-variable"><i class="fa fa-check"></i><b>1.2</b> Continuous random variable</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="random-variables.html"><a href="random-variables.html#density-function"><i class="fa fa-check"></i><b>1.2.1</b> Density function</a></li>
+<li class="chapter" data-level="1.2.2" data-path="random-variables.html"><a href="random-variables.html#distribution-function"><i class="fa fa-check"></i><b>1.2.2</b> Distribution function</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="random-variables.html"><a href="random-variables.html#key-figures-of-random-variables"><i class="fa fa-check"></i><b>1.3</b> Key figures of random variables</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="random-variables.html"><a href="random-variables.html#expected-value-and-variance"><i class="fa fa-check"></i><b>1.3.1</b> Expected value and variance</a></li>
+<li class="chapter" data-level="1.3.2" data-path="random-variables.html"><a href="random-variables.html#covariance-and-correlation"><i class="fa fa-check"></i><b>1.3.2</b> Covariance and correlation</a></li>
+<li class="chapter" data-level="1.3.3" data-path="random-variables.html"><a href="random-variables.html#quantiles-continuous-rv-only"><i class="fa fa-check"></i><b>1.3.3</b> Quantiles (continuous RV only)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="some-distribution-models.html"><a href="some-distribution-models.html"><i class="fa fa-check"></i><b>2</b> Some distribution models</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="some-distribution-models.html"><a href="some-distribution-models.html#discrete-distributions"><i class="fa fa-check"></i><b>2.1</b> Discrete distributions</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="some-distribution-models.html"><a href="some-distribution-models.html#discrete-uniform-distribution"><i class="fa fa-check"></i><b>2.1.1</b> Discrete uniform distribution</a></li>
+<li class="chapter" data-level="2.1.2" data-path="some-distribution-models.html"><a href="some-distribution-models.html#bernoulli-distribution"><i class="fa fa-check"></i><b>2.1.2</b> Bernoulli distribution</a></li>
+<li class="chapter" data-level="2.1.3" data-path="some-distribution-models.html"><a href="some-distribution-models.html#binomial-distribution"><i class="fa fa-check"></i><b>2.1.3</b> Binomial distribution</a></li>
+<li class="chapter" data-level="2.1.4" data-path="some-distribution-models.html"><a href="some-distribution-models.html#poisson-distribution"><i class="fa fa-check"></i><b>2.1.4</b> Poisson distribution 👽</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="some-distribution-models.html"><a href="some-distribution-models.html#some-continuous-distributions"><i class="fa fa-check"></i><b>2.2</b> Some continuous distributions</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="some-distribution-models.html"><a href="some-distribution-models.html#normal-distribution"><i class="fa fa-check"></i><b>2.2.1</b> Normal distribution</a></li>
+<li class="chapter" data-level="2.2.2" data-path="some-distribution-models.html"><a href="some-distribution-models.html#exponential-distribution"><i class="fa fa-check"></i><b>2.2.2</b> Exponential distribution 👽</a></li>
+<li class="chapter" data-level="2.2.3" data-path="some-distribution-models.html"><a href="some-distribution-models.html#uniform-distribution"><i class="fa fa-check"></i><b>2.2.3</b> Uniform distribution 👽</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="limit-theorems.html"><a href="limit-theorems.html"><i class="fa fa-check"></i><b>3</b> Limit theorems</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="limit-theorems.html"><a href="limit-theorems.html#strong-law-of-large-numbers"><i class="fa fa-check"></i><b>3.1</b> Strong law of large numbers 💪</a></li>
+<li class="chapter" data-level="3.2" data-path="limit-theorems.html"><a href="limit-theorems.html#central-limit-theorem"><i class="fa fa-check"></i><b>3.2</b> Central limit theorem</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="parameter-estimation.html"><a href="parameter-estimation.html"><i class="fa fa-check"></i><b>4</b> Parameter estimation</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#basic-ideas-of-inductive-statistics"><i class="fa fa-check"></i><b>4.1</b> Basic ideas of inductive statistics</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#parameter-estimation-theoretically"><i class="fa fa-check"></i><b>4.1.1</b> Parameter estimation theoretically</a></li>
+<li class="chapter" data-level="4.1.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#parameter-estimation-practical"><i class="fa fa-check"></i><b>4.1.2</b> Parameter estimation practical</a></li>
+<li class="chapter" data-level="4.1.3" data-path="parameter-estimation.html"><a href="parameter-estimation.html#random-sample-1"><i class="fa fa-check"></i><b>4.1.3</b> Random sample</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#point-estimation"><i class="fa fa-check"></i><b>4.2</b> Point estimation</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#estimation-functions-1"><i class="fa fa-check"></i><b>4.2.1</b> Estimation functions</a></li>
+<li class="chapter" data-level="4.2.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#properties-of-estimators"><i class="fa fa-check"></i><b>4.2.2</b> Properties of estimators</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="parameter-estimation.html"><a href="parameter-estimation.html#construction-of-estimators"><i class="fa fa-check"></i><b>4.3</b> Construction of estimators</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#method-of-moments"><i class="fa fa-check"></i><b>4.3.1</b> Method of moments</a></li>
+<li class="chapter" data-level="4.3.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#maximum-likelihood-method"><i class="fa fa-check"></i><b>4.3.2</b> Maximum likelihood method</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="parameter-estimation.html"><a href="parameter-estimation.html#interval-estimation"><i class="fa fa-check"></i><b>4.4</b> Interval estimation</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#alpha-confidence-interval-for-mu"><i class="fa fa-check"></i><b>4.4.1</b> <span class="math inline">\((1-\alpha)\)</span> confidence interval for <span class="math inline">\(\mu\)</span></a></li>
+<li class="chapter" data-level="4.4.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#alpha-confidence-interval-for-sigma2"><i class="fa fa-check"></i><b>4.4.2</b> <span class="math inline">\((1-\alpha)\)</span> confidence interval for <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="4.4.3" data-path="parameter-estimation.html"><a href="parameter-estimation.html#alpha-confidence-interval-for-probability-p"><i class="fa fa-check"></i><b>4.4.3</b> <span class="math inline">\((1-\alpha)\)</span> confidence interval for probability <span class="math inline">\(p\)</span></a></li>
+<li class="chapter" data-level="4.4.4" data-path="parameter-estimation.html"><a href="parameter-estimation.html#determining-n-based-on-the-length-of-confidence-intervals"><i class="fa fa-check"></i><b>4.4.4</b> Determining <span class="math inline">\(n\)</span> based on the length of confidence intervals</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="iii-induktive-statistik.html"><a href="iii-induktive-statistik.html"><i class="fa fa-check"></i>III Induktive Statistik</a></li>
+<li class="chapter" data-level="5" data-path="parameterschätzung.html"><a href="parameterschätzung.html"><i class="fa fa-check"></i><b>5</b> Parameterschätzung</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="parameterschätzung.html"><a href="parameterschätzung.html#grundideen-der-induktiven-statistik"><i class="fa fa-check"></i><b>5.1</b> Grundideen der Induktiven Statistik</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="parameterschätzung.html"><a href="parameterschätzung.html#parameterschätzung-theoretisch"><i class="fa fa-check"></i><b>5.1.1</b> Parameterschätzung theoretisch</a></li>
+<li class="chapter" data-level="5.1.2" data-path="parameterschätzung.html"><a href="parameterschätzung.html#parameterschätzung-praktisch"><i class="fa fa-check"></i><b>5.1.2</b> Parameterschätzung praktisch</a></li>
+<li class="chapter" data-level="5.1.3" data-path="parameterschätzung.html"><a href="parameterschätzung.html#zufallsstichprobe-1"><i class="fa fa-check"></i><b>5.1.3</b> Zufallsstichprobe</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="parameterschätzung.html"><a href="parameterschätzung.html#punktschätzung"><i class="fa fa-check"></i><b>5.2</b> Punktschätzung</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="parameterschätzung.html"><a href="parameterschätzung.html#schätzfunktionen-1"><i class="fa fa-check"></i><b>5.2.1</b> Schätzfunktionen</a></li>
+<li class="chapter" data-level="5.2.2" data-path="parameterschätzung.html"><a href="parameterschätzung.html#eigenschaften-von-schätzfunktionen"><i class="fa fa-check"></i><b>5.2.2</b> Eigenschaften von Schätzfunktionen</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="parameterschätzung.html"><a href="parameterschätzung.html#konstruktion-von-schätzfunktionen"><i class="fa fa-check"></i><b>5.3</b> Konstruktion von Schätzfunktionen 👽</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="parameterschätzung.html"><a href="parameterschätzung.html#momenten-methode"><i class="fa fa-check"></i><b>5.3.1</b> Momenten Methode</a></li>
+<li class="chapter" data-level="5.3.2" data-path="parameterschätzung.html"><a href="parameterschätzung.html#maximum-likelihood-methode"><i class="fa fa-check"></i><b>5.3.2</b> Maximum-Likelihood Methode</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="parameterschätzung.html"><a href="parameterschätzung.html#intervallschätzung"><i class="fa fa-check"></i><b>5.4</b> Intervallschätzung</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="parameterschätzung.html"><a href="parameterschätzung.html#alpha-konfidenzintervall-für-mu"><i class="fa fa-check"></i><b>5.4.1</b> <span class="math inline">\((1-\alpha)\)</span>-Konfidenzintervall für <span class="math inline">\(\mu\)</span></a></li>
+<li class="chapter" data-level="5.4.2" data-path="parameterschätzung.html"><a href="parameterschätzung.html#alpha-konfidenzintervall-für-sigma2"><i class="fa fa-check"></i><b>5.4.2</b> <span class="math inline">\((1-\alpha)\)</span>-Konfidenzintervall für <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="5.4.3" data-path="parameterschätzung.html"><a href="parameterschätzung.html#alpha-konfidenzintervall-für-wahrscheinlichkeit-p"><i class="fa fa-check"></i><b>5.4.3</b> <span class="math inline">\((1-\alpha)\)</span>-Konfidenzintervall für Wahrscheinlichkeit <span class="math inline">\(p\)</span></a></li>
+<li class="chapter" data-level="5.4.4" data-path="parameterschätzung.html"><a href="parameterschätzung.html#bestimmung-von-n-anhand-der-länge-von-konfidenzintervallen"><i class="fa fa-check"></i><b>5.4.4</b> Bestimmung von <span class="math inline">\(n\)</span> anhand der Länge von Konfidenzintervallen 👽</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="hypothesentests.html"><a href="hypothesentests.html"><i class="fa fa-check"></i><b>6</b> Hypothesentests 👽</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="hypothesentests.html"><a href="hypothesentests.html#grundidee-des-statistischen-testens"><i class="fa fa-check"></i><b>6.1</b> Grundidee des statistischen Testens</a></li>
+<li class="chapter" data-level="6.2" data-path="hypothesentests.html"><a href="hypothesentests.html#hypothesetests-für-den-anteilswert-p"><i class="fa fa-check"></i><b>6.2</b> Hypothesetests für den Anteilswert <span class="math inline">\(p\)</span></a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="hypothesentests.html"><a href="hypothesentests.html#der-exakte-binomialtest"><i class="fa fa-check"></i><b>6.2.1</b> Der exakte Binomialtest</a></li>
+<li class="chapter" data-level="6.2.2" data-path="hypothesentests.html"><a href="hypothesentests.html#der-approximative-binomialtest"><i class="fa fa-check"></i><b>6.2.2</b> Der approximative Binomialtest</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="hypothesentests.html"><a href="hypothesentests.html#hypothesentests-für-mu"><i class="fa fa-check"></i><b>6.3</b> Hypothesentests für <span class="math inline">\(\mu\)</span></a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="hypothesentests.html"><a href="hypothesentests.html#der-gauß-test"><i class="fa fa-check"></i><b>6.3.1</b> Der Gauß-Test</a></li>
+<li class="chapter" data-level="6.3.2" data-path="hypothesentests.html"><a href="hypothesentests.html#der-t-test"><i class="fa fa-check"></i><b>6.3.2</b> Der <span class="math inline">\(t\)</span>-Test</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="hypothesentests.html"><a href="hypothesentests.html#fehler-1.-art-und-2.-art"><i class="fa fa-check"></i><b>6.4</b> Fehler 1. Art und 2. Art</a></li>
+<li class="chapter" data-level="6.5" data-path="hypothesentests.html"><a href="hypothesentests.html#überschreitungswahrscheinlichkeit-p-wert"><i class="fa fa-check"></i><b>6.5</b> Überschreitungswahrscheinlichkeit <span class="math inline">\(p\)</span>-Wert</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="regressionsanalyse.html"><a href="regressionsanalyse.html"><i class="fa fa-check"></i><b>7</b> Regressionsanalyse 👽</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="regressionsanalyse.html"><a href="regressionsanalyse.html#schätzen-im-linearen-regressionsmodell"><i class="fa fa-check"></i><b>7.1</b> Schätzen im linearen Regressionsmodell</a></li>
+<li class="chapter" data-level="7.2" data-path="regressionsanalyse.html"><a href="regressionsanalyse.html#testen-im-linearen-regressionsmodell"><i class="fa fa-check"></i><b>7.2</b> Testen im linearen Regressionsmodell</a></li>
+<li class="chapter" data-level="7.3" data-path="regressionsanalyse.html"><a href="regressionsanalyse.html#prognose-im-linearen-regressionsmodell"><i class="fa fa-check"></i><b>7.3</b> Prognose im linearen Regressionsmodell</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistics and Applications in Data Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="parameterschätzung" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Parameterschätzung<a href="parameterschätzung.html#parameterschätzung" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Um die Frage zu den Rückschlüßen auf die Grundgesamtheit hinsichtlich <strong>Parameterschätzung</strong> zu beantworten, schauen wir uns ganz genau Verteilungen von <strong>Schätzern</strong> wie <span class="math inline">\(\bar X\)</span> an, um einige <strong>Kriterien</strong> von “guten” Schätzern zu definieren und die Unsicherheit der Schätzung zu quantifizieren.</p>
+<hr />
+<p>In diesem Kapitel werden wir lernen:</p>
+<ul>
+<li>Welche <strong>Eigenschaften</strong> sollen wir von den Schätzern, die wir benutzen, fordern,</li>
+<li>welche <strong>Punktschätzer</strong> für welche Parameter geeignet sind und</li>
+<li>wie man Bedarf maßgeschneiderte <strong>Schätzfunktionen konstruieren</strong> kann (👽), bzw.</li>
+<li>wie man die Unsicherheit der Schätzung in dem Schätzverfahren berücksichtigt <span class="math inline">\(\leadsto\)</span> <strong>Intervallschätzung</strong>.</li>
+</ul>
+<hr />
+<div id="grundideen-der-induktiven-statistik" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Grundideen der Induktiven Statistik<a href="parameterschätzung.html#grundideen-der-induktiven-statistik" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="parameterschätzung-theoretisch" class="section level3 hasAnchor" number="5.1.1">
+<h3><span class="header-section-number">5.1.1</span> Parameterschätzung theoretisch<a href="parameterschätzung.html#parameterschätzung-theoretisch" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="problemstellung" class="section level4 unnumbered hasAnchor">
+<h4>Problemstellung<a href="parameterschätzung.html#problemstellung" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Sie wollen Ihre Kundschaft auf bestimmte Bevölkerungsgruppe erweitern und interessieren sich:</p>
+<ul>
+<li><p>zu welchem Anteil werden die neuen Kunden die App nutzen (<span class="math inline">\(Y\)</span>), konkret: was wäre <strong>der Anteil von App-Nutzer</strong> in Ihrer neuen Kundschaft (<span class="math inline">\(p\)</span>),</p></li>
+<li><p>mit welchem durchschnittlichen Umsatz/ Rechnungsbetrag dürfen Sie bei den neuen Kunden rechnen (<span class="math inline">\(X\)</span>), konkret: was wäre <strong>der mittlere Rechnungsbetrag</strong> Ihrer neuen Kunden (<span class="math inline">\(\mathbb E(X)=\mathbb \mu_X\)</span>).</p></li>
+</ul>
+<p><span class="math inline">\(X\)</span> und <span class="math inline">\(Y\)</span> sind Zufallsvariablen. Wir interessieren uns für die Kennzahlen/ Verteilungsparameter dieser Zufallsvariablen.
+Zudem, vom Vorstand wird eine gewisse Schätzpräzision verlangt…</p>
+</div>
+<div id="modellierung-der-größen-von-interesse" class="section level4 unnumbered hasAnchor">
+<h4>Modellierung der Größen von Interesse<a href="parameterschätzung.html#modellierung-der-größen-von-interesse" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li>Appnutzung ist die Eigenschaft von Interesse, also:</li>
+</ul>
+<p><span class="math display">\[
+Y=\begin{cases}1,\text{wenn Appnutzung},\\0,\text{wenn keine Appnutzung}.\end{cases}
+\]</span>
+<span class="math inline">\(Y\sim Ber(p)\)</span>. Von Interesse ist <strong>der Anteil von App-Nutzer</strong> (<span class="math inline">\(p\)</span>).</p>
+<ul>
+<li>Rechnungsbetrag ist die Größe <span class="math inline">\(X\)</span> und der mittlere Rechnungsbetrag ist von Interesse: <span class="math inline">\(\mathbb E(X)=\mu_x\)</span>.</li>
+</ul>
+</div>
+<div id="zufallsstichprobe" class="section level4 unnumbered hasAnchor">
+<h4>Zufallsstichprobe<a href="parameterschätzung.html#zufallsstichprobe" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Geplannt ist <span class="math inline">\(n\)</span> Kunden zufällig auszuwählen und zu befragen.</p>
+<ul>
+<li><strong>App-Nutzung</strong>:</li>
+</ul>
+<p>Die Stichprobenvariablen zu <span class="math inline">\(Y\)</span> sind: <span class="math inline">\(\color{blue}{Y_1, Y_2,\ldots,Y_n},\)</span>
+wobei <span class="math inline">\(Y_i\)</span> den Wert 1 oder 0 annimt, je nach dem, ob die <span class="math inline">\(i\)</span>-te ausgewählte Person die App nutzt oder nicht. Der Wert von <span class="math inline">\(Y_i\)</span> ist also zunächst <strong>unbekannt</strong>, da wir nicht wissen, welche Person an <span class="math inline">\(i\)</span>-ter Stelle befragt wird.</p>
+<p><span class="math inline">\(\leadsto\)</span> <span class="math inline">\(Y_1,\ldots, Y_n\)</span> sind <strong>Zufallsvariablen!</strong></p>
+<ul>
+<li><strong>Rechnungsbetrag</strong>:
+Die Stichprobenvariablen zu <span class="math inline">\(X\)</span> sind: <span class="math inline">\({\color{red}X_1, X_2,\ldots,X_n},\)</span>
+wobei <span class="math inline">\(X_i\)</span> die Einschätzung der Rechnungshöhe der <span class="math inline">\(i\)</span>-ten ausgewählten Person darstellt. Der Wert von <span class="math inline">\(X_i\)</span> ist also zunächst <strong>unbekannt</strong>, da wir nicht wissen, welche Person an <span class="math inline">\(i\)</span>-ter Stelle befragt wird.</li>
+</ul>
+<p><span class="math inline">\(\leadsto\)</span> <span class="math inline">\(X_1,\ldots, X_n\)</span> sind <strong>Zufallsvariablen!</strong></p>
+</div>
+<div id="schätzfunktionen" class="section level4 unnumbered hasAnchor">
+<h4>Schätzfunktionen<a href="parameterschätzung.html#schätzfunktionen" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Berechnungslogik (Schätzfunktion) für die Schätzung:</p>
+<ul>
+<li><p>des Appnutzeranteils <span class="math inline">\(p\)</span>:
+<span class="math display">\[\begin{align}
+\color{blue}{\overline{Y}}&amp;\color{blue}{=\frac 1n (Y_1 + Y_2 + \ldots Y_n)} \leadsto\color{blue}{\frac{\text{Anzahl von Einsen(=Appnutzung)}}{\text{Anzahl Werte}}}\\
+&amp;\color{blue}{= \text{Stichprobenhäufigkeit von Einsen (=Appnutzung)}}
+\end{align}\]</span></p></li>
+<li><p>des mittleren Rechnungsbetrages (<span class="math inline">\(\mathbb E(X)\)</span>):
+<span class="math inline">\(\color{red}{\overline{X}=\frac 1n (X_1 + X_2 + \ldots X_n) \leadsto\text{Stichprobenmittel}}\)</span></p></li>
+</ul>
+<p><span class="math inline">\(\overline{Y}\)</span> und <span class="math inline">\(\overline{X}\)</span> sind Funktionen der Stichprobenvariablen, also sind sie selber <strong>Zufallsvariablen</strong>.</p>
+</div>
+</div>
+<div id="parameterschätzung-praktisch" class="section level3 hasAnchor" number="5.1.2">
+<h3><span class="header-section-number">5.1.2</span> Parameterschätzung praktisch<a href="parameterschätzung.html#parameterschätzung-praktisch" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="problemlösung" class="section level4 unnumbered hasAnchor">
+<h4>Problemlösung<a href="parameterschätzung.html#problemlösung" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Wir müssen den Stichprobenumfang (<span class="math inline">\(n\)</span>) festlegen und dann eine Umfrage durchführen, um konkrete Stichprobenwerte (<span class="math inline">\(x_i\)</span> und <span class="math inline">\(y_i\)</span> für <span class="math inline">\(i=1,\ldots,n\)</span>) zu erhalten.</p>
+<p>In der Animation kann man nachvollziehen, was bei einer Stichprobenziehung passiert:</p>
+<iframe title="GGZ" src="./htmls/Stichprobe.html" width="760" height="500"></iframe>
+<p>Zurück zu unserem Schätzproblem:</p>
+<iframe title="GGZ" src="http://learning-dashboard.lehre.hwr-berlin.de:3838/Apps_RBook/#section-stichprobenziehung" width="760" height="700"></iframe>
+<hr />
+</div>
+</div>
+<div id="zufallsstichprobe-1" class="section level3 hasAnchor" number="5.1.3">
+<h3><span class="header-section-number">5.1.3</span> Zufallsstichprobe<a href="parameterschätzung.html#zufallsstichprobe-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Wir haben schon oft über eine Stichprobe gesprochen und gesehen, wie eine Stichprobenziehung modelliert werden kann (Siehe “Modell vom Zufall” ). Nun definieren wir formal, was wir unter einer <strong>Zufallsstichprobe</strong> als Zufallsvorgang verstehen.</p>
+<p>Für <span class="math inline">\(X_1,\ldots, X_n\)</span> Zufallsvariablen einer Stichprobe zu <span class="math inline">\(X\)</span> heißt <span class="math inline">\((X_1,\ldots, X_n)\)</span> eine <strong>Zufallsstichprobe</strong>
+vom Umfang <span class="math inline">\(n\)</span> (<strong>Stichprobenvariablen</strong>) zu <span class="math inline">\(X\)</span>, falls die Verteilungen von <span class="math inline">\(X\)</span> und <span class="math inline">\(X_i\)</span>, <span class="math inline">\(i=1,2,\ldots, n\)</span>, übereinstimmen und <span class="math inline">\(X_1,\ldots, X_n\)</span> stochastisch unabhängig sind.</p>
+<p>Die beobachteten Realisationen <span class="math inline">\((x_1,\ldots, x_n)\)</span> der Zufallsvariablen <span class="math inline">\((X_1,\ldots, X_n)\)</span> heißen <strong>Stichprobenrealisation</strong>.
+Die Menge <span class="math inline">\(\mathcal X\)</span> aller möglichen Stichprobenrealisationen heißt <strong>Stichprobenraum</strong>:<span class="math inline">\(\mathcal X\subseteq\mathbb R^n\)</span>.</p>
+<div class="exercise">
+<p><span id="exr:unlabeled-div-14" class="exercise"><strong>Exercise 5.1  (Grundideen von Parameterschätzung) </strong></span>Versuche den Stichprobenumfang in dem obigen Fenster zu verändern und beobachte die Ergebnisse.</p>
+<p><strong>Welche Auswirkungen fallen dir auf?</strong></p>
+<iframe title="Quiz_Grundideen" src="./htmls/quiz_grundideen.html" width="760" height="500"></iframe>
+</div>
+<hr />
+</div>
+</div>
+<div id="punktschätzung" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Punktschätzung<a href="parameterschätzung.html#punktschätzung" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Ziel der <strong>Punktschätzung</strong> ist es, einen möglichst genauen Näherungswert für einen unbekannten Grundgesamtheitsparameter anzugeben.</p>
+<p>Parameter treten in zwei Formen auf:</p>
+<ul>
+<li><p>Kennzahlen einer beliebigen, unbekannten Verteilung (<span class="math inline">\(\leadsto \mathbb E(\cdot), \text{Var}(\cdot), \rho, q_p,\ldots\)</span>)</p></li>
+<li><p>Parameter eines angenommenen Verteilungsmodells (<span class="math inline">\(\leadsto p \text{ der Bernoulli-Verteilung }, \lambda \text{ der Poisson-Verteilung },\ldots\)</span>).</p></li>
+</ul>
+<p>Für beide Typen der Parameter existieren <strong>Schätzfunktionen</strong> (Formeln), die eine Punktschätzung liefern. Im Fall eines Verteilungsmodells können solche Schätzfunktionen konstruiert werden.</p>
+<p>Angenommen, aus den Realisierungen in der Stichprobe soll auf einen Parameter <span class="math inline">\(\theta\)</span> geschlossen werden (z.B. Kennzahl oder Verteilungsparameter).</p>
+<p>Eine <strong>Punktschätzung</strong> für <span class="math inline">\(\theta\)</span> ist eine Funktion der Realisierungen der Form <span class="math inline">\(t=g(x_1,\ldots, x_n)\)</span>. Zum Beispiel, <span class="math inline">\(g(x_1,\ldots, x_n)=\displaystyle \frac{1}{n}\sum_i x_i\)</span> ist Schätzwert für Erwartungswert <span class="math inline">\(\theta=\mathbb E X\)</span>.</p>
+<div id="schätzfunktionen-1" class="section level3 hasAnchor" number="5.2.1">
+<h3><span class="header-section-number">5.2.1</span> Schätzfunktionen<a href="parameterschätzung.html#schätzfunktionen-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Für eine Zufallsstichprobe <span class="math inline">\((X_1,\ldots, X_n)\)</span> ist eine Funktion:
+<span class="math display">\[\begin{equation*}
+        T=g(X_1,\ldots, X_n)
+\end{equation*}\]</span>
+der Zufallsstichprobe <span class="math inline">\((X_1,\ldots, X_n)\)</span> eine <strong>Schätzfunktion</strong>.</p>
+<p>Der resultierende numerische Wert <span class="math inline">\(g(x_1,\ldots, x_n)\)</span> heißt <strong>Schätzwert</strong>.
+Als Funktion von Zufallsvariablen ist <span class="math inline">\(T\)</span> <strong>selbst eine Zufallsvariable</strong>.</p>
+<p>Die Schätzfunktion heißt:</p>
+<ul>
+<li><strong>Schätzfunktion</strong> oder <strong>Schätzer</strong>, falls es sich um die Schätzung eines Verteilungsparameters oder einer Kennzahl handelt;</li>
+<li><strong>Teststatistik</strong>, falls Entscheidungen zur Annahme oder Ablehnung von Hypothesen getroffen werden (später mehr dazu).</li>
+</ul>
+<hr />
+<div class="example">
+<p><span id="exm:sch" class="example"><strong>Example 4.1  (Beispiele für Schätzfunktionen) </strong></span>Folgende Schätzfunktionen kennen wir bereits ganz gut:</p>
+<ul>
+<li><p><span class="math inline">\(\displaystyle\overline X = \frac{1}{n} \sum_{i=1}^n X_i\)</span> ist Schätzfunktion für <strong>Erwartungswert</strong> <span class="math inline">\(\mu=\mathbb E (X)\)</span>.</p></li>
+<li><p><span class="math inline">\(\displaystyle \overline X = \frac{1}{n} \sum_{i=1}^n X_i\)</span>, mit <span class="math inline">\(X_i\in \{0;1\}\)</span> ist Schätzfunktion für die
+<strong>Auftretenswahrscheinlichkeit</strong> <span class="math inline">\(\mathbb P(X=1)\)</span>.</p></li>
+<li><p><span class="math inline">\(\hat\sigma_X^2=\displaystyle S_X^2 = g(X_1,\ldots, X_n) = \frac{1}{n-1}\sum_{i=1}^n (X_i-\overline X)^2\)</span> ist Schätzfunktion für die <strong>Varianz</strong> <span class="math inline">\(\sigma_X^2=\text{Var}(X)\)</span>.</p></li>
+</ul>
+</div>
+<hr />
+</div>
+<div id="eigenschaften-von-schätzfunktionen" class="section level3 hasAnchor" number="5.2.2">
+<h3><span class="header-section-number">5.2.2</span> Eigenschaften von Schätzfunktionen<a href="parameterschätzung.html#eigenschaften-von-schätzfunktionen" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Was charakterisiert einen <strong>“guten” Schätzer</strong>?</p>
+<p>Welche Eigenschaften rechtfertigen beispielsweise die Schätzfunktion <span class="math inline">\(\overline X\)</span> als Schätzer für den Erwartungswert?</p>
+<p>Die folgenden Eigenschaften liefern klare Kriterien für die Güte einer Schätzfunktion:</p>
+<ul>
+<li><strong>Erwartungstreue</strong></li>
+<li><strong>Konsistenz</strong></li>
+<li><strong>Effizienz</strong></li>
+</ul>
+<div id="erwartungstreue" class="section level4 hasAnchor" number="5.2.2.1">
+<h4><span class="header-section-number">5.2.2.1</span> Erwartungstreue<a href="parameterschätzung.html#erwartungstreue" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Eine Schätzung soll <strong>tendenziell</strong> den richtigen Wert liefern, d.h. weder systematisch über- noch unterschätzen. Eine Schätzfunktion <span class="math inline">\(T=g(X_1,\ldots, X_n)\)</span> für den Parameter <span class="math inline">\(\theta\)</span> heißt <strong>erwartungstreu</strong> oder <strong>unverzerrt</strong>, wenn gilt
+<span class="math display">\[\begin{equation*}
+      \mathbb E(T) = \theta.
+\end{equation*}\]</span></p>
+<p>Die <strong>Verzerrung</strong> / der <strong>Bias</strong> bezeichnet die systematische Über- oder Unterschätzung einer Schätzfunktion:
+<span class="math display">\[\begin{equation*}
+      \text{Bias}(T) = \mathbb E(T) - \theta.
+\end{equation*}\]</span></p>
+<hr />
+<div class="example">
+<p><span id="exm:erwtr" class="example"><strong>Example 4.2  (Erwartungstreue von Stichprobenmittel) </strong></span>Wir prüfen ob der Stichprobenmittel <span class="math inline">\(\bar X\)</span> erwartungstreu für <span class="math inline">\(\mathbb E(X)\)</span> und die relative Häufigkeit (<span class="math inline">\(h_{Y=1}=\bar Y\)</span>, <span class="math inline">\(Y\in\{0;1\}\)</span>) erwartungstreu für <span class="math inline">\(\mathbb P(Y=1)\)</span> sind.</p>
+<ul>
+<li><p><span class="math inline">\(\overline X=\displaystyle \frac{1}{n} \sum_{i=1}^n X_i\)</span> ist eine erwartungstreue Schätzstatistik für den <strong>Erwartungswert</strong> <span class="math inline">\(\mu=\mathbb E(X)\)</span>, denn
+<span class="math display">\[\begin{equation*}
+    \mathbb E(\overline X) = \frac{1}{n} \sum_{i=1}^n \mathbb E(X_i) = \frac{1}{n}
+    n\cdot \mu = \mu.
+\end{equation*}\]</span></p></li>
+<li><p>Die <strong>relative Häufigkeit</strong> <span class="math inline">\(H_{Y=1}=\displaystyle \overline Y=\displaystyle\frac{1}{n}\sum_{i=1}^n Y_i\)</span>, mit <span class="math inline">\(Y_i\in \{0,1\}\)</span>,
+ist erwartungstreuer Schätzer für den <strong>Anteilswert</strong>/ die <strong>Auftretenswahrscheinlichkeit</strong> <span class="math inline">\(\mathbb P(Y=1)\)</span>.
+<span class="math display">\[\begin{equation*}
+    \mathbb E(\overline Y) = \frac{1}{n} \sum_{i=1}^n \mathbb E(Y_i) = \frac{1}{n} \sum_{i=1}^n \mathbb P(Y_i=1)\frac{1}{n}
+    n\cdot \mathbb P(Y=1) = \mathbb P(Y=1).
+\end{equation*}\]</span></p></li>
+<li><p>Wenn wir nun mehrere Stichprobenziehungen (z.B. <span class="math inline">\(100\)</span>) vornehmen und für jede Ziehung mit bestimmten Umfang <span class="math inline">\(n\)</span> den Stichprobenmittelwert berechnen, dann beobachten wir folgendes:</p></li>
+</ul>
+<iframe title="GGZ" src="http://learning-dashboard.lehre.hwr-berlin.de:3838/Apps_RBook/#section-schaetzwerte" width="760" height="700"></iframe>
+</div>
+<hr />
+<div class="example">
+<p><span id="exm:nerwtr" class="example"><strong>Example 4.3  (Stichprobenvarianz und mittlere qaudratische Abweichung) </strong></span>Was ist mit den Schätzfunktionen für die Varianz?</p>
+<ul>
+<li><p>Stichprobenvarianz:
+<span class="math display">\[\begin{equation*}
+    S^2 = \frac{1}{n-1} \sum_{i=1}^n (X_i-\overline X)^2
+\end{equation*}\]</span>
+ist eine erwartungstreue Schätzfunktion für die <strong>Varianz</strong> <span class="math inline">\(\sigma^2=\text{Var}(X)\)</span>, d.h. <span class="math inline">\(\mathbb E(S^2) = \sigma^2\)</span>.</p></li>
+<li><p>Für die <strong>mittlere quadratische Abweichung</strong> <span class="math inline">\(\displaystyle \tilde S^2 = \frac{1}{n}\sum_{i=1}^n (X_i-\overline X)^2\)</span> gilt:
+<span class="math display">\[\begin{equation*}
+         \mathbb E(\tilde S^2) = \frac{n-1}{n} \sigma^2.
+\end{equation*}\]</span>
+Also: <span class="math inline">\(\tilde S^2\)</span> nicht erwartungstreu (sie ist <strong>asymptotisch erwartungstreu</strong>, da die Verzerrung verschwindet für wachsendes <span class="math inline">\(n\)</span>).
+Die Verzerrung ist
+<span class="math display">\[\begin{equation*}
+      \text{Bias}(\tilde S^2) = \mathbb E(\tilde S^2) - \sigma^2 =
+      -\frac{1}{n}\sigma^2.
+\end{equation*}\]</span></p></li>
+</ul>
+<hr />
+<p>Nachweis: Bias der mittleren quadratischen Abweichung 👽</p>
+<ul>
+<li>Es gilt: <span class="math inline">\(\displaystyle \mathbb E((X_i-\mu)(X_j-\mu))=0\)</span>, falls <span class="math inline">\(i\not=j\)</span>.</li>
+<li>Ferner:
+<span class="math display">\[\begin{equation*}
+    \mathbb E((\overline X-\mu)^2) = \text{Var}(\overline X) =
+    \frac{1}{n^2} \text{Var}(X_1+\cdots+X_n) = \frac{1}{n}\sigma^2.
+\end{equation*}\]</span>
+Damit ergibt sich:
+<span class="math display">\[\begin{align*}
+    \mathbb E((X_i-\overline X)^2) &amp;= \mathbb E(((X_i-\mu) - (\overline X-\mu))^2)
+    \\
+    &amp;= \sigma^2 -2  \mathbb E\left((X_i-\mu) \left(\frac{1}{n} \sum_{j=1}^n
+      X_j-\mu\right)\right) + \frac{\sigma^2}{n} \\
+    &amp;= \sigma^2 - \frac{2}{n} \sum_{i=1}^n \mathbb E((X_i-\mu)(X_j-\mu)) +
+      \frac{\sigma^2}{n} \\
+    &amp;= \sigma^2 - \frac{2\sigma^2}{n} + \frac{\sigma^2}{n}
+      = \sigma^2 - \frac{\sigma^2}{n}.
+\end{align*}\]</span></li>
+</ul>
+<hr />
+<ul>
+<li>Wenn wir nun mehrere Stichprobenziehungen (z.B. <span class="math inline">\(100\)</span>) vornehmen und für jede Ziehung mit bestimmten Umfang <span class="math inline">\(n\)</span> die Stichprobenvarianz und die mittlere quadratische Abweichung berechnen, dann beobachten wir folgendes:</li>
+</ul>
+<iframe title="GGZ" src="http://learning-dashboard.lehre.hwr-berlin.de:3838/Apps_RBook/#section-verzerrung" width="760" height="700"></iframe>
+</div>
+<hr />
+</div>
+<div id="konsistenz" class="section level4 hasAnchor" number="5.2.2.2">
+<h4><span class="header-section-number">5.2.2.2</span> Konsistenz<a href="parameterschätzung.html#konsistenz" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Eine weitere wichtige Eigenschaft eines Schätzers ist die <strong>Konsistenz</strong>, die besagt, dass die Schätzfunktion gegen die zu schätzende Größe konvergiert. DIese Definition berücksichtigt <strong>die Varianz und die Verzerrung des Schätzers</strong>, die beiden Gößen sollen mit zunehmendem Stuchprobeumfang <span class="math inline">\(n\)</span> gegen Null gehen.</p>
+<p>Formal wird Konsistenz über die Konvergenz der erwarteten mittleren quadratischen Abweichung definiert. Die <strong>erwartete mittlere quadratische Abweichung (mean squareerror)</strong> ist bestimmt durch
+<span class="math display">\[\begin{equation*}
+      \text{MSE}(T)= \mathbb E((T-\theta)^2).
+\end{equation*}\]</span></p>
+<p>Sie lässt sich ausdrücken als
+<span class="math display">\[\begin{equation*}
+      \text{MSE}(T) = \text{Var}(T) + \text{Bias}(T)^2.
+\end{equation*}\]</span></p>
+<p>Eine Schätzfunktion heißt <strong>konsistent</strong>, wenn gilt:
+<span class="math display">\[\begin{equation*}
+      \text{MSE} \rightarrow 0\text{ für } n\rightarrow\infty.
+\end{equation*}\]</span></p>
+<hr />
+<div class="example">
+<p><span id="exm:kons" class="example"><strong>Example 4.4  (Konsistenz des Stichprobenmittels) </strong></span>Aus unabhängigen, identisch verteilten Beobachtungen <span class="math inline">\(X_1,\ldots, X_n\)</span> mit <span class="math inline">\(\mathbb E(X_1)=\mu\)</span> und <span class="math inline">\(\text{Var}(X_1)=\sigma^2\)</span>
+wird der Erwartungswert durch <span class="math inline">\(\overline X=\displaystyle\frac{1}{n} \sum_{i=1}^n X_i\)</span> geschätzt.</p>
+<ul>
+<li><p><span class="math inline">\(\mathbb E(\overline X)=\mu\)</span> (Siehe Erwartungstreue von <span class="math inline">\(\bar X\)</span>)</p></li>
+<li><p><span class="math inline">\(\text{Var}(\overline X) =\displaystyle\frac{1}{n^2}\sum_{i=1}^n \sigma^2 =\frac{\sigma^2}{n}\)</span> (<span class="math inline">\(\leadsto\)</span> Konsistenz)</p></li>
+</ul>
+</div>
+<hr />
+</div>
+<div id="effizienz" class="section level4 hasAnchor" number="5.2.2.3">
+<h4><span class="header-section-number">5.2.2.3</span> Effizienz<a href="parameterschätzung.html#effizienz" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Ein unverzerrter Schätzer für <span class="math inline">\(\theta\)</span> ist effizienter als ein anderer unverzerrter Schätzer, wenn er die kleinere Varianz hat.</p>
+<p>Effizienz bedeutet, dass von zwei erwartungstreuen Schätzern <span class="math inline">\(T_1\)</span> und <span class="math inline">\(T_2\)</span> für <span class="math inline">\(\theta\)</span> einer (hier <span class="math inline">\(T_1\)</span>) ist <strong>effizienter</strong> wenn:
+<span class="math display">\[\begin{equation*}
+      \text{Var}(T_1)\leq \text{Var}(T_2)
+\end{equation*}\]</span></p>
+<p>Der <strong>effizienteste</strong> oder <strong>beste Schätzer</strong> ist derjenige unverzerrte Schätzer, der die kleinste Varianz hat.</p>
+<ul>
+<li><span class="math inline">\(\overline X\)</span> ist effizient für den Erwartungswert;</li>
+<li><span class="math inline">\(\overline X\)</span>, mit <span class="math inline">\(X_i\in\{0,1\}\)</span> ist effizient für <span class="math inline">\(\mathbb P(X=1)\)</span>;</li>
+<li><span class="math inline">\(\overline X\)</span> ist effizient für den Parameter <span class="math inline">\(\lambda\)</span> der Poisson-Verteilung.</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="konstruktion-von-schätzfunktionen" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> Konstruktion von Schätzfunktionen 👽<a href="parameterschätzung.html#konstruktion-von-schätzfunktionen" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Für die wichtigsten Kennzahlen von Verteilungen (Erwartungswert und Varianz) haben wir also gute Schätzer bereits. Was tun aber, wenn wir unbekannte Parameter eines Verteilungsmodells schätzen wollen? Nicht immer kann man sich eine geeignete Schätzfunktion “ergoogeln”.</p>
+<p>Es gibt zwei populäre Methoden, die Schätzfunktionen für die unbekannten Parameter eines Verteilungsmodells zu <strong>konstruieren</strong>.</p>
+<div id="momenten-methode" class="section level3 hasAnchor" number="5.3.1">
+<h3><span class="header-section-number">5.3.1</span> Momenten Methode<a href="parameterschätzung.html#momenten-methode" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Grundlegende Idee: Schätze Parameter der Verteilung so, dass die zugehörige <strong>Momente</strong> der Verteilung <span class="math inline">\(\mathbb E(X), \mathbb E(X^2), \ldots\)</span> mit den entsprechenden <strong>empirischen Momenten</strong> der Stichprobe <span class="math inline">\(\bar X, \overline{X^2}, \ldots\)</span> übereinstimmen:</p>
+<p><span class="math display">\[
+\begin{array}{lp{.5cm}l}
+        \hline
+        \text{Verteilung} &amp; &amp; \text{Stichprobe}\\\hline
+        \mathbb E(X)=\mu &amp;&amp; \displaystyle \overline x=\frac{1}{n}\sum_{i=1}^n x_i\\
+        \mathbb E(X^2) = \mu^2 + \sigma^2 &amp; &amp; \displaystyle
+                                       \overline{x^2}=\frac{1}{n}\sum_{i=1}^n x_i^2\\
+        \vdots &amp; &amp; \vdots\\
+        \mathbb E(X^m) &amp; &amp; \displaystyle \overline{x^m}=\frac{1}{n} \sum_{i=1}^n x_i^m\\\hline
+      \end{array}
+\]</span></p>
+<p>Es werden dabei – beginnend mit dem ersten Moment – gerade so viele Momente einbezogen, dass alle zu schätzenden Parameter eindeutig geschätzt werden können.</p>
+<hr />
+<div class="example">
+<p><span id="exm:schbern" class="example"><strong>Example 4.5  (Bernoulli-Verteilung) </strong></span>Schätzung des Parameters <span class="math inline">\(p\)</span> einer <strong>Bernoulli-Verteilung</strong>.</p>
+<ul>
+<li><p>Theoretisch:</p>
+<ul>
+<li>Verteilungsannahme: <span class="math inline">\(\mathbb P\in\{B(1,p) | p\in \Theta=[0,1]\}\)</span></li>
+<li>Erstes Moment der Verteilung: <span class="math inline">\(\mathbb E(X) = p\)</span></li>
+<li>Erstes Moment der Stichprobe: <span class="math inline">\(\bar X = \frac 1n \sum_{i=1}^n X_i\)</span></li>
+<li>Schätzer: <span class="math inline">\(\hat p = \overline X\)</span> (Anteil der “Erfolge” in der Stichprobe)</li>
+</ul></li>
+<li><p>Praktisch: Schätzung des Appnutzeranteils anhand einer Kundenbefragung.</p>
+<ul>
+<li>Aus der Stichprobe: <span class="math inline">\(\bar x = 0,55\)</span></li>
+<li>Schätzwert: <span class="math inline">\(\hat p=0,55\)</span></li>
+</ul></li>
+</ul>
+</div>
+<hr />
+<div class="example">
+<p><span id="exm:schexp" class="example"><strong>Example 4.6  (Exponentialverteilung) </strong></span>Schätzung des Parameters <span class="math inline">\(\lambda\)</span> einer <strong>Exponentialverteilung</strong>.</p>
+<ul>
+<li><p>Theoretisch:</p>
+<ul>
+<li>Verteilungsannahme: <span class="math inline">\(\mathbb P\in\{E(\lambda)| \lambda&gt;0\}\)</span></li>
+<li>Erstes Moment der Verteilung: <span class="math inline">\(\mathbb E(X) = \displaystyle\frac{1}{\lambda}\)</span></li>
+<li>Erstes Moment der Stichprobe: <span class="math inline">\(\bar X = \frac 1n \sum_{i=1}^n X_i\)</span></li>
+<li>Schätzer: <span class="math inline">\(\hat\lambda = \displaystyle\frac{1}{\overline X}\)</span> (denn dann: <span class="math inline">\(\overline X = \displaystyle \mathbb E(X) = \frac{1}{\lambda}\)</span>)</li>
+</ul></li>
+<li><p>Praktisch: Schätzung der <span class="math inline">\(\lambda\)</span> für die Transaktionsdauer.</p>
+<ul>
+<li>Aus der Stichprobe: <span class="math inline">\(\bar x = 9,5\)</span></li>
+<li>Schätzwert: <span class="math inline">\(\hat \lambda=\frac1{9,5}=0,1053.\)</span></li>
+</ul></li>
+</ul>
+</div>
+<hr />
+<div class="example">
+<p><span id="exm:schnorm" class="example"><strong>Example 4.7  (Normalverteilung) </strong></span>Schätzung der Parameter <span class="math inline">\((\mu,\sigma^2)\)</span> einer <strong>Normalverteilung</strong>.</p>
+<ul>
+<li><p>Theoretisch:</p>
+<ul>
+<li>Verteilungsannahme: <span class="math inline">\(\mathbb P\in\{N(\mu,\sigma^2)|\mu\in \mathbb R, \sigma^2&gt;0\}\)</span></li>
+<li>Erstes Moment der Verteilung: <span class="math inline">\(\mathbb E(X) = \mu\)</span></li>
+<li>Erstes Moment der Stichprobe: <span class="math inline">\(\bar X = \frac 1n \sum_{i=1}^n X_i\)</span></li>
+<li>Zweites Moment der Verteilung: <span class="math inline">\(\mathbb E(X^2) = \mu^2 + \sigma^2\)</span></li>
+<li>Zweites Moment der Stichprobe: <span class="math inline">\(\overline{X^2} = \frac 1n \sum_{i=1}^n X^2_i\)</span></li>
+<li>Einsetzen der empirischen Momente gibt: <span class="math inline">\(\hat\mu=\overline X\)</span> und <span class="math inline">\(\hat\sigma^2 = \tilde S^2\)</span></li>
+</ul></li>
+<li><p>Praktisch: Verteilungsparameter für die durchschnittliche Temperatur im Juli.</p>
+<ul>
+<li>Aus der Stichprobe: <span class="math inline">\(\bar t = 20,5\)</span>; <span class="math inline">\(\tilde s_T^2 = 12\)</span></li>
+<li>Schätzwert: <span class="math inline">\(\hat \mu_T=20,5\)</span>; <span class="math inline">\(\hat\sigma_T^2=12\)</span>.</li>
+</ul></li>
+</ul>
+</div>
+<hr />
+<div class="exercise">
+<p><span id="exr:unlabeled-div-15" class="exercise"><strong>Exercise 5.2  (Momenten-Methode) </strong></span></p>
+<iframe title="Aufgabe_MM" src="./htmls/aufgabe_mm.html" width="760" height="700"></iframe>
+</div>
+<hr />
+</div>
+<div id="maximum-likelihood-methode" class="section level3 hasAnchor" number="5.3.2">
+<h3><span class="header-section-number">5.3.2</span> Maximum-Likelihood Methode<a href="parameterschätzung.html#maximum-likelihood-methode" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Seien <span class="math inline">\(X_1,\ldots, X_n\)</span> unabhängige, identisch verteilte Zufallsvariablen.
+Die Verteilung der <span class="math inline">\(X_i\)</span>, <span class="math inline">\(i=1,\ldots, n\)</span> ist unbekannt, aber wir nehmen an, die Verteilung gehöre zu einem <strong>Verteilungsmodell</strong>, die durch eine geeignete <strong>Parametrisierung</strong> <span class="math inline">\(\theta\)</span> charakterisiert ist.</p>
+<p>D.h. <span class="math inline">\(X_i\)</span> hat Wahrscheinlichkeitsfunktion oder Dichte <span class="math inline">\(f(x|\theta)\)</span>, <span class="math inline">\(\theta\in\Theta\)</span>, wobei <span class="math inline">\(\theta\)</span> ein Vektor von Parametern aus der Menge <span class="math inline">\(\Theta\)</span> ist.</p>
+<p>Das <strong>Maximum-Likelihood-Prinzip</strong> besagt:</p>
+<p>Man wähle zum Stichprobenergebnis <span class="math inline">\((x_1,\ldots, x_n)\)</span> denjenigen Wert <span class="math inline">\(\hat\theta\)</span> als Schätzwert für <span class="math inline">\(\theta\)</span>, unter dem die <strong>Wahrscheinlichkeit für das Eintreten des Stichprobenergebnisses am größten</strong> ist.</p>
+<p>Den Satzteil “unter dem die Wahrscheinlichkeit für das Eintreten des Ergebnisses am größten ist” kann ersetzt werden durch: “unter dem die entsprechende Wahrscheinlichkeitsfunktion oder Dichte maximal ist”. Letzteres wird mittles <strong>Likelihood-Funktions</strong> quantifiziert:</p>
+<ul>
+<li><p>Ist eine Realisierung <span class="math inline">\((x_1,\ldots, x_n)\)</span> gegeben, so lässt sich die Dichte als Funktion der unbekannten Parameter <span class="math inline">\(\theta\)</span>
+auffassen
+<span class="math display">\[\begin{equation*}
+    L(\theta)= f(x_1,\ldots, x_n|\theta).
+\end{equation*}\]</span></p></li>
+<li><p>Wegen der <strong>Unabhängigkeit</strong> der Zufallsstichprobe gilt für die gemeinsame Wahrscheinlichkeitsfunktion / Dichte:
+<span class="math display">\[\begin{equation*}
+    L(\theta)=f(x_1,\ldots, x_n|\theta) = f(x_1|\theta)\cdot f(x_2|\theta)\cdot \dots \cdot f(x_n|\theta).
+\end{equation*}\]</span></p></li>
+<li><p>Das <strong>Maximum Likelihood-Prinzip</strong> besagt: Wähle zu <span class="math inline">\(x_1,\ldots, x_n\)</span> als Parameterschätzung denjenigen Parameter <span class="math inline">\(\hat\theta\)</span>, für den die <strong>Likelihood maximal</strong>* ist, d.h.
+<span class="math display">\[\begin{equation*}
+    L(\hat\theta)=\max_{\theta} L(\theta),
+\end{equation*}\]</span>
+bzw.
+<span class="math display">\[\begin{equation*}
+    f(x_1,\ldots, x_n|\hat\theta) = \max_{\theta} f(x_1,\ldots,
+    x_n|\theta).
+\end{equation*}\]</span></p></li>
+</ul>
+<p>Man wählt zu den gegebenen Realisationen <span class="math inline">\(x_1,\ldots, x_n\)</span> denjenigen Parameter <span class="math inline">\(\hat\theta\)</span>, für den die Wahrscheinlichkeit bzw. die Dichte, dass gerade diese Werte auftreten, <strong>maximal</strong> ist. Es handelt sich um diejenigen Parameter <span class="math inline">\(\theta\)</span>, die die <strong>plausibelste Erklärung</strong> für das Zustandekommen dieser Werte liefern. Die Schätzung hängt insbesondere von der Stichprobe ab: <span class="math inline">\(\hat\theta=\hat\theta(x_1,\ldots, x_n)\)</span>.</p>
+<ul>
+<li><p>Die Schätzfunktion <span class="math inline">\(g(x_1,\ldots, x_n)=\hat\theta(x_1,\ldots, x_n)\)</span> heißt <strong>Maximum-Likelihood-Schätzer</strong> (ML-Schätzer).</p></li>
+<li><p>Zur praktischen Bestimmung des Maximums wählt man häufig den <strong>Logarithmus der Likelihood-Funktion</strong>, die <strong>Log-Likelihood</strong> da diese das Produkt der Dichten in eine Summe überführt:
+<span class="math display">\[\begin{equation*}
+    \mathcal L(\theta) = \ln L(\theta) = \sum_{i=1}^n \ln f(x_i|\theta).
+\end{equation*}\]</span>
+Wegen der strengen Monotonie des Logarithmus liefern das Maximieren von <span class="math inline">\(L(\theta)\)</span> und <span class="math inline">\(\ln L(\theta)\)</span> denselben Wert <span class="math inline">\(\hat\theta\)</span>.</p></li>
+</ul>
+<hr />
+<div class="example">
+<p><span id="exm:mlschbern" class="example"><strong>Example 4.8  (ML: Bernoulli-Verteilung) </strong></span>Wähle zufällig <span class="math inline">\(n=4\)</span> Kunden aus einem Kunden-Pool mit <span class="math inline">\(a\)</span> App-Nutzern und <span class="math inline">\(w\)</span> Web-Nutzern (mit Zurücklegen); <span class="math inline">\(p=\displaystyle\frac{a}{a+w}\)</span> unbekannt.</p>
+<ul>
+<li><p>Konstruktion:</p>
+<ul>
+<li>Also: <span class="math inline">\(4\)</span> unabhängige Wiederholungen des Bernoulli-Zufallsvorgangs.</li>
+<li>Die Stichprobe ist <span class="math inline">\(x_1=1\)</span>, <span class="math inline">\(x_2=1\)</span>, <span class="math inline">\(x_3=0\)</span>, <span class="math inline">\(x_4=1\)</span>:</li>
+<li>Likelihood-Funktion:
+<span class="math display">\[\begin{equation*}
+L(p) = f(x_1|p) \cdots f(x_4|p) = \prod_{i=1}^4
+p^{x_i}(1-p)^{1-x_i} =  p\cdot p\cdot (1-p)\cdot p =
+p^3\cdot (1-p).
+\end{equation*}\]</span></li>
+<li>Ableiten und Nullsetzen ergibt:
+<span class="math display">\[\begin{equation*}
+  L&#39;(p) = 3p^2 (1-p) - p^3 = (3-4p)p^2 = 0 \iff
+  p\in \left\{0,\frac{3}{4}\right\}.
+  \end{equation*}\]</span></li>
+<li>Maximum bei <span class="math inline">\(p^\ast=3/4\)</span> (negative zweite Ableitung).</li>
+</ul></li>
+<li><p>Darstellung der Likelihood-Funktion:</p></li>
+</ul>
+<iframe title="ML1" src="http://learning-dashboard.lehre.hwr-berlin.de:3838/Apps_RBook/#section-mlbernoulli" width="760" height="500"></iframe>
+<ul>
+<li>Interpretation der Likelihood-Funktion: <span class="math inline">\(L(p)\)</span> ist die Wahrscheinlichkeit für das gemeinsame Auftreten der Beobachtungen <span class="math inline">\(x_1=1,x_2=1, x_3=0\)</span> und <span class="math inline">\(x_4=1\)</span> unter der Annahme das <span class="math inline">\(\mathbb P(X=1)=p\)</span>.</li>
+</ul>
+</div>
+<hr />
+<div class="example">
+<p><span id="exm:mlschexp" class="example"><strong>Example 4.9  (ML: Exponentialverteilung) </strong></span>Seien <span class="math inline">\(X_1,\ldots, X_4\)</span> unabhängige Wiederholungen einer exponentell-verteilten Größe mit zu schätzendem Wert <span class="math inline">\(\lambda\)</span>.</p>
+<ul>
+<li><p>Konstruktion:</p>
+<ul>
+<li>Stichprobe: <span class="math inline">\(x_1=0,95\)</span>, <span class="math inline">\(x_2=1,81\)</span>, <span class="math inline">\(x_3=1\)</span>, <span class="math inline">\(x_4=0,67\)</span></li>
+<li>Likelihood-Funktion:
+<span class="math display">\[\begin{equation*}
+L(\lambda) = f(x_1|\lambda)\cdots f(x_4|\lambda) = \prod_{i=1}^4
+\lambda \text e^{-\lambda x_i}
+= \lambda^4 \text e^{-\lambda (x_1+\cdots + x_4)} = \lambda^4 \text e^{-4,43\lambda}
+  \end{equation*}\]</span></li>
+<li>Log-Likelihood-Funktion: <span class="math inline">\(\displaystyle \mathcal{L}(\lambda) = \ln L(\lambda) = -4,43\lambda + 4 \ln(\lambda)\)</span></li>
+<li>Ableiten und Nullsetzen:
+<span class="math display">\[\begin{equation*}
+  \mathcal{L}^\prime(\lambda) = -4,43 + \frac{4}{\lambda} = 0 \quad
+  \iff \quad \lambda=4/4,43 = 0,9029
+\end{equation*}\]</span></li>
+<li>Zweite Ableitung: <span class="math inline">\(\displaystyle -\frac{4}{\lambda^2}&lt;0\)</span>, also Maximum.</li>
+<li><span class="math inline">\(\hat\lambda=1/\overline X = 1/1,1075=0,902935\)</span>.</li>
+</ul></li>
+<li><p>Darstellung der Likelihood-Funktion und log-Likelihood-Funktions:</p></li>
+</ul>
+<iframe title="ML2" src="http://learning-dashboard.lehre.hwr-berlin.de:3838/Apps_RBook/#section-mlexponential" width="760" height="500"></iframe>
+<ul>
+<li><p>Interpretation der Likelihood-Funktion: <span class="math inline">\(L(\lambda)\)</span> ist die Dichte für das gemeinsame Auftreten der Beobachtungen <span class="math inline">\(x_1=0,95\)</span>, <span class="math inline">\(x_2=1,81\)</span>, <span class="math inline">\(x_3=1\)</span> und <span class="math inline">\(x_4=0,67\)</span> unter der Annahme, dass eine Exponentialverteilung mit Parameter <span class="math inline">\(\lambda\)</span> vorliegt.</p></li>
+<li><p>Ein hoher Dichtewert <span class="math inline">\(f(x)\)</span> an der Stelle <span class="math inline">\(x\)</span> impliziert eine hohe Auftretenswahrscheinlichkeit in einem kleinen Intervall um <span class="math inline">\(x\)</span>.</p></li>
+</ul>
+</div>
+<hr />
+<div class="exercise">
+<p><span id="exr:unlabeled-div-16" class="exercise"><strong>Exercise 5.3  (Maximum-Likelihood-Methode) </strong></span></p>
+<iframe title="Aufgabe_ML" src="./htmls/aufgabe_ml.html" width="760" height="700"></iframe>
+</div>
+<hr />
+</div>
+</div>
+<div id="intervallschätzung" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> Intervallschätzung<a href="parameterschätzung.html#intervallschätzung" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Die Punkschätzung liefert einen Parameterschätzwert <span class="math inline">\(\hat\theta\)</span>, der typischerweise nicht mit dem wahren Wert <span class="math inline">\(\theta\)</span> identisch ist. Zusätzlich zum Schätzwert <span class="math inline">\(\hat\theta\)</span> selbst kann man die <strong>Präzision</strong> des Schätzers angeben, in dem man die <strong>Variabilität des Schätzers</strong> berücksichtigt.</p>
+<p>Die <strong>Intervallschätzung</strong> ist Weg, die Genauigkeit des Schätzverfahrens direkt einzubeziehen. Das Ergebnis des Schätzens ist ein <strong>Intervall</strong>. Dennoch ist es nicht wirklich möglich den wahren Parameter mit Sicherheit zu treffen. Dabei ist die <strong>Irrtumswahrscheinlichkeit</strong> <span class="math inline">\(\alpha\)</span>, mit der das Verfahren ein Intervall liefert, das den wahren Wert <span class="math inline">\(\theta\)</span> nicht enthält, vorgegeben. Übliche Werte <span class="math inline">\(\alpha\)</span> sind <span class="math inline">\(\alpha=0,1\)</span>, <span class="math inline">\(\alpha=0,05\)</span> und <span class="math inline">\(\alpha=0,01\)</span>.</p>
+<p>Als <strong>Überdeckungswahrscheinlichkeit/Konfidenzniveau</strong> <span class="math inline">\(1-\alpha\)</span> bezeichnet man die W’keit, dass das Verfahren ein Intervall liefert, welches den Wert <span class="math inline">\(\theta\)</span> enthält.</p>
+<p>Da die Breite von so einem Intervall zugleich als die Genauigkeit der Schätzung verstanden werden kann, lässt sich der <strong>Stichprobenumfang</strong>, der für eine bestimmte Genauigkeit auf dem vorgegebenen Sichterheitsniveau sorgt, daraus ableiten.</p>
+<hr />
+<div class="example">
+<p><span id="exm:intsch" class="example"><strong>Example 4.10  (Schätzen von dem mittleren Rechnungsbetrag) </strong></span>Unser Schätzer - das Stichprobenmittel <span class="math inline">\(\bar{X}=\frac 1n \sum_{i=1}^n X_i\)</span> - ist vor der Stichprobenerhebung eine Zufallsvariable, deren Werte verändern sich je nach Stichproberealisation <span class="math inline">\(x_1,x_2,\ldots, x_n\)</span>. Die Werte schwanken weniger mit zunehmendem Stichprobenumfang <span class="math inline">\(n\)</span>.</p>
+<p><strong>Doch wie genau ist da die Beziehung zum Stichprobenumfang?</strong></p>
+<p>Die Antwort liefert der zentrale Grenzwertsatz (ZGS). Wenn die Stichprobenvariablen <span class="math inline">\(X_1,X_2,\ldots, X_n\)</span> identisch und unabhängig verteilt sind mit einem endlichen Mittelwert <span class="math inline">\(\mu_X\)</span> und einer endlichen Varianz <span class="math inline">\(\sigma_X^2\)</span>, ist die approximative Verteilung von Stichprobenmittel: <span class="math inline">\(\bar{X}\stackrel{a}{\sim} N(\mu_X, \frac{\sigma_X^2}{n})\)</span> bzw. in seiner standardisierten Version: <span class="math inline">\(\frac{\bar X-\mu_X}{\sigma_X/\sqrt{n}}\stackrel{a}{\sim}N(0;1)\)</span>.</p>
+<p>Der Stichprobenumfang ist von der unbekannten Varianz in der Grundgesamtheit abhängig. In Praxis, benutzt man eine Abschätzung der Varianz. Dabei sollte man einen eher höheren Wert annehmen.</p>
+<ul>
+<li>Angenommen, <span class="math inline">\(\sigma_X=900\)</span> bekannt oder erfahrungsgemäß festgelegt und <span class="math inline">\(n=100\)</span>, folglich ist <span class="math inline">\(\frac{\sigma_X^2}{n}=\frac{900}{100}=9\)</span>, dann laut ZGS:
+<span class="math display">\[\bar{X}\stackrel{a}{\sim} N(\mu_X; 9)\text{ oder }\frac{\bar X-\mu_X}{3}\stackrel{a}{\sim}N(0;1)\]</span></li>
+</ul>
+<p>D.h. <span class="math inline">\(\mathbb P\left(-1,96\leq\frac{\overline X-\mu_X}{3}\leq1,96\right)=0,95\leftrightarrow\)</span> <span class="math inline">\(\mathbb P\left(-1,96\cdot 3\leq \overline X-\mu_X\leq1,96\cdot 3\right)=0,95\)</span> und mit 95% Wahrscheinlichkeit liegen die Werte von <span class="math inline">\(\bar X\)</span> nicht mehr als <span class="math inline">\(1,96\cdot 3\)</span> von <span class="math inline">\(\mu_x\)</span> entfernt.</p>
+<ul>
+<li>Umstellen der Ungleichungen innerhalb der Wahrscheinlichkeit nach <span class="math inline">\(\mu_X\)</span> liefert:</li>
+</ul>
+<p><span class="math display">\[\begin{align}
+\mathbb P\left(-1,96\cdot 3\leq \bar X-\mu_X\leq1,96\cdot 3\right)&amp;=0,95~~ |\leadsto -\bar X\\
+\mathbb P\left(-\bar X-1,96\cdot 3\leq-\mu_X\leq -\bar X+1,96\cdot 3\right)&amp;=0,95~~|\leadsto :(-1)\\
+\mathbb P\left(\bar X+1,96\cdot 3\geq\mu_X\geq \bar X-1,96\cdot 3\right)&amp;=0,95~~|\leadsto \text{Seitentausch}\\
+\mathbb P\left(\bar X-1,96\cdot 3\leq\mu_X\leq \bar X+1,96\cdot 3\right)&amp;=0,95
+\end{align}\]</span>
+Mit 95% Wahrscheinlichkeit garantiert uns der obige Term, dass der unbekannter Parameter <span class="math inline">\(\mu_X\)</span> irgendwo zwischen <span class="math inline">\(\bar X-1,96\cdot 3\)</span> und <span class="math inline">\(\bar X+1,96\cdot 3\)</span> sich befindet.</p>
+<ul>
+<li><p>Nun sind <span class="math inline">\(\bar X-1,96\cdot 3\)</span> und <span class="math inline">\(\bar X+1,96\cdot 3\)</span> Zufallsvariablen und die Werte variieren mit jeder neuen Stichprobenziehung.</p></li>
+<li><p>Für eine konkrete Stichprobenziehung, kann man die Werte <span class="math inline">\(\overline x-1,96\cdot 3\)</span> und <span class="math inline">\(\overline x+1,96\cdot 3\)</span> kalkulieren und ein Schätzinterval für <span class="math inline">\(\mu_X\)</span> als Ergebnis kriegen:</p></li>
+</ul>
+<p><span class="math display">\[
+[\overline x-1,96\cdot 3; \overline x+1,96\cdot 3]
+\]</span></p>
+<ul>
+<li>empirisch:</li>
+</ul>
+<iframe title="Intervallschätzung" src="http://learning-dashboard.lehre.hwr-berlin.de:3838/Apps_RBook/#section-intervallschaetzung" width="760" height="700"></iframe>
+</div>
+<hr />
+<div id="alpha-konfidenzintervall-für-mu" class="section level3 hasAnchor" number="5.4.1">
+<h3><span class="header-section-number">5.4.1</span> <span class="math inline">\((1-\alpha)\)</span>-Konfidenzintervall für <span class="math inline">\(\mu\)</span><a href="parameterschätzung.html#alpha-konfidenzintervall-für-mu" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Intervallschätzung für <span class="math inline">\(\mu\)</span> bei bekannter Varianz <span class="math inline">\(\sigma^2\)</span> (<span class="math inline">\(N(\mu,\sigma^2)\)</span>-verteilte Zufallsvariablen)</strong></p>
+<p>Ausgangspunkt ist der Punktschätzer <span class="math inline">\(\overline X\)</span>, der <span class="math inline">\(N(\mu,\sigma^2/n)\)</span>-verteilt ist.</p>
+<ul>
+<li><p>Das standardisierte Stichprobenmittel <span class="math inline">\(\displaystyle\frac{\overline X-\mu}{\sigma/\sqrt{n}}\)</span> ist <span class="math inline">\(N(0,1)\)</span>-verteilt; somit gilt:
+<span class="math display">\[\begin{equation*}
+    \mathbb P\left(-N_{1-\alpha/2} \leq \frac{\overline
+      X-\mu}{\sigma/\sqrt{n}}\leq N_{1-\alpha/2}\right)=1-\alpha,
+\end{equation*}\]</span>
+mit <span class="math inline">\(N_{1-\alpha/2}\)</span> dem <span class="math inline">\(1-\alpha/2\)</span>-Quantil der Standardnormalverteilung.</p></li>
+<li><p>Umformen ergibt:
+<span class="math display">\[\begin{equation*}
+      1-\alpha = \mathbb P\left(\overline X - N_{1-\alpha/2}
+      \frac{\sigma}{\sqrt{n}} \leq \mu \leq \overline X + N_{1-\alpha/2}
+      \frac{\sigma}{\sqrt{n}}\right),
+\end{equation*}\]</span>
+und ein <span class="math inline">\((1-\alpha)\)</span>-Konfidenzintervall ist gegeben durch
+<span class="math display">\[\begin{equation*}
+      \left[\overline X - N_{1-\alpha/2}
+      \frac{\sigma}{\sqrt{n}}, \overline X + N_{1-\alpha/2}
+      \frac{\sigma}{\sqrt{n}}\right].
+\end{equation*}\]</span></p></li>
+</ul>
+<hr />
+<div class="example">
+<p><span id="exm:intsch2" class="example"><strong>Example 4.11  (Monatsrenditen) </strong></span>Gegeben: Monatsrenditen einer Aktie <span class="math inline">\(A\)</span></p>
+<ul>
+<li><p>zufällige Monatsrendite <span class="math inline">\(X\sim N(\mu,\sigma^2)\)</span> mit <span class="math inline">\(\sigma^2 = 0,25\)</span></p></li>
+<li><p>Daten: <span class="math inline">\(12\)</span> Monatsrenditen in <span class="math inline">\(\%\)</span></p>
+<span class="math display">\[\begin{array}[t]{|*{4}{cc|}}
+    \hline
+    n &amp; x_n &amp; n &amp; x_n &amp; n &amp; x_n &amp; n &amp; x_n \\\hline
+    1 &amp; 0,35 &amp; 4 &amp; \phantom{-}0,52 &amp; 7 &amp; -0,48 &amp; 10 &amp; 0,29\\
+    2 &amp; 0,89 &amp; 5 &amp; \phantom{-}0,12 &amp; 8 &amp; -0,37 &amp; 11 &amp; 0,41\\
+    3 &amp; 1,02 &amp; 6 &amp; -0,22 &amp; 9 &amp; \phantom{-}0,07 &amp; 12 &amp; 0,72\\\hline
+\end{array}\]</span></li>
+<li><p>Irrtumswahrscheinlichkeit <span class="math inline">\(\alpha=5\%\)</span> <span class="math inline">\(\Rightarrow\)</span> Konfidenzniveau <span class="math inline">\(1-\alpha=0,95\)</span></p></li>
+<li><p>Stichprobenmittel: <span class="math inline">\(\displaystyle \overline x=\frac{3,32}{12}=0,2767\%\)</span></p></li>
+<li><p><span class="math inline">\((1-\alpha/2)\)</span>-Quantil <span class="math inline">\(N_{1-\alpha/2} = N_{0,975} =1,96\)</span></p></li>
+<li><p>Realisierter Konfidenzintervall:
+<span class="math display">\[\begin{align*}
+      &amp;\left[\overline x - N_{1-\alpha/2}
+      \frac{\sigma}{\sqrt{n}}, \overline x + N_{1-\alpha/2}
+      \frac{\sigma}{\sqrt{n}}\right] = \\
+    &amp;\left[0,2767-1,96\cdot
+      \frac{\sqrt{0,25}}{\sqrt{12}};
+      0,2767 +
+      1,96\cdot\frac{\sqrt{0,25}}
+      {\sqrt{12}}\right]
+    = [-0,0062\%; 0,5596\%]
+\end{align*}\]</span></p></li>
+</ul>
+</div>
+<hr />
+<p><strong>Intervallschätzung für <span class="math inline">\(\mu\)</span> bei unbekannter Varianz <span class="math inline">\(\sigma^2\)</span> (<span class="math inline">\(N(\mu,\sigma^2)\)</span>-verteilte Zufallsvariablen)</strong></p>
+<p>Ausgangspunkt ist der Punktschätzer <span class="math inline">\(\displaystyle\frac{\overline X-\mu}{S/\sqrt{n}}\)</span>, wobei <span class="math inline">\(S^2=\displaystyle\frac{1}{n-1}\sum_{i=1}^n (X_i-\overline X)^2\)</span> eine Schätzung für <span class="math inline">\(\sigma^2\)</span> ist.</p>
+<ul>
+<li><p>Es gilt: <span class="math inline">\(\displaystyle \frac{\overline X-\mu}{S/\sqrt{n}}\sim t(n-1)\)</span>, wobei <span class="math inline">\(t(n-1)\)</span> eine Student-<span class="math inline">\(t\)</span>-Verteilung mit Parameter
+<span class="math inline">\(n-1\)</span> bezeichnet, und somit:
+<span class="math display">\[\begin{equation*}
+  \mathbb P\left(-t_{1-\alpha/2}(n-1) \leq \frac{\overline X-\mu}{S/\sqrt{n}}\leq
+  t_{1-\alpha/2}(n-1)\right) = 1-\alpha,
+\end{equation*}\]</span>
+mit <span class="math inline">\(t_{1-\alpha/2}(n-1)\)</span> dem entsprechenden Quantil der <span class="math inline">\(t\)</span>-Verteilung.</p></li>
+<li><p>Umformen ergibt das Konfidenzintervall
+<span class="math display">\[\begin{equation*}
+  \left[\overline X-t_{1-\alpha/2}(n-1) \frac{S}{\sqrt{n}},
+    \overline X + t_{1-\alpha/2}(n-1) \frac{S}{\sqrt{n}}\right].
+\end{equation*}\]</span></p></li>
+</ul>
+<div class="example">
+<p><span id="exm:intsch22" class="example"><strong>Example 5.1  (Monatsrenditen) </strong></span>Fortführung von <a href="parameter-estimation.html#exm:intsch2">4.11</a>.</p>
+<ul>
+<li><p>Stichprobenmittel: <span class="math inline">\(\overline x=\displaystyle\frac{3,32}{12}=0,2767\%\)</span></p></li>
+<li><p>Stichprobenvarianz: <span class="math inline">\(s^2 = \displaystyle\frac{2,5124}{11} =0,2284\)</span></p></li>
+<li><p><span class="math inline">\((1-\alpha/2)\)</span>-Quantil: <span class="math inline">\(t_{1-\alpha/2}(n-1) = t_{0,975}(11) =2,2010\)</span></p></li>
+<li><p>Realisierter Konfidenzintervall:
+<span class="math display">\[\begin{align*}
+  &amp;\left[\overline x-t_{1-\alpha/2}(n-1) \frac{s}{\sqrt{n}},
+    \overline x + t_{1-\alpha/2}(n-1) \frac{s}{\sqrt{n}}\right]= \\
+   &amp; \left[0,2767-2,201\cdot\frac{\sqrt{0,2284}}{\sqrt{12}}
+      ; 0,2767 + 2,201\cdot \frac{\sqrt{0,2284}}
+      {\sqrt{12}}\right]
+    = [-0,0270\%; 0,5803\%]
+\end{align*}\]</span></p></li>
+</ul>
+</div>
+<hr />
+<p><strong>Konfidenzintervall für <span class="math inline">\(\mu\)</span> bei beliebiger Verteilung</strong></p>
+<p>Bei <strong>beliebiger Verteilung</strong> aber großem Stichprobenumfang (<span class="math inline">\(n&gt;30\)</span>) ergibt sich das Konfidenzintervall aus der approximativen Normalverteilung.</p>
+<p><span class="math inline">\((1-\alpha)\)</span>-Konfidenzintervall für <span class="math inline">\(\mu\)</span> bei beliebiger Verteilung (<span class="math inline">\(n&gt;30\)</span>)
+- Wenn <span class="math inline">\(\sigma^2\)</span> bekannt ist, stellt
+<span class="math display">\[\begin{equation*}
+        \left[\overline X - N_{1-\alpha/2}
+        \frac{\sigma}{\sqrt{n}}, \overline X + N_{1-\alpha/2}
+        \frac{\sigma}{\sqrt{n}}\right].
+\end{equation*}\]</span>
+ein <strong>approximatives Konfidenzintervall</strong> dar.</p>
+<ul>
+<li>Analog: Wenn <span class="math inline">\(\sigma^2\)</span> unbekannt ist, dann
+<span class="math display">\[\begin{equation*}
+      \left[\overline X-N_{1-\alpha/2} \frac{S}{\sqrt{n}},
+        \overline X + N_{1-\alpha/2} \frac{S}{\sqrt{n}}\right].
+\end{equation*}\]</span></li>
+</ul>
+<hr />
+<div class="example">
+<p><span id="exm:intschkont" class="example"><strong>Example 4.12  (Schätzen von dem mittleren Rechnungsbetrag) </strong></span>Fortführung von <a href="parameter-estimation.html#exm:intsch">4.10</a>.</p>
+<p>In diesem Beispiel haben wir bereits <span class="math inline">\(95\%\)</span>-Konfidenzintervall für den mittleren Rechnungsbetrag und <span class="math inline">\(\sigma\)</span> bekannt hergeleitet <span class="math inline">\((n=100)\)</span>:</p>
+<p><span class="math display">\[
+\overline X\pm 1,96\cdot \frac{\sigma}{\sqrt n}
+\]</span></p>
+<p>Wenn nun <span class="math inline">\(\sigma\)</span> unbekannt ist, ersetzen wir sie durch die Schätzung <span class="math inline">\(S\)</span>:</p>
+<p><span class="math display">\[
+\overline X\pm 1,96\cdot \frac{S}{\sqrt n}
+\]</span>
+dabei dürfen wir die Quantile der Standardnormalverteilung behalten, da <span class="math inline">\(t\)</span>-Quantile für <span class="math inline">\(n\)</span> groß sich diesen annähern.</p>
+</div>
+<hr />
+<div class="exercise">
+<p><span id="exr:unlabeled-div-17" class="exercise"><strong>Exercise 5.4  (Konfidenzintervalle für die durchschnittliche Temperatur) </strong></span></p>
+<iframe title="Aufgabe_Intervallschaetzung" src="./htmls/aufgabe_intervallsch.html" width="760" height="700"></iframe>
+</div>
+<hr />
+</div>
+<div id="alpha-konfidenzintervall-für-sigma2" class="section level3 hasAnchor" number="5.4.2">
+<h3><span class="header-section-number">5.4.2</span> <span class="math inline">\((1-\alpha)\)</span>-Konfidenzintervall für <span class="math inline">\(\sigma^2\)</span><a href="parameterschätzung.html#alpha-konfidenzintervall-für-sigma2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Es geht nun um Intervallschätzung für die unbekannte Varianz <span class="math inline">\(\sigma^2\)</span>.</p>
+<p><span class="math inline">\((1-\alpha)\)</span>-Konfidenzintervall für <span class="math inline">\(\sigma^2\)</span> bei normalverteiltem Merkmal</p>
+<p>Das zweiseitige Konfidenzintervall ist bestimmt durch die Grenzen
+<span class="math display">\[\begin{equation*}
+      \left[\frac{(n-1)S^2}{q_{1-\alpha/2}(n-1)} ,
+      \frac{(n-1)S^2}{q_{\alpha/2}(n-1)}\right].
+\end{equation*}\]</span></p>
+<p>Man beachte, dass - im Gegensatz zur Normal- oder <span class="math inline">\(t\)</span>-Verteilung - die <span class="math inline">\(\chi^2\)</span>-Verteilung nicht symmetrisch ist.</p>
+<hr />
+<div class="example">
+<p><span id="exm:intsch222" class="example"><strong>Example 4.13  (Monatsrenditen) </strong></span>Fortführung von <a href="parameterschätzung.html#exm:intsch22">5.1</a>.</p>
+<ul>
+<li><p>Stichprobenvarianz: <span class="math inline">\(s^2 = \displaystyle\frac{2,5124}{11} =0,2284\)</span></p></li>
+<li><p>Quantile:
+<span class="math display">\[
+\begin{array}[t]{rcl}
+    q_{\alpha/2}(n-1) &amp;=&amp; q_{0,025}(11) =
+                              3,8157\\
+   q_{1-\alpha/2}(n-1) &amp;=&amp; q_{0,975}(11) = 21,9200
+  \end{array}
+\]</span></p></li>
+<li><p>Konfidenzintervall:
+<span class="math display">\[\begin{align*}
+    &amp;\left[\frac{(n-1)S^2}{q_{1-\alpha/2}(n-1)} ,
+    \frac{(n-1)S^2}{q_{\alpha/2}(n-1)}\right]=\\\\
+&amp; \left[\frac{11\cdot 0,2284}{21,9200}, \frac{11\cdot
+      0,2284}{3,8157}\right]
+  = \left[0,1146; 0,6584\right]
+\end{align*}\]</span></p></li>
+</ul>
+</div>
+<hr />
+</div>
+<div id="alpha-konfidenzintervall-für-wahrscheinlichkeit-p" class="section level3 hasAnchor" number="5.4.3">
+<h3><span class="header-section-number">5.4.3</span> <span class="math inline">\((1-\alpha)\)</span>-Konfidenzintervall für Wahrscheinlichkeit <span class="math inline">\(p\)</span><a href="parameterschätzung.html#alpha-konfidenzintervall-für-wahrscheinlichkeit-p" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Seien <span class="math inline">\(X_1,\ldots, X_n\)</span>, mit <span class="math inline">\(X_i\in \{0,1\}\)</span>, unabhängige Bernoulli-Experimente.</p>
+<p>Die Summe der Erfolge <span class="math inline">\(X_i=1\)</span>, <span class="math inline">\(i=1,\ldots, n\)</span>, ist binomialverteilt: <span class="math inline">\(\sum_{i=1}^n X_i\sim B(n,p)\)</span> mit unbekanntem Parameter <span class="math inline">\(p\)</span>.</p>
+<p>Der ZGS besagt, dass <span class="math inline">\(\overline X\)</span> approximativ normalverteilt ist mit <span class="math inline">\(\mathbb E(\overline X)=p\)</span> und <span class="math inline">\(\text{Var}(\overline X) = p(1-p)/n\)</span>.</p>
+<p>Für einen ausreichend großen Stichprobenumfang (<span class="math inline">\(n\cdot p&gt;5\)</span> und <span class="math inline">\(n\cdot (1-p)&gt;5\)</span>) ist ein <strong>approximatives Konfidenzintervall</strong> gegeben durch
+<span class="math display">\[\begin{equation*}
+      \left[\hat p - N_{1-\alpha/2} \sqrt{\frac{\hat p(1-\hat p)}{n}}, \hat
+        p + N_{1-\alpha/2} \sqrt{\frac{\hat p(1-\hat p)}{n}}\right],
+\end{equation*}\]</span>
+wobei <span class="math inline">\(\hat p=\overline X\)</span> die relative Häufigkeit bezeichnet.</p>
+<hr />
+<div class="example">
+<p><span id="exm:intsch3" class="example"><strong>Example 4.14  (App-Nutzer) </strong></span>Unter <span class="math inline">\(100\)</span> befragten Kunden waren <span class="math inline">\(55\)</span> Appnutzer.</p>
+<ul>
+<li><p>Legt man ein Konfidenzniveau von <span class="math inline">\(1-\alpha=0,95\)</span> zugrunde, erhält man <span class="math inline">\(N_{1-\alpha/2}=1,96\)</span>.</p></li>
+<li><p>Es ergibt sich mit <span class="math inline">\(\hat p= 55/100=0,55\)</span>:
+<span class="math display">\[\begin{equation*}
+\left[0,55 - 1,96 \cdot \sqrt{\frac{0,55\cdot
+          0,45}{100}};
+      0,55 + 1,96\cdot \sqrt{\frac{0,55\cdot
+          0,45}{100}}\right]
+    = [; ].
+\end{equation*}\]</span></p></li>
+</ul>
+</div>
+<hr />
+</div>
+<div id="bestimmung-von-n-anhand-der-länge-von-konfidenzintervallen" class="section level3 hasAnchor" number="5.4.4">
+<h3><span class="header-section-number">5.4.4</span> Bestimmung von <span class="math inline">\(n\)</span> anhand der Länge von Konfidenzintervallen 👽<a href="parameterschätzung.html#bestimmung-von-n-anhand-der-länge-von-konfidenzintervallen" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Wenn bei einem Schätzproblem eine bestimmte Genauigkeit (z.B. <span class="math inline">\(\pm 1\%\)</span> oder <span class="math inline">\(\pm 0,01\)</span>) mit <span class="math inline">\(1-\alpha\)</span>-Konfidenz erreicht werden soll, kann man noch <strong>vor</strong> der Stichprobenerhebung anhand der <strong>Länge</strong> von dem zugehörigen Konfidenzintervall, den benötigten Stichprobenumfang ermitteln.</p>
+<iframe title="Problemstellung" src="./htmls/Problemstellung.html" width="760" height="700"></iframe>
+<p>Die Länge des <span class="math inline">\(1-\alpha\)</span>-Konfidenzintervalls für <span class="math inline">\(p\)</span> beträgt:</p>
+<p><span class="math display">\[\begin{align}
+\text{obere Grenze} - \text{untere Grenze} &amp;=
+p + N_{1-\alpha/2} \sqrt{\frac{\hat p(1-\hat p)}{n}} - \Big( p - N_{1-\alpha/2} \sqrt{\frac{\hat p(1-\hat p)}{n}}\Big)\\
+&amp;=2\cdot N_{1-\alpha/2} \frac{\sqrt{\hat p(1-\hat p)}}{\sqrt{n}}
+\end{align}\]</span>
+Bevor eine Stichprobe gezogen wurde ist <span class="math inline">\(\hat p\)</span> eine Zufallsvariable, also ist es der Term <span class="math inline">\(\sqrt{\hat p(1-\hat p)}\)</span> auch. Dennoch kann man ihn nach oben begrenzen, denn für <span class="math inline">\(p=\frac 12\)</span> nimmt er den maximalen Wert an.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-78"></span>
+<img src="_main_files/figure-html/unnamed-chunk-78-1.png" alt="f(p)=p(1-p)" width="80%" />
+<p class="caption">
+Figure 5.1: f(p)=p(1-p)
+</p>
+</div>
+<p>D.h. die maximale Länge des Konfidenzintervalls ist in diesem Fall (<span class="math inline">\(p=\frac 12\)</span> eingesetzt):</p>
+<p><span class="math display">\[\text{max. Länge} = \frac{N_{1-\alpha/2}}{\sqrt{n}}\]</span></p>
+<p><img src="images/intschn.png" style="width:50.0%" /></p>
+<p>Um die geförderte Genauigkeit einzuhalten, setzen wir:</p>
+<p><span class="math display">\[
+\frac{N_{1-\alpha/2}}{\sqrt{n}}\leq 2\cdot\text{Genauigkeit} = 2g
+\]</span>
+und stellen nach <span class="math inline">\(n\)</span> um:</p>
+<p><span class="math display">\[
+\sqrt n\geq \frac 12\cdot\frac{N_{1-\alpha/2}}{g}\rightarrow n\geq \left(\frac 12\cdot\frac{N_{1-\alpha/2}}{g}\right)^2
+\]</span>
+Wird bspw. die Genauigkeit von <span class="math inline">\(0,01\)</span> auf dem Konfidenzniveau von <span class="math inline">\(99\%\)</span> gefordert, so beträgt der Mindeststichprobenumfang <span class="math inline">\(n\geq 66348,966\)</span>.</p>
+<iframe title="Stichprobenumfang" src="http://learning-dashboard.lehre.hwr-berlin.de:3838/Apps_RBook/#section-stichprobenumfang" width="760" height="700"></iframe>
+<hr />
+<div class="exercise">
+<p><span id="exr:unlabeled-div-18" class="exercise"><strong>Exercise 5.5  (Intervallschätzung) </strong></span></p>
+<iframe title="Quiz_Intervallsch" src="./htmls/zusatz_intervallsch1.html" width="760" height="700"></iframe>
+</div>
+<hr />
+<!--
+## Rückblick{-}
+
+
+```{=html}
+<iframe title="Wortwolke" src="http://learning-dashboard.lehre.hwr-berlin.de:3838/Apps_RBook/#section-wortwolke" width="760" height="600"></iframe>
+```
+-->
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="iii-induktive-statistik.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="hypothesentests.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/19-parameterschätzung.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

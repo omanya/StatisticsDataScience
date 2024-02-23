@@ -1,0 +1,2 @@
+"0","  #arrows(0.5*input$lam,0.4, 1.5*input$lam+2,0.4,lty=1, code=3,col=3)"
+"0","  text(input$lam+3,0.4,paste0(""Var(X)="",input$lam),col=3)"

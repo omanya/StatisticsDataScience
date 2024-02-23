@@ -1,0 +1,1 @@
+"0","  polygon(c(xseq[xseq>bpm][1],xseq[xseq>bpm],tail(xseq[xseq>bpm][1],1)),c(dseq[xseq>bpm][1],dseq[xseq>bpm], tail(dseq[xseq>bpm],1)),col=alpha(3,0.3),border=3)"

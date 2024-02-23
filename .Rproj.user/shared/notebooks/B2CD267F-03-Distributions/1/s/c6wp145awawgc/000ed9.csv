@@ -1,0 +1,8 @@
+"0","  "
+"0","  #exp"
+"0","  lam<-0.1"
+"0","  xseq<-seq(0,100,0.01)"
+"0","  plot(xseq, dexp(xseq,lam),"
+"0","       type=""l"",col=2,axes=F,lwd=2,"
+"0","       xlim=c(0,max(xseq)),"
+"0","       ylim=c(0,0.5),ylab="""",xlab="""",main=expression(paste(""E("",lambda,""="",0.1,"")"",""  f(x)"")))"

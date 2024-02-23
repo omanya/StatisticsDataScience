@@ -1,0 +1,918 @@
+
+# Spezielle Verteilungsmodelle
+
+Wir haben schon einige Zufallsvariablen modelliert und immer war es ziemlich aufwendig die Verteilung von Zufallsvariablen herzuleiten. Wir mussten auf den ursprünglichen Zufallsvorgang schauen und für jedes Ergebnis bestimmen, welchen Wert nimmt die Zufallsvariable bei diesem Ergebnis an und darauf basierend die Wahrscheinlichkeit der Werte ableiten. Oder bei den stetigen Zufallsvariablen, mussten wir anhand der Dichte die Verteilungsfunktion, den Erwartungswert und die Varianz umständig berechnen `r emoji::emoji("poop")`.
+
+Zum Glück `r emoji::emoji("smiling_face_with_heart_eyes")` gibt es einige ziemlich universelle **Verteilungsmodelle** mit variablen Parametern, für die schon nette Eigenschaften bekannt sind und Kennzahlen anhand der Parameter feststellbar sind, so dass man sie nicht jedes mal erneut herleiten muss.
+
+***
+
+In diesem Kapitel werden wir lernen:
+  
+- Welche typische **Verteilungsmodelle** für diskrete und stetige Zufallsvariablen es gibt,
+- welche **Voraussetzungen** müssen erfüllt werden, damit ein Verteilungsmodell im konkreten Fall angewandt werden kann und
+- wie man aus der Sachlage die **Parameter** dieser Verteilungen bestimmt.
+
+
+***
+Da Verteilungen Werte mit Wahrscheinlichkeiten verbinden, gibt es spezielle Verteilungsmodelle für **diskrete** Zufallsvariablen mit diskreten Werten und für **stetige** Zufallsvariablen, die Intervalle aus Wertemengen haben.
+
+## Spezielle diskrete Verteilungen
+
+Spezielle diskrete Verteilungen beschreiben diskrete Zufallsvariablen. 
+
+```{r,echo=F}
+knitr::include_url(paste0(link,"Apps_RBook/#section-verteilungen"),
+  height = "600px")
+```
+
+### Diskrete Gleichverteilung
+
+Eine diskrete Zufallsvariable $X$ ist **gleichverteilt** auf der Wertemenge $\mathcal T=\{x_1,x_2,\ldots, x_n\}$, wenn für alle $i=1,\ldots, n$ gilt: 
+\begin{equation*}
+      f(x_i)=\frac{1}{n}.
+\end{equation*}
+
+- Für solche Zufallsvariablen gilt:
+\begin{align*}
+      \mathbb E(X) &= \frac{1}{n} \sum_{i=1}^n x_i\\
+      \text{Var}(X) &= \frac{1}{n}\sum_{i=1}^n x_i^2 - (\mathbb E(X))^2
+\end{align*}
+
+- Anwendungsbeispiele: 
+
+    - Werfen eines fairen Spielwürfels
+    - Auswahl eines Kunden aus dem Pool von $n$ Kunden
+    
+
+<!--
+```{r, echo=FALSE,out.width="100%"}
+htmltools::tags$iframe(title = "Diskrete_GV", src ="http://learning-dashboard.lehre.hwr-berlin.de:3838/Apps_RBook/#section-verteilungen",  width=760, height=400)
+```
+-->
+
+***
+
+::: {.example #dgleichvert name="naive Produktempfehlungen"}
+
+Im Beispiel Produktemfehlungen haben wir die Güte eines Produktempfehlungsverfahren beurteilt. Nun, zum Austesten, wieviele Produktempfehlungen sollen beim einem Shop-Besuch insgesamt dem Kunden angezeigt werden, um die grösste Wirkung zu erzielen, könnte man diskrete Gleichverteilung anwenden. (Wir wollen unsere Produkte empfehlen `r emoji::emoji("money_mouth_face")` aber gleichzeitig damit nicht zu sehr nerven oder vom Einkauf ablenken `r emoji::emoji("exploding_head")`)
+
+Dies würde bedeuten, dass man eine Zahl zwischen einem Minimum an Produktempfehlungen pro Shop-Besuch (z.B. nur eine Empfehlung) und einem Maximum (z.B. fünf Produktempfehlungen) bei jedem Kunden mit gleicher Wahrscheilichkeit auswählt und dann diese Anzahl der Empfehlungen anzeigt. Daraufhin kann man dann analysieren, welche Anzahl von Produktempfehlungen optimal wäre.
+
+Im Hintergrund ist also eine Gleichverteilung und $X=$ 'Die Anzahl der angezeigten Produktempfehlungen' ist diskret gleichvertelt zwischen $x_{min}=1$ und $x_{max}=5$.
+
+- Wertemenge: $\{x_1=1;x_2=2;\ldots;x_5=5\}$
+- Parameter: $n=5$
+- Wahrscheinlichkeitsfunktion: $f(x_i) = \frac 15$
+- Kennzahlen:
+
+    - Erwartungswert: $\mathbb E(X) = \frac 15(1 + 2 + \ldots +5) = 3$. Im Mittel werden also etwa 3 Produktemfehlungen angezeigt.
+    - Varianz: $\text{Var}(X)=\frac 15 (1^2 + 2^2 + \ldots + 5^2) - 3^2 = 2$. Die Standardabweichung der ANzahl von Produktwmpfehlungen ist also $\sqrt{2}$.
+
+:::
+
+***
+
+### Bernoulli Verteilung
+
+Sei $A\in\mathcal F$ ein Ereignis mit $p=\mathbb P(A)$. 
+Die Zufallsvariable $X=1_A$, die angibt, ob ein Ereignis $A$ eintritt oder nicht (die Indikator von $A$):
+\begin{equation*}
+    1_A=
+      \begin{cases}
+        1,&\text{ falls $A$ eintritt},\\
+        0,&\text{ falls $A$ nicht eintritt}. 
+      \end{cases}
+\end{equation*}
+ist **Bernoulli-verteilt** mit Parameter $p$ ($X\sim Ber(p)$). 
+
+Die Indikatorfunktion $1_A$ nimmt den Wert $1$ an, falls das Ereignis $A$ eintritt und den Wert $0$, falls $A$ nicht eintritt. 
+
+Beispiele für $A$:
+
+- beim Würfeln wird eine gerade Augenzahl erzielt; 
+- ein Kreditkunde zahlt seinen Kredit nicht zurück;
+- ein Patient wird durch eine bestimmte Therapie geheilt; 
+- das Produkt einer Warenlieferung ist defekt.
+
+Eine Zufallsvariable $X$ ist **Bernoulli-verteilt** mit Parameter $p\in (0,1)$, falls gilt:
+
+- Wertemenge: $\mathcal T=\{0,1\}$
+- Wahrscheinlichkeitsfunktion: $f(1)=p$, $f(0)=1-p$
+
+Kennzahlen:
+
+- Erwartungswert:
+\begin{equation*}
+      \mathbb E(X)=p. 
+\end{equation*}
+
+- Varianz: 
+\begin{equation*}
+      \text{Var}(X)=p(1-p). 
+\end{equation*}
+
+Man überprüft leicht: 
+\begin{align*}
+      \mathbb E(X) &= 1\cdot f(1) + 0\cdot f(0) = p\\[3pt]
+      \text{Var}(X) &= 1^2\cdot f(1) + 0^2\cdot f(0) - (\mathbb E(X))^2 %
+                      = p - p^2 = p(1-p). 
+\end{align*}
+
+
+***
+
+::: {.example #dbernvert name="Indikator von App-Nutzung"}
+
+Im Beispiel \@ref(exm:ziehungbestKov) haben wir die Zufallsvariable $A=$"Indikator für die App-Nutzung" definiert:
+
+$A=\begin{cases}1, &\text{ falls } App\\0, &\text{ falls } Web.\end{cases}$
+
+$A$ nimmt nur zwei Werte $\{0;1\}$ and basierend auf dem Eintreten des Ereignisses $App=$"ein zufällig ausgewählter Kunde nutzt die App". Die Wahrscheinlichkeit $\mathbb P(App)=0,6$. Dies bedeutet:
+
+- $A\sim Ber(p=0,6)$
+- $\mathbb E(A) = 0,6$ und
+- $\text{Var}(A) = 0,6\cdot (1-0,6) = 0,24.$
+
+Wir haben etwas länger gebracht, als wir diese Kennzahlen "from Scratch" in \@ref(exm:ziehungbestKov) kalkulieren mussten `r emoji::emoji("smirking_face")` 
+
+:::
+
+***
+
+
+### Binomialverteilung
+
+Die Binomialverteilung ergibt sich, wenn aus $n$ unabhängigen Wiederholungen eines Bernoulli-Experiments mit konstanter Wahrscheinlichkeit $p$ die Summe der Treffer gebildet wird. 
+
+D.h., wenn ein Bernoulli-Zufallsvorgang wird bei gleichbleibender Wahrscheinlichkeit $p=\mathbb P(A)$ $n$-mal wiederholt, dann 
+ist die Zufallsvariable
+\begin{equation*}
+      X=\text{"Anzahl der Versuche, bei denen $A$ eintritt''}
+\end{equation*}
+binomialverteilt mit Parametern $n$ und $p$. 
+
+Eine Zufallsvariable heißt **binomialverteilt** mit den Parametern $n$ und $p$, kurz $X\sim B(n,p)$, falls gilt:
+\begin{equation*}
+      \mathbb P(X=k) = f(k) =  \binom{n}{k} p^k\,
+      (1-p)^{n-k},\quad\text{ für } k=0,1,\ldots, n,
+\end{equation*}
+und $f(k)=0$ sonst.Zur Erinnerung: Binomialkoeffizient: $\displaystyle\binom{n}{k} = \frac{n!}{k!(n-k)!}$ mit $n!=1\cdot 2\cdot \ldots \cdot n$ und $0!=1$. 
+
+- Kennzahlen:
+\begin{equation*}
+      \mathbb E(X) = np\quad\text{ und }\quad \text{Var}(X) = n p(1-p)
+\end{equation*}
+
+- **Additionseigenschaft**: Die Summe unabhängiger binomialverteilter Zufallsvariable mit gleichem Parameter $p$ ist wieder
+    binomialverteilt:
+
+sind $X\sim B(n,p)$ und $Y\sim B(m,p)$ unabhängig, so ist $X+Y\sim B(n+m,p)$. 
+
+- Anwendungsbeispiele:
+
+    - Anzahl der Kredite in einem Portfolio, die nicht bedient werden (Annahme: Kredite fallen unabhängig voneinander aus.)
+    - Anzahl der Patienten, die durch eine Therapie geheilt werden; 
+    - Anzahl der Produkte einer Warenlieferung, die defekt sind. 
+
+
+***
+
+::: {.example #dbinvert name="Anzahl von App-Nutzern"}
+
+Im Beispiel \@ref(exm:ziehungapp) haben wir Wahrscheinlichkeiten für die Anzahl von App-Nutzern umständig berechnen müssen. Nun wissen wir besser: in diesen Zusammenhang ist die Binomialverteilung anwendbar, da:
+
+- Wenn wir aus dem Kunden-Pool $n=3$ Kunden zufällig (mit Zurücklegen) auswählen und die Anzahl von App-Nutzern zählen, dann wiederholen wir den Bernoulli-Vorgang: 'Ziehung eines zufälligen Kunden und Feststellung von $App$-Eigenschaft'  unabhängig drei mal.
+- Die **Erfolgswahrscheinlichkeit**, Wahrscheinlichkeit einen App-Nutzer auszuwählen, bleibt dabei $\mathbb P(App)=0,6$ unverändert.
+- Also ist $X=$'Anzahl von App-Nutzern unter den zufällig ausgewählten drei Kunden' binomial verteilt:
+$X\sim B(n=3; p=0,6)$
+
+- Die Wahrscheinlichkeiten aus \@ref(exm:ziehungapp) können wir nun viel schneller berechnen `r emoji::emoji("smiling_face_with_sunglasses")`:
+\begin{align}
+\mathbb P(X=2) &=\binom{3}{2} 0,6^2\,(1-0,6)^{3-2} = `r gsub("\\.","\\,",round(dbinom(2,3,0.6),4))`,\\
+\mathbb P(X<2) &=\mathbb P(X=0) + \mathbb P(X=1)=\binom{3}{0} 0,6^0\,(1-0,6)^{3-0} + \binom{3}{1} 0,6^1\,(1-0,6)^{3-1} \\
+&= `r gsub("\\.","\\,",round(dbinom(0,3,0.6)+dbinom(1,3,0.6),4))`,\\
+\mathbb P(X=3) &=\binom{3}{3} 0,6^3\,(1-0,6)^{3-3} = `r gsub("\\.","\\,",round(dbinom(3,3,0.6),4))`.
+\end{align}
+
+- Kennzahlen:
+\begin{align}
+\mathbb E(X) &= n\cdot p = 3\cdot 0,6 = 1,8\\
+\text{Var}(X)&= n\cdot p\cdot(1-p) = 3\cdot 0,6\cdot 0,4 = 0,72.
+\end{align}
+
+:::
+
+
+***
+
+::: {.example #dbinvertKredit name="Kreditportfolio"}
+
+Betrachte ein homogenes Kreditportfolio mit $500$ Krediten und Ausfallwahrscheinlichkeit von $1$%.
+
+- Zufallsvariable $A = \text{'Ausfall eines Kredites'}$ mit Werten $a\in \{0 (\text{kein Ausfall}),1 (\text{Ausfall})\}$ ist Bernoulli-verteilt mit $p=0,01$.
+- Zufallsvariable $P = \text{'Anzahl der Ausfälle im Kreditportfolio'}$ (Annahmen: Ausfälle geschehen unabhängig von einander). 
+- Unter den Annahmen ist $P$ $\text{binomialverteilt}$ mit $p=0,01$ und $n=500$: $P\sim B(500,0,01)$.
+
+\begin{align*}
+		\mathbb E(P) &= np = 500\cdot 0,01 = 5,\\
+		\text{Var}(P) &=np(1-p)=500\cdot 0,01\cdot 0,99 = 4,95,\\
+		\mathbb P(P>1) &=1-\mathbb P(P\leq 1) =1-\sum_{k=0}^1\binom{n}{k}p^k(1-p)^{n-k} \\
+		&=1- \Big(\frac{500!}{0!500!}(0,01)^0(0,99)^{500} + \frac{500!}{1!499!}(0,01)^1(0,99)^{499}\Big)=`r gsub("\\.","\\,",round(1-pbinom(1,500,0.01),4))`.
+\end{align*}
+
+:::
+
+***
+
+::: {.exercise name="Spezielle diskrete Verteilungen"}
+
+```{r, echo=FALSE,out.width="100%"}
+htmltools::tags$iframe(title = "quiz_dv", src ="./htmls/quiz_dv.html",  width=760, height=500)
+```
+
+:::
+
+***
+
+
+### Geometrische Verteilung `r emoji::emoji("alien")`
+
+Wird ein Bernoulli-Experiment bei gleichbleibender Wahrscheinlichkeit $p=\mathbb P(A)$ so lange wiederholt, bis zum ersten
+Mal das interessierende Ereignis $A$ eintritt, so ist die Zufallsvariable
+\begin{equation*}
+      X=\text{"Anzahl der Versuche, bis $A$ zum ersten Mal eintritt''}
+\end{equation*}
+ist **geometrisch verteilt** mit Parameter $p$. 
+
+Anwendungsbeispiele:
+
+- Dauer ("diskrete Wartezeit" in Tagen) bis zum ersten Ausfall eines
+      Geräts, 
+- Dauer in Tagen, bis ein Versicherungskunde das erste Mal einen
+      Schaden meldet,
+- Anzahl von befragten Kunden (Wartenzeit in Kunden `r emoji::emoji("smile")`), bis zum ersten Mal man einen Kunden mit der gewünschten Eigenschaft befragt.
+      
+Eine Zufallsvariable $X$ heißt **geometrisch verteilt** ($X\sim G(p)$) mit Parameter $p$, falls gilt: 
+\begin{equation*}
+      \mathbb P(X=k)=f(k) = (1-p)^{k-1}\cdot p, \quad \text{ für }
+      k=1,\ldots,
+\end{equation*}
+und $f(k)=0$ sonst. 
+
+- Kennzahlen:
+\begin{align*}
+       \mathbb E(X) &= \sum_{k=1}^\infty k\, p\, (1-p)^{k-1} = \frac{1}{p}\\
+       \text{Var}(X) &= \sum_{k=1}^\infty k^2 \, p\, (1-p)^{k-1} -
+              \frac{1}{p^2} = \frac{1-p}{p^2} 
+\end{align*}
+
+
+***
+
+::: {.example #dgeomvert name="Kundenumfrage"}
+
+Eine Umfrage von $n=50$ Kunden wird durchgeführt. Bei der Befragung werden Kunden zufällig ausgewählt und können mehrfach teilnehmen. Anteil von Kunden, die die App nutzen, liegt bei 60\%.
+
+- Zufallsvariable: $M = \text{'Anzahl der App-Nutzer bei der Kundenbefragung'}$, $M\sim B(n=50,p=0,6)$.
+
+- Zufallsvariable $V = \text{'Anzahl der Befragten bis ein App-Nutzer befragt wird'}$ ist geometrisch verteilt $V\sim G(p=0,6)$.
+\begin{align*}
+		\mathbb E(V) &= \frac 1p = 1,6667,\\
+		\text{Var}(V) &=\frac{1-p}{p^2}=\frac{0,4}{0,36} = 1,1111,\\
+		\mathbb P(V< 5)& = \mathbb P(V\leq 4) =f_{G_{0,6}}(1) + f_{G_{0,6}}(2) + \ldots + f_{G_{0,6}}(4),\\
+		&=(1-0,6)^0\cdot 0,6 + (1-0,6)^1\cdot 0,6 + \ldots + (1-0,6)^3\cdot 0,6 = `r gsub("\\.","\\,",round(pgeom(4,0.6),4))`.
+\end{align*}
+
+:::
+
+***
+
+### Poisson-Verteilung `r emoji::emoji("alien")`
+
+Manchmal brauchen wir auch eine Verteilung, die die Anzahl von "Erfolge" **pro Zeiteinheit** angibt. Wenn z.B. der Zufallsvorgang "andauert", wie ein Online-Shop immer verfügbar ist und die Anzahl der Kunden die pro Stunde sich einloggen von Interesse ist.
+
+Wir interessieren uns u.U. für die folgende Zufallsvariable:
+\begin{equation*}
+      X=\text{"Anzahl der Ereignisse, die innerhalb eines Zeitintervalls $[0,1]$ eintreten''}.
+\end{equation*}
+
+Unter den folgenden Annahmen ist $X$ **Poisson-verteilt**:
+
+- Zwei Ereignisse können nicht gleichzeitig eintreten.
+- Die W'keit, dass ein Ereignis in einem kleinen Zeitintervall der Länge $\Delta t$ auftritt, ist ungefähr $\lambda\Delta t$.
+- Die W'keit des Eintretens hängt nur von Länge des Zeitintervalls, nicht von der Lage ab.
+- Die Anzahlen von Ereignissen in disjunkten Teilintervallen sind unabhängig.
+
+Eine Zufallsvariable $X$ ist **Poisson-verteilt** ($X\sim Poi(\lambda)$) mit Parameter $\lambda$, falls gilt: 
+\begin{equation*}
+      \mathbb P(X=k) = f(k) = \frac{\lambda^k}{k!}\, \text{e}^{-\lambda}, \quad
+      k=0,1,2,\ldots, 
+\end{equation*}
+und $f(k)=0$ sonst. 
+
+Der Parameter $\lambda$ wird auch **Intensitätsrate** genannt. 
+
+- Kennzahlen:
+\begin{equation*}
+      \mathbb E(X)=\lambda\quad \text{ und } \quad \text{Var}(X)=\lambda. 
+\end{equation*}
+
+- **Additionseingenschaft**:
+Sind $X\sim Poi(\lambda)$ und $Y\sim Poi(\mu)$ unabhängig, so gilt: 
+\begin{equation*}
+    X+Y\sim Poi(\lambda+\mu). 
+\end{equation*}
+
+Daraus folgt insbesondere, dass die Anzahl von Ereignissen in einem Intervall der Länge $t$ Poisson-verteilt ist mit Parameter 
+    $\lambda t$. 
+
+- Anwendungsbeispiele: 
+
+    - die Anzahl der Kreditausfälle einer Bank in einer bestimmten Abrechnungsperiode;
+    - die Anzahl der an einem Schalter während einer bestimmten Zeitspanne ankommenden Kunden;
+   
+
+***
+
+::: {.example #dpoisvert name="Werbebanner"}
+
+Auf Ihrer Website wird ein Werbebanner zwischen 8 und 10 Uhr bzw. 19 und 20 Uhr geschalten. Die Besucher Ihrer Website agieren unabhängig und die Klickrate  ($\lambda$) in den beiden Zeitspannen ist konstant und liegt bei 5 Tsd. Klicks pro Stunde.
+
+- $B_{morgens} = \text{'Anzahl von Klicks zw. 8 und 10 Uhr'}$, $B_M\sim Poi(\lambda_{morgens}=2\cdot\lambda=10)$.
+
+- $B_{abends} = \text{'Anzahl von Klicks zw. 19 und 20 Uhr'}$, $B_A\sim Poi(\lambda_{abends}=\lambda=5)$.
+
+- Wegen der Additionseigenschaft der Poisson-Verteilung: $B_{gesamt} = \text{'Anzahl von Klicks auf Ihr Werbebanner in den beiden Zeitspannen'}$ ist ebenso Poisson verteilt $B_{gesamt}\sim Poi(\lambda_{gesamt}=\lambda_{morgens}+\lambda_{abends}=15)$.
+\begin{align}
+		\mathbb E(B_{gesamt}) &= \lambda_{gesamt} = 15,\\
+		\text{Var}(B_{gesamt}) &=\lambda_{gesamt}=15,\\
+		\mathbb P(B_{gesamt}>10)&=1-\mathbb P(B_{gesamt}\leq 10) = 1-(f_{poi_{15}}(0) + f_{poi_{15}}(1) + \ldots+ f_{poi_{15}}(10))\\  &=1-\exp(-15)\cdot\Big(\frac{15^0}{0!}+\frac{15^1}{1!}+\ldots+\frac{15^{10}}{10!}\Big)= `r gsub("\\.","\\,",round(1-ppois(10,15),4))`.  
+\end{align}
+
+:::
+
+***
+
+#### Poissonverteilung approximiert Binomialverteilung{-}
+
+Unter bestimmten Voraussetzungen ($n\gg 1$ und $p\ll 1$, d.h.$n$ groß und $p$ klein) kann die Binomialverteilung durch die Poisson-verteilung mit $\lambda=n\, p$ approximieren (annähern). Dies erleichtert etwas die Berechnungen (die Wahrscheinlichkeitsfunktion der Poisson-Verteilung ist etwas einfacher zu berechnen).
+
+Approximation & Binomialverteilung $B(n,p)$ $\approx$ Poissonverteilung $Poi(\lambda)$:
+
+\begin{equation*}
+      f_B(k) = \binom{n}{k} p^k (1-p)^{n-k} \approx f_P(k) =
+      \text e^{-\lambda}\, \frac{\lambda^k}{k!}
+\end{equation*}
+
+Also, wenn $X$: Anzahl des Eintretens eines zufälligen Ereignisses $A$ mit kleiner Wahrscheinlichkeit $\mathbb P(A)$ in einer langen Serie unabhängiger Versuche darstellt, ist $X$ is approximativ Poisson-verteilt. Poisson-Verteilung ist in diesem Fall als die **Verteilung der seltenen Ereignisse** zu interpretieren.
+
+::: {.example #dbinpoisaprox name="Kreditportfolio approximiert"}
+
+Fortführung von \@ref(exm:dbinvertKredit)
+
+Betrachte ein homogenes Kreditportfolio mit $500$ Krediten und Ausfallwahrscheinlichkeit von $1$%.
+
+$P = \text{'Anzahl der Ausfälle im Kreditportfolio'}$, $P\sim B(n=500,p=0,01)$.
+$\lambda=n\, p= 500\cdot 0,01 = 5$ und $P\stackrel{approx.}{\sim}{} Poi(5).$
+
+$$
+\begin{array}{rcc}
+  \hline 
+  k & f_B(k) & f_{Poi}(k)\\
+  \hline
+  0 & 0,0066 & 0,0067\\
+  1 & 0,0332 & 0,0337\\
+  2 & 0,0836 & 0,0842\\
+  3 & 0,1402 & 0,1404\\
+  4 & 0,1760 & 0,1755\\
+  5 & 0,1764 & 0,1755\\\hline
+\end{array}
+$$
+
+```{r,echo=F,fig.cap='Wktsfunktion der Binomialverteilung und der Poisson-Apprximation', out.width='80%', fig.asp=.75, fig.align='center'}
+n=500; p=0.01
+lam=n*p
+
+x<-seq(0,20,1)
+ppx<-dpois(x,lam)
+pbx<-dbinom(x,n,p)
+
+plot(x,pbx,xlab="k",type="h",ylab="f(k)",ylim=c(0,0.2),axes=F,lwd=2,col=alpha(3,0.5))
+points(x,pbx,pch=15,col=alpha(3,0.5))
+lines(x+0.2,ppx,type="h",col=alpha(2,0.5),lwd=2)
+points(x+0.2,ppx,pch=15,col=alpha(2,0.5))
+axis(2, at=c(0,0.1,0.2))
+axis(1)
+legend("topright",bty="n",col=c(alpha(3,0.5),alpha(2,0.5)),lwd=c(3,3),legend=c("B(500;0,01)", "Poi(5)"))
+#abline(v=input$lam,lty=2,col=2)
+#text(input$lam,0.49,paste0("E(X)=",round(input$lam,4)),col=2)
+#arrows(0.5*input$lam,0.4, 1.5*input$lam+2,0.4,lty=1, code=3,col=3)
+#text(input$lam+3,0.4,paste0("Var(X)=",input$lam),col=3)
+```
+
+
+:::
+
+***
+
+***
+
+::: {.exercise name="Spezielle diskrete Verteilungen"}
+
+```{r, echo=FALSE,out.width="100%"}
+htmltools::tags$iframe(title = "zusatz_dv", src ="./htmls/zusatz_dv.html",  width=760, height=500)
+```
+
+:::
+
+***
+
+## Spezielle stetige Verteilungen
+
+Auch stetige Zufallsvariablen gibt es Verteilungsmodelle, die in mehreren ZUsammenhängen angewadt werden. Wir werden ein Paar stetigen Verteilungen hier kennenlernen.
+
+```{r,echo=F}
+knitr::include_url(paste0(link,"Apps_RBook/#section-verteilungen"),
+  height = "600px")
+```
+
+### Normalverteilung
+
+Die **Normalverteilung**ist die bekannteste und wichtigste Verteilung. In vielen Anwendungen lässt sich die empirische Verteilung eines Merkmals durch eine Normalverteilung hinreichend gut approximieren. 
+
+Insbesondere ist die Normalverteilung ein gutes Modell, wenn die zugrundeliegende Variable aus der additiven Überlappung einer Vielzahl unabhängiger, zufälliger Einzeleffekte resultiert. Die theoretische Rechtfertigung für dieses empirisch beobachtbare Phänomen liefert der **Zentrale Grenzwertsatz** ($\leadsto$ folgendes Kapitel)
+
+Die Normalverteilung wird häufig auch **Gauß-Verteilung** genannt, benannt nach dem Mathematiker Carl Friedrich Gauß (1777--1855). 
+
+Eine Zufallsvariable $X$ heißt **normalverteilt** mit Parametern $\mu\in \mathbb R$ und $\sigma>0$, kurz $X\sim N(\mu,\sigma^2)$, wenn sie die folgende Dichte besitzt:
+\begin{equation*}
+      \varphi(x) = \frac{1}{\sqrt{2\pi\sigma^2}}
+      \exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right), \quad x\in \mathbb R. 
+\end{equation*}
+
+- Kennzahlen:
+\begin{equation*}
+      \mathbb E(X)=\mu\quad\text{ und }\quad \text{Var}(X)=\sigma^2. 
+\end{equation*}
+
+- Mit $\mu=0$ und $\sigma^2=1$ erhält man die **Standardnormalverteilung** $N(0,1)$ mit Dichte
+\begin{equation*}
+      \varphi(x)=\frac{1}{\sqrt{2\pi}}
+      \exp\left(-\frac{x^2}{2}\right), \quad x\in \mathbb R. 
+\end{equation*}
+
+- Die dichte der Standardnormalverteilung wird als $\varphi(x)$ und die Verteilungsfunktion als $N(x)$ bezeichnet.
+
+
+- Eigenschaften der Normalverteilung
+
+    - Die Dichte ist **symmetrisch zu $\mu$**, d.h.
+    \begin{equation*}
+        \varphi(\mu-x) = \varphi(\mu+x), \quad x\in \mathbb R.
+    \end{equation*}
+    Insbesondere im Fall $\mu=0$: $\varphi(-x)=\varphi(x)$.
+    - Für die Verteilungsfunktion der Standardnormalverteilunge gilt: $N(-x) = 1- N(x)$
+    - **Standardisieren**: 
+    
+        - $X$ ist $N(\mu,\sigma^2)$-verteilt $\iff$ $\displaystyle\frac{X-\mu}{\sigma}$ ist $N(0,1)$-verteilt.
+        - $Y$ ist $N(0,1)$-verteilt $\iff$ $\mu + \sigma Y$ ist $N(\mu,\sigma^2)$-verteilt.
+
+    - Wahrscheinlichkeiten innerhalb von $\sigma$-Grenzen
+    \begin{align*}
+    \mathbb P(|X-\mu|\leq \sigma) &= 0,6827\\
+    \mathbb P(|X-\mu|\leq 2\sigma) &= 0,9545\\
+    \mathbb P(|X-\mu|\leq 3\sigma) &= 0,9973
+    \end{align*}
+    - Additionseigenschaft: Sind $X\sim N(\mu_X,\sigma_X^2)$ und $Y\sim N(\mu_Y,\sigma_Y^2)$ unabhängig, so ist
+    \begin{equation*}
+    X+Y\sim
+    N(\mu_X+\mu_Y, \sigma_X^2+\sigma_Y^2).
+    \end{equation*}
+    
+- Wahrscheinlichkeit, mit der eine $N(\mu,\sigma^2)$-verteilte Zufallsvariable zwischen den Grenzen $a$ und $b$ liegt:
+
+\begin{equation*}
+      \mathbb P(a\leq X\leq b) = \mathbb P\left(\frac{a-\mu}{\sigma}\leq
+        \frac{X-\mu}{\sigma} \leq \frac{b-\mu}{\sigma}\right)
+      = N\left(\frac{b-\mu}{\sigma}\right) -
+      N\left(\frac{a-\mu}{\sigma}\right) 
+\end{equation*}
+
+***
+
+::: {.example #normverttemp name="Durchschnittliche Temperatur"}
+
+Wir modellieren die durchschnittliche Temperatur in Berlin in Juli als Zufallsvariable $T: \text{'Durchschnittliche Temperatur in Berlin im Juli'}$ mit Werten $t\in \mathbb R$.
+
+- $T\stackrel{}{\sim}{} N(\mu_T,\sigma_T)$ mit $\mu_T=\mathbb E(T)=20$,  $\text{Var}(T)=16$ und $\sigma_T = 4$.
+
+
+- Wahrscheinlichkeit:
+\begin{align*}
+	\mathbb P(|T-20|\leq 4) &\approx 0,68,\\
+	\mathbb P(|T-20|\leq 8) &\approx 0,95,\\
+	\mathbb P(15\leq T\leq 25)& = \mathbb P(T\leq 25)-\mathbb P(T<15) =N\Big(\frac{25-20}{4}\Big) - N\Big(\frac{15-20}{4}\Big)\\
+	& = `r gsub("\\.","\\,",round(pnorm(25,20,4),4))` - `r gsub("\\.","\\,",round(pnorm(15,20,4),4))` = `r gsub("\\.","\\,",round(pnorm(25,20,4) - pnorm(15,20,4) ,4))`.
+\end{align*}
+
+:::
+
+***
+
+::: {.example #normvertmittel name="Stichprobenmittelwert von normalverteilten Zufallsvariablen"}
+
+Wenn wir uns eine Zufallsauswahl (mit Zurücklegen) aus einer normalverteilten Grundgesamtheit vornehmen und ein mögliches Ergebnis als $n$ Zufallsvariablen-"Platzhalter" aufschreiben als $X_1, X_2, \ldots, X_n$, bzw. das Mittel  $\bar X$ berechnen, dann gilt:
+
+- $X_i\sim N(\mu_X,\sigma_X^2)$ per Annahme, da wir aus einer normalverteilten Grundgesamtheit auswählen.
+
+- $X_i$ unabhängig, da Ziehen mit Zurücklegen
+
+- $\bar X = \frac 1n\sum_{i=1}^n X_i$ ist per Additionseigenschaft der Normalverteilung ist ebenso normalverteilt.
+
+- $\bar X\sim N(\mu_X,\frac{\sigma_X^2}n)$, da $\mathbb E(\bar X) = \mathbb E(\frac 1n\sum_{i=1}^n X_i) = \frac 1n\cdot n\cdot \mu_X$ und $\text{Var}(\bar X) = \text{Var}(\frac 1n\sum_{i=1}^n X_i) = \frac 1{n^2}\cdot n\cdot \sigma_X^2$.
+
+- Bzw. $\frac{\bar X-\mu_X}{\frac{\sigma_X}{\sqrt n}}\sim N(0;1)$.
+
+:::
+
+***
+
+::: {.example #normvertlinreg name="Lineare Regression unter Normalverteilungsannahme"}
+
+Standardmodell der linearen Einfachregression:
+
+\begin{equation*}
+      Y_i = \alpha + \beta\, x_i + \varepsilon_i, \quad i=1,\ldots, n.
+\end{equation*}
+
+Dabei sind:
+
+- $Y_1,\ldots, Y_n$: beobachtbare metrische Zufallsvariable;
+- $x_1,\ldots, x_n$: gegebene deterministische Werte (oder
+    Realisierungen einer ZV $X$);
+- $\varepsilon_1, \ldots, \varepsilon_n$: unbeobachtbare
+      ZV'en, die unabhängig und identisch verteilt sind mit
+      $\mathbb E(\varepsilon_i)=0$, $\text{Var}(\varepsilon_i)=\sigma^2$. 
+
+Unter der Normalverteilungsannahme $\varepsilon_i\sim N(0,\sigma^2)\quad i=1,\ldots,n$ unabhängig von $X_i\sim N(\mu_X,\sigma_X^2)$ (im Fall $X$ zufällig) gilt:
+
+\begin{equation*}
+      Y_i\sim N(\alpha+ \beta x_i,\sigma^2), \quad i=1,\ldots,n.
+\end{equation*}
+
+und 
+
+\begin{align*}
+\hat\beta &= \frac{\sum_{i=1}^n (x_i-\overline x) (Y_i-\overline Y)} {\sum_{i=1}^n (x_i-\overline x)^2}\\
+&\sim N(\beta, \sigma_{\hat\beta}^2),\\
+\hat\alpha &=\overline Y-\hat\beta \overline x\\
+&\sim N(\alpha, \sigma_{\hat\alpha}^2).
+\end{align*}
+
+da  diese Zufallsvariablen eine lineare Kombination von unabhängigen normalverteilten Zufallsvariablen darstellen.
+
+:::
+
+***
+
+
+### $\chi^2$-Verteilung
+
+Manche Verteilungen sind miteinander verknüpft (wie z.B. Bernoulli und Binomialverteilungen). Sie kommen dadurch zustande, dass man eine Zufallsgröße mit einer bestimmten Verteilung geeinget transformiert. So auch die $\chi^2$-Verteilung stellt die Verteilung der Summe von quadrierten unabhängig standardnormalverteilten Zufallsvariablen dar. 
+
+Diese Verteilung ist wichtig für viele Schätz- und Testfunktionen wie bpw. $\hat \sigma^2$. Sie besitzen unter geeigneten Voraussetzungen zumindest approximativ eine $\chi^2$-Verteilung. 
+
+- Seien $X_1, \ldots, X_n$ unabhängige und identisch $N(0,1)$-verteilte Zufallsvariablen. Dann heißt die Verteilung der Zufallsvariablen
+\begin{equation*}
+      Z=X_1^2 + \cdots + X_n^2
+\end{equation*}
+
+- **Chi-Quadrat-Verteilung** mit $n$ Freiheitsgraden, kurz $\chi^2(n)$-Verteilung, und $Z$ heißt $\chi^2$-verteilt, kurz $Z\sim \chi^2(n)$. 
+
+- Kennzahlen:
+\begin{equation*}
+      \mathbb E(Z)=n\quad\text{ und }\quad \text{Var}(Z)=2n. 
+\end{equation*}
+
+- Einige $\chi^2$-Verteilungen:
+
+```{r,echo=F,fig.cap='Einige Chi-Quadrat-Verteilungen', out.width='80%', fig.asp=.75, fig.align='center'}
+  par(mfrow=c(1,2),mar=c(4,6.5,1,1),lwd=2)
+  n<-c(10,20,50)
+  xseq<-seq(0.1,100,length=1000)
+  plot(xseq, dchisq(xseq,n[1]),
+       type="l",col=1,axes=F,lwd=2,
+       xlim=c(0,max(xseq)),
+       ylim=c(0,max(dchisq(xseq,n[1]))+0.1),ylab="",xlab="",main="f(x)")
+  lines(xseq,dchisq(xseq,n[2]),col=2)
+  lines(xseq,dchisq(xseq,n[3]),col=4)
+  # arrows(1/lam,0,1/lam,dexp(1/lam,lam),col=4,lty=2,code=0)
+  # arrows(1/lam,dexp(1/lam,lam),min(xseq),dexp(1/lam,lam),col=4,lty=2,code=0)
+  axis(1,at=c(0,n,100),labels=c(0,paste(n),100))
+  axis(2,at=c(0,0.5),las=2)
+  # par(xpd=T)
+  # if(lam!=1){text(0,-0.2,"0",col="gray44")}
+  legend("topright",col=c(1,2,4),lty=1,legend=paste("df=",n),bty="n")
+  
+  plot(xseq, pchisq(xseq,n[1]),
+       type="l",col=1,axes=F,lwd=2,
+       xlim=c(0,max(xseq)),
+       ylim=c(0,1.1),ylab="",xlab="",main="F(x)")
+  lines(xseq,pchisq(xseq,n[2]),col=2)
+  lines(xseq,pchisq(xseq,n[3]),col=4)
+  arrows(0,1,max(xseq),1,col=4,lty=2,code=0)
+  #arrows(min(xseq),0.5,mu,0.5,col=4,lty=2,code=0)
+  axis(1,at=c(0,n,100),labels=c(0,paste(n),100))
+  axis(2,at=c(0,0.5,1),labels=c(0,0.5,1),las=2)
+  # text(1/lam,-0.2,paste("E(X)=",round(1/lam,2)),col=2)
+  # text(1/lam+0.2,0.2,paste("Var(X)=",round(1/lam^2,2)),col=3)
+  # lines(xseq,pexp(xseq,1),col=alpha("gray44",0.5))
+  
+```
+
+- Für die Schätzung werden wir Quantile dieser Verteilung brauchen. Diese werden mit Software berechnet oder aus der Verteilungstabelle entnommen, wo in der linken Spalte verschiedene Freiheitsgrade und in der oberen Zeile einige Wahrscheinlichkeiten zu finden sind.
+
+
+```{r,echo=F,fig.cap='Quantile der Chi-Quadrat-Verteilungen', out.width='80%', fig.asp=.75, fig.align='center'}
+knitr::include_graphics('./images/chi.png')
+```
+
+***
+
+::: {.example #chivertmittel name="Stichprobenvarianz von normalverteilten Zufallsvariablen"}
+
+Fortführung von \@ref(exm:normvertmittel).
+
+Wenn wir zudem aus der Stichprobe noch die Varianz schätzen mittels der Stichprobenvarianz:
+
+$$
+S^2=\frac 1{n-1}\Big((X_1 - \bar X)^2 + \ldots + (X_n - \bar X)^2 \Big)
+$$
+Dann die Zufallsvariable $\frac{(n-1)S^2}{\sigma^2}$ ist $\chi^2$-verteilt mit $n-1$-Freiheitsgraden.
+
+:::
+
+***
+
+### t-Verteilung
+
+Die $t$-Verteilung findet besonders bei Parametertests und bei Konfidenzintervallen Anwendung. Sie kommt dadurch zustande, dass man ein standardnormalverteilte Größe durch die Wurzel aus einer geeignet transformierten $\chi^2$-verteilten Zufallsvariable teilt.
+
+- Seien $X\sim N(0,1)$ und $Z\sim\chi^2(n)$ unabhängig. Dann heißt die Verteilung der Zufallsvariablen
+\begin{equation*}
+      T=\frac{X}{\sqrt{Z/n}}
+\end{equation*}
+**$t$-verteilt** mit $n$ Freiheitsgraden, kurz $T\sim t(n)$. 
+
+- Kennzahlen:
+
+\begin{equation*}
+      \mathbb E(T)=0 \quad (n>1)\quad\text{ und }\quad
+      \text{Var}(T)=\frac{n}{n-2} \quad (n>2). 
+\end{equation*}
+
+- Einige $t$-Verteilungen: 
+
+```{r,echo=F,fig.cap='Einige t-Verteilungen', out.width='80%', fig.asp=.75, fig.align='center'}
+  par(mfrow=c(1,2),mar=c(4,6.5,1,1),lwd=2)
+  n<-c(2,5,20)
+  xseq<-seq(-4,4,length=1000)
+  plot(xseq, dt(xseq,n[1]),
+       type="l",col=1,axes=F,lwd=2,
+       xlim=c(min(xseq),max(xseq)),
+       ylim=c(0,0.5),ylab="",xlab="",main="f(x)")
+  lines(xseq,dt(xseq,n[2]),col=2)
+  lines(xseq,dt(xseq,n[3]),col=4)
+  lines(xseq,dnorm(xseq,0,1),col=alpha("gray44",0.5))
+  # arrows(1/lam,0,1/lam,dexp(1/lam,lam),col=4,lty=2,code=0)
+  # arrows(1/lam,dexp(1/lam,lam),min(xseq),dexp(1/lam,lam),col=4,lty=2,code=0)
+  axis(1,at=c(-4,0,4),labels=c("",0,""))
+  axis(2,at=c(0,0.5),las=2)
+  # par(xpd=T)
+  # if(lam!=1){text(0,-0.2,"0",col="gray44")}
+  legend("topright",col=c(1,2,4,"gray44"),lty=1,legend=c(paste("df=",n),"N(0,1)"),bty="n")
+  
+  plot(xseq, pt(xseq,n[1]),
+       type="l",col=1,axes=F,lwd=2,
+       xlim=c(min(xseq),max(xseq)),
+       ylim=c(0,1.1),ylab="",xlab="",main="F(x)")
+  lines(xseq,pt(xseq,n[2]),col=2)
+  lines(xseq,pt(xseq,n[3]),col=4)
+  arrows(min(xseq),1,max(xseq),1,col=4,lty=2,code=0)
+  lines(xseq,pnorm(xseq,0,1),col=alpha("gray44",0.5))
+  #arrows(min(xseq),0.5,mu,0.5,col=4,lty=2,code=0)
+  axis(1,at=c(-4,0,4),labels=c("",0,""))
+  axis(2,at=c(0,0.5,1),labels=c(0,0.5,1),las=2)
+  # text(1/lam,-0.2,paste("E(X)=",round(1/lam,2)),col=2)
+  # text(1/lam+0.2,0.2,paste("Var(X)=",round(1/lam^2,2)),col=3)
+  # lines(xseq,pexp(xseq,1),col=alpha("gray44",0.5))
+  
+```
+
+
+- Die $t$-Verteilung hat im Vergleich zur Normalverteilung mehr Verteilungsmasse in den Rändern ("heavy tails"). 
+
+
+- Für $n\rightarrow\infty$ konvergiert die Dichtefunktion der $t$-Verteilung gegen die Dichte der Standardnormalverteilung. 
+
+- Für die Schätzung werden wir Quantile dieser Verteilung brauchen. Diese werden mit Software berechnet oder aus der Verteilungstabelle entnommen, wo in der linken Spalte verschiedene Freiheitsgrade und in der oberen Zeile einige Wahrscheinlichkeiten zu finden sind.
+
+
+```{r,echo=F,fig.cap='Quantile der t-Verteilung', out.width='80%', fig.asp=.75, fig.align='center'}
+knitr::include_graphics('./images/t.png')
+```
+
+***
+
+::: {.example #tvertmittel name="Stichprobenmittelwert von normalverteilten Zufallsvariablen"}
+
+Fortführung von \@ref(exm:normvertmittel) und \@ref(exm:chivertmittel).
+
+In dem obigen Beispiel haben wir gesehen, dass unter der Normalverteilungsannahme:
+
+- $\frac{\bar X-\mu_X}{\frac{\sigma_X}{\sqrt n}}\sim N(0;1)$.
+
+Wenn aber $\sigma_X^2$ unbekannt ist und geschätzt wird, ersetzt man die wahre Standardabweichung bei der Standardisierung durch die Schätzung $S$ ($S_X=\sqrt{S_X^2}$, $S_X^2$ ist die Stichprobenvarianz), dann gilt:
+
+- $\frac{\bar X-\mu_X}{\frac{S_X}{\sqrt n}}\sim t(n-1)$.
+
+- Rechnung$^\ast$:
+
+\begin{align}
+\frac{\bar X-\mu_X}{\frac{\sigma_X}{\sqrt n}} &= \frac{\frac{\bar X-\mu_X}{\frac{\sigma_X}{\sqrt n}}}{(n-1)S^2/\sigma_X/(n-1)}\\
+&=\frac{\bar X-\mu_X}{\frac{S_X}{\sqrt n}}.
+\end{align}
+
+
+also wird eine standardnormalverteilte ZV $\frac{\bar X-\mu_X}{\frac{\sigma_X}{\sqrt n}}$ durch eine $\chi^2$-verteilte ZV $(n-1)S^2/\sigma_X/(n-1)$ (geteilt durch die Freiheitsgrade der letzteren) genommen und per Definition der $t$-Verteilung $\frac{\bar X-\mu_X}{\frac{S_X}{\sqrt n}}$ ist also $t$-verteilt mit $n-1$-Freiheitsgraden.
+:::
+
+***
+
+::: {.example #tlinreg name="Lineare Regression unter Normalverteilungsannahme`r emoji::emoji("alien")`"}
+
+Fortführung von \@ref(exm:normvertlinreg).
+
+- Da $\sigma^2$ - die Varianz von den unbeobachtbaren Fehlertermen $\varepsilon_i$ immer geschätz wird durch $\hat\sigma^2 = \frac 1{n-2}\sum_{i=1}^n\big(Y_i - (\hat \alpha + \hat \beta x_i)\big)^2$ ($n-2$ kommt daher, dass wir nun zwei Parameter $\alpha$ und $\beta$ schätzen und $2$ Freiheitsgrade dadurch verlieren) und
+
+- Die Varianzen der Schätzer $\sigma_{\hat\alpha}^2$ und $\sigma_{\hat\beta}^2$ bauen darauf auf, müssen also auch durch die Schätzungen $\hat\sigma_{\hat\alpha}^2$ und $\hat\sigma_{\hat\beta}^2$ ersetzt werden, gilt:
+
+$$
+\frac{\hat\beta - \beta}{\hat\sigma_{\hat\beta}}\sim t(n-2)\,\
+\frac{\hat\alpha - \alpha}{\hat\sigma_{\hat\alpha}}\sim t(n-2).
+$$
+Diese hergeleitete Verteilungen werden uns später nützlich sein, wenn wir die Unsicherheit, die mit einer Schätzung einhergeht, zu quantifizieren.
+
+:::
+
+***
+
+::: {.exercise name="Spezielle stetige Verteilungen"}
+
+```{r, echo=FALSE,out.width="100%"}
+htmltools::tags$iframe(title = "quiz_sv", src ="./htmls/quiz_sv.html",  width=760, height=500)
+```
+
+:::
+
+***
+
+
+### Exponentialverteilung `r emoji::emoji("alien")`
+
+Unter den diskreten Verteilungen war die geometrische Verteilung ein geeignetes Modell für eine in diskreten Zeitabständen gemessene Lebensdauer oder Wartezeit.
+
+Die **Exponentialverteilung** ist das stetige Analogon zur geometrischen Verteilung.
+
+Sie misst die verbleibende Lebensdauer oder Wartezeit unter der Annahme, dass die noch verbleibende Lebensdauer nicht von der bereits verstrichenen Lebensdauer abhängt ("**Gedächtnislosigkeit**").
+
+Anwendungsbeispiele:
+
+- Lebensdauer von Produkten oder technischen Systemen
+- Bearbeitungszeit von Kundenaufträgen
+- Wartezeit bis zum Eingang des nächsten Anruf im Call-Center
+
+Eine stetige Zufallsvariable $X$ heißt **exponentialverteilt** mit Parameter $\lambda>0$, kurz $X\sim E(\lambda)$, falls sie die Dichte besitzt:
+\begin{equation*}
+      f(x) = \lambda\, \text e^{-\lambda x}, \quad \text{ für } x\geq 0,
+\end{equation*}
+und $f(x)=0$ sonst.
+
+- Die Verteilungsfunktion ist
+    $F(x)=1-\text e^{-\lambda x}$, für $x>0$.
+
+- Kennzahlen:
+\begin{equation*}
+      \mathbb E(X) = \frac{1}{\lambda} \quad\text{ und }\quad
+      \text{Var}(X)=\frac{1}{\lambda^2}. 
+\end{equation*}
+
+***
+
+::: {.example #dexptrans name="Transaktionsdauer in Payment-Service"}
+
+```{r,echo=F}
+erw=10
+lam=1/erw
+lamm<-gsub("\\.","\\,",round(lam,4))
+
+dauer=5
+```
+
+
+In Rahmen der Betrugsprävention überwachen Sie die Transaktionzeiten (also die Wartezeiten bis eine Payment-Transaktion beendet ist) in Sekunden.
+
+Die Zufallsvariable $X =$"Transaktionsdauer in Sekunden" modellieren Sie als exponentialverteilt. Die mittlere Transaktionsdauer beträgt $5$ Sekunden.
+
+- $\mathbb E(X) = `r erw`$ $\leadsto$ $\lambda = \frac 1{\mathbb E(X)}=\frac 1{`r erw`}=`r lamm`$
+
+- $X\sim E(`r lamm`)$ und
+
+- Wahrscheinlichkeit für eine Transaktionszeit von weniger als `r dauer` Sekunden: 
+
+$$
+\mathbb P(X<`r dauer`) = F_{E}(`r dauer`) = 1-\text{e}^{-`r lamm`\cdot `r dauer`} = `r gsub("\\.","\\,",round(pexp(dauer,lam),4))`
+$$
+
+Transaktionen mit langen Transaktionszeiten sind betrugsverdächtig und müssen u. U. manuell kontrolliert werden. Sie möchten nun die Schwelle für die Dauer der Transaktion festlegen: wenn die Schwelle überschritten wird, wird die Richtigkeit der Transaktion nochmal manuell von einem Mitarbeiter nachkontrolliert. Es sollen aber höchsten $10$% der Trasaktionen nachkontrolliert werden.
+
+**Wie wählen Sie einen geeigneten Schwellenwert?**
+
+- Der Ansatz ($x_0$ ist der Schwellenwert):
+\begin{equation*}
+      \mathbb P(X > x_0) = 1-F_E(x_0)= 1-(1-\text e^{-`r lamm` x_0}) = 0,1, 
+\end{equation*}
+
+- Auflösen nach $x_0$ ergibt: 
+
+\begin{equation*}
+    x_0 =-\ln (0,1)/`r lamm` = `r gsub("\\.","\\,",round(qexp(0.1,lam),4))`\text{ Sekunden}. 
+\end{equation*}
+
+- Der Schwellenwert sollte also bei der Dauer von etwa `r gsub("\\.","\\,",round(qexp(0.1,lam),2))` Sekunden liegen. 
+
+:::
+
+***
+
+### Stetige Gleichverteilung `r emoji::emoji("alien")`
+
+Die stetige Zufallsvariable $X$ ist **gleichverteilt** mit den Parametern $a\in \mathbb R$ und $b\in \mathbb R$, kurz $X\sim U(a,b)$, wenn sie die Dichte 
+\begin{equation*}
+      f(x)=\frac{1}{b-a}, \quad x\in [a,b],
+\end{equation*}
+(und $f(x)=0$ sonst) besitzt. 
+
+- Die Verteilungfunktion ist $F(x) = \frac{x-a}{b-a} 1_{[a,b]}(x) +1_{(b,\infty)}(x)$.
+
+- Kennzahlen: 
+
+\begin{align*}
+      \mathbb E(X)&= \int_a^b x\cdot
+                       \frac{1}{b-a}\, d x = \frac{a+b}{2},\\
+      \text{Var}(X)&=\int_a^b x^2\cdot
+                \frac{1}{b-a}\, d x - \frac{(a+b)^2}{4} =
+                \frac{(b-a)^2}{12}.
+\end{align*}
+
+- Verschiedene stetige Gleichverteilungen:
+
+***
+
+::: {.example #dunif name="Werbebanner aktualisieren"}
+
+Im letzten Beispiel zu Werbebannern \@ref(exm:dpoisvert) haben wir Klicks modelliert. Nun, Werbebanner ändern sich und müssen dann auf der SHop-Website auch aktualisiert werden.
+
+Sie haben eine neue Werbebannervorlage kreiert und wollen Ihre Werbeanzeigen aktualisieren. Ein Transportskript holt alle Werbeaktualisierungen alle $20$ Minuten ab. Nachdem das Transportskript Ihre neue Vorlage abgeholt hat, ist sie sofort online.
+
+- Zufallsvariable $Z: \text{'Wartezeit in Minuten bis die Webeanzeige aktualisiert ist'}$ folgt auf dem Zeitinterval $[0,20]$ einer stetigen Gleichverteilung: $Z\sim U([0,20])$. 
+
+- Erwartungswert und Varianz:
+\begin{align*}
+	\mathbb E(Z)&=\frac{a+b}2=\frac{20}2=10,\\
+	\text{Var}(Z)&=\frac{(b-a)^2}{12} = \frac{400}{12}=33\frac13.
+\end{align*}
+
+:::
+
+***
+
+::: {.exercise name="stetige Verteilungen"}
+
+```{r, echo=FALSE,out.width="100%"}
+htmltools::tags$iframe(title = "zusatz_sv", src ="./htmls/zusatz_sv.html",  width=760, height=500)
+```
+
+:::
+
+***
+<!--
+## Rückblick{-}
+
+```{r, echo=FALSE,out.width="100%"}
+htmltools::tags$iframe(title = "Wortwolke", src =paste0(link,"Apps_RBook/#section-wortwolke"),  width=760, height=600)
+```
+-->
+
+

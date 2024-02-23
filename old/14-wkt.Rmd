@@ -1,0 +1,532 @@
+# II Wahrscheinlichkeitstheorie{-}
+
+Im Teil I haben wir gelernt, wie man die Daten aus einer **vorliegenden** Stichprobe (aus einer Teilerhebung, also) zu einem oder mehreren Merkmalen zusammenfasst, visualisiert und analysiert. Unser Ziel ist aber an der Stelle noch nicht erreicht, denn was wir *wirklich* erstreben sollen, sind valide **Rückschlüsse** auf die Verteilung in der Grundgesamtheit anhand dieser **Stichprobenrealisierung**. Derzeit ist es noch nicht klar:
+
+- ob solche Rückschlüsse überhaupt zulässig sind,
+- und wenn ja, was muss man dabei beachten?
+- Welche Kennzahlen aus Teil I geben Auskunft über welche Parameter der Grundgesamtheit und
+- warum haben wir die Kennzahlen so berechnet, wie wir sie berechnet haben? (woher kommen die Formeln?)
+
+Um diese und andere Fragen diesbezüglich zu beantworten, müssen wir erst verstehen, wie so eine mögliche Stichprobenrealisierung als Ergebnis einer **Zufallsauswahl** aus einer Grundgesamtheit, also eines **Zufallsvorgangs** modelliert werden kann. 
+
+Wahrscheinlichkeitstheorie beschreibt **stochastische Vorgänge** wie:
+
+- das Werfen einer 6 beim Würfeln,
+- die Kursentwicklung einer Aktie,
+- der Ausfall eines Kreditnehmers
+
+sowie auch Stichprobenziehung durch geeignete **stochastische Modelle**. Der Begrif Merkmal aus Teil I entspricht nun aus wahrscheinlichkeitstheoretischer Sicht dem neuen Begriff **Zufallsvariable**. Wie auch bei Merkmalen mit empirischen Verteilungen, interessieren wir uns primär für die nun modellhaften **Verteilungen von Zufallsvariablen**.
+
+In diesem Teil beschäftigen wir uns mit wahrscheinlichkeitstheoretischen Hintergründen und fangen an mit dem **Modell vom Zufallsvorgang**.
+
+# Modell vom Zufall
+
+Ein **Zufallsvorgang** oder (wenn wiederholbar) **Zufallsexperiment** ist ein Vorgang gekennzeichnet durch mehrere möglichen, verschiedenen, sich gegenseitig ausschließenden **Ergebnisse**. Vor Durchführung ist das Ergebnis unbekannt. Die Unsicherheit, die mit dem Eintritt von einem konkreten Ergebnis verbunden ist, wird durch **Wahrscheinlichkeiten** beschrieben.
+
+Jedes Zufallsvorgang lässt sich durch eine **Wahrscheinlichkeitsraum** beschreiben.
+
+***
+
+In diesem Kapitel werden wir lernen:
+  
+- Wie man einen Zufallsvorgang via einen geeigneten Wahrscheinlichkeitsraum beschreibt,
+- wie man relevante Ereignisse als Mengen von günstigen Ergebnissen definiert und
+- wie man daraufbasierend Wahrscheinlichkeiten für diese Ereignisse ausrechnet.
+
+***
+
+
+## Wahrscheinlichkeitsraum
+
+Ein **Wahrscheinlichkeitsraum** besteht aus folgenden Elementen:
+
+- $\Omega$: Ergebnismenge,
+
+- $\mathcal F$: Ereignisraum und
+
+- $\mathbb P$: Wahrscheinlichkeitsmaß.
+
+Wir beschränken uns in diesem Kapitel vorrangig auf Zufallsvorgänge mit endlich vielen Ergebnissen.
+
+### Ergebnismengen 
+
+- Ergebnismenge $\Omega$ ist die Menge aller möglichen Ergebnisse eines stochastischen Vorgangs.
+ 
+- Ein **Ergebnis** oder **Elementarereignis** $\omega$ aus der Menge $\Omega$ ist
+    
+    - das mögliche Resultat eines Experiments mit zufälligem Ausgang,
+    - der zukünftige Zustand des Experiments,
+    - oder die Merkmalsausprägung eines zufällig ausgewählten Objekts.
+- Beispiele
+
+    - Ergebnis eines  Würfelwurfs $\Omega=\{1,\ldots, 6\}$;
+    - Kurs einer Aktie am Ende der kommende Woche: $\Omega=\mathbb R_+$;
+    - Körpergröße einer zufällig gewählten Person: $\Omega=\mathbb R_+$. 
+    
+- **Ereignisse** sind Situationen des stochastischen Vorgangs, die
+  eintreten können. Formal ist ein Ereignis beschrieben als **Teilmenge von $\Omega$**, die alle Ergebnisse
+  $\omega$ enthält, die günstig sind für das Eintreten des Ereignisses. 
+
+- Spezielle Ereignisse sind:
+
+    - **Elementarereignis** $\{\omega\}$: besteht aus nur **einem** Ergebnis $\omega\in\Omega$
+    - **sicheres Ereignis** $\Omega$: besteht aus allen möglichen Ergebnissen
+    - **unmögliches Ereignis**$\emptyset$: enthält überhaupt kein Ergebnis (leere Menge)
+    - Beschreiben komplexer Ereignisstrukturen mit mengentheoretischen Operationen:
+\begin{align*}
+	A^c &= \{\omega\in\Omega| \omega\not\in A\} = \text{ Ereignis
+		$A$ tritt nicht ein.}\\ 
+	A\cup B&= \{\omega\in\Omega| \omega\in A \text{ oder } \omega\in
+	B\} = \text{ $A$ oder $B$ tritt ein.}\\ 
+	A\cap B&= \{\omega\in \Omega| \omega\in A\text{ und } \omega\in
+	B\} = \text{ $A$ und $B$ treten ein.}\\ 
+	A\setminus B &= \{\omega\in\Omega|\omega\in A \text{ und }
+	\omega\not\in B\} = \text{ $A$ tritt ein, aber
+		nicht $B$.} 
+\end{align*}
+
+- **Potenzmenge** $\mathcal P(\Omega)$ ist die Menge aller Teilmengen von $\Omega$.
+
+- Die **Mächtigkeit** von $A$ bezeichnet die Anzahl aller Elemente $\omega$ in $A$; Notation: $|A|$. 
+
+
+***
+
+::: {.example #wurf123 name="2-maliges Würfeln"}
+
+Wir führen das Experiment: 2-maliges Würfeln eines fairen Spielwürfels mit den Augenzahlen 1,2 und 3 auf jeweils zwei Seiten des Würfels.
+
+- Ergebnismenge:
+\begin{align*}
+        \Omega &= \{(1;1), (1;2), (1;3), (2;1),\ldots, (3;3)\}\\
+        &=\{(a,b) | a,b\in \{1; 2; 3\}\},
+\end{align*}
+wobei $a=\text {Ergebnis im 1. Wurf}$ und $b=\text {Ergebnis 2. im Wurf}$
+
+- Die Mächtigkeit von $\Omega$ ist: $|\Omega| = \text{Möglichkeiten}^\text{Anzahl von Wiederholungen} = 3^2=9.$
+
+- Ereignisse:
+
+    - verbal: $A=$“Die Augensumme beider Würfel beträgt 4”; formal: $A=\{(a,b)\in \Omega | a+b=4\} =$ $\{(1;3), (2;2), (3;1)\}$
+    - verbal: $B=$“Die Augenzahlen beider Würfel ungerade”; formal: $B=\{(a,b)\in \Omega | a, b \text{ ungerade}\} =$ $\{(1;1), (1;3), (3;1), (3;3)\}$
+    - verbal: $A\cup B=$“Die Augensumme beider Würfel beträgt 4 oder die Augenzahlen sind ungerade”; formal: $A\cup B=\{(a,b)\in \Omega | a+b=4 \text{ oder } a,b \text{ ungerade }\} =$ $\{(1;1), (1;3), (2;2), (3;1), (3;3)\}$
+     - verbal: $A\cap B=$“Die Augensumme beider Würfel beträgt 4 und zugleich die Augenzahlen sind ungerade”; formal: $A\cup B=\{(a,b)\in \Omega | a+b=4 \text{ und } a,b \text{ ungerade }\} =$ $\{(1;3), (3;1)\}$
+    
+- Interaktiv:
+
+```{r, echo=FALSE,out.width="100%"}
+htmltools::tags$iframe(title = "Wahrscheinlichkeiten", src=paste0("http://learning-dashboard.lehre.hwr-berlin.de:3838/Apps_RBook/#section-wahrscheinlichkeiten"),  width=760, height=700)
+```
+
+:::
+
+### Ereignisraum
+
+Alle Ereignisse, für die eine Wahrscheinlichkeit berechnet werden kann, sind im **Ereignisraum** $\mathcal F$ zusammengefasst. 
+
+- Formal ist $\mathcal F$ eine Menge von Teilmengen
+  von $\Omega$, d.h. eine Teilmenge der Potenzmenge $\mathcal P(\Omega)$.
+
+- Bei einer endlichen und abzählbaren Ergebnismenge wählt man normalerweise $\mathcal F=\mathcal P(\Omega)$, da dieser Ereignisraum dann alle Ereignisse enthält, die man überhaupt für das vorliegende Zufallsexperiment definieren kann.
+
+***
+
+::: {.example #wurf123f name="2-maliges Würfeln"}
+
+Fortführung von \@ref(exm:wurf123).
+In diesem Experiment ist die Ergebnismenge endlich, also können wir die Potenzmenge von $\Omega$ $\mathcal P(\Omega)$ als Ereignisraum wählen: 
+
+\begin{align}
+\mathcal F &= \mathcal P(\Omega)\\
+&=\big\{\{(1;1)\}, \{(1;2)\},\ldots,\{(3;3)\}, \{(1;1),(2;1)\}, \ldots, \{(1;1),(2;1), (3;2)\}, \ldots, \Omega,\emptyset\big\}
+\end{align}
+
+:::
+
+***
+
+::: {.exercise name="Ereignisse"}
+
+```{r, echo=FALSE,out.width="100%"}
+htmltools::tags$iframe(title = "Aufgabe_Ereignisse", src ="./htmls/aufgabe_ereignisse_2wurfs.html",  width=760, height=700)
+```
+
+:::
+
+***
+
+### Wahrscheinlichkeitsmaß
+
+Wahrscheinlichkeiten von Ereignissen quantifizieren die **Unsicherheit**, die mit dem Ausgang eines Zufallsexperiments assoziiert ist. **Das Wahrscheinlichkeitsmaß** ordnet jedem Ereignis eine Zahl zwischen $0$ und $1$ zu. 
+
+Für $\omega\in\Omega$ heisst die Abbildung $\omega\mapsto\mathbb  P(\omega)$ **Wahrscheinlichkeitsmaß**. Für ein Ereignis $A\in\mathcal F$ gilt, dass die Wahrscheinlichkeit von $A$ der Summe der Wahrscheinlichkeiten für die in $A$ enthaltenen Ergebnisse entpricht:  $\mathbb P(A) = \sum_{\omega\in A} \mathbb P(\omega)$.
+
+Jedes Wahrscheinlichkeitsmaß muss die **Axiome von Kolmogorov** erfüllen:
+
+- $\mathbb P(A)\geq 0$,
+- $\mathbb P(\Omega )=1$,
+- Falls $A\cap B=\emptyset$, so ist $\mathbb P(A\cup B)=\mathbb P(A)+\mathbb P(B)$.
+
+#### Laplace'sches Wahrscheinlichkeitsmodell{-}
+
+Mit $(\Omega, \mathcal F,\mathbb P)$ liegt ein **Laplace-Modell** vor, wenn
+folgende Bedingungen erfüllt sind:
+
+- Die Ergebnismenge $\Omega$ ist endlich und **alle Ergebnisse sind gleich wahrscheinlich**. 
+
+- Als **Ereignisraum wird die Potenzmenge $\mathcal P(\Omega)$ gewählt**, d.h. jede Teilmenge $A\subseteq \Omega$ ist ein Ereignis. 
+
+Die **Wahrscheinlichkeit eines Ereignisses** $A\in\mathcal F$ berechnet sich dann durch
+\begin{equation*}
+    \mathbb P(A) = \frac{|A|}{|\Omega|} = \frac{\text{Anzahl der für das Eintreten von $A$ günstigen Ergebnisse}} {\text{Anzahl aller möglichen Ergebnisse}}
+  \end{equation*}
+  
+***
+
+::: {.example #wurf123ff name="2-maliges Würfeln"}
+
+Fortführung von \@ref(exm:wurf123) und \@ref(exm:wurf123f).
+
+In diesem Experiment ist die Ergebnismenge endlich, die Ergebnisse sind gleichwahrscheinlich und als Ereignisraum haben wir die Potenzmenge von $\Omega$ gewählt. Folglich kann hier das Laplace'sche Wahrscheinlichkeitsmodell angewandt werden.
+
+\begin{align}
+\mathbb P(A) &= \frac{|A|}{|\Omega|}=\frac 39 = \frac 13,\\
+\mathbb P(B) &= \frac{|B|}{|\Omega|}=\frac 49.
+\end{align}
+
+:::
+
+***
+
+#### Endliche Wahrscheinlichkeitsräume{-}
+
+Das Tripel $(\Omega,\mathcal F,\mathbb P)$ ist ein **endlicher Wahrscheinlichkeitsraum**, wenn folgende Bedingungen erfüllt sind:
+
+- Die Ergebnismenge $\Omega$ ist endlich.
+
+- Als Ereignisfeld wird die Potenzmenge $\mathcal P(\Omega)$ gewählt.
+
+- Die Einzelwahrscheinlichkeiten $\mathbb P(\omega)$ aller Ergebnisse $\omega\in\Omega$ sind nicht-negativ und summieren sich auf
+      $1$. 
+
+
+Die **Wahrscheinlichkeit eines Ereignisses** $A\subseteq \Omega$ berechnet sich dann durch 
+\begin{equation*}
+        \mathbb P(A) = \sum_{\omega\in A} \mathbb P(\omega) = \text{Summe aller Funktionswerte } \mathbb P(\omega)\text{ mit } \omega\in A.
+\end{equation*}
+Ist $\mathbb P(\omega)=\displaystyle\frac{1}{N}$ für alle $\omega\in\Omega=\{\omega_1, \ldots, \omega_N\}$, liegt der Spezialfall eines Laplace-Modells vor. 
+
+***
+
+
+::: {.example #wurf123fff name="Summe der Augenzahlen"}
+
+Fortführung von \@ref(exm:wurf123) und \@ref(exm:wurf123ff).
+
+Wenn wir statt den Augenzahlen uns nun für deren Summe interessieren, ist der neue Wahrscheinlichkeitsraum:
+
+- $\Omega = \{2;3;4;5;6\}$,
+- $\mathcal F=\mathcal P(\Omega)$: wir wählen nach wie vor die Potenzmenge als Ereignisraum,
+- $\mathbb P$: 
+
+$$
+\begin{array}{c|ccccc}\omega_i&2&3&4&5&6\\\hline
+\mathbb P(\{\omega_i\})&\frac 19&\frac 29&\frac 39&\frac 29&\frac 19
+\end{array}
+$$
+
+In diesem neuen Experiment ist die Ergebnismenge nach wie vor endlich und als Ereignisraum dient die Potenzmenge von $\Omega$. Dennoch sind die Ergebnisse **nicht gleichwahrscheinlich**.  Folglich findet hier der allgemeiner endlicher Wahrscheinlichkeitsraum Anwendung.
+
+Für die Ereignisse $S_{>4}: \text{die Summe der Augenzahlen ist größer als 4}$ und $S_{gerade}: \text{die Summe der Augenzahlen ist gerade}$ gilt:
+
+\begin{align}
+\mathbb P(S_{>4}) &= \mathbb P(\{5\}) + \mathbb P(\{6\}) = \frac 13,\\
+\mathbb P(S_{gerade}) &= \mathbb P(\{2\}) + \mathbb P(\{4\}) + \mathbb P(\{6\})=\frac 59.
+\end{align}
+
+:::
+
+***
+
+### Rechnen mit Wahrscheinlichkeiten
+
+Die folgenden Eigenschaften von $\mathbb P$ gelten in allgemeinen Modellen und erleichtern die Berechnung von Wahrscheinlichkeiten für komplexe Ereignisse:
+
+- $\mathbb P(\emptyset)=0$
+
+- $A\subseteq B$ $\Rightarrow$ $\mathbb P(A)\leq \mathbb P(B)$ und $\mathbb P(B\setminus A)= \mathbb P(B)-\mathbb P(A)$
+
+- $\mathbb P(A^c) = 1-\mathbb P(A)$
+
+- $\mathbb P(A\cup B) = \mathbb P(A) + \mathbb P(B) - \mathbb P(A\cap B)$
+
+- $\mathbb P(A\cap B) = \mathbb P(A)\cdot\mathbb P(B),$ für unabhängige Ereignisse $A$ und $B$.
+
+<!--
+- $\mathbb P(A\cup B\cup C) = \mathbb P(A) + \mathbb P(B) + \mathbb P(C) - \mathbb P(A\cap B) -\mathbb P(A\cap C) - \mathbb P(B\cap C) + \mathbb P(A\cap B\cap C)$
+
+- $\mathbb P\left(\bigcup_{n=1}^N A_n\right) = \sum_{n=1}^N \mathbb P(A_n)$
+      für $A_1, \ldots, A_N$ paarweise disjunkt
+
+- $\mathbb P\left(\bigcup_{n=1}^N A_n\right) \leq \sum_{n=1}^N\mathbb P(A_n)$ 
+-->
+
+***
+
+
+
+::: {.example #wurf123ffff name="Summe der Augenzahlen"}
+
+Fortführung von \@ref(exm:wurf123fff).
+
+- $\Omega = \{2;3;4;5;6\}$,
+- $\mathcal F=\mathcal P(\Omega)$: wir wählen nach wie vor die Potenzmenge als Ereignisraum,
+- $\mathbb P$: 
+
+$$
+\begin{array}{c|ccccc}\omega_i&2&3&4&5&6\\\hline
+\mathbb P(\{\omega_i\})&\frac 19&\frac 29&\frac 39&\frac 29&\frac 19
+\end{array}
+$$
+Es gilt $S_{>4}: \text{die Summe der Augenzahlen ist größer als 4}$ mit $\mathbb P(S_{>4}) =\frac 13$, $S_{gerade}: \text{die Summe der Augenzahlen ist gerade}$ mit $\mathbb P(S_{gerade}) =\frac 59.$
+
+- Für $S_{>2}:\text{die Summe der Augenzahlen ist größer als 2}$ gilt:
+    
+    - $S_{>2}^c=\text{die Summe der Augenzahlen ist kleiner oder gleich 2}=\{2\}$ $\leadsto$ $\mathbb P(S_{>2}^c)=\mathbb P(\{2\})=\frac 19$. Dann gilt $\mathbb P(S_{>2})=1-\mathbb P(S_{>2}^c) = \frac 89.$
+    - da $S_{>4}\subset S_{>2}$ $\leadsto$ $\mathbb P(S_{>2}\setminus S_{>4})=\mathbb P(S_{>2}) - \mathbb P(S_{>4}) =\frac 59,$ wobei $S_{>2}\setminus S_{>4} = S_{>2}\cap S_{>4}^c =$ $\text{die Summe der Augenzahlen ist größer als 2 aber nicht größer als 4}.$
+
+- Für $S_{>4}\cap S_{gerade}: \text{die Summe der Augenzahlen ist größer als 4 und gerade}$ gilt:
+    
+    - $\mathbb P(S_{>4}\cap S_{gerade}) = \mathbb P(\{6\}) = \frac 19.$
+    
+- Für $S_{>4}\cup S_{gerade}: \text{die Summe der Augenzahlen ist größer als 4 oder gerade}$ gilt:
+    
+    - $\mathbb P(S_{>4}\cup S_{gerade}) = \mathbb P(S_{>4}) + \mathbb P(S_{gerade}) - \mathbb P(S_{>4}\cap S_{gerade}) = \frac 13 + \frac 59 - \frac 19 = \frac 79.$
+
+
+:::
+
+***
+
+Die Berechnung von Wahrscheinlichkeiten verlangt im Laplace-Modell also lediglich ein **Abzählen** der günstigen bzw. möglichen Ergebnisse. Für große Mengen ist das **ohne System** aber praktisch kaum durchführbar.
+
+Formeln der Kombinatorik:
+
+- Wähle $k$-mal aus $n$-Möglichkeiten...
+
+$$
+\begin{array}{c|c|c}\hline
+\text{Ziehungen}  &\text{mit Anordnung}          & \text{ohne Anordnung}\\\hline
+\text{mit Wiederholung}   &n^k                    &\binom{n+k-1}{k}\\
+\text{ohne Wiederholung}  &\frac{n!}{(n-k)!}      &\binom{n}{k}= \frac{n!}{(n-k)!\cdot k!}\\\hline
+\end{array}
+$$
+- Verschiedene Anordnungen von $k$ Möglichkeiten auf $k$ Plätze (ohne Wiederholunge) $\leadsto$ Permutationen: $k!$.
+
+***
+
+::: {.example #ziehung name="Zufallsauswahl von Kunden"}
+
+Wir ziehen $3$ Kunden zufällig aus dem Kundenpool bestehend aus insgesamt $5$ Kunden. D.h. $n=5$, $k=3$.
+
+```{r,echo=F}
+n=5; k=3
+mwma=n^k
+mwoa=factorial(n+k-1)/(factorial(n-1)*factorial(k))
+owma=factorial(n)/factorial(n-k)
+owoa=factorial(n)/(factorial(n-k)*factorial(k))
+```
+
+
+ - Es gibt $5^3=125$ Varianten (Ergebnissen) für die Zufallsauswahl mit Wiedeholung (mit Zurücklegen) und mit Berücksichtigung der Anordnung (der Reihenfolge) von $3$ aus $5$ Kunden.
+ 
+ - Es gibt $\binom{5+3-1}{3}=\binom{7}{3}= \frac{7!}{(7-3)!\cdot 3!}=35$ Varianten für die Zufallsauswahl mit Wiedeholung (mit Zurücklegen) aber ohne Berücksichtigung der Anordnung (der Reihenfolge) von $3$ aus $5$ Kunden.
+ 
+ - Es gibt $\frac{5!}{(5-3)!}=60$ Varianten für die Zufallsauswahl ohne Wiedeholung (ohne Zurücklegen) aber mit Berücksichtigung der Anordnung (der Reihenfolge) von $3$ aus $5$ Kunden.
+ 
+ - Es gibt $\binom{5}{3}= \frac{5!}{(5-3)!\cdot 3!}=10$ Varianten für die Zufallsauswahl ohne Wiedeholung (ohne Zurücklegen) und ohne Berücksichtigung der Anordnung (der Reihenfolge) von $3$ aus $5$ Kunden.
+
+:::
+
+***
+
+## Stichprobenziehung als Zufallsvorgang
+
+Nun schauen wir an (etwas vereinfachten) Beispielen, wie eine Stichprobenzieung als Zufallsvorgang modelliert werden kann.
+
+***
+
+::: {.example #ziehungnutz name="Zufallsauswahl von Kunden"}
+
+Wir bauen zunächst den Stichprobenziehungsmechanismus in vereinfachter Form nach.
+
+Angenommen, wir haben insgesamt $5$ Kunden (bezeichnet als $x_1$ bis $x_5$) und wählen $3$ Kunden zufällig und unabhängig (wir "legen" die gezogenen Kunden in den Kundentopf wieder zurück bevor wir den nächsten Wählen, d.h. ein und der gleiche Kunde kann mehrfach vorkommen).
+
+**Wie kann man diese Zufallsauswahl mit einem geeigneten Wahrscheinlichkeitsraum beschreiben?**
+
+- Ergebnismenge ($\leadsto$ Stichprobenraum): Ergebnisse sind **Stichprobenrealisierungen** oder **Stichprobenrealisationen**.
+
+\begin{align}
+\Omega &=\{(x_1,x_1,x_1),(x_1,x_2,x_2), \ldots, (x_1,x_2,x_3), \ldots, (x_5, x_2,x_4), \ldots, (x_5,x_5,x_5)\}\\
+|\Omega|&=5^3 = 125.
+\end{align}
+
+
+- Ereignisraum (da $\Omega$ endlich $\leadsto$ Potenzmenge): 
+
+$$
+\mathcal F = \mathcal P(\Omega).
+$$
+
+- Wahrscheinlichkeiten: jedes Ergebnis ist gleichwahrscheinlich (wir ziehen mit Zurücklegen), d.h. $\mathbb P(\{(x_i,x_j,x_k)\} = \frac 1{|\Omega|} = \frac 1{125}$. Also gilt das Laplace'sche Wahrscheinlichkeitsmodell.
+
+    - Für $A$: Die Kombination aus den Kunden 1, 2 und 3 wird ausgewählt, $A = \{(x_1,x_2,x_3),(x_2,x_1,x_3),\ldots,(x_3,x_2,x_1)\}$) gilt $|A|=3!$ und $\mathbb P(A) = \frac{|A|}{|\Omega|} = \frac 6{125}.$
+
+    - Für $B$: Kunde 1 wird mind. einmal zufällig ausgewählt, $B = \{(x_1,x_1,x_1),\ldots, (x_5,x_1,x_2),\ldots, (x_5,x_5,x_1)\}$) gilt $\mathbb P(B) = 1-\mathbb P(B^c)$ mit $|B^c|=4^3 = 64.$
+$\mathbb P(B) = 1-\frac{|B^c|}{|\Omega|} = \frac {61}{125}.$
+
+    - Für $C$: Drei verschiedene Kunden werden zufällig gewählt (ohne Wiederholung), $C = \{(x_1,x_2,x_3),(x_2,x_4,x_3),\ldots,(x_3,x_2,x_5)\}$) gilt $|C|=\frac{5!}{(5-3)!} = 60$ und $\mathbb P(C) = \frac{|C|}{|\Omega|} = \frac {12}{25}.$
+
+
+:::
+
+***
+
+<!--
+(x1,x1,x1) = 1
+
+(x1,x1,2:5)
+(2:5,x1,x1)
+(x1,2:5,x1) = 3*4
+
+(x1,2:5,2:5)
+(2:5,x1,2:5)
+(2:5,2:5,x1) = 3*4*4
+
+= 61
+-->
+
+Für die betrieblichen Fragestellungen ist es weniger interessant, welche Kunden konkret ausgewählt werden, sondern eher, welche Merkmale sie aufweisen. Deswegen modifizieren wir unsere Modellierung, in dem wir das konkrete Merkmal "Nutzung von App oder Weboberfläche" betrachten.
+
+***
+
+::: {.example #ziehungapp name="Zufallsauswahl von Kunden: App vs Web"}
+
+Fortführung von \@ref(exm:ziehungnutz).
+
+Wir hatten bereits das Merkmal "Nutzung von App oder Weboberfläche" von unseren Kunden betrachtet (vgl. \@ref(exm:nutz)). Nun bauen wir die Stichprobenziehungsmechanismus für diesen Merkmal nach.
+
+Angenommen, die Verteilung bei den $5$ Kunden sieht folgender Maßen aus:
+
+$$
+\begin{array}{c|ccccc}\hline
+Kunde~i&1&2&3&4&5\\\hline
+Nutzung~a_i&App&Web&App&App&Web\\\hline
+\end{array}
+$$
+D.h. $\mathbb P(App) = 0,6$ und $\mathbb P(Web)=0,4.$
+
+**Welche verschiedene Stichprobenergebnisse mit welcher Wahrscheinlichkeit können wir ziehen?**
+
+- Ergebnismenge: $x_i$ bekommen die dazu gehörige Ausprägungen (bspw. $x_1=App$, $x_2=Web$)
+
+\begin{align}
+\Omega &= \{(App; App; App), (App; Web; Web),\ldots, (App; Web; App),\ldots, \\
+&~~~~(Web; Web; App),\ldots,(Web; Web; Web) \}\\
+|\Omega|&=5^3 = 125.
+\end{align}
+
+- Ereignisraum: $\mathcal F=\mathcal P(\Omega).$
+
+- Wahrscheinlichkeitsmaß: Gleiche Wahrscheinlichkeiten
+
+- Ereignisse:
+
+    - $A_3=$ 3-mal App: nur Kunden 1, 3 und 4 dürfen ausgewählt werden $\leadsto$ $|A_3|=3^3=27$ und $\mathbb P(A_3)=\frac{27}{125}.$
+    
+    - $A_0=$ 0-mal App:  nur Kunden 2 und 5 dürfen ausgewählt werden $\leadsto$ $|A_0|=2^3=8$ und $\mathbb P(A)=\frac{8}{125}.$
+    
+    - $A_1=$ 1-mal App: ein Platz wird durch Kunde 1, 3 oder 4 besetzt; zwei andere Plätze - durch Kunden 2 oder 5 $\leadsto$ $|A_1|=3\cdot 3\cdot 2^2=36$ und $\mathbb P(A_1)=\frac{36}{125}.$
+    
+    - $A_2=$ 2-mal App $\leadsto$ $\mathbb P(A_2)=1-\mathbb P(A_2^c) = 1-(P(A_0) + P(A_1) + P(A_3))= 1-\frac{71}{125} = \frac{54}{125}.$
+    
+```{r,echo=F}
+pr3=dbinom(3,3,0.6) #0.216
+pr0=dbinom(0,3,0.6)#0.064
+pr1=dbinom(1,3,0.6)#0.288
+pr2=dbinom(2,3,0.6)#0.432
+```
+
+**Was erwartet man im Mittel (über alle Stichprobenergebnisse)?**
+
+$$
+0\cdot \frac{8}{125} + 1\cdot \frac{36}{125}+2\cdot \frac{54}{125}+3\cdot \frac{27}{125} = 1,8
+$$
+oder als Anteil $\frac{1,8}{3}=0,6$ $\leadsto$ also haben wir im Mittel den gleichen Anteil (60%) von App-Nutzer wie in der gesamten Kundschaft!
+
+:::
+
+***
+
+Manchmal sind zwei oder mehr Merkmale von Interesse: angelehnt an unser Beispiel "Anzahl von Bestellungen" (Siehe \@ref(exm:best2)), könnten wir nun im Zusammenhang mit einem zusätzlichen Merkmal wie "Nutzung von App oder Weboberfläche" modellieren.  Was passiert dann bei einer Stichprobenziehung?
+
+***
+
+::: {.example #ziehungbest name="Bestellungen und Nutzung"}
+
+Auch hier vereinfachen wir das Ganze ein wenig und annehmen, dass wir die **gemeinsame Wahrscheinlichkeiten** bereits kennen. Nun wählen wir zufällig Nutzerkonten aus und stellen fest, wieviele Bestellvorgänge es im letzten Monat gab und über welches System (App oder Web) sie erfolgten.
+
+**Welche verschiedene Stichprobenergebnisse mit welcher Wahrscheinlichkeit können wir ziehen?**
+
+- Ergebnismenge: 
+
+\begin{align}
+\Omega &= \{(App; 1), (App; 2),\ldots, (App; 6),\ldots, \\
+&~~~~(Web;1),\ldots,(Web; 6) \}\\
+|\Omega|&=12.
+\end{align}
+
+- Ereignisraum: $\mathcal F=\mathcal P(\Omega).$
+
+- Wahrscheinlichkeitsmaß: (Annahme, dass wir die gemeinsamen Wahrscheinlichkeiten kennen)
+
+```{r,echo=F}
+pap<-c(0.02,0.06,0.12,0.2,0.12,0.08)
+pges<-c(0.1,0.15,0.25,0.25,0.15,0.1)
+pwe<-pges-pap
+
+papp<-gsub("\\.","\\,",pap)
+pweb<-gsub("\\.","\\,",pwe)
+```
+
+
+$$
+\begin{array}{c|cccccc}
+\mathbb P((a_i,b_i))&b_1=1&b_2=2&b_3=3&b_4=4&b_5=5&b_6=6\\\hline
+a_1=App&`r papp[1]`&`r papp[2]`&`r papp[3]`&`r papp[4]`&`r papp[5]`&`r papp[6]`\\
+a_2=Web&`r pweb[1]`&`r pweb[2]`&`r pweb[3]`&`r pweb[4]`&`r pweb[5]`&`r pweb[6]`\\
+\end{array}
+$$
+
+- Ereignisse:
+
+    - $A_1 =$ Bestellungen über App $\leadsto$
+    \begin{align}\mathbb P(A_1)&=\mathbb P((App;1),\ldots,(App;6)) =\\&~~`r papp[1]` + \ldots + `r papp[6]` = `r gsub("\\.","\\,",sum(c(pap[1:6])))`.\end{align}
+    
+    - $B_{\geq 3}=$ Mind. 3 Bestellungen $\leadsto$
+    \begin{align}\mathbb P(B_{\geq 3})&=\mathbb P((App;3),\ldots,(App;6),(Web;3),\ldots,(Web;6)) =\\&~~`r papp[3]` + \ldots + `r papp[6]` + `r pweb[3]` + \ldots + `r pweb[6]` = `r gsub("\\.","\\,",sum(c(pap[3:6],pwe[3:6])))`.\end{align}
+
+    - $A_1\cap B_{\geq 3}=$ Mind. 3 Bestellungen über App $\leadsto$ $A_1\cap B_{\geq 3}=\{(App;3),(App;4),(App;5),(App;6)\}$
+    \begin{align}\mathbb P(A_1\cap B_{\geq 3})&=\mathbb P((App;3),(App;4),(App;5),(App;6)) =\\&~~`r papp[3]` + `r papp[4]` + `r papp[5]` + `r papp[6]` = `r gsub("\\.","\\,",sum(pap[3:6]))`.\end{align}
+    
+ 
+:::
+
+***
+<!--
+## Rückblick{-}
+
+```{r, echo=FALSE,out.width="100%"}
+htmltools::tags$iframe(title = "Wortwolke", src ="http://learning-dashboard.lehre.hwr-berlin.de:3838/Apps_RBook/#section-wortwolke",  width=760, height=600)
+```
+-->

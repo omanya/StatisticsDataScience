@@ -1,0 +1,2 @@
+"0","  axis(2,at=c(0,round(dexp(lam,lam),2),0.5),"
+"0","       labels=c(0,"""",0.5),las=2)"

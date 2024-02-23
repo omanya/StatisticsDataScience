@@ -1,0 +1,2181 @@
+---
+title: "Apps: Statistik"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+runtime: shiny
+---
+
+
+<!--
+---
+title: "Apps: Statistik"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+    css: ./www/styles-auth.css
+runtime: shiny
+---
+-->
+
+```{r setup, include=FALSE}
+
+library(shiny)
+library(shinymanager)
+library(flexdashboard)
+library(knitr)
+library(scales)
+library(MASS)
+library(wordcloud)
+library(RColorBrewer)
+library(wordcloud2)
+library(tm)
+library(tidyr)
+library(latex2exp)
+library(EnvStats)
+library(png)
+
+knitr::opts_chunk$set(echo = FALSE)
+options(encoding = 'UTF-8')
+
+
+############## functions
+gini<-function(u,v,n){
+  du<-u[-length(u)]+u[-1]
+  dv<-v[-1] - v[-length(v)]
+  dudv<-du*dv
+  gini<-n/(n-1)*(sum(dudv)-1)
+  return(gini)
+}
+
+
+############### dataframe for keywords
+
+# dfkeyw<-data.frame(user=character(),date=character(),kurs=character(),thema=character(), 
+#                    comp_level=numeric(),keyw=character(),stringsAsFactors = FALSE)
+# save(file="dfkeyw.RData",dfkeyw)
+
+v<-reactiveValues()
+load("./www/dfkeyw.RData")
+v$dfkeyw<-dfkeyw
+
+```
+
+
+<script src="http://learning-dashboard.lehre.hwr-berlin.de:3838/mousetrack/mousetrack.js"></script>
+<script type="text/javascript">
+    MouseTrack.init( 'http://learning-dashboard.lehre.hwr-berlin.de:3838/mousetrack' );
+</script>
+
+<!-- https://stackoverflow.com/questions/65545721/modifying-shinyauthr-for-a-flexdashboard
+https://github.com/datastorm-open/shinymanager/blob/master/examples/module-auth.R-->
+
+<script src="./www/message.js"></script>
+
+
+```{r global, include=FALSE}
+
+# ############### credentials
+# library(shinymanager)
+# # define some credentials (you can also use sqlite database)
+#  credentials <- data.frame(
+#       user = c("osipenko", "shinymanager"),
+#       password = c("mso1607", "12345"),
+#       stringsAsFactors = FALSE
+#     )
+# # includeScript("./www/message.js")
+
+
+```
+
+```{r}
+user<-runif(1)
+session$sendCustomMessage('handler1', user) #### set up the callback handler
+```
+
+
+```{r}
+ # auth_ui(id = "auth")
+ # 
+ #    auth <- callModule(
+ #        module = auth_server,
+ #        id = "auth",
+ #        check_credentials = check_credentials(credentials) # data.frame
+ #        # check_credentials = check_credentials("path/to/credentials.sqlite", passphrase = "supersecret") # sqlite
+ #   )
+```
+
+
+
+```{r, include=FALSE}
+# 
+# #pass to customMessage handler
+#   observe({
+#     user<-reactiveValuesToList(auth)$user
+#     session$sendCustomMessage('handler1', user) #### set up the callback handler
+#   })
+
+```
+
+
+Wortwolke
+=======================================================================
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+<h4>Stichwörter</h4>
+
+```{r}
+#  renderPrint({
+#    reactiveValuesToList(auth)
+# })
+#textInput("kurs","Kurs, Gruppe", value = "", placeholder="Stat1, 01")
+textInput("thema","Abschnitt", value = "", placeholder="2.1")
+sliderInput("comp_level","Begreifometer",value=-0.01, min=-0.01, max=1,step=0.01)
+textAreaInput("keyw", "Stichwörter zum Thema", value = "", width = NULL, height = NULL,
+  cols = NULL, rows = NULL, placeholder = "Stichwort, Stichwort, Stichwort,...", resize = NULL)
+actionButton(inputId = "submit", label = "Submit" , icon = icon("fa fa-refresh"))
+shinyalert::useShinyalert()
+
+observeEvent(input$submit,{
+  v$darf<-F
+   if(input$thema==""){
+      shinyalert::shinyalert("Oops!", "Gib bitte noch den Abschnitt ein!", type = "error")
+  # } else if(input$kurs==""){
+  #     shinyalert::shinyalert("Oops!", "Gib bitte noch den Kurs und die Gruppe ein!", type = "error")
+  } else if(input$comp_level<0){
+      shinyalert::shinyalert("Oops!", "Setze bitte noch dein Begreifometerwert!", type = "error")
+  } else if(input$keyw==""){
+      shinyalert::shinyalert("Oops!", "Komm! Ein Paar Stichwörter fallen dir bestimmt ein!", type = "error")
+  } else{
+    v$darf<-TRUE
+     shinyalert::shinyalert("Danke!", "Deine Eingaben sind gespeichert!", type = "success")
+  }
+  req(v$darf)
+  inpt<-data.frame(user=user,data=Sys.time(),thema=input$thema,
+                   comp_level=input$comp_level,keyw=input$keyw)
+  v$dfkeyw<-rbind(v$dfkeyw,inpt)
+  dfkeyw<-isolate(v$dfkeyw)
+  save(file="./www/dfkeyw.RData",dfkeyw)
+
+})
+# DT::renderDataTable({
+#        v$dfkeyw
+#  })
+#load("C:/Users/osipenko/Documents/Lehre/Statistik/Rbook/bookdown-demo-main/Apps/Apps_RBook/dfkeyw.RData")
+```
+
+
+```{r}
+renderPlot({
+ input$submit
+# Create a corpus  
+docs <- Corpus(VectorSource(v$dfkeyw$keyw[substr(v$dfkeyw[,2],1,10)==Sys.Date()]))
+docs <- docs %>%
+  tm_map(removeNumbers) %>%
+  tm_map(removePunctuation) %>%
+  tm_map(stripWhitespace)
+docs <- tm_map(docs, content_transformer(tolower))
+docs <- tm_map(docs, removeWords, stopwords("english"))
+
+dtm <- TermDocumentMatrix(docs) 
+matrix <- as.matrix(dtm) 
+words <- sort(rowSums(matrix),decreasing=TRUE) 
+df <- data.frame(word = names(words),freq=words)
+
+req(nrow(df)>1)
+set.seed(1234) # for reproducibility 
+par(mar=c(1,1,1,1))
+wordcloud(words = df$word, freq = df$freq, min.freq = 1,max.words=200, random.order=FALSE, rot.per=0.35, colors=brewer.pal(8, "Dark2"))
+},width=700,height=700)
+
+```
+
+</div>
+
+empirische Verteilung
+=======================================================================
+
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+
+Gib hier die Werte der empirischen Dichtefunktion für die Zeit im Online Shop ein:
+
+`r  tagList(div(numericInput("int1","[0;10)", value=0, width="50%"),  style="display:inline-block"), div(numericInput("int2","[10;20)",value=NA,width="50%"),  style="display:inline-block"), br(), div(numericInput("int3","[20;60)",value=NA, width="50%"),style="display:inline-block"), div(numericInput("int4","[60;80]",value=NA,width="50%"),style="display:inline-block"),div(numericInput("int5","sonst",value=NA, width="50%"),style="display:inline-block"))`
+
+
+<p>Graphische Darstellung</p>
+
+```{r}
+renderPlot({
+  par(mfrow=c(1,3))
+  # kat<-c(input$br,input$fr,input$rt,input$s,input$ue)
+  # barplot(kat,horiz=F,names=c("bug_report", "feature_request", "rating","sonstiges", "user_experience"),las=1,cex.names=0.7,ylab="h")
+  # 
+  # st<-c(input$s1,input$s2,input$s3,input$s4,input$s5)
+  # barplot(st,horiz=F,las=1,cex.names=0.9,xlab="Sterne",ylab="h",names=1:5)
+  bbs<-c(0,10,20,60,80)
+  intd<-bbs[-1] -bbs[-length(bbs)]
+  ints<-c(input$int1,input$int2,input$int3,input$int4)
+  cumh<-cumsum(ints*intd)
+  plot(c(-10,bbs,100),c(0,0,cumh,1),col=2,type="l",lwd=2,ylab="F(x)",xlab="x")
+  points(bbs[-1],c(cumh),pch=16,cex=0.7)
+  
+},width=750,height=200)
+```
+</div>
+
+
+
+
+
+
+
+Kennzahlen
+=======================================================================
+
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+<p><strong>Aktienrenditen</strong></p>
+<ul>
+<li>Stichprobe: 12 monatliche Renditen einer Aktie 
+`r  textInput("rea1","", value="-1,1;    -0,5;    -0,1;    0,2;    0,2;    0,7;    0,8;    0,9;    1,0;    1,3;    1,4;    5,8",width="90%")`
+</li>
+
+```{r}
+rea<-reactive({
+  x<-strsplit(input$rea1, ";")[[1]]
+  x<-as.numeric(gsub("\\,","\\.",x))
+  xo<-sort(x)
+  out<-round(quantile(x,probs=c(0.05,0.15,0.25,0.75,0.5),type=2,na.rm=T),4)
+  out<-c(out,out[4]-out[3],round(mean(x),4),round(sd(x),4))
+  out<-gsub(pattern="\\.",replacement="\\,",x=out)
+  out
+})
+```
+<li> Mittelwert $\hat \mu_X =$<mark>`r renderText({rea()[7]})`</mark>;  Standardaweichung 
+$\hat \sigma_X =$<mark>`r renderText({rea()[8]})`</mark>;
+<li> Quantile:
+$\hat Q_{0,05} =$<mark>`r renderText({rea()[1]})`</mark>;
+$\hat Q_{0,15} =$<mark> `r renderText({rea()[2]})`</mark>;
+$\hat Q_{0,25} =$ <mark>`r renderText({rea()[3]})`</mark>;
+$\hat Q_{0,5} =$ <mark>`r renderText({rea()[5]})`</mark>;
+$\hat Q_{0,75} =$ <mark>`r renderText({rea()[4]})`</mark>.
+</li>
+<li>Der Quartilsabstand $\hat q=$<mark>`r renderText({rea()[6]})`</mark>.
+</li>
+<li> Verändere die Renditen und beobachte, wie sich die Kennzahlen verändern. 
+</li>
+<li>Lasse eine Zelle leer um die Quantile für $n=11$ ungerade berechnen zu lassen. </li>
+<li>Kommst du auf die gleichen Werte?
+</li>
+</ul>
+
+<h4>Boxplot</h4>
+
+<p>Boxplot für die Aktienrenditen (rot) und eine Vergleichsverteilung (schwarz)</p>
+
+```{r}
+renderPlot({
+  set.seed(123)
+  par(mfrow=c(1,2),mar=c(2,2,2,2))
+  x<-strsplit(input$rea1, ";")[[1]]
+  x<-as.numeric(gsub("\\,","\\.",x))
+   y<-rnorm(12,mean(x),sd(x))
+  boxplot(x,range=0,col=2,ylim=c(min(x),max(x)))
+  boxplot(y,range=0,ylim=c(min(x),max(x)))
+  
+},width=500,height=250)
+```
+<p> Wenn die beiden Boxplot die empirischen Renditeverteilungen von jeweils zwei Aktien darstellen, in welche Aktie würdest du lieber dein Geld investieren? </p>
+</div>
+
+
+
+
+
+Korrelation
+=======================================================================
+
+<!--
+Inputs {.sidebar}
+-----------------------------------------------------------------------
+
+### Kennzahlen
+
+-->
+```{r}
+#numericInput("rho","Korrelation", value=0.5)
+#numericInput("mux","Mittelwert von X", value=0)
+#numericInput("muy","Mittelwert von Y", value=0)
+#numericInput("sigx","Standardabweichung von X", value=1)
+#numericInput("sigy","Standardabweichung von Y", value=1)
+```
+
+<!--
+$\rho_{XY}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\mu_X~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\mu_Y~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\sigma_X~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\sigma_Y$ 
+`r  fluidRow( column(2,numericInput("rho","Korrelation", value=0.5)),column(2,numericInput("mux","Mittelwert von X", value=0)),column(2,numericInput("muy","Mittelwert von Y", value=0)),column(2,numericInput("sigx","Standardabweichung von X", value=1)),column(2,numericInput("sigy","Standardabweichung von Y", value=1)))`
+-->
+
+<!--
+Column
+-----------------------------------------------------------------------
+
+### Scatterplot
+-->
+
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+```{r}
+numericInput("rho","Korrelation", value=0.5, min=-1,max=1, step=0.1)
+renderPlot({
+  rho<-input$rho
+  mu <- c(0,0)#c(input$mux,input$muy)
+  sig<- c(1,1)#c(input$sigx,input$sigy)
+  Sigma <- diag(sig^2); Sigma[1,2]<-Sigma[2,1]<-rho*prod(sig)
+  vars <- mvrnorm(n=1000, mu=mu, Sigma=Sigma)
+  cols<-rep(alpha(2,0.3),nrow(vars)); cols[(vars[,1]>mu[1]&vars[,2]>mu[2])|(vars[,1]<mu[1]&vars[,2]<mu[2])]<-alpha(3,0.4)
+  colt<-1
+  par(mar=c(4,4,2,2))
+  plot(vars[,1],vars[,2],pch=16,col=cols,ylab="y",xlab="x",cex=1,axes=F,cex.lab=1,ylim=c(-4,4),xlim=c(-4,4))
+  abline(h=mu[1],lty=2,col=4,lwd=2)
+  abline(v=mu[2],lty=2,col=4,lwd=2)
+  axis(1,cex.axis=1); axis(2,cex.axis=1)
+  text(-2,2,"I",col=alpha(colt,0.5),cex=3)
+  text(2,2,"II",col=alpha(colt,0.5),cex=3)
+  text(2,-2,"III",col=alpha(colt,0.5),cex=3)
+  text(-2,-2,"IV",col=alpha(colt,0.5),cex=3)
+#},width=800,height=600)
+},width=350,height=250)
+```
+</div>
+
+
+
+Regression
+=======================================================================
+
+
+
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+Lineare Regression für Aktienrendite $Y$ auf Marktrendite $X$. Die Daten sind die $(x;y)$-Werte: 
+`r  textInput("xy","",value="(0,4; 0,4)    (0,9; 1,5)    (1,2; 1,8)    (0,2; 1)    (-0,4; -1,1)    (-0,5; 0,6)",width="100%")`
+
+```{r}
+
+renderPlot({
+    xy<-strsplit(input$xy,")")[[1]]; xy<-gsub("\\(","",xy); xy<-gsub("\\,","\\.",xy);
+    xy<-unlist(strsplit(xy,";"))
+    x<-as.numeric(xy[seq(1,length(xy),2)]); y<-as.numeric(xy[seq(2,length(xy),2)])
+    dat<-data.frame(x=x,y=y)
+    lm1<-lm(y~x,dat)
+    ah<-round(lm1$coefficients[1],4)
+    bh<-round(lm1$coefficients[2],4)
+    ahh<-gsub("\\.","\\,",ah)
+    bhh<-gsub("\\.","\\,",bh)
+    xgrid<-seq(min(dat$x)-0.1,max(dat$x)+0.1,length.out=50)
+    zw<-ifelse(bh>0,'+','-')
+    mn<-bquote(hat(q[i])== .(ah)~.(zw)~.(abs(bh))*p[i])
+
+
+    par(lwd=3,xpd=F,mar=c(5.1,4.5,4.1,2.1))
+    #2 SSR
+    plot(dat$x,dat$y,pch=4,col=4,type='p',xlim=c(min(dat$x)-1,max(dat$x)+1), ylim=c(min(dat$y)-1,max(dat$y)+1),xlab='x',
+         ylab='y',axes=F,cex.lab=2,cex=2,lwd=2)
+    #abline(h=0,lwd=1,lty=2)
+    #abline(h=mean(dat$y),lty=2,col=4)
+    #text(17,6.3,paste('Stichprobenmittelwert'),col=4,cex=1)
+    #par(xpd=T)
+    #text(-2,mean(dat$y),expression(bar(q)),col=4,cex=2)
+    axis(1)
+    axis(2)
+    legend("topright",legend=bquote(hat(a)==~.(ahh)~~~hat(b)==~.(bhh)))
+    
+    lines(xgrid,ah+bh*xgrid,lty=1,col=2,lwd=2)
+
+    for(i in 1:length(dat$x)){
+      arrows(dat$x[i],dat$y[i],dat$x[i],ah+bh*dat$x[i],code=0,lwd=1,col=3)
+    }
+    xm<-dat$x[which.min(dat$x)]
+    ym<-dat$y[which.min(dat$x)]
+    arrows(xm,ym,min(dat$x)-1,ym,lwd=1,code=0,lty=2,col=alpha(4,0.3))
+    text(min(dat$x)-0.5,ym+0.2, bquote(y[i]),col=4,cex=2)
+    arrows(xm,ah+bh*xm,min(dat$x)-1,ah+bh*xm,lwd=1,code=0,lty=2,col=alpha(2,0.3))
+    arrows(xm,ah+bh*xm,xm,min(dat$y)-1,lwd=1,code=0,lty=2,col=alpha(1,0.3))
+    text(min(dat$x)-0.5,ah+bh*xm-0.2, bquote(hat(y)[i]== hat(a)+hat(b)*x[i]),col=2,cex=2)
+    text(xm+0.1,ym-0.3,bquote(hat(epsilon)[i]),col=3,cex=2)
+    points(xm,ah+bh*xm,cex=2,pch=16,col=alpha(5,0.7))
+    
+    
+},width=400, height=400)
+```
+</div>
+
+<!--
+Log-linearisierte Nachfrage
+=======================================================================
+
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+
+`r  fluidRow( column(2,numericInput("sample_reg","Stichprobengröße", value=20,width="30%")), column(2,sliderInput(inputId = "intercept",label = "alpha",value = 7, min = 5, max = 10,step = 1,,width="50%")), column(2, sliderInput(inputId = "slope",label = "beta",value = -0.2, min = -0.5, max = 0.5,step = 0.05,width="50%")),column(2,actionButton(inputId = "refresh", label = "neue Stichprobe" , icon = icon("fa fa-refresh"))))`
+
+
+```{r} 
+
+  ### Saving data:
+  Rawdata <- reactive({
+    input$refresh 
+    
+    slope <- input$slope
+    
+    sample <- input$sample_reg
+    
+    xx<-round(runif(1000,0,20),2)
+    #x <- round(1:sample + rnorm(n = sample, mean = 1, sd = 2), digits = 2)
+    x<-round(xx[1:sample],2)
+    
+    MN <- log(input$intercept)
+    SD <- 1#input$SD
+    
+    # if(input$heterosc){
+    #   SD <-SD*sin(x/max(x))
+    # }
+    
+    res<-rnorm(n = sample, mean = 0, sd = 1 )
+    y <- round(MN + slope * x + SD*res, digits = 2)
+    mod <- lm(y ~ x, data.frame(y,x))
+    ypred <- predict(mod)
+    Rawdata <- data.frame(y=y, x=x, ypred=ypred)
+    Rawdata
+
+  })
+  
+  SSdata <- reactive({
+    dat <- Rawdata()
+    y=dat[,1]; x=dat[,2]
+    Y <- mean(y)
+    mod <- lm(y ~ x)
+    ypred <- predict(mod)
+    SST <- sum((y - Y)^2)
+    SSE <- round(sum((y - ypred)^2), digits = 5)
+    SSA <- SST - SSE
+    
+    SSQ <- data.frame(QS = c("SST","SSR","SSE"),
+                      value = as.numeric(c(SST, SSA, SSE)/SST)*100)
+    SSQ$QS <- factor(SSQ$QS, as.character(SSQ$QS))
+    SSdata <- data.frame(QS = factor(SSQ$QS, as.character(SSQ$QS)),
+                         value = as.numeric(c(SST, SSA, SSE)/SST)*100)
+    SSdata
+    
+  })
+  
+  lmres<-reactive({
+    dat<-Rawdata(); 
+     y=dat[,1]; x=dat[,2]
+    lm1<-lm(y~x); 
+    ah<-lm1$coefficients[1]; 
+    bh<-lm1$coefficients[2]; 
+    zw<-ifelse(bh>0,'+','-'); 
+    
+    tx<-bquote(hat(q[i])== .(ah)~.(zw)~.(abs(bh))*p[i])
+  })
+  
+```
+
+
+```{r, out.width="100%"} 
+ 
+  ### SST
+renderPlot({
+
+    dat<-Rawdata()
+    y=dat[,1]; x=dat[,2]
+    lm1<-lm(y~x)
+    ah<-round(lm1$coefficients[1],4)
+    bh<-round(lm1$coefficients[2],4)
+    ahh<-gsub("\\.","\\,",ah)
+    bhh<-gsub("\\.","\\,",bh)
+    xgrid<-seq(0,20)
+    zw<-ifelse(bh>0,'+','-')
+    mn<-bquote(hat(y)== .(ahh)~.(zw)~.(gsub("\\.","\\,",abs(bh)))*x)
+    ylims<-c(-5,5)
+
+
+    par(lwd=3,xpd=F,mar=c(5.1,4.5,4.1,2.1),mfrow=c(1,2))
+    #Nachfrage
+    plot(x,exp(y),pch=16,col=4,type='p',xlim=c(0,20), ylim=c(-1,20),xlab='p',
+         ylab='q',axes=F,cex.lab=2,cex=2,lwd=2, main="Nachfragemenge vs. Preis",cex.main=1.5)
+    abline(h=0,lwd=1,lty=1)
+    #abline(h=mean(dat$y),lty=2,col=4)
+    #text(17,6.3,paste('Stichprobenmittelwert'),col=4,cex=1)
+    xx<-seq(0,120,0.1)
+    lines(xx,exp(ah)*exp(bh*xx),col=2,lwd=2,lty=2)
+    par(xpd=T)
+    axis(1)
+    axis(2)
+
+    par(xpd=F)
+    #Linearisiert
+    par(lwd=3,xpd=F,mar=c(5.1,4.5,4.1,2.1))
+    plot(x,y,pch=16,col=4,type='p',xlim=c(0,20), ylim=ylims,xlab='x',
+         ylab='y',axes=F,cex.lab=2,cex=2,lwd=1, main="log-linearisierte Version",cex.main=1.5)
+    abline(h=0,lwd=1,lty=1)
+    #abline(h=mean(dat$y),lty=2,col=4)
+    #text(17,6.3,paste('Stichprobenmittelwert'),col=4,cex=1)
+    par(xpd=T)
+    #text(-2,mean(dat$y),expression(bar(q)),col=4,cex=2)
+    axis(1)
+    axis(2)
+    lines(xx,ah+bh*xx,lty=2,col=2,lwd=2)
+},width=600,height=400)  
+```
+    
+
+```{r, out.width="100%"} 
+renderPlot({
+    dat<-Rawdata()
+    y=dat[,1]; x=dat[,2]
+    lm1<-lm(y~x,dat)
+    ah<-round(lm1$coefficients[1],4)
+    bh<-round(lm1$coefficients[2],4)
+    ahh<-gsub("\\.","\\,",ah)
+    bhh<-gsub("\\.","\\,",bh)
+    xgrid<-seq(0,20)
+    zw<-ifelse(bh>0,'+','-')
+    mn<-bquote(hat(y)== .(ahh)~.(zw)~.(gsub("\\.","\\,",abs(bh)))*x)
+    ylims<-c(-5,5)
+     xx<-seq(0,120,0.1)
+    
+    par(lwd=3,xpd=F,mar=c(5.1,4.5,4.1,2.1),mfrow=c(1,2))
+    #Schätzung
+    par(lwd=3,xpd=F,mar=c(5.1,4.5,4.1,2.1))
+    plot(x,y,pch=16,col=4,type='p',xlim=c(0,20), ylim=ylims,xlab='x',
+         ylab='y',axes=F,cex.lab=2,cex=2,lwd=1, main=mn,cex.main=1.5)
+    abline(h=0,lwd=1,lty=1)
+    abline(h=mean(y),lty=2,col=4)
+    #text(17,6.3,paste('Stichprobenmittelwert'),col=4,cex=1)
+    par(xpd=T)
+    text(20,mean(y),expression(bar(y)),col=4,cex=2)
+    axis(1)
+    axis(2)
+
+    for(i in 1:length(x)){
+      arrows(x[i],ah+bh*x[i],x[i],mean(y),code=0,lwd=2,col=3)
+    }
+
+    lines(xx,ah+bh*xx,lty=1,col=2,lwd=2)
+    
+    #4 Zerlegung
+    ss<-SSdata()
+    cols <- c("#619CFF", "#00BA38", "#F8766D")
+    barplot(ss[,2],col=cols,names.arg=ss[,1],ylab='% der Gesamtstreuung')
+    text(2,95,bquote(R^2),cex=2.5)
+    text(2.8,90,gsub("\\.","\\,",paste("=",round(1-ss[3,2]/100,2))),cex=2)
+  },width =600,height=400)
+
+```
+
+</div>
+-->
+
+
+
+
+
+Wahrscheinlichkeiten
+=======================================================================
+
+<h4>Experiment "Zweimaliges Werfen eines fairen Würfels mit den Augenzahlen 1;2;3"</h4>
+
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+
+```{r, out.width="10%"}
+actionButton('sample_w','Würfeln!')
+mysample_w<-reactive({
+  input$sample_w
+  az<-sample(3,replace=T)
+  pics<-paste0("./www/wurf",az,".png")
+  pics
+})
+
+renderPlot({
+  #now open a plot window with coordinates
+  par(xpd=T,mfrow=c(1,2))
+  
+plot(1:10,ty="n",ylim=c(0,10),axes=F, ylab="",xlab="",main="Ergebnis")
+#specify the position of the image through bottom-left and top-right coords
+  img1<-readPNG(mysample_w()[1])
+  img2<-readPNG(mysample_w()[2])
+rasterImage(img1,2,2,4,10,angle=sample(c(0,-5,-15),1))
+rasterImage(img2,6,2,8,10,angle=sample(c(0,5,15),1))
+
+plot(1:10,ty="n",ylim=c(0,18),axes=F, ylab="",xlab="",main="Würfel")
+#specify the position of the image through bottom-left and top-right coords
+  img3<-readPNG('./www/dice.png')
+ rasterImage(img3,3,0,8,18)
+}, height=200,width=800)
+
+wkten<-round(c(6/9,3/9,5/9),4); names(wkten)<-c("kl3","gr4","a1")
+bedwkten<-round(cbind(c(1,1/6,4/6), #|kl3|=6; |gr4|=3; |a1|=5; |kl3 & gr4| = 1; |kl3 & a1|=4; |gr4 & a1| = 0
+                c(1/3,1,0),
+                c(4/5,0,1)),4)
+rownames(bedwkten)<-colnames(bedwkten)<-c("kl3","gr4","a1")
+bedwkten<-cbind(wkten,bedwkten); colnames(bedwkten)[1]<-"keine"
+
+```
+</div>
+
+<h4>Ereignisse</h4>
+
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+<p>Das Experiment "Zweimaliges Werfen eines fairen Würfels mit den Augenzahlen 1;2;3" wird nun $n$ mal wiederholt. </p>
+
+<p>$n$:</p>
+`r  fluidRow( column(2,numericInput("nstiche","", value=100)))`
+
+<p>Ereignis $A$:</p>
+
+`r fluidRow( column(4,selectInput("ereig","",choices=c("Augenzahl kleiner als drei im 1. Wurf" = "kl3", "Summe der Augenzahlen ist größer als 4"="gr4","Augenzahl Eins im 1. oder im 2. Wurf" ="a1"))))`
+
+$~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\mathbb P(A) =$ <mark>`r renderText({wkten[names(wkten)==input$ereig]})`</mark>
+
+<p>Bedingung $B$:</p>
+
+`r fluidRow(column(5,selectInput("bed_ereig","",choices=c("keine Bedingung"="keine","Augenzahl kleiner als drei im 1. Wurf" = "kl3", "Summe der Augenzahlen ist größer als 4"="gr4","Augenzahl Eins im 1. oder im 2. Wurf" ="a1"))))`
+
+$~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\mathbb P(A|B) =$ <mark>`r renderText({bedwkten[rownames(bedwkten)==input$ereig,colnames(bedwkten)==input$bed_ereig]})`</mark>
+
+`r  fluidRow( column(3,actionButton('sample_n','n mal wiederholen!')))`
+<p>relative Häufigkeiten von $A$ und $A^c$ aus $n$ Wiederholungen des Experiments:</p>
+
+```{r,out.width="30%"}
+renderPlot({
+  input$sample_n
+  wurf1<-sample(3,input$nstiche,replace=T); wurf2<-sample(3,input$nstiche,replace=T)
+  HAs<-c(sum(wurf1<3),sum(wurf1+wurf2>4),sum(wurf1==1|wurf2==1))
+  names(HAs)<-c("kl3","gr4","a1")
+  HABs<-cbind(c(sum(wurf1<3&wurf1<3),sum(wurf1+wurf2>4&wurf1<3),sum((wurf1==1|wurf2==1)&wurf1<3)),
+              c(sum(wurf1<3&wurf1+wurf2>4),sum(wurf1+wurf2>4&wurf1+wurf2>4),sum((wurf1==1|wurf2==1)&wurf1+wurf2>4)),
+              c(sum(wurf1<3&(wurf1==1|wurf2==1)),sum(wurf1+wurf2>4&(wurf1==1|wurf2==1)),sum((wurf1==1|wurf2==1)&(wurf1==1|wurf2==1)))
+  )
+  bhs<-cbind(HAs/input$nstiche,HABs[,1]/HAs[1],HABs[,2]/HAs[2],HABs[,3]/HAs[3])
+  rownames(bhs)<-c("kl3","gr4","a1"); colnames(bhs)<-c("keine","kl3","gr4","a1")
+  hpos<-bhs[rownames(bhs)==input$ereig,1]
+  hneg<-1-hpos
+  bhpos<-bhs[rownames(bhs)==input$ereig, colnames(bhs)==input$bed_ereig]
+  bhneg<-1-bhpos
+  
+  par(mfrow=c(1,2))
+  bp<-barplot(c(hneg,hpos),
+              horiz=T, xlim=c(0,1),xlab="",names=c(expression(h(A^c)),"h(A)"),
+              las=2,axes=F)
+  text(hneg/2,bp[1],round(hneg,4))
+  text(hpos/2,bp[2],round(hpos,4))
+  
+  bp<-barplot(c(bhneg,bhpos),
+              horiz=T, xlim=c(0,1),xlab="",names=c(expression(h(A^c~"|"~B)),"h(A|B)"),
+              las=2,axes=F)
+  text(bhneg/2,bp[1],round(bhneg,4))
+  text(bhpos/2,bp[2],round(bhpos,4))
+  
+}, height=200)
+```
+</div>
+
+
+
+
+Kennzahlen von Zufallsvariablen
+=======================================================================
+
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+
+<h4> X= Gewinn in "Zweimaliges Werfen eines fairen Würfels mit den Augenzahlen 1;2;3"</h4>
+
+```{r, out.width="10%"}
+
+actionButton('sample_w1','Würfeln!')
+mysample_w1<-reactive({
+  input$sample_w1
+  az<-sample(3,replace=T)
+  pics<-paste0("./www/wurf",az,".png")
+  pics
+})
+
+renderPlot({
+  #now open a plot window with coordinates
+  par(xpd=T,mfrow=c(1,2),mar=c(1,1,2,1))
+  
+plot(1:10,ty="n",ylim=c(0,10),axes=F, ylab="",xlab="",main="Ergebnis")
+#specify the position of the image through bottom-left and top-right coords
+  img1<-readPNG(mysample_w1()[1])
+  img2<-readPNG(mysample_w1()[2])
+rasterImage(img1,2,2,4,10,angle=sample(c(0,-5,-15),1))
+rasterImage(img2,6,2,8,10,angle=sample(c(0,5,15),1))
+
+plot(1:10,ty="n",ylim=c(0,18),axes=F, ylab="",xlab="",main="Würfel")
+#specify the position of the image through bottom-left and top-right coords
+  img3<-readPNG('./www/dice.png')
+ rasterImage(img3,3,0,8,18)
+
+ summ=c(1,2,3)[sapply(c(1,2,3),grepl, mysample_w1()[1])] + c(1,2,3)[sapply(c(1,2,3),grepl, mysample_w1()[2])]
+ gewinn=ifelse(summ%in%c(3,5),2*summ,-1)
+ 
+ legend("topleft",legend=c(paste("Summe:",summ), paste("Gewinn:",gewinn)))
+ 
+}, height=150,width=600)
+
+
+
+
+
+```
+
+
+In dem Experiment: Summe der Augenzahlen beim 2-maligen Würfeln eines fairen Spielwürfels mit den Augenzahlen 1,2 und 3 haben wir festgestellt:
+
+$$
+\begin{array}{c|ccccc}\omega_i&2&3&4&5&6\\\hline
+\mathbb P(\{\omega_i\})&\frac 19&\frac 29&\frac 39&\frac 29&\frac 19
+\end{array}
+$$
+
+Wir definieren nun daraufbasierend eine Zufallsvariable $X=$ Der zufällige Gewinn (in Euro):
+
+$$
+X=\begin{cases} 
+2\cdot \omega, &\text{ falls } \omega \text{ ungerade},\\
+ - 1, &\text{ falls } \omega \text{ gerade},\\
+\end{cases}
+$$
+
+$$
+\begin{array}{c|ccc}
+x_i&-1&6&10\\\hline
+\mathbb P(x_i)=p_i&\frac 59&\frac 29&\frac 29
+\end{array}
+$$
+
+Berechnung:
+$\mathbb E(X)=\sum_{i=1}^3 x_i\cdot p_i = (-1)\cdot\frac 59 + 6\cdot \frac 29 + 10\cdot \frac 29 =3.$
+$\text{Var}(X)=\sum_{i=1}^3 x^2_i\cdot p_i - \mathbb E(X)^2 = (-1)^2\cdot\frac 59 + 6^2\cdot \frac 29 + 10^2\cdot \frac 29 -3^2=21,7778.$
+
+Also:
+$\mathbb E(X)=$<mark>$3$</mark>
+und $\text{Var}(X)=$<mark>$21,7778$</mark>
+
+</div>
+
+
+<h4>Empirisch:</h4>
+
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+<p>Das Experiment "Zweimaliges Werfen eines fairen Würfels mit den Augenzahlen 1;2;3" wird nun $n$ mal wiederholt. </p>
+
+```{r}
+mysample_sum<-reactive({
+  input$sample_n1
+  wurf1<-sample(3,input$nstiche1,replace=T); wurf2<-sample(3,input$nstiche1,replace=T)
+  summ<-wurf1+wurf2
+  gewinn<-rep(-1, length(summ))
+  gewinn[summ%in%c(3,5)]<-2*summ[summ%in%c(3,5)]
+  gewinn
+})
+```
+
+<p>$n$:</p>
+`r  fluidRow( column(2,numericInput("nstiche1","", value=100)))`
+
+
+$\bar x=$ <mark>`r renderText({gsub("\\.","\\,",round(mean(mysample_sum()),4))}) `</mark>
+und $\hat \sigma_X^2=$ <mark>`r renderText({gsub("\\.","\\,",round(sd(mysample_sum())^2,4))}) `</mark>
+
+`r  fluidRow( column(3,actionButton('sample_n1','n mal wiederholen!')))`
+
+</div>
+
+
+<h4>Lineare Transformation</h4>
+
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+
+Da du jetzt bald nach China reist, möchtest du dein Gewinn in Yuan umrechnen. Für den Währungstausch zahlst du eine feste Gebühr von 1 Yuan und der Tauschkurs ist 1 Euro : 7 Yuan. Überleg dir, wie du den Erwartungswert in Yuan berechnest! (Hinweis: die neue Zufallsvariable $Y=-1 + 7\cdot X$)
+
+Berechnung:
+$\mathbb E(Y) = \mathbb E(-1 + 7X) =  -1 + 7\cdot \mathbb E(X)= -1 + 7\cdot 3 = 20.$
+$\text{Var}(Y) = \text{Var}(-1 + 7X) =  7^2\cdot \text{Var}(X)= 7^2\cdot 21,7778 = 1067,1122.$
+
+Also:
+$\mathbb E(Y) =$<mark>$20$</mark> und
+$\text{Var}(Y) =$<mark>$1067,1122$</mark>
+
+</div>
+
+
+<h4>Empirische Yuan</h4>
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+<p>Das Experiment "Zweimaliges Werfen eines fairen Würfels mit den Augenzahlen 1;2;3" wird nun $n$ mal wiederholt. </p>
+
+```{r}
+mysample_rubel<-reactive({
+  input$sample_n2
+  wurf1<-sample(3,input$nstiche1,replace=T); wurf2<-sample(3,input$nstiche1,replace=T)
+  summ<-wurf1+wurf2
+  gewinn<-rep(-1+7*(-1), length(summ))
+  gewinn[summ%in%c(3,5)]<--1 + 7*(2*summ[summ%in%c(3,5)])
+  gewinn
+})
+```
+
+
+$\bar y=$ <mark>`r renderText({gsub("\\.","\\,",round(mean(mysample_rubel()),4))}) `</mark>
+und $\hat \sigma_Y^2=$<mark>`r renderText({gsub("\\.","\\,",round(sd(mysample_rubel())^2,4))}) `</mark>
+
+`r  fluidRow( column(3,actionButton('sample_n2','n mal wiederholen!')))`
+
+</div>
+
+
+
+Verteilungen
+=======================================================================
+
+Column {.tabset}
+-----------------------------------------------------------------------
+
+### Diskrete Gleichverteilung
+
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+Parameter: $n$ `r fluidRow( column(2,sliderInput("ngl","",3,20,1)))`
+```{r}
+renderPlot({
+  x<-seq(1,input$ngl)
+  px<-rep(1/input$ngl,input$ngl)
+  plot(x,px,type="h",xlab="x-Werte",ylab="f(x)",main=paste0("X~Gleichvert(n=",input$ngl,")"),
+       ylim=c(0,0.6),axes=F,lwd=5,col=alpha("gray44",0.5))
+  axis(2, at=c(0,0.2,0.4,0.6))
+  axis(1,at=x[c(1:3,input$ngl)], labels=c(expression(x[1]),expression(x[2]),"...",bquote(x[.(input$ngl)])))
+},height=200,width=300)
+```
+</div>
+
+### Bernoulli-Verteilung
+
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+Parameter: $p$ `r fluidRow( column(2,numericInput("pber","",0.1,min=0.1,max=0.9,step=0.1)))`
+```{r}
+renderPlot({
+  x<-c(0,1)
+  px<-c(1-input$pber,input$pber)
+  erw<-input$pber
+  var<-input$pber*(1-input$pber)
+  plot(x,px,type="h",xlab="k",main=paste0("X~Ber(p=",input$pber,")"),ylim=c(0,1),xlim=c(-0.5,1.5),axes=F,lwd=5,col=alpha("gray44",0.3))
+  #rownames(bp)<-x
+  bpm<-erw#*bp[rownames(bp)==floor(erw)]/floor(erw)
+  axis(2, at=c(0,0.5,1))
+  axis(1,at=c(0,1))
+  abline(v=erw,lty=2,col=2)
+  text(erw,0.9,
+       paste0("E(X)=",round(erw,4)),col=2)
+  arrows(0.1,0.5,
+         0.9,0.5,lty=1,
+         code=3,col=3)
+  text(erw,0.6,paste0("Var(X)=",round(var,4)),col=3)
+},height=200,width=300)
+```
+</div>
+
+### Binomialverteilung
+
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+`r fluidRow( column(2,numericInput("nbin","n",10,min=10, max=100,step=10)),column(2,numericInput("pbin","p",0.1,min=0.1,max=0.9,step=0.1)))`
+
+```{r}
+renderPlot({
+  x<-seq(0,input$nbin,1)
+  px<-dbinom(x,size=input$nbin,prob=input$pbin)
+  erw<-input$nbin*input$pbin
+  #bp<-barplot(px,names.arg=x,xlab="k",main=paste0("X~B(n=",input$nbin,"; p=",input$pbin,")"),ylim=c(0,1),axes=F)
+  plot(x,px,type="h",xlab="k",main=paste0("X~B(n=",input$nbin,"; p=",input$pbin,")"),ylab="f(k)",
+       ylim=c(0,1),axes=F,lwd=5,col=alpha("gray44",0.5))
+  #rownames(bp)<-x
+  bpm<-erw#*bp[rownames(bp)==floor(erw)]/floor(erw)
+  axis(2, at=c(0,0.5,1))
+  axis(1)
+  abline(v=bpm,lty=2,col=2)
+  text(bpm,0.9,
+       paste0("E(X)=",round(input$nbin*input$pbin,4)),col=2)
+  #arrows(bpm-0.05*input$nbin,0.5,bpm+0.05*input$nbin,0.5,lty=1,code=3,col=3)
+  text(bpm+0.1*input$nbin,0.5,paste0("Var(X)=",round(input$nbin*input$pbin*(1-input$pbin),4)),col=3)
+},height=200,width=300)
+```
+</div>
+
+
+### Geometrische Verteilung
+
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+
+Parameter: $p$
+`r fluidRow( column(2,numericInput("pgeom","",0.1, min=0.1,max=0.9,step=0.1)))`
+```{r}
+renderPlot({
+  x<-seq(0,20,1)
+  px<-dgeom(x,prob=input$pgeom)
+  plot(x,px,xlab="k",type="h",main=paste0("X~G(p=",input$pgeom,")"),ylim=c(0,1),axes=F,ylab="f(k)",
+       lwd=5,col=alpha("gray44",0.5))
+  axis(2, at=c(0,0.5,1))
+  axis(1)
+  abline(v=1/input$pgeom,lty=2,col=2)
+  par(xpd=T)
+  text(1/input$pgeom,0.9,
+       paste0("E(X)=",round(1/input$pgeom,4)),col=2)
+  #arrows(1/input$pgeom-2,0.5,1/input$pgeom+2,0.5,lty=1,code=3,col=3)
+  text(1/input$pgeom+3,0.5,paste0("Var(X)=",round((1-input$pgeom)/input$pgeom^2,4)),col=3)
+  par(xpd=F)
+},height=200,width=300)
+```
+</div>
+
+### Poisson-Verteilung
+
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+Paramter: $\lambda$
+`r fluidRow( column(2,numericInput("lam","",10, min=10, max=20, step=1)))`
+```{r}
+renderPlot({
+  x<-seq(0,2*input$lam,1)
+  px<-dpois(x,input$lam)
+  plot(x,px,xlab="k",type="h",main=paste0("X~Poi(",input$lam,")")
+       ,ylab="f(k)",ylim=c(0,0.5),axes=F,lwd=5,col=alpha("gray44",0.5))
+  axis(2, at=c(0,0.5))
+  axis(1)
+  abline(v=input$lam,lty=2,col=2)
+  text(input$lam,0.49,
+       paste0("E(X)=",round(input$lam,4)),col=2)
+  #arrows(0.5*input$lam,0.4, 1.5*input$lam+2,0.4,lty=1, code=3,col=3)
+  text(input$lam+3,0.4,paste0("Var(X)=",input$lam),col=3)
+},height=200,width=300)
+```
+</div>
+
+
+stetige Verteilungen
+=======================================================================
+
+Column {.tabset}
+-----------------------------------------------------------------------
+
+
+### Normalverteilung
+
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+$~~~\mu~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\sigma^2$
+`r  fluidRow( column(2,numericInput("mun","", value=0,min=-2,max=2,step=1)), column(2,numericInput("varn","",value=1,min=1,max=4,step=1)))`
+```{r}
+#library(latex2exp)
+renderPlot({
+  par(mfrow=c(1,2),mar=c(4,6,1,1))
+  mu<-input$mun; sig<-sqrt(input$varn)
+  xseq<-seq(mu-4*sig,max(mu+4*sig,0.2),length=1000)
+  dseq<-dnorm(xseq,mu,sig)
+  plot(xseq, dseq,
+       type="l",col=2,axes=F,lwd=2,
+       xlim=range(xseq),
+       ylim=c(0,ceiling(max(dseq))),ylab="",xlab="",main=expression(phi(x)))
+  lines(xseq,dnorm(xseq,0,1),col=alpha("gray44",0.5))
+  arrows(mu,0,mu,max(dseq),col=4,lty=2,code=0)
+  arrows(mu,max(dseq),min(xseq),max(dseq),col=4,lty=2,code=0)
+  axis(1,at=c(floor(min(xseq)),mu,0,ceiling(max(xseq))),labels=c("",paste("E(X)=",mu),"",""))
+  axis(2,at=c(0,round(dnorm(mu,mu,sig),2),1),
+       labels=c(0,paste0("f(x=",mu,")=",round(dnorm(mu,mu,sig),2)),1),las=2)
+  par(xpd=T)
+  if(mu!=0){text(0,-0.2,"0",col="gray44")}
+  legend("topright",col="gray44",lty=1,legend="N(0,1)",border="n")
+  
+  plot(xseq, pnorm(xseq,mu,sig),
+       type="l",col=2,axes=F,lwd=2,
+       xlim=range(xseq),
+       ylim=c(0,1.1),ylab="",xlab="",main="N(x)")
+  arrows(min(xseq),1,max(xseq),1,col=4,lty=2,code=0)
+  #arrows(min(xseq),0.5,mu,0.5,col=4,lty=2,code=0)
+  axis(1,at=c(min(xseq),mu, 0,max(xseq)),labels=c("","","",""))
+  axis(2,at=c(0,0.5,1),labels=c(0,0.5,1),las=2)
+  text(mu,-0.2,paste("E(X)=",mu),col=2)
+  text(mu+0.2,0.2,paste("Var(X)=",round(sig^2,2)),col=3)
+  lines(xseq,pnorm(xseq,0,1),col=alpha("gray44",0.5))
+  if(mu!=0){text(0,-0.1,"0",col="gray44")}
+  
+},height=200,width=600)
+```
+
+</div>
+
+
+### Exponentialverteilung
+
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+Parameter$~\lambda$
+`r  fluidRow( column(2,numericInput("lame","", value=1, min=0.2, max=5,step=0.1)))`
+```{r}
+#library(latex2exp)
+renderPlot({
+  par(mfrow=c(1,2),mar=c(4,6.5,1,1))
+  lam<-input$lame
+  xseq<-seq(1/(10*lam),max(10*lam,0.2),length=1000)
+  plot(xseq, dexp(xseq,lam),
+       type="l",col=2,axes=F,lwd=2,
+       xlim=c(0,max(xseq)),
+       ylim=c(0,ceiling(max(dexp(xseq,lam)))),ylab="",xlab="",main="f(x)")
+  lines(xseq,dexp(xseq,1),col=alpha("gray44",0.5))
+  arrows(1/lam,0,1/lam,dexp(1/lam,lam),col=4,lty=2,code=0)
+  arrows(1/lam,dexp(1/lam,lam),min(xseq),dexp(1/lam,lam),col=4,lty=2,code=0)
+  axis(1,at=c(floor(min(xseq)),1/lam,0,ceiling(max(xseq))),labels=c("",paste("E(X)=",1/lam),"",""))
+  axis(2,at=c(0,round(dexp(lam,lam),2),1,max(dexp(xseq,lam))),
+       labels=c(0,paste0("f(x=",lam,")=",round(dexp(lam,lam),2)),1,""),las=2)
+  par(xpd=T)
+  if(lam!=1){text(0,-0.2,"0",col="gray44")}
+  legend("topright",col="gray44",lty=1,legend="E(1)",border="n")
+  
+  plot(xseq, pexp(xseq,lam),
+       type="l",col=2,axes=F,lwd=2,
+       xlim=c(0,max(xseq)),
+       ylim=c(0,1.1),ylab="",xlab="",main="F(x)")
+  arrows(0,1,max(xseq),1,col=4,lty=2,code=0)
+  #arrows(min(xseq),0.5,mu,0.5,col=4,lty=2,code=0)
+  axis(1,at=c(0,1/lam, 0,max(xseq)),labels=c(0,"","",""))
+  axis(2,at=c(0,0.5,1),labels=c(0,0.5,1),las=2)
+  text(1/lam,-0.2,paste("E(X)=",round(1/lam,2)),col=2)
+  text(1/lam+0.2,0.2,paste("Var(X)=",round(1/lam^2,2)),col=3)
+  lines(xseq,pexp(xseq,1),col=alpha("gray44",0.5))
+  
+},height=200,width=600)
+```
+
+</div>
+
+### Stetige Gleichverteilung
+
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+`r  fluidRow( column(2,numericInput("astet","a", value=0,min=0, max=4,step=1)), column(2,numericInput("bstet","b",value=1, min=1,max=5,step=1)))`
+```{r}
+renderPlot({
+  par(mfrow=c(1,2),mar=c(4,6,1,1))
+  plot(c(input$astet,input$bstet), 
+       rep(1/(input$bstet -input$astet),2),type="l",col=2,axes=F,lwd=2,
+       xlim=c(input$astet-0.1*input$bstet,input$bstet+0.1*input$bstet),
+       ylim=c(0,max(1.1,1/(input$bstet - input$astet)+0.1)),ylab="",xlab="",main="f(x)")
+  arrows(input$astet,0,input$astet,1/(input$bstet - input$astet),col=4,lty=2,code=0)
+  arrows(input$bstet,0,input$bstet,1/(input$bstet - input$astet),col=4,lty=2,code=0)
+  axis(1,at=c(input$astet,input$bstet),labels=paste(c("a=","b="),c(input$astet,input$bstet)))
+  axis(2,at=c(0,1/(input$bstet - input$astet),1),labels=c(0,paste0("1/(b-a)=",round(1/(input$bstet - input$astet),2)),1),las=2)
+  
+  plot(c(input$astet-0.1*input$bstet,input$astet,input$bstet,input$bstet+0.1*input$bstet), 
+       c(0,0,1,1),type="l",col=2,axes=F,lwd=2,
+       xlim=c(input$astet-0.1*input$bstet,input$bstet+0.1*input$bstet),
+       ylim=c(0,1.1),ylab="",xlab="",main="F(x)")
+  arrows(input$bstet,0,input$bstet,1,col=4,lty=2,code=0)
+  arrows(input$astet-0.1*input$bstet,1,input$bstet,1,col=4,lty=2,code=0)
+  axis(1,at=c(input$astet,round((input$astet+input$bstet)/2,2),input$bstet),labels=paste(c("a=","","b="),c(input$astet,"",input$bstet)))
+  axis(2,at=c(0,0.5,1),labels=c(0,0.5,1),las=2)
+  par(xpd=T)
+  text((input$astet+input$bstet)/2,-0.2,paste("E(X)=",round((input$astet+input$bstet)/2,2)),col=2)
+  text((input$astet+input$bstet)/2,0.2,paste("Var(X)=",round((input$bstet-input$astet)^2/12,2)),col=3)
+},height=200,width=600)
+```
+
+</div>
+
+
+
+GGZ
+=======================================================================
+
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+$n-$maliges Werfen einer fairen Münze:
+
+Zufallsvariable $Z = \begin{cases}1,\text{ wenn Zahl},\\ 0, \text{ wenn Kopf}.\end{cases}$
+$\mathbb P(Z=1)=\mathbb P(Z=0) = \frac12.$
+
+`r  tagList(div(numericInput('nm','n',10, width="50%"),  style="display:inline-block"), div(actionButton('sampl','Werfe!'),  style="display:inline-block"))`
+
+```{r}
+#numericInput('nm','n',10)
+
+#actionButton('sampl','Werfe!')
+
+zz<-reactive({
+  input$sampl
+  z<-sample(c(1,0),size=input$nm, replace=T)
+  z
+})
+
+renderText({
+  paste(c('Zahl','Kopf')[zz()+1])
+})
+```
+
+<h3>relative Häufigkeiten</h3>
+
+<p>$n=$`r renderText({input$nm})`:$~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~n$ wachsend:</p>
+```{r}
+NN<-1000
+zzz<-reactive({
+  input$sampl
+  z<-sample(c(1,0),size=NN, replace=T)
+  z
+})
+renderPlot({
+  par(mfrow=c(1,2))
+  z<-zz()
+  hz<-table(z)/as.numeric(input$nm)
+barplot(hz,ylim=c(0,1.2),cex.axis = 2,names.arg=c("Z=0","Z=1"),main=paste("n=",input$nm),
+        axes=F,cex.names = 1,col=alpha('dodgerblue4',0.3),bty='n')
+#axis(2,at=c(0,0.5,1), labels=c(0,0.5,1))
+text(0.8,hz[1]+0.1,paste(round(hz[1],4)),pos=2,cex=2,col='dodgerblue4')
+text(2,hz[2]+0.1,paste(round(hz[2],4)),pos=2,cex=2,col='dodgerblue4')
+
+    z<-zzz()
+    pz<-cumsum(z)/(1:NN)
+    plot(1:NN,pz,ylim=c(0,1.2),ylab=bquote(h[n](Z==1)),xlab='n',col='dodgerblue4', main=paste("n wachsend"),
+         type='l',axes=F,lwd=3)
+    axis(1)
+    axis(2,at=c(0,0.5,1),labels=c(0,0.5,1))
+    arrows(0,0.5,NN,0.5,lwd=2,lty=2,col=2,code=0)
+
+},height=200,width=600)
+
+```
+
+</div>
+
+
+
+ZGS
+=======================================================================
+
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+```{r}
+sliderInput("nnn", 
+                  "Stichprobenumfang:", 
+                   value = 10,
+                   min = 10, 
+                   max = 100,
+                  step=10)
+
+sliderInput("reps", 
+                  "Anzahl von Ziehungen:", 
+                  value = 10,
+                  min = 10, 
+                  max = 500,
+                  step=10)
+```
+
+
+```{r}
+data <- reactive({
+    dist <- rtri
+    
+    # in addition to input$dist and input$n react to changes in...
+    input$reps
+    
+    dist(input$nnn,0,100,20) # draw n samples
+  })
+```
+
+
+```{r}
+
+means<-NULL
+renderPlot({
+  
+  dist <- input$dist
+    n <- input$nnn
+    reps <- input$reps
+    x<-data()
+   
+    xmin=0; xmax=100; mod=20 
+  #####
+    
+   means<<-1:reps
+      for (i in 1:reps) {
+        means[i] <<-mean(rtri(n,xmin,xmax,mod))
+      }                          
+  ###
+    
+  # do not plot outliers
+    xrm<-x
+    xrm[x>xmax]<-NA
+    xrm[x<xmin]<-NA
+    means[means>xmax]<<-NA
+    means[means<xmin]<<-NA
+  ####
+  par(mfrow=c(3,1),mar=c(2,2,2,2)) 
+  
+  #true dist
+    x0 = seq(xmin,xmax,length.out=100);
+    y0 = dtri(x0,0,100,20)
+    y0=y0/sum(y0);
+    tcol=alpha(4,0.5)
+    acol=alpha(2,0.5)
+    tscale=1
+    
+    plot(x0,y0,type="l",lwd=1,col=NA,main="Grundgesamtheit",xlab="",ylab="",frame=F) 
+    polygon(c(xmin,x0,xmax),c(0,y0,0),col=tcol,border=NA)
+    
+  # plot typical sample
+    hist(xrm, 
+         breaks=seq(xmin,xmax,length.out=100),
+         main="Typische Stichprobe",
+         freq=F,
+         warn.unused = FALSE,
+         col=tcol,
+         border=tcol,
+         xlab="",
+         cex.lab=tscale,
+         cex.axis=tscale,
+         cex.main=tscale,
+         cex.sub=tscale)
+    if (any(x<xmin)) {
+      points(rep(xmin-0.1,sum(x<xmin)),rbeta(sum(x<xmin),2,2),lwd=2,col=tcol,cex=tscale)
+    }
+    if (any(x>xmax)) {
+      points(rep(xmax+0.1,sum(x>xmax)),rbeta(sum(x>xmax),2,2),lwd=2,col=tcol,cex=tscale)
+    }
+    
+    # plot list of sample means with the latest sample highlighted and N(mu,sigma^2/n)
+    breaks_mh=seq(xmin,xmax,length.out=100);
+    y0 = dnorm(x0, 40, sqrt(466.6667)/sqrt(n))
+    y0=y0/sum(y0)*length(means)*mean(diff(breaks_mh))/mean(diff(x0))
+    
+    hist(means,
+             breaks=breaks_mh,
+             main="Stichprobenmittelwerte",
+             warn.unused = FALSE,
+             col=tcol,
+              freq=T,
+             border=tcol,
+             xlab="",
+             cex.lab=tscale,
+             cex.axis=tscale,
+             cex.main=tscale,
+             cex.sub=tscale)
+    if (mean(x)>xmin && mean(x)<xmax) {
+      hist(mean(x),
+           breaks=breaks_mh,
+           col=acol,
+           border=acol,
+            freq=F,
+           add=TRUE,
+           ylim=c(0,max(y0,max(nh$counts))))
+    }
+    points(x0,y0,type="l",lwd=2)
+}, width=400, height=400)
+```
+
+
+</div>
+
+Stichprobenziehung
+=======================================================================
+
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+
+Stichprobenumfang $n$:
+`r fluidRow( column(2,numericInput('n_umfr', '', 20, min=20, max=100, step=20,width='100%')))`
+
+Also, $i$=1,...,`r renderText({paste(input$n_umfr)})` und `r renderText({paste(input$n_umfr)})` Kunden müssen zufällig ausgewählt werden.
+
+<h3>Stichprobenrealisierung</h3>
+<ul>
+<li>Die Umfrageergebnisse für $i$=1,...,`r renderText({paste(input$n_umfr)})`  (Stichprobenwerte) sehen so aus:
+```{r}
+
+#pars
+anteil<-0.6;
+malter<-30
+#malter<-anteil*malter2+(1-anteil)*malter1
+
+#reactiv
+umfr_df<-reactive({
+  input$update_umfr | input$update_umfr0 | input$update_umfr1
+  n<-input$n_umfr
+  umfr<-as.numeric(runif(n)<=anteil)
+  alter<-rnorm(n,mean=malter, sd=10)
+  alter[alter<18]<-18
+  umfr_df<-data.frame(Kunde=1:n,Alter=round(alter),App_Nutzung=ifelse(umfr==1,'ja','nein'))
+  umfr_df
+})
+#tab
+# renderDataTable({
+#     t(umfr_df()[1:10,])
+# })
+
+```
+<ul>
+<li><strong>App-Nutzung (ja/nein)</strong>: <mark>`r renderText({paste(umfr_df()$App_Nutzung,collapse=";  ")})`</mark> mit darauf basierenden Stichprobenwerten: 
+<br/>
+<p style="color:blue;" align="center">$\{y_1,y_2,\ldots,y_n\}=\{$
+`r renderText({paste(ifelse(umfr_df()$App_Nutzung=="ja",1,0),collapse=";  ")})`$\}$</p>
+<br/>
+</li>
+<li><strong>Einschätzung für die Rechnungshöhe</strong> mit Stichprobenwerten:
+<br/>
+<p style="color:red;" align="center">$\{x_1,x_2,\ldots, x_n\}=\{$`r renderText({paste(umfr_df()$Alter,collapse=";  ")})`$\}$</p>
+<br/>
+</li>
+</ul>
+</li>
+</ul>
+
+<h3>Berechnung der Schätzwerte</h3>
+
+<ul>
+<li>Schätzwert für den Anteil von App-Nutzern $p$:
+<p style="color:blue;" align="center">$\overline{y}=\frac 1n (y_1 + y_2 + \ldots y_n)=$`r renderText({sum(umfr_df()[,3]=='ja')/nrow(umfr_df())})`</p>
+</li>
+<li>Schätzwert für den mittleren Rechnungsbetrag ($\mathbb E(X)$):
+<p style="color:red;" align="center">$\overline{x}=\frac 1n (x_1 + x_2 + \ldots x_n)=$`r renderText({mean(umfr_df()[,2])})`</p>
+</li>
+<li> Realisierungen der Schätzer oder <strong> Schätzwerte</strong> sind: <br/>
+<mark>`r renderText({sum(umfr_df()[,3]=='ja')/nrow(umfr_df())})` und  `r renderText({mean(umfr_df()[,2])})`</mark>
+</li>
+<li> Die eigentlichen Werte der gesuchten Parameter (wir kennen sie, da es sich um eine Simulation handelt, in der Realität sind sie unbekannt) sind: <br/>
+
+```{r}
+a<-reactive({
+  if(input$wahr_par){
+    a<-paste(c(anteil) ,'und',c(malter))
+  } else {a<-''}
+  a
+})
+
+```
+`r checkboxInput('wahr_par', 'die wahren Parameter', value = FALSE, width = '100%')` <mark>`r renderText(a())`</mark>
+</li>
+
+<li> Die Realisierungen der Schätzer basieren immer auf einer <strong>konkreten Stichprobenrealisierung</strong> und können sich verändern, wenn eine anderen Stichprobenziehung vorgenommen wird:
+
+```{r}
+actionButton('update_umfr', 'neue Stichprobe',width='40%')
+```
+
+</li>
+</ul>
+
+</div>
+
+Estimates
+=======================================================================
+
+<h4>Estimates from repeated sampling</h4>
+
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+```{r}
+sliderInput('n_umfr2', 'sample size', value=20, min=20, max=200, step=20,width='50%')
+renderPlot({
+  n<-input$n_umfr2
+  set.seed(12)
+  size<-100
+  x<-rbinom(size,n,anteil)
+  y<-rnorm(n*size,25,10)
+  y<-matrix(y,n,size)
+  
+  par(mfrow=c(2,1),xpd=T)
+  plot(x/n,type='p',pch=16,ylab="",xlab='sample number',col=4,lwd=2,main="Proportion estimates",
+       ylim=c(0.2,1),cex=2)
+  text(-12,0.6,bquote(bar(y)))
+  par(xpd=F)
+  abline(h=anteil,col=alpha(3,0.8),lty=1,lwd=3)
+  abline(h=mean(x/n),col=alpha(2,0.8),lty=2,lwd=3)
+  legend("topright",bty="n",col=c(3,2), lwd=2, legend=c("population proportion","average of all estimates"),cex=1)
+  
+  par(xpd=T)
+  plot(apply(y,2,mean),type='p',pch=16,ylab="",main="Estimates for the expected value",
+       xlab='sample number',col=4,lwd=2,ylim=c(15,35),cex=2,las=2)
+  text(-12,25,bquote(bar(x)))
+  par(xpd=F)
+
+  abline(h=25,col=alpha(3,0.8),lty=1,lwd=3)
+    abline(h=mean(apply(y,2,mean)),col=alpha(2,0.8),lty=2,lwd=3)
+  legend("topright",bty="n",col=c(3,2), lwd=2, legend=c("expectation in the population","average of all estimates"),cex=1)
+  
+},width=600,height=600)
+
+```
+</div>
+
+Bias
+=======================================================================
+
+<h4>Estimates from repeated sampling for $\tilde S^2$ and $S^2$</h4>
+
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+\[\begin{align}
+S&=\frac 1{n-1}\sum_{i=1}^n (X_i - \overline X)^2,\text{ sample variance - unbiased}\\
+\tilde S&= \frac 1{n}\sum_{i=1}^n (X_i - \overline X)^2,\text{ mean squared deviation - biased, the bias is}=-\frac{\sigma^2}n.
+\end{align}\]
+```{r}
+sliderInput('n_umfr3', 'sample size', value=10, min=10, max=100, step=10,width='50%')
+sliderInput('sdgrund', 'standard deviation in the population', value=10, min=10, max=50, step=10,width='50%')
+renderPlot({
+  n<-input$n_umfr3
+  set.seed(123)
+  size<-100
+  sdg<-input$sdgrund
+  y<-rnorm(n*size,malter,sdg)
+  y<-matrix(y,n,size)
+  stild<-apply(y,2,function(x){return(mean((x-mean(x))^2))})
+  s<-apply(y,2,function(x){return(sum((x-mean(x))^2)/(length(x)-1))})
+  
+  par(mfrow=c(2,1),xpd=T)
+  plot(stild,type='p',pch=16,ylab="",xlab='sample',col=alpha(4,0.3),lwd=2,main="mean squared deviation",
+       ylim=c(0.1,1.9)*sdg^2,cex=2, axes=F)
+  axis(1)
+  axis(2, at=c(0.1*sdg^2, 1.9*sdg^2, mean(stild), sdg^2),
+       labels=c("","",round(mean(stild),1),sdg^2),las=2,cex=0.8)
+  text(-8,sdg^2*1.9,bquote(tilde(s)))
+  par(xpd=F)
+    abline(h=sdg^2,col=3,lty=1,lwd=3)
+  abline(h=mean(stild),col=2,lty=2,lwd=3)
+
+  arrows(50,mean(stild),50, sdg^2,code=0,col="cyan",lwd=5)
+ # text(60,sdg^2*1.3,"Verzerrungswert",col="cyan",cex=1.5)
+ # arrows(60,sdg^2*1.2,50,mean(stild),code=2,col="cyan")
+  #legend("topright",col=c(2,3,"cyan"),lty=c(2,1,1),lwd=2, bty="n",legend=c("mittlerer Schätzwert"," Varianz der GG","Verzerrungswert"))
+  
+  par(xpd=T)
+  plot(s,type='p',pch=16,ylab="",main="sample variance",
+       xlab='sample',col=alpha(4,0.3),lwd=2,      ylim=c(0.1,1.9)*sdg^2,cex=2, axes=F)
+  axis(1)
+  axis(2, at=c(0.1*sdg^2, 1.9*sdg^2, sdg^2),
+       labels=c("","",sdg^2),las=2,cex=0.8)
+  text(-8,sdg^2*1.9,bquote(s))
+  par(xpd=F)
+  abline(h=sdg^2,col=3,lty=1,lwd=3)
+  abline(h=mean(s),col=2,lty=2,lwd=3)
+  par(xpd=T)
+  legend(70,250,col=c(2,3,"cyan"),lty=c(2,1,1),lwd=2, bty="n",legend=c("average of the estimates"," pop. variance","bias"))
+  par(xpd=F)
+  
+},width=600,height=600)
+
+```
+</div>
+
+
+
+MLBernoulli
+=======================================================================
+`r  tagList(div(numericInput("x1","\\(x_1\\)",value=1, min=0,max=1,step=1, width="90%"),  style="display:inline-block"), div(numericInput("x2","\\(x_2\\)",value=1, min=0,max=1,step=1, width="90%"),  style="display:inline-block"), div(numericInput("x3","\\(x_3\\)",value=0, min=0,max=1,step=1, width="90%"),  style="display:inline-block"),div(numericInput("x4","\\(x_4\\)",value=1, min=0,max=1,step=1, width="90%"),  style="display:inline-block"))`
+
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+```{r}
+renderPlot({
+  x<-c(input$x1,input$x2,input$x3,input$x4)
+  Lf<-function(p,x){
+      anz_1<-sum(x==1)
+      anz_0<-sum(x==0)
+      return(p^anz_1*(1-p)^anz_0)
+  }
+  ps<-seq(0,1,0.01)
+  Lfs<-Lf(ps,x)
+  plot(ps,Lfs,type="l",col=2,lwd=2,xlab="p",ylab="L(p)")
+  arrows(ps[which.max(Lfs)],0,ps[which.max(Lfs)],Lfs[which.max(Lfs)],lty=2,col=4,code=0)
+  text(ps[which.max(Lfs)],Lfs[which.max(Lfs)]/2,bquote(hat(p)==~.(ps[which.max(Lfs)])),col=4)
+},height=400,width=400)
+```
+</div>
+
+
+MLExponential
+=======================================================================
+`r  tagList(div(numericInput("x1e","\\(x_1\\)",value=0.95, min=0,max=5,step=1, width="100%"),  style="display:inline-block"), div(numericInput("x2e","\\(x_2\\)",value=1.81, min=0,max=5,step=1, width="100%"),  style="display:inline-block"), div(numericInput("x3e","\\(x_3\\)",value=1, min=0,max=5,step=1, width="100%"),  style="display:inline-block"),div(numericInput("x4e","\\(x_4\\)",value=0.67, min=0,max=5,step=1, width="100%"),  style="display:inline-block"))`
+
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+```{r}
+renderPlot({
+  x<-c(input$x1e,input$x2e,input$x3e,input$x4e)
+  Lf<-function(lam,x){
+      sx<-sum(x)
+      return(lam^length(x)*exp(-lam*sx))
+  }
+  lams<-seq(0,2,0.01)
+  Lfs<-Lf(lams,x)
+  #
+  par(mfrow=c(1,2))
+  plot(lams,Lfs,type="l",col=2,lwd=2,xlab=bquote(lambda),ylab=bquote(L(lambda)))
+  arrows(lams[which.max(Lfs)],0,lams[which.max(Lfs)],Lfs[which.max(Lfs)],lty=2,col=4,code=0)
+  text(lams[which.max(Lfs)],Lfs[which.max(Lfs)]/2,bquote(hat(lambda)==~.(lams[which.max(Lfs)])),col=4)
+  
+  lLfs<-log(Lfs)
+  #
+  plot(lams,lLfs,type="l",col=2,lwd=2,xlab=bquote(lambda),ylab=bquote(lnL(lambda)))
+  arrows(lams[which.max(lLfs)],-20,lams[which.max(lLfs)],lLfs[which.max(lLfs)],lty=2,col=4,code=0)
+  text(lams[which.max(lLfs)],lLfs[which.max(lLfs)]*2,bquote(hat(lambda)==~.(lams[which.max(lLfs)])),col=4)
+  
+  
+},height=400,width=600)
+```
+</div>
+
+
+
+Interval estimation
+=======================================================================
+
+<h4>Interval estimation for the average invoice amount</h4>
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+<ul>
+
+```{r}
+#reactiv
+umfr_df1<-reactive({
+  input$update_umfr1
+  n<-100
+  umfr<-as.numeric(runif(n)<=anteil)
+  alter<-rnorm(n,mean=malter, sd=30)
+  alter[alter<0]<-0
+  umfr_df<-data.frame(Kunde=1:n,Alter=round(alter),App_Nutzung=ifelse(umfr==1,'ja','nein'))
+  umfr_df
+})
+```
+
+<li>
+Punktschätzung: $\bar x=\frac 1n\sum_{i=1}^nx_i=$`r renderText({paste(mean(umfr_df1()$Alter))})`
+</li>
+<li>
+Intervalschätzung:$[\bar x-1,96\cdot 0,5; \bar x+1,96\cdot 0,5] = [$<mark>`r renderText({paste(c(mean(umfr_df1()$Alter)-1.96*0.5,mean(umfr_df1()$Alter)+1.96*0.5),collapse=";  ")})`</mark>$]$.
+`r actionButton('update_umfr1', 'neue Stichprobe',width='40%')`
+</li>
+</ul>
+
+</div>
+
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+<ul>
+<li>Wiederholte Stichprobenziehung und Schätzintervallbildung für die gegebene Überdeckungswahrscheinlichkeit $1-\alpha$
+</li>
+<li>Im Mittel werden $(1-\alpha)$ Schätzintervalle den wahren Parameter überdecken.
+</li>
+<li>Für unser Beispiel "Schätzung des mittleren Kundenalter $\mu_X$" mit $n=100$ und $\sigma_X=30$ ergeben die 100 wiederholten Stichprobenziehungen 100 Schätzintervalle für $\alpha$:
+</li>
+</ul>
+```{r}
+numericInput("al","",value=0.95,step=0.01,min=0.8,max=0.99)
+renderPlot({
+  input$neu
+  ints_u<-ints_o<-numeric(100)
+  plot(0,0,col=0,ylim=c(10,50),xlim=c(0,100),xlab="Ziehung",ylab="")
+  for(i in 1:100){
+    alter<-rnorm(n=100,mean=30, sd=30)
+    #alter[alter<18]<-18
+    m<-mean(alter)
+    points(i,m,col=4,cex=2,pch=4,lwd=2)
+    ints_u[i]<-m-qnorm(input$al)*3
+    ints_o[i]<-m+qnorm(input$al)*3
+    mycol<-ifelse(30>ints_u[i]&30<ints_o[i],3,2)
+    abline(h=30,lty=2,col=4)
+    lines(c(i,i),c(ints_u[i],ints_o[i]),col=mycol,lwd=2)
+  }
+},height=400)
+actionButton("neu","neue Versuche",value=T)
+```
+</div>
+
+Stichprobenumfang
+=======================================================================
+
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+<h3>Erkenntnisse generieren: wie viele Kunden befragen?</h3>
+<h4>Stichprobenumfang und Genauigkeit</h4>
+<br/>
+<p>Mit Hilfe von Wahrscheinlichkeitstheorie kann man den Stichprobenumfang an die geförderte <strong>Genauigkeit</strong> des Schätzwertes anpassen.</p>
+<br/>
+<p>Da aber die Anpassung auf der Verteilung des Schätzers ruht, kann die Genauigkeit nur mit einer vorbestimmten (hohen) Wahrscheinlichkeit eingehalten werden. Diese wird als <strong>Sicherheitsniveau</strong> bezeichnet. </p>
+<br/>
+<ul>
+<li>Geforderte Genauigkeit für Anteil von Appnutzern:
+
+```{r}
+sliderInput('genau', 'Genauigkeit', value=0.05, min=0.01, max=0.1, step=0.005,width='50%')
+```
+</li>
+<li>Sicherheitsniveau: mit welcher Wahrscheinlichkeit wird die Genauigkeit gefordert?
+ 
+```{r}
+numericInput('wkt','Wahrscheinlichkeit', value=0.95, min=0.9,max=0.99,step=0.01)
+```
+</li>
+<li>Benötigter Stichprobenumfang $n$=<mark>`r renderText({nprob<-(input$wkt+1)/2;q<-qnorm(nprob); nn<-q^2/(input$genau)^2; round(nn)+1})`</mark>
+</li>
+</ul>
+</div>
+
+
+Discount campaign
+=======================================================================
+
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+
+
+`r  tagList(div(numericInput("npilot","n:",value=30, width="40%"),  style="display:inline-block"), div(numericInput("sigums","\\(\\sigma\\)",value=2.4, width="40%"),style="display:inline-block"), div(selectInput("alrab","\\(\\alpha\\)",c("0.01","0.05","0.1"), "0.05",width="100%"),  style="display:inline-block"),br(), div(numericInput("umsatzalt","Status Quo:",value=25, width="60%"),  style="display:inline-block"), div(numericInput("umsatzneu","Sample mean:",value=26.3, max=27, width="60%"),style="display:inline-block"))`
+```{r}
+#selectInput("alrab","alpha",c("0.01","0.05","0.1"))
+#numericInput("umsatzalt","Status Quo:",value=25)
+#numericInput("umsatzneu","Teststatistikwert:",value=26.3)
+#numericInput("npilot","n:",value=30)
+#numericInput("sigums",bquote(sigma),value=2.4)
+
+renderPlot({
+  par(mar=c(4,6,1,1))
+  mu<-input$umsatzalt; sig<-input$sigums/sqrt(input$npilot)
+  xseq<-seq(mu-6*sig,max(mu+6*sig,0.2),length=1000)
+  dseq<-dnorm(xseq,mu,sig)
+  plot(xseq, dseq,
+       type="l",col=4,axes=F,lwd=2,
+       xlim=range(xseq),
+       ylim=c(0,1),ylab="",xlab="",main=paste0("X~N(",mu,";",round(sig^2,4),")"))
+  lines(xseq,dnorm(xseq,0,1),col=alpha("gray44",0.5))
+  arrows(mu,0,mu,max(dseq),col=4,lty=2,code=0)
+  #arrows(mu,max(dseq),min(xseq),max(dseq),col=4,lty=2,code=0)
+  par(xpd=F)
+  bpm<-input$umsatzneu
+  apm<-qnorm(1-as.numeric(input$alrab),mu,sig)
+  axis(1,at=c(floor(min(xseq)),mu,bpm,apm,ceiling(max(xseq))),
+       labels=c("",mu,"",round(apm,1),""))
+  axis(2,at=c(0,0.5,1),labels=c(0,0.5,1),las=2)
+  abline(v=bpm,lty=2,col=3)
+  abline(v=apm,lty=2,col=2)
+  text(bpm+0.1,0.65,
+       paste0("P(X>",round(bpm,1),")=",round(1-pnorm(bpm,mu,sig),4)),col=3)
+  arrows(bpm+0.1,0.6,bpm+0.05,0.5,lty=1,
+         code=2,col=3)
+  text(apm+0.1,0.6,
+       paste0("P(X>",round(apm,1),")=",input$alrab),col=2)
+  arrows(apm+0.1,0.55,apm+0.05,0.3,lty=1,
+         code=2,col=2)
+  polygon(c(xseq[xseq>bpm][1],xseq[xseq>bpm],tail(xseq[xseq>bpm][1],1)),c(dseq[xseq>bpm][1],dseq[xseq>bpm], tail(dseq[xseq>bpm],1)),col=alpha(3,0.3),border=3)
+  polygon(c(xseq[xseq>apm][1],xseq[xseq>apm],tail(xseq[xseq>apm][1],1)),c(dseq[xseq>apm][1],dseq[xseq>apm], tail(dseq[xseq>apm],1))-0.01,col=alpha(2,0.5),border=2)
+  
+  
+  
+  
+},height=300,width=700)
+```
+
+</div>
+
+
+Binomialtest
+=======================================================================
+
+<h3> Beispiel: Qualitätsprüfung</h3>
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+
+`r  tagList(div(selectInput("albin","\\(\\alpha\\)",c("0.01","0.05","0.1"), "0.05",width="100%"),  style="display:inline-block"), div(numericInput("auss","Number of defect pieces:",value=102, width="60%"),  style="display:inline-block"))`
+
+```{r}
+
+#selectInput("albin","alpha",c("0.01","0.05","0.1"))
+#numericInput("auss","Anzahl defekte Stücke:",value=102)
+renderPlot({
+  x<-seq(0,1000,1)
+  px<-dbinom(x,size=1000,prob=0.1)
+  bpm<-input$auss
+  apm<-x[(1-cumsum(px))<input$albin][1]
+  plot(x[x<bpm],px[x<bpm],type="h",xlab="k",main=paste0("X~B(n=",1000,"; p=",0,1,")"),ylab="f(k)",xlim=input$auss*c(0.5,1.5),
+       ylim=c(0,0.05),axes=F,lwd=5,col=alpha("gray44",0.5))
+  lines(x[x>=bpm],px[x>=bpm],type="h",col=3)
+  lines(x[x>=apm]+0.4,px[x>=apm],type="h",col=2)
+  axis(2, at=c(0,0.05))
+  axis(1,at=c(0,bpm,apm,1000),labels=c("",bpm,apm,""))
+  abline(v=bpm,lty=2,col=3)
+  abline(v=apm,lty=2,col=2)
+  text(bpm+18,0.045,
+       paste0("P(X>",bpm,")=",round(1-pbinom(bpm,1000,0.1),3)),col=3)
+  arrows(bpm+15,0.035,bpm+5,0.01,lty=1,
+         code=2,col=3)
+  text(apm+18,0.04,
+       paste0("P(X>",apm,")<",input$albin),col=2)
+  arrows(apm+15,0.03,apm+5,0.01,lty=1,
+         code=2,col=2)
+  },height=400,width=700)
+```
+</div>
+
+ABinomialtest
+=======================================================================
+
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+
+`r  tagList(div(selectInput("alnor","\\(\\alpha\\)",c("0.01","0.05","0.1"),"0.05", width="100%"),  style="display:inline-block"), div(numericInput("nauss","Teststatistics value:",value=0.21, width="60%"),  style="display:inline-block"))`
+
+```{r}
+#selectInput("alnor","alpha",c("0.01","0.05","0.1"))
+#numericInput("nauss","Wert der Teststatistik:",value=0.21)
+renderPlot({
+  par(mar=c(4,6,1,1),mfrow=c(2,1))
+  mu<-0; sig<-1
+  xseq<-seq(mu-4*sig,max(mu+4*sig,0.2),length=1000)
+  dseq<-dnorm(xseq,mu,sig)
+  plot(xseq, dseq,
+       type="l",col=4,axes=F,lwd=2,
+       xlim=range(xseq),
+       ylim=c(0,0.5),ylab="",xlab="",main="Z~N(0;1)")
+  lines(xseq,dnorm(xseq,0,1),col=alpha("gray44",0.5))
+  arrows(mu,0,mu,max(dseq),col=4,lty=2,code=0)
+  #arrows(mu,max(dseq),min(xseq),max(dseq),col=4,lty=2,code=0)
+  par(xpd=F)
+  bpm<-input$nauss
+  apm<-qnorm(1-as.numeric(input$alnor))
+  axis(1,at=c(floor(min(xseq)),0,bpm,apm,ceiling(max(xseq))),
+       labels=c("",0,"",round(apm,4),""))
+  axis(2,at=c(0,0.5),labels=c(0,0.5),las=2)
+  abline(v=bpm,lty=2,col=3)
+  abline(v=apm,lty=2,col=2)
+  text(bpm+0.8,0.45,
+       paste0("P(Z>",bpm,")=",round(1-pnorm(bpm),3)),col=3)
+  arrows(bpm+0.5,0.44,bpm+0.1,0.3,lty=1,
+         code=2,col=3)
+  text(apm+0.8,0.4,
+       paste0("P(Z>",round(apm,4),")=",input$alnor),col=2)
+  arrows(apm+0.5,0.34,apm+0.1,0.3,lty=1,
+         code=2,col=2)
+  polygon(c(xseq[xseq>bpm][1],xseq[xseq>bpm],tail(xseq[xseq>bpm][1],1)),c(dseq[xseq>bpm][1],dseq[xseq>bpm], tail(dseq[xseq>bpm],1)),col=alpha(3,0.3),border=3)
+  polygon(c(xseq[xseq>apm][1],xseq[xseq>apm],tail(xseq[xseq>apm][1],1)),c(dseq[xseq>apm][1],dseq[xseq>apm], tail(dseq[xseq>apm],1))-0.01,col=alpha(2,0.5),border=2)
+  
+  mu<-100; sig<-sqrt(90)
+  xseq<-seq(mu-4*sig,max(mu+4*sig,0.2),length=1000)
+  dseq<-dnorm(xseq,mu,sig)
+  plot(xseq, dseq,
+       type="l",col=4,axes=F,lwd=2,
+       xlim=range(xseq),
+       ylim=c(0,0.1),ylab="",xlab="",main="X~N(100;90)")
+  lines(xseq,dnorm(xseq,0,1),col=alpha("gray44",0.5))
+  arrows(mu,0,mu,max(dseq),col=4,lty=2,code=0)
+  #arrows(mu,max(dseq),min(xseq),max(dseq),col=4,lty=2,code=0)
+  par(xpd=F)
+  bpm<-input$nauss*sig + mu
+  apm<-qnorm(1-as.numeric(input$alnor),mu,sig)
+  axis(1,at=c(floor(min(xseq)),mu,bpm,apm,ceiling(max(xseq))),
+       labels=c("",mu,"",round(apm,1),""))
+  axis(2,at=c(0,0.05),labels=c(0,0.05),las=2)
+  abline(v=bpm,lty=2,col=3)
+  abline(v=apm,lty=2,col=2)
+  text(bpm+8,0.045,
+       paste0("P(X>",round(bpm,1),")=",round(1-pnorm(bpm,mu,sig),3)),col=3)
+  arrows(bpm+5,0.044,bpm+1,0.03,lty=1,
+         code=2,col=3)
+  text(apm+8,0.04,
+       paste0("P(X>",round(apm,1),")=",input$albin),col=2)
+  arrows(apm+5,0.034,apm+1,0.03,lty=1,
+         code=2,col=2)
+  polygon(c(xseq[xseq>bpm][1],xseq[xseq>bpm],tail(xseq[xseq>bpm][1],1)),c(dseq[xseq>bpm][1],dseq[xseq>bpm], tail(dseq[xseq>bpm],1)),col=alpha(3,0.3),border=3)
+  polygon(c(xseq[xseq>apm][1],xseq[xseq>apm],tail(xseq[xseq>apm][1],1)),c(dseq[xseq>apm][1],dseq[xseq>apm], tail(dseq[xseq>apm],1))-0.001,col=alpha(2,0.5),border=2)
+  
+  
+  
+  
+},height=400,width=700)
+```
+
+</div>
+
+Gauss-Test
+=======================================================================
+
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+
+`r  tagList(div(selectInput("algaus","\\(\\alpha\\)",c("0.01","0.05","0.1"), width="100%"),  style="display:inline-block"), div(numericInput("gauss","Test statistics value:",value=1.64, width="60%"),  style="display:inline-block"))`
+```{r}
+#selectInput("algaus","alpha",c("0.01","0.05","0.1"))
+#numericInput("gauss","Wert der Teststatistik:",value=1.64)
+renderPlot({
+  par(mar=c(2,4,1,0),mfrow=c(2,1),xpd=T)
+  mu<-0; sig<-1
+  xseq<-seq(mu-4*sig,max(mu+4*sig,0.2),length=1000)
+  dseq<-dnorm(xseq,mu,sig)
+  plot(xseq, dseq,
+       type="l",col=4,axes=F,lwd=2,
+       xlim=range(xseq),
+       ylim=c(0,0.5),ylab="",xlab="",main="Z~N(0;1)")
+  lines(xseq,dnorm(xseq,0,1),col=alpha("gray44",0.5))
+  arrows(mu,0,mu,max(dseq),col=4,lty=2,code=0)
+  #arrows(mu,max(dseq),min(xseq),max(dseq),col=4,lty=2,code=0)
+  par(xpd=F)
+  bpm<-input$gauss
+  apm<-qnorm(1-as.numeric(input$alnor)/2)
+  axis(1,at=c(floor(min(xseq)),0,bpm,apm,ceiling(max(xseq))),
+       labels=c("",0,"",round(apm,4),""))
+  axis(2,at=c(0,0.5),labels=c(0,0.5),las=2)
+  abline(v=bpm,lty=2,col=3)
+  abline(v=-bpm,lty=2,col=alpha(3,0.3))
+  abline(v=apm,lty=2,col=2)
+  abline(v=-apm,lty=2,col=alpha(2,0.3))
+  par(xpd=T)
+  text(bpm+0.8,0.45,
+       paste0("P(Z>",bpm,")=",round(1-pnorm(bpm),3)),col=3)
+  arrows(bpm+0.5,0.44,bpm+0.1,0.3,lty=1,
+         code=2,col=3)
+  text(apm+0.7,0.4,
+       paste0("P(Z>",round(apm,4),")=",as.numeric(input$algaus)/2),col=2)
+  arrows(apm+0.5,0.34,apm+0.1,0.3,lty=1,
+         code=2,col=2)
+  polygon(c(xseq[xseq>bpm][1],xseq[xseq>bpm],tail(xseq[xseq>bpm][1],1)),c(dseq[xseq>bpm][1],dseq[xseq>bpm], tail(dseq[xseq>bpm],1)),col=alpha(3,0.3),border=3)
+  polygon(c(xseq[xseq>apm][1],xseq[xseq>apm],tail(xseq[xseq>apm][1],1)),c(dseq[xseq>apm][1],dseq[xseq>apm], tail(dseq[xseq>apm],1))-0.01,col=alpha(2,0.5),border=2)
+   text(-bpm-0.8,0.45,
+       paste0("P(Z<",-bpm,")=",round(pnorm(-bpm),3)),col=alpha(3,0.3))
+  arrows(-bpm-0.5,0.44,-bpm-0.1,0.3,lty=1,
+         code=2,col=alpha(3,0.3))
+  text(-apm-0.8,0.4,
+       paste0("P(Z<",-round(apm,4),")=",as.numeric(input$algaus)/2),col=alpha(2,0.3))
+  arrows(-apm-0.5,0.34,-apm-0.1,0.3,lty=1,
+         code=2,col=alpha(2,0.3))
+  
+  
+  
+  mu<-17; sig<-sqrt(2.25)
+  xseq<-seq(mu-4*sig,max(mu+4*sig,0.2),length=1000)
+  dseq<-dnorm(xseq,mu,sig)
+  plot(xseq, dseq,
+       type="l",col=4,axes=F,lwd=2,
+       xlim=range(xseq),
+       ylim=c(0,0.5),ylab="",xlab="",main="X~N(17;2,25)")
+  lines(xseq,dnorm(xseq,0,1),col=alpha("gray44",0.5))
+  arrows(mu,0,mu,max(dseq),col=4,lty=2,code=0)
+  #arrows(mu,max(dseq),min(xseq),max(dseq),col=4,lty=2,code=0)
+  par(xpd=F)
+  bpm<-input$gauss*sig + mu
+  apm<-qnorm(1-as.numeric(input$algaus)/2,mu,sig)
+  axis(1,at=c(floor(min(xseq)),mu,bpm,apm,ceiling(max(xseq))),
+       labels=c("",mu,"",round(apm,1),""))
+  axis(2,at=c(0,0.5),labels=c(0,0.05),las=2)
+  abline(v=bpm,lty=2,col=3)
+  abline(v=apm,lty=2,col=2)
+  text(bpm+1,0.45,
+       paste0("P(X>",round(bpm,1),")=",round(1-pnorm(bpm,mu,sig),3)),col=3)
+  arrows(bpm+0.5,0.44,bpm+0.1,0.3,lty=1,
+         code=2,col=3)
+  text(apm+1,0.4,
+       paste0("P(X>",round(apm,1),")=",as.numeric(input$algaus)/2),col=2)
+  arrows(apm+0.5,0.34,apm+0.1,0.3,lty=1,
+         code=2,col=2)
+  
+  polygon(c(xseq[xseq>bpm][1],xseq[xseq>bpm],tail(xseq[xseq>bpm][1],1)),c(dseq[xseq>bpm][1],dseq[xseq>bpm], tail(dseq[xseq>bpm],1)),col=alpha(3,0.3),border=3)
+  polygon(c(xseq[xseq>apm][1],xseq[xseq>apm],tail(xseq[xseq>apm][1],1)),c(dseq[xseq>apm][1],dseq[xseq>apm], tail(dseq[xseq>apm],1))-0.001,col=alpha(2,0.5),border=2)
+  
+  
+  
+},height=350,width=700)
+```
+
+</div>
+
+t-Test
+=======================================================================
+
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+
+`r  tagList(div(selectInput("alt","\\(\\alpha\\)",c("0.01","0.05","0.1"), width="100%"),  style="display:inline-block"), div(numericInput("tauss","Test statistics value",value=2.186, width="60%"),  style="display:inline-block"),div(numericInput("frg","degrees of freedom",value=4, width="60%"),  style="display:inline-block"))`
+```{r}
+#selectInput("alt","alpha",c("0.01","0.05","0.1"))
+#numericInput("tauss","Wert der Teststatistik:",value=2.186)
+renderPlot({
+  par(mar=c(4,6,1,1))
+  mu<-0; sig<-1
+  xseq<-seq(mu-6*sig,max(mu+6*sig,0.2),length=1000)
+  dseq<-dt(xseq,input$frg)
+  plot(xseq, dseq,
+       type="l",col=4,axes=F,lwd=2,
+       xlim=range(xseq),
+       ylim=c(0,0.5),ylab="",xlab="",main=paste0("T~t(",input$frg,")"))
+  lines(xseq,dt(xseq,input$frg),col=alpha("gray44",0.5))
+  arrows(mu,0,mu,max(dseq),col=4,lty=2,code=0)
+  #arrows(mu,max(dseq),min(xseq),max(dseq),col=4,lty=2,code=0)
+  par(xpd=F)
+  bpm<-input$tauss
+  apm<-qt(1-as.numeric(input$alt)/2,input$frg)
+  axis(1,at=c(floor(min(xseq)),0,bpm,apm,ceiling(max(xseq))),
+       labels=c("",0,"",round(apm,4),""))
+  axis(2,at=c(0,0.5),labels=c(0,0.5),las=2)
+  abline(v=bpm,lty=2,col=3)
+  abline(v=-bpm,lty=2,col=alpha(3,0.3))
+  abline(v=apm,lty=2,col=2)
+  abline(v=-apm,lty=2,col=alpha(2,0.3))
+  par(xpd=T)
+  text(bpm+0.8,0.45,
+       paste0("P(T>",bpm,")=",round(1-pt(bpm,input$frg),3)),col=3)
+  arrows(bpm+0.5,0.44,bpm+0.1,0.3,lty=1,
+         code=2,col=3)
+  text(apm+0.6,0.4,
+       paste0("P(T>",round(apm,4),")=",round(1-pt(apm,input$frg),3)),col=2)
+  arrows(apm+0.5,0.34,apm+0.1,0.3,lty=1,
+         code=2,col=2)
+  polygon(c(xseq[xseq>bpm][1],xseq[xseq>bpm],tail(xseq[xseq>bpm][1],1)),c(dseq[xseq>bpm][1],dseq[xseq>bpm], tail(dseq[xseq>bpm],1)),col=alpha(3,0.3),border=3)
+  polygon(c(xseq[xseq>apm][1],xseq[xseq>apm],tail(xseq[xseq>apm][1],1)),c(dseq[xseq>apm][1],dseq[xseq>apm], tail(dseq[xseq>apm],1))-0.001,col=alpha(2,0.5),border=2)
+  
+  
+  text(-bpm-1,0.45,
+       paste0("P(T<",-round(bpm,3),")=",round(pt(-bpm,input$frg),3)),col=alpha(3,0.3))
+  arrows(-bpm-0.5,0.44,-bpm-0.1,0.3,lty=1,
+         code=2,col=alpha(3,0.3))
+  text(-apm-0.6,0.4,
+       paste0("P(T<",-round(apm,4),")=",round(pt(-apm,input$frg),3)),col=alpha(2,0.3))
+  arrows(-apm-0.5,0.34,-apm-0.1,0.3,lty=1,
+         code=2,col=alpha(2,0.3))
+  
+  
+},height=300,width=700)
+```
+
+</div>
+
+
+LinReg
+=======================================================================
+
+
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+<h3>Log-linearisierte Nachfrage</h3>
+
+`r  tagList(div(numericInput("sample_reg1","\\(n\\)", value=20, width="80%"),  style="display:inline-block"), div(numericInput(inputId = "intercept1",label = "\\(\\alpha\\)",value = 7, min = 5, max = 10,step = 1, width="80%"),  style="display:inline-block"), br(), div(numericInput(inputId = "slope1",label = "\\(\\beta\\)",value = -0.2, min = -0.5, max = 0.5,step = 0.05, width="80%"),  style="display:inline-block"),div(numericInput(inputId = "SD1",label = "\\(\\sigma_{\\varepsilon}\\)",value = 1, min = 0, max = 2,step=0.1, width="80%"),  style="display:inline-block"), br(), div(actionButton(inputId = "refresh1", label = "neue Stichprobe" , icon = icon("fa fa-refresh"))))`
+
+```{r} 
+
+  ### Saving data:
+  Rawdata <- reactive({
+    input$refresh1 
+    
+    slope <- input$slope1
+    
+    sample <- input$sample_reg1
+    
+    xx<-round(runif(1000,0,20),2)
+    #x <- round(1:sample + rnorm(n = sample, mean = 1, sd = 2), digits = 2)
+    x<-round(xx[1:sample],2)
+    
+    MN <- log(input$intercept1)
+    SD <- 1#input$SD
+    
+    # if(input$heterosc){
+    #   SD <-SD*sin(x/max(x))
+    # }
+    
+    res<-rnorm(n = sample, mean = 0, sd = 1 )
+    y <- round(MN + slope * x + SD*res, digits = 2)
+    mod <- lm(y ~ x, data.frame(y,x))
+    ypred <- predict(mod)
+    Rawdata <- data.frame(y=y, x=x, ypred=ypred)
+    Rawdata
+
+  })
+  
+  SSdata <- reactive({
+    dat <- Rawdata()
+    y=dat[,1]; x=dat[,2]
+    Y <- mean(y)
+    mod <- lm(y ~ x)
+    ypred <- predict(mod)
+    SST <- sum((y - Y)^2)
+    SSE <- round(sum((y - ypred)^2), digits = 5)
+    SSA <- SST - SSE
+    
+    SSQ <- data.frame(QS = c("SST","SSR","SSE"),
+                      value = as.numeric(c(SST, SSA, SSE)/SST)*100)
+    SSQ$QS <- factor(SSQ$QS, as.character(SSQ$QS))
+    SSdata <- data.frame(QS = factor(SSQ$QS, as.character(SSQ$QS)),
+                         value = as.numeric(c(SST, SSA, SSE)/SST)*100)
+    SSdata
+    
+  })
+  
+  lmres<-reactive({
+    dat<-Rawdata(); 
+     y=dat[,1]; x=dat[,2]
+    lm1<-lm(y~x); 
+    ah<-lm1$coefficients[1]; 
+    bh<-lm1$coefficients[2]; 
+    zw<-ifelse(bh>0,'+','-'); 
+    
+    tx<-bquote(hat(q[i])== .(ah)~.(zw)~.(abs(bh))*p[i])
+  })
+  
+```
+
+
+```{r, out.width="100%"} 
+ 
+lmm<-reactive({
+  dat = Rawdata()
+  p<-x<-dat[,2]; q<-exp(dat[,1]); y<-dat[,1]
+  lm1<-lm(y ~ x)
+  summary(lm1)
+})
+
+renderPlot({
+
+    dat<-Rawdata()
+    y=dat[,1]; x=dat[,2]
+    lm1<-lm(y~x)
+    ah<-round(lm1$coefficients[1],4)
+    bh<-round(lm1$coefficients[2],4)
+    ahh<-gsub("\\.","\\,",ah)
+    bhh<-gsub("\\.","\\,",bh)
+    xgrid<-seq(0,20)
+    zw<-ifelse(bh>0,'+','-')
+    mn<-bquote(hat(y)== .(ahh)~.(zw)~.(gsub("\\.","\\,",abs(bh)))*x)
+    ylims<-c(-5,5)
+
+
+    par(lwd=3,xpd=F,mar=c(5.1,4.5,4.1,2.1),mfrow=c(1,2))
+    #Nachfrage
+    plot(x,exp(y),pch=16,col=4,type='p',xlim=c(0,20), ylim=c(-1,20),xlab='p',
+         ylab='q',axes=F,cex.lab=2,cex=2,lwd=2, main="Nachfragemenge vs. Preis",cex.main=1.5)
+    abline(h=0,lwd=1,lty=1)
+    #abline(h=mean(dat$y),lty=2,col=4)
+    #text(17,6.3,paste('Stichprobenmittelwert'),col=4,cex=1)
+    xx<-seq(0,120,0.1)
+    lines(xx,exp(ah)*exp(bh*xx),col=2,lwd=2,lty=2)
+    par(xpd=T)
+    axis(1)
+    axis(2)
+
+    par(xpd=F)
+    #Linearisiert
+    par(lwd=3,xpd=F,mar=c(5.1,4.5,4.1,2.1))
+    plot(x,y,pch=16,col=4,type='p',xlim=c(0,20), ylim=ylims,xlab='x',
+         ylab='y',axes=F,cex.lab=2,cex=2,lwd=1, main="log-linearisierte Version",cex.main=1.5)
+    abline(h=0,lwd=1,lty=1)
+    #abline(h=mean(dat$y),lty=2,col=4)
+    #text(17,6.3,paste('Stichprobenmittelwert'),col=4,cex=1)
+    par(xpd=T)
+    #text(-2,mean(dat$y),expression(bar(q)),col=4,cex=2)
+    axis(1)
+    axis(2)
+    lines(xx,ah+bh*xx,lty=2,col=2,lwd=2)
+},width=600,height=400)  
+```
+    
+
+```{r, out.width="100%"} 
+renderPlot({
+    dat<-Rawdata()
+    y=dat[,1]; x=dat[,2]
+    lm1<-lm(y~x,dat)
+    ah<-round(lm1$coefficients[1],4)
+    bh<-round(lm1$coefficients[2],4)
+    ahh<-gsub("\\.","\\,",ah)
+    bhh<-gsub("\\.","\\,",bh)
+    xgrid<-seq(0,20)
+    zw<-ifelse(bh>0,'+','-')
+    mn<-bquote(hat(y)== .(ahh)~.(zw)~.(gsub("\\.","\\,",abs(bh)))*x)
+    ylims<-c(-5,5)
+     xx<-seq(0,120,0.1)
+    
+    par(lwd=3,xpd=F,mar=c(5.1,4.5,4.1,2.1),mfrow=c(1,2))
+    #Schätzung
+    par(lwd=3,xpd=F,mar=c(5.1,4.5,4.1,2.1))
+    plot(x,y,pch=16,col=4,type='p',xlim=c(0,20), ylim=ylims,xlab='x',
+         ylab='y',axes=F,cex.lab=2,cex=2,lwd=1, main=mn,cex.main=1.5)
+    abline(h=0,lwd=1,lty=1)
+    abline(h=mean(y),lty=2,col=4)
+    #text(17,6.3,paste('Stichprobenmittelwert'),col=4,cex=1)
+    par(xpd=T)
+    text(20,mean(y),expression(bar(y)),col=4,cex=2)
+    axis(1)
+    axis(2)
+
+    for(i in 1:length(x)){
+      arrows(x[i],ah+bh*x[i],x[i],mean(y),code=0,lwd=2,col=3)
+    }
+
+    lines(xx,ah+bh*xx,lty=1,col=2,lwd=2)
+    
+    #4 Zerlegung
+    ss<-SSdata()
+    cols <- c("#619CFF", "#00BA38", "#F8766D")
+    barplot(ss[,2],col=cols,names.arg=ss[,1],ylab='% der Gesamtstreuung')
+    text(2,95,bquote(R^2),cex=2.5)
+    text(2.8,90,gsub("\\.","\\,",paste("=",round(1-ss[3,2]/100,2))),cex=2)
+  },width =600,height=400)
+
+```
+</div>
+
+<h3>Intervallschätzung/ Hypothesentests / Prognose</h3>
+
+<div style="background-color: #cfc ; padding: 10px; border: 1px solid green;">
+
+```{r} 
+printmysum <- 
+function (x, digits = max(3L, getOption("digits") - 3L), symbolic.cor = x$symbolic.cor,
+          signif.stars = getOption("show.signif.stars"), ...)
+    {
+        cat("\nModell:", paste("KQ, benutze die Beobachtungen 1-",length(x$residuals)))
+        cat("\nAbhängige Variable: ",paste(substr((x$terms),1,1)[2]))
+        cat("\n")
+        resid <- x$residuals
+        df <- x$df
+        rdf <- df[2L]
+        coefs <- x$coefficients
+        rownames(coefs)[1]<-"const"
+        colnames(coefs)<-c("Koeffizient",   "Std.-fehler",   "t-Quotient",   " p-Wert")
+        
+        printCoefmat(coefs, digits = digits, signif.stars = signif.stars, signif.legend = TRUE,
+                         na.print = "NA", eps.Pvalue =  1e-4, ...)
+        cat("\nR-Quadrat: ", formatC(x$r.squared, digits = digits))
+}
+
+```
+Gretl-Ausgabe (gekürzt):
+
+
+```{r}
+renderPrint({
+     printmysum(lmm())
+  })
+```
+
+<ul>
+<li> Punktschätzung: <mark>$\hat \alpha=$ `r  renderText({round(lm(y ~ x, Rawdata())$coefficients[1],4)})`, $\hat \beta=$ `r  renderText({round(lm(y ~ x, Rawdata())$coefficients[2],4)})`</mark>
+</li>
+<li> Intervallschätzung für $\beta$:
+```{r}
+selectInput("signif","Konfidenzniveau",c(0.9,0.95,0.99))
+```
+$[g_u(\beta); g_o(\beta)]=$<mark>[`r  renderText({round(lmm()$coefficients[2,1] - qt((1-(1-as.numeric(input$signif))/2),(length(lmm()$residuals)-2))*lmm()$coefficients[2,2],4)})`;`r  renderText({round(lmm()$coefficients[2,1] + qt((1-(1-as.numeric(input$signif))/2),(length(lmm()$residuals)-2))*lmm()$coefficients[2,2],4)})`]</mark>
+</li>
+<li>Hypothesentest für $\beta$:
+\[\begin{align}
+1) &H_0: \beta=\beta_0 \text{ vs. } H_1: \beta\not=\beta_0\\
+2) &H_0: \beta\geq\beta_0 \text{ vs. } H_1: \beta<\beta_0\\
+3) &H_0: \beta\leq\beta_0 \text{ vs. } H_1: \beta>\beta_0
+\end{align}\]
+```{r}
+selectInput("signif2","Konfidenzniveau",c(0.9,0.95,0.99))
+numericInput("b0","Wert unter der Nullhypothese \\(\\beta_0\\)",value=0)
+selectInput("hyp","Hypothesenpaar",c("1)","2)","3)"))
+
+hyp<-reactive({
+  hyp<-input$hyp
+  al<-ifelse(hyp=="1)",(1-as.numeric(input$signif2))/2,1-as.numeric(input$signif2))
+  coef<-lmm()$coefficients[2,]
+  teststat<-round((coef[1] - input$b0)/coef[2],4)
+  crit<-round(qt(1-al,length(lmm()$residuals)-2),4)
+  if(hyp=="1)"){
+    ent<-ifelse(abs(teststat)>crit,"ablehnen","nicht ablehnen")
+  } else if(hyp=="3)"){
+    ent<-ifelse(teststat>crit,"ablehnen","nicht ablehnen")
+  } else {
+    crit<--crit
+    ent<-ifelse(teststat<crit,"ablehnen","nicht ablehnen")
+  }
+  list(t=teststat,crit=crit,ent=ent,al=al)
+  })
+```
+</li>
+<li> $t_{\beta}=$<mark>`r  renderText({hyp()$t})`</mark> und der kritische Wert ist <mark>`r  renderText({hyp()$crit})`</mark>. Folglich lautet die Testentscheidung $H_0$ <mark>`r  renderText({hyp()$ent})`</mark>
+</ul>
+<br/>
+<br/>
+<br/>
+
+</div>

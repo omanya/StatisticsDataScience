@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Grenzwertsätze | Statistics and Applications in Data Science</title>
+  <meta name="description" content="This is the script for the course." />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Grenzwertsätze | Statistics and Applications in Data Science" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is the script for the course." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Grenzwertsätze | Statistics and Applications in Data Science" />
+  
+  <meta name="twitter:description" content="This is the script for the course." />
+  
+
+<meta name="author" content="Maria Osipenko" />
+
+
+<meta name="date" content="2024-02-13" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="limit-theorems.html"/>
+<link rel="next" href="iii-induktive-statistik.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-goals-and-context"><i class="fa fa-check"></i>Course goals and context</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-goals"><i class="fa fa-check"></i>Course goals</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#terminology"><i class="fa fa-check"></i>Terminology</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html"><i class="fa fa-check"></i>Random events and probability - a short review</a>
+<ul>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#outcomes-and-events"><i class="fa fa-check"></i>Outcomes and Events</a></li>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#probabilities"><i class="fa fa-check"></i>Probabilities</a>
+<ul>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#calculating-with-probabilities"><i class="fa fa-check"></i>Calculating with probabilities</a></li>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#joint-and-conditional-probabilities-independence-of-events"><i class="fa fa-check"></i>Joint and conditional probabilities, independence of events</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="random-variables.html"><a href="random-variables.html"><i class="fa fa-check"></i><b>1</b> Random variables</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="random-variables.html"><a href="random-variables.html#discrete-random-variable"><i class="fa fa-check"></i><b>1.1</b> Discrete random variable</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="random-variables.html"><a href="random-variables.html#probability-and-distribution-functions"><i class="fa fa-check"></i><b>1.1.1</b> Probability and distribution functions</a></li>
+<li class="chapter" data-level="1.1.2" data-path="random-variables.html"><a href="random-variables.html#probability-and-distribution-functions-1"><i class="fa fa-check"></i><b>1.1.2</b> Probability and distribution functions</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="random-variables.html"><a href="random-variables.html#continuous-random-variable"><i class="fa fa-check"></i><b>1.2</b> Continuous random variable</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="random-variables.html"><a href="random-variables.html#density-function"><i class="fa fa-check"></i><b>1.2.1</b> Density function</a></li>
+<li class="chapter" data-level="1.2.2" data-path="random-variables.html"><a href="random-variables.html#distribution-function"><i class="fa fa-check"></i><b>1.2.2</b> Distribution function</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="random-variables.html"><a href="random-variables.html#key-figures-of-random-variables"><i class="fa fa-check"></i><b>1.3</b> Key figures of random variables</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="random-variables.html"><a href="random-variables.html#expected-value-and-variance"><i class="fa fa-check"></i><b>1.3.1</b> Expected value and variance</a></li>
+<li class="chapter" data-level="1.3.2" data-path="random-variables.html"><a href="random-variables.html#covariance-and-correlation"><i class="fa fa-check"></i><b>1.3.2</b> Covariance and correlation</a></li>
+<li class="chapter" data-level="1.3.3" data-path="random-variables.html"><a href="random-variables.html#quantiles-continuous-rv-only"><i class="fa fa-check"></i><b>1.3.3</b> Quantiles (continuous RV only)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="some-distribution-models.html"><a href="some-distribution-models.html"><i class="fa fa-check"></i><b>2</b> Some distribution models</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="some-distribution-models.html"><a href="some-distribution-models.html#discrete-distributions"><i class="fa fa-check"></i><b>2.1</b> Discrete distributions</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="some-distribution-models.html"><a href="some-distribution-models.html#discrete-uniform-distribution"><i class="fa fa-check"></i><b>2.1.1</b> Discrete uniform distribution</a></li>
+<li class="chapter" data-level="2.1.2" data-path="some-distribution-models.html"><a href="some-distribution-models.html#bernoulli-distribution"><i class="fa fa-check"></i><b>2.1.2</b> Bernoulli distribution</a></li>
+<li class="chapter" data-level="2.1.3" data-path="some-distribution-models.html"><a href="some-distribution-models.html#binomial-distribution"><i class="fa fa-check"></i><b>2.1.3</b> Binomial distribution</a></li>
+<li class="chapter" data-level="2.1.4" data-path="some-distribution-models.html"><a href="some-distribution-models.html#poisson-distribution"><i class="fa fa-check"></i><b>2.1.4</b> Poisson distribution 👽</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="some-distribution-models.html"><a href="some-distribution-models.html#some-continuous-distributions"><i class="fa fa-check"></i><b>2.2</b> Some continuous distributions</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="some-distribution-models.html"><a href="some-distribution-models.html#normal-distribution"><i class="fa fa-check"></i><b>2.2.1</b> Normal distribution</a></li>
+<li class="chapter" data-level="2.2.2" data-path="some-distribution-models.html"><a href="some-distribution-models.html#exponential-distribution"><i class="fa fa-check"></i><b>2.2.2</b> Exponential distribution 👽</a></li>
+<li class="chapter" data-level="2.2.3" data-path="some-distribution-models.html"><a href="some-distribution-models.html#uniform-distribution"><i class="fa fa-check"></i><b>2.2.3</b> Uniform distribution 👽</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="limit-theorems.html"><a href="limit-theorems.html"><i class="fa fa-check"></i><b>3</b> Limit theorems</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="limit-theorems.html"><a href="limit-theorems.html#strong-law-of-large-numbers"><i class="fa fa-check"></i><b>3.1</b> Strong law of large numbers 💪</a></li>
+<li class="chapter" data-level="3.2" data-path="limit-theorems.html"><a href="limit-theorems.html#central-limit-theorem"><i class="fa fa-check"></i><b>3.2</b> Central limit theorem</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="grenzwertsätze.html"><a href="grenzwertsätze.html"><i class="fa fa-check"></i><b>4</b> Grenzwertsätze</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="grenzwertsätze.html"><a href="grenzwertsätze.html#starkes-gesetz-der-großen-zahlen"><i class="fa fa-check"></i><b>4.1</b> Starkes Gesetz der großen Zahlen 💪</a></li>
+<li class="chapter" data-level="4.2" data-path="grenzwertsätze.html"><a href="grenzwertsätze.html#zentraler-grenzwertsatz"><i class="fa fa-check"></i><b>4.2</b> Zentraler Grenzwertsatz</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="grenzwertsätze.html"><a href="grenzwertsätze.html#approximation-von-binomialverteilten-zufallsvariablen"><i class="fa fa-check"></i><b>4.2.1</b> Approximation von binomialverteilten Zufallsvariablen</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="iii-induktive-statistik.html"><a href="iii-induktive-statistik.html"><i class="fa fa-check"></i>III Induktive Statistik</a></li>
+<li class="chapter" data-level="5" data-path="parameterschätzung.html"><a href="parameterschätzung.html"><i class="fa fa-check"></i><b>5</b> Parameterschätzung</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="parameterschätzung.html"><a href="parameterschätzung.html#grundideen-der-induktiven-statistik"><i class="fa fa-check"></i><b>5.1</b> Grundideen der Induktiven Statistik</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="parameterschätzung.html"><a href="parameterschätzung.html#parameterschätzung-theoretisch"><i class="fa fa-check"></i><b>5.1.1</b> Parameterschätzung theoretisch</a></li>
+<li class="chapter" data-level="5.1.2" data-path="parameterschätzung.html"><a href="parameterschätzung.html#parameterschätzung-praktisch"><i class="fa fa-check"></i><b>5.1.2</b> Parameterschätzung praktisch</a></li>
+<li class="chapter" data-level="5.1.3" data-path="parameterschätzung.html"><a href="parameterschätzung.html#zufallsstichprobe-1"><i class="fa fa-check"></i><b>5.1.3</b> Zufallsstichprobe</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="parameterschätzung.html"><a href="parameterschätzung.html#punktschätzung"><i class="fa fa-check"></i><b>5.2</b> Punktschätzung</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="parameterschätzung.html"><a href="parameterschätzung.html#schätzfunktionen-1"><i class="fa fa-check"></i><b>5.2.1</b> Schätzfunktionen</a></li>
+<li class="chapter" data-level="5.2.2" data-path="parameterschätzung.html"><a href="parameterschätzung.html#eigenschaften-von-schätzfunktionen"><i class="fa fa-check"></i><b>5.2.2</b> Eigenschaften von Schätzfunktionen</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="parameterschätzung.html"><a href="parameterschätzung.html#konstruktion-von-schätzfunktionen"><i class="fa fa-check"></i><b>5.3</b> Konstruktion von Schätzfunktionen 👽</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="parameterschätzung.html"><a href="parameterschätzung.html#momenten-methode"><i class="fa fa-check"></i><b>5.3.1</b> Momenten Methode</a></li>
+<li class="chapter" data-level="5.3.2" data-path="parameterschätzung.html"><a href="parameterschätzung.html#maximum-likelihood-methode"><i class="fa fa-check"></i><b>5.3.2</b> Maximum-Likelihood Methode</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="parameterschätzung.html"><a href="parameterschätzung.html#intervallschätzung"><i class="fa fa-check"></i><b>5.4</b> Intervallschätzung</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="parameterschätzung.html"><a href="parameterschätzung.html#alpha-konfidenzintervall-für-mu"><i class="fa fa-check"></i><b>5.4.1</b> <span class="math inline">\((1-\alpha)\)</span>-Konfidenzintervall für <span class="math inline">\(\mu\)</span></a></li>
+<li class="chapter" data-level="5.4.2" data-path="parameterschätzung.html"><a href="parameterschätzung.html#alpha-konfidenzintervall-für-sigma2"><i class="fa fa-check"></i><b>5.4.2</b> <span class="math inline">\((1-\alpha)\)</span>-Konfidenzintervall für <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="5.4.3" data-path="parameterschätzung.html"><a href="parameterschätzung.html#alpha-konfidenzintervall-für-wahrscheinlichkeit-p"><i class="fa fa-check"></i><b>5.4.3</b> <span class="math inline">\((1-\alpha)\)</span>-Konfidenzintervall für Wahrscheinlichkeit <span class="math inline">\(p\)</span></a></li>
+<li class="chapter" data-level="5.4.4" data-path="parameterschätzung.html"><a href="parameterschätzung.html#bestimmung-von-n-anhand-der-länge-von-konfidenzintervallen"><i class="fa fa-check"></i><b>5.4.4</b> Bestimmung von <span class="math inline">\(n\)</span> anhand der Länge von Konfidenzintervallen 👽</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="hypothesentests.html"><a href="hypothesentests.html"><i class="fa fa-check"></i><b>6</b> Hypothesentests 👽</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="hypothesentests.html"><a href="hypothesentests.html#grundidee-des-statistischen-testens"><i class="fa fa-check"></i><b>6.1</b> Grundidee des statistischen Testens</a></li>
+<li class="chapter" data-level="6.2" data-path="hypothesentests.html"><a href="hypothesentests.html#hypothesetests-für-den-anteilswert-p"><i class="fa fa-check"></i><b>6.2</b> Hypothesetests für den Anteilswert <span class="math inline">\(p\)</span></a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="hypothesentests.html"><a href="hypothesentests.html#der-exakte-binomialtest"><i class="fa fa-check"></i><b>6.2.1</b> Der exakte Binomialtest</a></li>
+<li class="chapter" data-level="6.2.2" data-path="hypothesentests.html"><a href="hypothesentests.html#der-approximative-binomialtest"><i class="fa fa-check"></i><b>6.2.2</b> Der approximative Binomialtest</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="hypothesentests.html"><a href="hypothesentests.html#hypothesentests-für-mu"><i class="fa fa-check"></i><b>6.3</b> Hypothesentests für <span class="math inline">\(\mu\)</span></a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="hypothesentests.html"><a href="hypothesentests.html#der-gauß-test"><i class="fa fa-check"></i><b>6.3.1</b> Der Gauß-Test</a></li>
+<li class="chapter" data-level="6.3.2" data-path="hypothesentests.html"><a href="hypothesentests.html#der-t-test"><i class="fa fa-check"></i><b>6.3.2</b> Der <span class="math inline">\(t\)</span>-Test</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="hypothesentests.html"><a href="hypothesentests.html#fehler-1.-art-und-2.-art"><i class="fa fa-check"></i><b>6.4</b> Fehler 1. Art und 2. Art</a></li>
+<li class="chapter" data-level="6.5" data-path="hypothesentests.html"><a href="hypothesentests.html#überschreitungswahrscheinlichkeit-p-wert"><i class="fa fa-check"></i><b>6.5</b> Überschreitungswahrscheinlichkeit <span class="math inline">\(p\)</span>-Wert</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="regressionsanalyse.html"><a href="regressionsanalyse.html"><i class="fa fa-check"></i><b>7</b> Regressionsanalyse 👽</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="regressionsanalyse.html"><a href="regressionsanalyse.html#schätzen-im-linearen-regressionsmodell"><i class="fa fa-check"></i><b>7.1</b> Schätzen im linearen Regressionsmodell</a></li>
+<li class="chapter" data-level="7.2" data-path="regressionsanalyse.html"><a href="regressionsanalyse.html#testen-im-linearen-regressionsmodell"><i class="fa fa-check"></i><b>7.2</b> Testen im linearen Regressionsmodell</a></li>
+<li class="chapter" data-level="7.3" data-path="regressionsanalyse.html"><a href="regressionsanalyse.html#prognose-im-linearen-regressionsmodell"><i class="fa fa-check"></i><b>7.3</b> Prognose im linearen Regressionsmodell</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistics and Applications in Data Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="grenzwertsätze" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Grenzwertsätze<a href="grenzwertsätze.html#grenzwertsätze" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Wir haben bereits gesehen, dass <strong>empirisch</strong><span class="math inline">\(\not=\)</span><strong>theoretisch</strong>, zumindest nicht ganz. Wie wollen wir dann überhaupt irgendwas über die Grundgesamtheit anhand einer Stichprobe verstehen?</p>
+<p>Nun, zum Glück gibt es mathematische Garantien, dass wir für zumindest im Grenzwert, also wenn unser Stichprobenumfang immer größer wird, der Wahrheit immer näher kommen.</p>
+<hr />
+<p>In diesem Kapitel werden wir lernen:</p>
+<ul>
+<li>Welche zwei wichtige Grenzwertsätze es gibt und</li>
+<li>welche Implikationen ergeben sich für unsere Analysen.</li>
+</ul>
+<hr />
+<div id="starkes-gesetz-der-großen-zahlen" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Starkes Gesetz der großen Zahlen 💪<a href="grenzwertsätze.html#starkes-gesetz-der-großen-zahlen" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Sei <span class="math inline">\(X_1,X_2,\ldots\)</span> eine Folge von unabhängigen, identisch verteilen Zufallsvariablen mit <span class="math inline">\(\mathbb E(X_i)=\mu\)</span> und <span class="math inline">\(\text{Var}(X_i)=\sigma^2&lt;\infty\)</span>. Dann gilt:
+<span class="math display">\[\begin{equation*}
+      \lim_{n\rightarrow\infty} \frac{1}{n}\sum_{i=1}^n X_i =
+      \mu\quad\text{ fast sicher}.
+\end{equation*}\]</span>
+“fast sicher” ist gleichbedeutend mit “mit Wahrscheinlichkeit <span class="math inline">\(1\)</span>’’.</p>
+<hr />
+<div class="example">
+<p><span id="exm:probvshaeuf" class="example"><strong>Example 3.1  (Häufigkeiten) </strong></span></p>
+<ul>
+<li><p>Gegeben: unabhängige Wiederholungen eines stochastischen Experiments</p></li>
+<li><p>Gesucht: Wahrscheinlichkeit <span class="math inline">\(\mathbb P(A)\)</span> für das Eintreten eines Ereignisses <span class="math inline">\(A\)</span></p></li>
+<li><p>Es liegen die Versuchsergebnisse <span class="math inline">\(x_1, x_2, \ldots, x_k,\ldots\)</span> vor.</p></li>
+<li><p>Setze: <span class="math inline">\(\displaystyle X_k =\begin{cases}1,&amp;\text{ für } x_k\in A\\0 &amp;\text{ für } x_k\not\in A\end{cases}\)</span> (iid Zufallsvariablen)</p>
+<ul>
+<li><span class="math inline">\(\displaystyle\frac{1}{n} \sum_{k=1}^n X_k =h_n(A)=\text{relative Häufigkeit des Eintretens von $A$}\)</span></li>
+<li><span class="math inline">\(\mu=\mathbb E(X_k)=\mathbb P(A)\)</span> für alle <span class="math inline">\(k\)</span></li>
+</ul></li>
+<li><p>Nach dem Gesetz der großen Zahlen gilt:
+<span class="math inline">\(h_n(A) \rightarrow \mathbb P(A)\text{ fast sicher}\)</span></p></li>
+<li><p>Konkret:</p></li>
+</ul>
+<iframe title="GGZ" src="http://learning-dashboard.lehre.hwr-berlin.de:3838/Apps_RBook/#section-ggz" width="760" height="500"></iframe>
+<iframe title="GGZ" src="http://learning-dashboard.lehre.hwr-berlin.de:3838/Apps_RBook/#section-wahrscheinlichkeiten" width="760" height="700"></iframe>
+</div>
+<hr />
+</div>
+<div id="zentraler-grenzwertsatz" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Zentraler Grenzwertsatz<a href="grenzwertsätze.html#zentraler-grenzwertsatz" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Der Zentrale Grenzwertsatz (ZGS) besagt, dass diese Summe von unabhängig und identisch verteilten Zufallsvariablen <strong>approximativ normalverteilt</strong> ist. Auf dieser Grundlage können wir statistische Schlüsse, z.B. über die Verteilung des empirischen Erwartungswert einer Stichprobe ziehen!</p>
+<p>Seien <span class="math inline">\(X_1,X_2, \ldots\)</span> unabhängig identisch verteilte Zufallsvariablen mit
+<span class="math display">\[\begin{equation*}
+      \mathbb E(X_i)=\mu\quad\text{ und }\quad
+      \text{Var}(X_i)=\sigma^2\text{ mit } 0&lt;\sigma^2&lt;\infty.  
+\end{equation*}\]</span></p>
+<p>Für die Summe der Zufallsvariablen gilt:
+<span class="math display">\[\begin{equation*}
+      \mathbb E\left(\sum_{i=1}^n X_i\right)=n\mu\quad\text{ und }\quad
+      \text{Var}\left(\sum_{i=1}^n X_i\right)=n\sigma^2.
+\end{equation*}\]</span></p>
+<p>Dann konvergiert die Verteilungsfunktion <span class="math inline">\(F_n(z)=\mathbb P(Z_n\leq z)\)</span>
+der standardisierten Summe</p>
+<p><span class="math display">\[
+      Z_n = \frac{\sum_{i=1}^n X_i - n\cdot \mu}{\sqrt{n\cdot\sigma^2}} = \sum_{i=1}^n \frac{X_i-\mu}{\sigma/{\sqrt{n}}}
+\]</span>
+für <span class="math inline">\(n\rightarrow\infty\)</span> an jeder Stelle <span class="math inline">\(z\in\mathbb R\)</span> gegen die Verteilungsfunktion <span class="math inline">\(N(z)\)</span> der Standardnormalverteilung:</p>
+<p><span class="math display">\[\begin{equation*}
+      F_n(z)\rightarrow N(z) \quad \text{ für }
+      n\rightarrow\infty.
+\end{equation*}\]</span></p>
+<p><span class="math inline">\(Z_n\stackrel{a}{\sim} N(0,1)\)</span>.</p>
+<ul>
+<li>Folgerung: für genügend großes <span class="math inline">\(n\)</span> ist der Mittelwert approximativ normalverteilt:
+<span class="math display">\[\begin{equation*}
+  \frac{1}{n}\sum_{i=1}^n X_i\stackrel{a}{\sim} N(\mu,
+  \sigma^2/n).
+\end{equation*}\]</span></li>
+</ul>
+<div id="approximation-von-binomialverteilten-zufallsvariablen" class="section level3 hasAnchor" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Approximation von binomialverteilten Zufallsvariablen<a href="grenzwertsätze.html#approximation-von-binomialverteilten-zufallsvariablen" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p>Gegeben: Zufallsvariable <span class="math inline">\(X\sim B(n,p)\)</span> mit hinreichend großem <span class="math inline">\(n\)</span>.</p></li>
+<li><p>Folgerung: <span class="math inline">\(X=\displaystyle\sum_{k=1}^n X_k\)</span> mit</p>
+<ul>
+<li><span class="math inline">\(X_1,\ldots, X_n\)</span> iid (unabhängig, identisch verteilt) <span class="math inline">\(B(1,p)\)</span>-verteilt (Bernoulli)</li>
+<li><span class="math inline">\(\mathbb E(X_k)=p\)</span> und <span class="math inline">\(\text{Var}(X_k)=p(1-p)\)</span> für <span class="math inline">\(k=1,\ldots, n\)</span></li>
+</ul></li>
+<li><p><span class="math inline">\(\displaystyle\frac{X-np}{\sqrt{np(1-p)}}\)</span> ist approximativ <span class="math inline">\(N(0,1)\)</span>-verteilt</p></li>
+<li><p><span class="math inline">\(\displaystyle\mathbb P(a\leq X\leq b)\approx N\left(\frac{b-np}{\sqrt{np(1-p)}}\right) -N\left(\frac{a-np}{\sqrt{np(1-p)}}\right)\)</span></p></li>
+<li><p>Approximation wird besser, wenn Treppenfunktion der Binomialverteilung von Normaldichte in der Mitte getroffen wird.</p></li>
+<li><p><span class="math inline">\(\displaystyle\mathbb P(a\leq X\leq b)\approx N\left(\frac{b+0,5-np}{\sqrt{np(1-p)}}\right) -N\left(\frac{a-0,5-np}{\sqrt{np(1-p)}}\right)\)</span></p></li>
+</ul>
+<hr />
+<div class="example">
+<p><span id="exm:zgs1" class="example"><strong>Example 4.1  (Anzahl von App-Nutzern bei einer Befragung) </strong></span>Bei einer Befragung von <span class="math inline">\(20\)</span> Kunden möchte man die Anzahl der dabei befragten App-Nutzern modellieren.
+<span class="math inline">\(A: \text{Anzahl von App-Nutzern unter den 20 Befragten}\)</span>, da <span class="math inline">\(\mathbb P(App) = 0,6\)</span> gilt <span class="math inline">\(A\sim B(n=20,p=0,6)\)</span>. Wir bestimmen die Wahrscheinlichkeit <span class="math inline">\(\mathbb P(10\leq A\leq 15)\)</span>.</p>
+<ul>
+<li><p>Exakt: <span class="math inline">\(\displaystyle \mathbb P(10\leq A\leq 15) = \mathbb P(A=10) + \mathbb P(A=11) + \ldots + \mathbb P(A=15) = 0,8215.\)</span></p></li>
+<li><p>Einfache Approximation: (<span class="math inline">\(\mathbb E(A)=12\)</span>, <span class="math inline">\(\text{Var}(A) = 4,8\)</span>)
+<span class="math inline">\(\displaystyle \mathbb P(10\leq A\leq 15)\approx N\left(\frac{15-12}{\sqrt{ 4,8}} - N\left(\frac{10-12}{\sqrt{4,8}}\right)\right) = 0,7339\)</span></p></li>
+<li><p>Mit Stetigkeitskorrektur:
+<span class="math display">\[\begin{align*}
+        \displaystyle \mathbb P(10\leq A\leq 15)&amp;=\mathbb P(9,5&lt;A&lt;15,5)\\
+&amp;\approx N\left(\frac{15,5-12} {\sqrt{4,8}} - N\left(\frac{9,5-12}{\sqrt{4,8}}\right) \right) \\
+          &amp; = 0,818
+\end{align*}\]</span></p></li>
+</ul>
+</div>
+<hr />
+<div class="example">
+<p><span id="exm:zgs2" class="example"><strong>Example 3.2  (Durchschnittliche Zeit im Online-Shop) </strong></span>In den Beispielen <a href="random-variables.html#exm:stZV">1.3</a> und <a href="random-variables.html#exm:stZVkenz">1.6</a> habe wir <span class="math inline">\(X=\)</span>“Zeit im Online-Shop” als stetige Zufallsvariable mit der Dichte:</p>
+<p><span class="math display">\[
+f(x) = \begin{cases}0,001\cdot x , &amp;\text{ für } 0\leq x\leq 20,\\
+                      0,025 -0,00025\cdot x, &amp;\text{ für } 20&lt; x\leq 100.\end{cases}
+\]</span></p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-52"></span>
+<img src="_main_files/figure-html/unnamed-chunk-52-1.png" alt="Dichtefunktion von X=Zeit im Online-Shop" width="40%" />
+<p class="caption">
+Figure 4.1: Dichtefunktion von X=Zeit im Online-Shop
+</p>
+</div>
+<p>modelliert und berechnet:</p>
+<p><span class="math display">\[\begin{align}
+\mathbb E(X) &amp;= 40,\\
+\text{Var}(X) &amp;= 466,6667.
+\end{align}\]</span></p>
+<p>Nun ziehen wir ein Paar Stichproben mit Umfang <span class="math inline">\(n\)</span> aus dieser Verteilung und in jeder Stichprobenrealisierung nehmen wir den Durchschnitt der Werte. Der ZGS besagt, dass (obwohl die einzelne Zeiten ganz offensichtlich <strong>nicht</strong> normalverteilt sind) wird die Verteilung des (standardisierten) Durchschnitts mit zunehmenden <span class="math inline">\(n\)</span> immer näher an die (Standard)Normalverteilung kommen.</p>
+<p>Also, <span class="math inline">\(\bar X=\frac 1n(X_1 + \ldots + X_n)\)</span> mit <span class="math inline">\(\mathbb E(\bar X) = n\cdot \frac 1n\cdot \mathbb E(X) = 40\)</span> und <span class="math inline">\(\text{Var}(\bar X)=n\cdot\frac1{n^2}\cdot \text{Var}(X) = \frac{466,6667}{n}.\)</span></p>
+<iframe title="GGZ" src="http://learning-dashboard.lehre.hwr-berlin.de:3838/Apps_RBook/#section-zgs" width="760" height="700"></iframe>
+<p>Für <span class="math inline">\(n=50\)</span> gilt:</p>
+<p><span class="math display">\[
+\bar X\stackrel{a}{\sim} N(40;9,3333)
+\]</span>
+und</p>
+<p><span class="math inline">\(\mathbb P(35\leq\bar X\leq 45)\stackrel{\sim}{=}N(\frac{45-40}{\sqrt{9,3333}}) - N(\frac{35-40}{\sqrt{9,3333}}) =0,8983\)</span></p>
+</div>
+<hr />
+<hr />
+<div class="exercise">
+<p><span id="exr:unlabeled-div-9" class="exercise"><strong>Exercise 4.1  (ZGS für die durchschnittliche Rechnungshöhe) </strong></span>In Beispiel ‘Rechnungsbetrag pro Bestellung’ haben wir das Merkmal ‘Höhe der Rechnung’ betrachtet. Nun wollen wir dir Rechnungshöhe von <span class="math inline">\(i\)</span>-tem Kunden als Zufallsvariable <span class="math inline">\(R_i\)</span> erfassen und dann den durchschnittlichen Rechnungsbetrag von <span class="math inline">\(n\)</span> Kunden (<span class="math inline">\(\bar R = \frac 1n\sum_{i=1}^n R_i\)</span>) modellieren. Wir nehmen an, dass die Rechnungshöhe von verschiedenen Kunden (<span class="math inline">\(R_1,\ldots, R_n\)</span>) unabhängig und identisch verteilt sind mit <span class="math inline">\(\mathbb E(R_i) = 30\)</span> und <span class="math inline">\(\text{Var}(R_i) = 900\)</span>, die eigentliche Verteilung ist aber unbekannt.</p>
+<p>Jeden Tag, über mehrere Tage, berechnen wir den Tagesdurchschnitt der Rechnungshöhen von <span class="math inline">\(n=100\)</span> zufällig ausgewählten Kunden.
+<strong>Wie ist die durchschnittliche Rechnungshöhe approximativ Verteilt?</strong></p>
+<iframe title="Aufgabe_ZGS" src="./htmls/Aufgabe_ZGS.html" width="760" height="500"></iframe>
+</div>
+<hr />
+<!--
+## Rückblick{-}
+
+
+```{=html}
+<iframe title="Wortwolke" src="http://learning-dashboard.lehre.hwr-berlin.de:3838/Apps_RBook/#section-wortwolke" width="760" height="600"></iframe>
+```
+-->
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="limit-theorems.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="iii-induktive-statistik.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/18-grenzwertsaetze.rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

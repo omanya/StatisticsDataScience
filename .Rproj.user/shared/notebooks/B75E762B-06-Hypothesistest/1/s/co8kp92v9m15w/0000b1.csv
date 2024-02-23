@@ -1,0 +1,1 @@
+"0","  polygon(c(xseq[xseq>apm][1],xseq[xseq>apm],tail(xseq[xseq>apm][1],1)),c(dseq[xseq>apm][1],dseq[xseq>apm], tail(dseq[xseq>apm],1))-0.01,col=alpha(2,0.5),border=2)"

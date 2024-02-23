@@ -1,0 +1,1 @@
+"0","  text(mu+0.2,0.2,paste(""Var(X)="",round(sig^2,2)),col=3)"

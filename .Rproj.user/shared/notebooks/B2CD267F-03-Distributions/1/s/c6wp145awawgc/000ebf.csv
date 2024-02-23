@@ -1,0 +1,1 @@
+"0","  text(10,round(dnorm(mu,mu,sig),2)+0.1,paste0(""f(x="",mu,"")="",round(dnorm(mu,mu,sig),3)),col=4)"

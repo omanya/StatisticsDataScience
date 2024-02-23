@@ -1,0 +1,2 @@
+"0","  text(bpm,0.9,"
+"0","       paste0(""E(X)="",round(input$nbin*input$pbin,4)),col=2)"

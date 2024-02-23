@@ -1,0 +1,587 @@
+# Hypothesentests `r emoji::emoji("alien")`
+
+Bisher haben wir statistische Schlüsse auf Basis von numerischen Schätzern (Punktschätzer und Intervallschätzer) vorgenommen. Nun, es gibt Problemstellungen, wo man eine gewisse Annahme  überprüfen möchte. Es geht weniger um eine Zahl rauszubekommen, sondern eher eine Hypothese anhand der Daten zu unterstützen (z.B. War eine Martingsaktion wirkungsvoll?).
+
+Testverfahren beantworten die Fragen hinsichtlich dieser **möglicher Schlussfolgerungen** eines Zufallsvorgangs (**Hypothesen**) und führen eine **Entscheidung** für eine der Möglichkeiten mit Werkzeugen der Wahrscheinlichkeitstheorie herbei. 
+
+
+***
+
+In diesem Kapitel werden wir lernen:
+  
+- Wie man die **Hypothesen** formuliert,
+- welche **Testverfahren**  man wann anwendet und
+- wie man eine **Testentscheidung** trifft.
+
+
+***
+
+## Grundidee des statistischen Testens
+
+***
+
+::: {.example #test name="Rabattaktion"}
+
+Sie wollen überpüfen, ob eine Rabattaktion zur Steigerung des Umsatzes beigetragen hat.
+
+In einer Pilotstudie haben $n=30$ zufällig ausgewählte Kunden den Rabatt angeboten bekommen.
+Die restlichen Kunden haben keinen Rabatt bekommen und haben einen Durchschnittsumsatz von $25$ EUR mit einer
+Standardabweichung von $\sigma=2,4$. 
+
+Die Rabattgruppe hat einen durchschnittlichen Umsatz von $\overline y=26,3$ EUR. 
+Möglichkeiten:
+
+- **Aktion ist in Wirklichkeit wirkungsvoll**: der Umsatz wird dadurch nachhaltig gesteigert und wir würden eine falsche Entscheidung treffen, wenn wir davon ausgehen, dass die Steigung der Umsätze zufällig ist $\Rightarrow$ Firma gibt möglicherweise eine wirkungsvolle Kampagne auf.
+
+- **Aktion ist in Wirklichkeit nicht wirkungsvoll**:  der Umsatz in der Pilotgruppe ist aufgrund von zufälligen Schwankungen größer ausgefallen und wir würden eine falsche Entscheidung treffen, wenn wir davon ausgehen, dass die Steigung der Umsätze auf die Aktion zurückführbar ist $\Rightarrow$ Kosten für eine sinnlose Rabattaktion. 
+
+
+Im Fall zweier möglicher, einander ausschließender Schlussfolgerungen unterscheidet man:
+
+- **Nullhypothese** $H_0$ (Status-Quo $\leadsto$ Aktion verändert nichts an dem Verhalten, Umsatz, ...) wird nicht abgelehnt, solange es nicht genügend Evidenz gibt, sie zu widerlegen. 
+
+- **Alternativhypothese** $H_1$ ($\leadsto$ Aktion ist wirksam, verändert günstig das Verhalten, den Umsatz, ...) wird akzeptiert, wenn "ausreichend" Evidenz gegen die Nullhypothese spricht.
+
+:::
+
+***
+
+Mögliche Schlussfolgerungen und Konsequenzen:
+$$
+\begin{array}{c|cc}
+      \hline 
+      &H_0\text{ nicht abgelehnt }& H_0\text{ abgelehnt }\\\hline 
+      H_0\text{ ist richtig  }&\text{Entscheidung richtig }& \text{Entscheidung falsch}\\
+      &&\text{(Fehler 1. Art)}\\
+      H_0\text{ ist falsch }&\text{Entscheidung falsch}&\text{Entscheidung richtig}\\
+      &\text{(Fehler 2. Art)}&\\\hline 
+\end{array}
+$$
+Fehlentscheidungen sind also immer möglich und bei einer vorliegenden Testentscheidung lässt sich nicht beurteilen, ob diese richtig oder falsch ist.
+
+Zwei Arten von Fehlentscheidungen können auftreten: falsches Ablehnen oder falsches Beibehalten der Nullhypothese. 
+
+Bei einem statistischen Testproblem $H_0$ gegen $H_1$ und einem geeigneten statistischen Test spricht man von einem
+
+- **Fehler 1. Art**, wenn $H_0$ verworfen wird, obwohl $H_0$ wahr ist,
+
+- **Fehler 2. Art**, wenn $H_0$ beibehalten wird, obwohl $H_1$ wahr ist.
+
+Wir können also uns irren, wenn wir anhand der Testverfahren die Hypothesen überprüfen. Ziel ist es eine Entscheidungsstrategie so festzulegen, dass Fehler 1. Art und 2. Art möglichst klein gehalten werden. 
+
+
+***
+
+::: {.example #test0 name="Rabattaktion"}
+
+Fortführung von \@ref(exm:test).
+
+Wahrscheinlichkeitstheoretische Formulierung des Problems:
+
+- Stichprobe $Y_1,Y_2,\ldots,Y_{30}$: Umsätze von Pilotkunden. 
+
+- Annahme: $(Y_i)_{i=1,\ldots,30}$ sind unabhängige Wiederholungen einer normalverteilten Zufallsvariable $Y$ mit unbekanntem Erwartungswert $\mu$ und bekannter Standardabweichung $\sigma=2,4$.
+
+Dann, ist der Erwartungswert $\overline Y$ der $30$ Realisierungen ist  normalverteilte Zufallsvariable mit Erwartungswert $\mu$ und Standardabweichung $\sigma/\sqrt{30}$. 
+
+Aufstellen der Hypothesen: 
+
+- $H_0$: $\mu=25,0$ (Aktion nicht wirkungsvoll,"Status Quo")
+
+- $H_1$: $\mu>25,0$ (Aktion wirkungsvoll)
+
+Entscheidungsgrundlage:
+
+- sinnvoll $H_0$ beizubehalten, wenn $\overline y$ nur wenig größer als $25$. 
+
+- sinnvoll $H_0$ abzulehnen, wenn $\overline y$ deutlich größer, bspw. $35.0$. 
+
+$\leadsto$ Finde kritisches $\overline y^\ast$, ab dem $H_0$ abgelehnt wird. 
+
+Wahl von $\overline y^\ast$ mithilfe wahrscheinlichkeitstheoretischer Überlegungen:
+
+- 1.\ Versuch: $\overline y^\ast=25,25$
+Dann wird $H_0$ mit einer Wahrscheinlichkeit von $28\%$ abgelehnt, unter der Annahme das $H_0$ zutrifft (Fehler 1.\ Art): 
+\begin{align*}
+        \mathbb P(H_0 \text{ ablehnen}|H_0 \text{ ist wahr})&= \mathbb P(\overline Y\geq
+          25,25|\mu=25,0)\\
+          &= \mathbb P\left(\frac{\overline Y-25,0}{2,4/\sqrt{30}} \geq
+            \frac{25,25-25,0}{2,4/\sqrt{30}}\right)\\
+          &= 1-N(0,57) = 0,2843
+\end{align*}
+$\leadsto$ Wahrscheinlichkeit eines Fehlers 1. Art zu hoch
+
+- 2.\ Versuch: $\overline y^\ast=26,5$
+$H_0$ wird "nur" mit Wahrscheinlichkeit $0,03\%$ falsch abgelehnt:
+\begin{equation*}
+    \mathbb P(H_0 \text{ ablehnen}| H_0 \text{ ist wahr}) = \mathbb P(\overline
+    Y\geq 26,50|\mu=25,0) = 0,0003.
+\end{equation*}
+$\leadsto$ Wahrscheinlichkeit eines Fehlers 1.\ Art sehr klein (gut!)
+
+**Aber**: Wahrscheinlichkeit eines Fehlers 2.\ Art möglicherweise hoch (eine andere Verteilung als unter $H_0$ könnte in dem Wertebereich plausibler sein).
+
+**Idee**: Wähle $\overline y^\ast$ so, dass $H_0$ mit vorgegebener kleiner Wahrscheinlichkeit $\alpha$, z.B. $\alpha=0,05$, (falsch) abgelehnt wird:  
+\begin{align*}
+        \mathbb P(H_0 \text{ ablehnen}|H_0 \text{ ist wahr})& =
+        \mathbb P(\overline Y
+        \geq \overline y^{\ast}|\mu=25,0) =0,05.
+\end{align*}
+
+Dies ergibt $\overline y^\ast=25,718$.
+
+Unsere Entscheidung wäre: Ablehnen der Hypothese, Aktion habe keine Wirkung, da $\overline Y=26,3\geq 25,718$.
+
+Es handelt sich **nicht** um einen Beweis, $H_0$  sei falsch. **Hohe Evidenz gegen** $H_0$ führt zur Ablehnung. Denn: Falls der wahre Erwartungswert $25,0$ ist, werden Stichproben mit $\overline Y\geq 25,718$ nur mit einer Wahrscheinlichkeit von $5\%$ auftreten. 
+
+Entscheidungsregel: Lehne $H_0$ ab, falls $\overline Y\geq 25,718$. 
+
+
+Folgende Kennzahl ist noch interessant:  Unter der Annahme, dass $H_0$ gilt, wie hoch ist - bei Wiederholung des Experiments - die Wahrscheinlichkeit, ein mindestens so extremes Ergebnis wie das beobachtete zu erhalten?
+Diese Kennzahl heißt  **$p$-Wert** und wird wie folgt berechnet:
+
+\begin{equation*}
+        \mathbb P(\overline Y_{\text{Wdhl.}}\geq \overline Y|H_0) 
+        = \mathbb P(\overline Y_{\text{Wdhl.}} \geq 26,3|\mu=25,0) 
+        = 0,0015 = 0,15\%. 
+\end{equation*}
+
+
+```{r, echo=FALSE,out.width="100%"}
+htmltools::tags$iframe(title = "Stichprobenumfang", src =paste0(link,"Apps_RBook/#section-rabattaktion"),  width=760, height=500)
+```
+
+
+:::
+
+***
+
+## Hypothesetests für den Anteilswert $p$
+
+***
+
+::: {.example #testp0 name="Qualitätsprüfung"}
+
+Vor Auslieferung einer Warenpartie soll die Qualität auf Basis einer Stichprobe geprüft werden.
+
+- Es wird eine Attributenprüfung durchgeführt. D.h. Bei jedem produzierten Stück wird festgehalten, ob es den Qualitätsstandards genügt ("gut") oder nicht ("schlecht"). Gezählt werden die schlechten Stücke - die Anzahl kann als binomialverteilt mit Parameter $p$ angenommen werden (Ausschussanteil). 
+
+- Ein Kunde akzeptiert Warenlieferung, falls Ausschussanteil unter $10\%$. 
+
+- Aus Kostengründen kann nicht die gesamte Lieferung überprüft werden. 
+
+- Stichprobe von $n=1000$ Stücken ergibt $102$ Ausschussstücke. 
+
+- Ist der Unterschied von $10,2\%$ zu $10\%$ gering genug, um daraus schließen zu können, der tatsächliche Anteil sei kleiner als $10\%$? 
+
+:::
+
+***
+
+### Der exakte Binomialtest
+
+Allgemein: Seien $X_1, \ldots, X_n$ Stichprobenvariablen mit
+\begin{equation*}
+      X_i=
+      \begin{cases}
+        1, &\text{ falls } A \text{ eintritt},\\
+        0, &\text{ falls } \overline A \text{ eintritt}. 
+      \end{cases}
+\end{equation*}
+
+- Die Wahrscheinlichkeit des Ereignisses $\{X_i=1\}$ sei $p$ (unbekannt!).
+
+- **Statistisches Testproblem**:
+
+    - Die interessierende Hypothese wird als **Alternativhypothese** $H_1$ formuliert. Sie muss sich gegen die **Nullhypothese** $H_0$ durchsetzen.
+
+    - Bei einem statistischen Test geht es darum zu entscheiden,ob das beobachtete Verhalten auch für die Grundgesamtheit gilt. 
+
+- **Teststatistik** ist die Größe, von der wir die Verteilung unter $H_0$ kennen:
+\begin{equation*}
+        \text{Anzahl } X=\sum_{i=1}^n X_i
+\end{equation*}
+
+Ist die Annahme unabhängiger Ziehungen gerechtfertigt, so ist die Anzahl $X=\sum_{i=1}^n X_i$ binomialverteilt mit Parametern $n$ und $p$. 
+
+- **Ablehnungsbereich**:
+Wie groß muss $X$ sein, so dass es extrem unwahrscheinlich ist, dass $X$ noch unter $H_0$ zustande gekommen ist? 
+Präzisiere zunächst "extrem unwahrscheinlich"; übliche Werte $0,01$; $0,05$; $0,1$, bezeichnet als **Signifikanzniveau**/ **Konfidenzniveau** mit Symbol $\alpha$. 
+
+Daraus ergibt sich der **Ablehnungsbereich**, also diejenigen Werte des Zufallsexperiment,
+die **in Richtung der Alternative weisen**, und deren **W'keit kleiner als** $\alpha$ ist.
+
+
+***
+
+::: {.example #testp1 name="Qualitätsprüfung"}
+
+Fortführung von \@ref(exm:testp0).
+
+$$
+\begin{array}{cccccccc}\hline
+x_i&101&102& 105 &110 &115& 120& 125\\
+\mathbb P(X>x_i)&0,432 &0,391& 0,278& 0,135& 0,053& 0,017& 0,005\\\hline
+\end{array}
+$$
+
+$\mathbb P(X>102) = 0,391$ also nicht klein genug (diese soll kleiner als die Irrtumswahrscheinlichkeit $\alpha=0,01/0,05/0,1$ sein).
+
+Was ist der kritische Wert? Ab wann würden wir ablehnen? ($\mathbb P(X>x_i)\leq \alpha$)
+
+$$
+\begin{array}{ccccc}\hline
+x_i&115& \color{red}{116}& 120& 125\\
+\mathbb P(X>x_i)& 0,053&\color{red}{0,04334} &0,017& 0,005\\\hline
+\end{array}
+$$
+```{r, echo=FALSE,out.width="100%"}
+htmltools::tags$iframe(title = "Binomialtest", src =paste0(link,"Apps_RBook/#section-binomialtest"),  width=760, height=700)
+```
+
+:::
+
+***
+
+
+### Der approximative Binomialtest
+
+Für großes $n$ kann die Binomialverteilung durch die Normalverteilung approximiert werden $\leadsto$ **approximativer Binomialtest**. 
+
+Sei $X=\sum_{i=1}^n X_i\sim B(n,p)$ für $np$ und $n(1-p)$ ausreichend groß. Dann gilt: 
+\begin{align*}
+      X&\stackrel{\text{approx.}}{\sim} N(np, np(1-p))\quad \text{
+         bzw. }\\
+      Z=\frac{X-n\, p}{\sqrt{n\, p(1-p)}}
+      &\stackrel{\text{approx.}}\sim N(0,1). 
+\end{align*}
+
+Daumenregel für "ausreichend groß": $np>5$ und $n(1-p)>5$. 
+
+
+::: {.example #testp2 name="Qualitätsprüfung"}
+
+Fortführung von \@ref(exm:testp1).
+
+- Formulierung des Testproblems, ob Ausschußanteil größer
+    er als $0,1$:
+\begin{equation*}
+      H_0: p = 0,1\quad\text{ gegen }\quad H_1: p>0,1. 
+\end{equation*}
+
+- Bei einer Stichprobengröße von $n=1000$ werden $X=102$ Ausschußstücke beobachtet.
+
+- Approximation:$\displaystyle Z=\frac{X-1000\cdot 0,1}{\sqrt{1000\cdot 0,1\cdot 0.9}}=\frac{X-100}{\sqrt{90}} \stackrel{\text{approx.}}{\sim}N(0;1).$
+
+- Ablehnungsbereich $C=\{z:z>N_{1-\alpha}\}$, wobei
+        $N_{1-\alpha}$ das $(1-\alpha)$-Quantil der
+        Standardnormalverteilung bezeichnet (auch als <strong>kritischer
+          Wert</strong> bezeichnet).
+- Sei $\alpha=0,05$, also kritischer Wert
+  $N_{1-\alpha}=N_{0,95} = 1,64$. 
+
+- Teststatistik: $\displaystyle z=\frac{102-100}{9,5} = 0,21$. 
+
+- Testentscheidung: Wegen $0,21<1,64$ kann $H_0$ nicht abgelehnt werden. 
+
+In Worten: Die Anzahl von $102$ fehlerhaften Stücken in der
+  Stichprobe lässt nicht den Schluss zu, dass der Anteil
+  fehlerhafter Stücke in der <strong>gesamten</strong> Partie über $10\%$
+  liegt. 
+
+- Alternativ könnte man sich Fragen ieviele Stücke $x^\ast$ würden zu einer Ablehnung
+  von $H_0$ führen? Auflösen nach $x^\ast$ von 
+\begin{equation*}
+    \frac{x^\ast-n\, p}{\sqrt{n\, p (1-p)}} >N_{1-\alpha},
+\end{equation*}
+  ergibt
+\begin{equation*}
+    x^\ast>\sqrt{n\, p(1-p)} N_{1-\alpha}  + n\, p = 9,5\cdot 1,64 +
+    100 = 115,58. 
+\end{equation*}
+
+```{r, echo=FALSE,out.width="100%"}
+htmltools::tags$iframe(title = "ABinomialtest", src =paste0(link,"Apps_RBook/#section-abinomialtest"),  width=760, height=500)
+```
+
+
+:::
+
+***
+
+Approximativer Binomialtest (Zusammenfassung)
+
+- Gegeben seien folgende Testprobleme über den Parameter $p$ einer
+$B(n,p)$-Verteilung:
+
+\begin{align*}
+  (a) \quad& H_0:p=p_0\quad\text{ gegen } \quad H_1:p\not=p_0 \text{(zweisetig)}\\
+  (b) \quad & H_0:p=p_0\quad\text{ gegen } \quad H_1:p<p_0 \text{(linksseitig)}\\
+  (c) \quad & H_0:p=p_0\quad\text{ gegen } \quad H_1:p>p_0 \text{ (rechtsseitig)}.
+\end{align*}
+
+- Basierend auf der Prüfgröße
+$\displaystyle Z = \frac{X-n\, p_0}{\sqrt{n\, p_0 (1-p_0)}}\stackrel{\text{approx.}}\sim N(0,1)$
+und dem vorgegebenen Niveau $\alpha$ 
+
+- fällt die Entscheidung für $H_1$ im Testproblem
+
+\begin{align*}
+  (a),\quad& \text{ falls } |z|>N_{1-\alpha/2}\\
+  (b),\quad& \text{ falls } z<-N_{1-\alpha}\\
+  (c),\quad&\text{ falls } z>N_{1-\alpha}.
+\end{align*}
+
+## Hypothesentests für $\mu$
+
+### Der Gauß-Test
+
+Gegeben seien unabhängig identisch verteilte Zufallsvariablen
+    $X_1, \ldots, X_n$ mit 
+- $X_i\sim N(\mu,\sigma^2)$, bzw.
+
+- $X_i$ mit beliebiger stetiger Verteilung, $\mathbb E(X_i)=\mu$, $\text{Var}(X_i)=\sigma^2$, $n$ groß genug (Faustregel $n\geq 30$). 
+
+Es sei $\sigma^2$ bekannt. Man betrachte folgende Testprobleme: 
+\begin{align*}
+      (a) \quad& H_0:\mu=\mu_0\quad\text{ gegen } \quad H_1:\mu\not=\mu_0\\
+      (b) \quad & H_0:\mu=\mu_0\quad\text{ gegen } \quad H_1:\mu<\mu_0\\
+      (c) \quad & H_0:\mu=\mu_0\quad\text{ gegen } \quad H_1:\mu>\mu_0.
+\end{align*}
+
+Für $\mu=\mu_0$ ist $\displaystyle Z=\sqrt{n}\, \frac{\overline X-\mu_0}{\sigma}= \frac{\overline X-\mu_0}{\sigma/\sqrt{n}}\stackrel{\text{approx.}}{\sim} N(0,1)$. 
+
+Basierend auf der Teststatistik $Z$ fällt die Entscheidung für $H_1$ im Testproblem 
+
+\begin{align*}
+      (a),\quad& \text{ falls } |z|>N_{1-\alpha/2}\\
+      (b),\quad& \text{ falls } z<-N_{1-\alpha}\\
+      (c),\quad&\text{ falls } z>N_{1-\alpha}.
+\end{align*}
+
+
+::: {.example #testgauss name="Qualitätsprüfung von Bleistiften"}
+
+
+Es werden Bleistifte produziert, deren Länge $17$cm betragen soll. 
+
+- Testproblem: $\displaystyle H_0: \mu=17\text{ gegen }  H_1: \mu\not=17$. Als Signifikanzniveau sei $\alpha=0,01$ gewählt. 
+
+- Die Länge $X$ der Bleistifte ist approx. normalverteilt mit $\mathbb E(X)=\mu$ und $\text{Var}(X)=\sigma^2=2,25$. 
+- Aus der laufenden Produktion wird eine Stichprobe ($n=5$) entnommen; folgende Längen werden gemessen:
+
+  $19,2\text{cm};\ 17,4\text{cm};\ 18,5\text{cm};\ 16,5\text{cm};\ 18,9\text{cm}$
+
+- Es ergibt sich $\overline x=18,1\text{cm}$ und als Prüfgröße
+
+\begin{equation*}
+      z=\sqrt{n}\frac{\overline x-\mu_0}{\sigma} =\sqrt{5}
+      \frac{18,1-17}{1,5} = 1,64. 
+\end{equation*}
+
+- Der Ablehnungsbereich ergibt sich als $(1-\alpha/2)=(1-0,005) = 0,995$-Quantil der Standardnormalverteilung, also wird $H_0$ abgelehnt, falls $|z| > 2,5758$. 
+
+- Wegen $|z|=1,64$ wird $H_0$ nicht abgelehnt. 
+
+```{r, echo=FALSE,out.width="100%"}
+htmltools::tags$iframe(title = "Gauss-Test", src =paste0(link,"Apps_RBook/#section-gauss-test"),  width=760, height=500)
+```
+
+:::
+
+***
+
+
+### Der $t$-Test
+
+Wie im Fall des Gauß-Tests soll ein hypothetischer Erwartungswert $\mu_0$ mit einem tatsächlichen, unbekannten Erwartungswert verglichen werden. Im Gegensatz zur Annahme beim Gauß-Test wird hier die Varianz $\sigma^2$ als unbekannt angenommen. 
+
+Dies führt zu einer anderen Normierung im Nenner als beim Gauß-Test, nämlich indem die unbekannte Varianz
+	$\sigma^2$ durch Stichprobenvarianz $S^2=\sum_i (X_i-\overline X)^2/(n-1)$ ersetzt wird.  
+
+Im folgenden bezeichne $t(n-1)$ die Student-$t$-Verteilung mit
+	Parameter $n-1$. 
+
+- Annahmen: $X_1,\ldots, X_n$ seien unabhängig und
+	identisch verteilt mit $X\sim N(\mu,\sigma^2)$ bzw.\
+	beliebig verteilt bei $n>30$.
+
+- Hypothesen:
+\begin{align*}
+	(a) \quad& H_0:\mu=\mu_0\quad\text{ gegen } \quad H_1:\mu\not=\mu_0\\
+	(b) \quad & H_0:\mu=\mu_0\quad\text{ gegen } \quad H_1:\mu<\mu_0\\
+	(c) \quad & H_0:\mu=\mu_0\quad\text{ gegen } \quad H_1:\mu>\mu_0.
+\end{align*}
+
+- Teststatistik:
+	$\displaystyle T=\frac{\overline X-\mu_0}{S/\sqrt{n}}$.
+
+- Verteilung unter $\mu=\mu_0$: $t(n-1)$; für $n>30$ approximativ $N(0,1)$
+
+- Ablehnungsbereich:  
+\begin{align*}
+		(a) \quad & |t|>t_{1-\alpha/2}(n-1)\\
+		(b) \quad & t<t_\alpha(n-1)=-t_{1-\alpha}(n-1)\\
+		(c) \quad & t>t_{1-\alpha}(n-1)
+\end{align*}
+
+- Für $n> 30$ ersetze $t(n-1)$-Quantile durch
+	$N(0,1)$-Quantile. 
+
+
+::: {.example #testt name="Qualitätsprüfung von Bleistiften"}
+
+Fortführung von \@ref(exm:testgauss).
+
+Wir betrachten dieselbe Problemstellung ohne die Annahme bekannter Varianz. 
+
+- Testproblem:
+		$\displaystyle H_0: \mu=17\quad\text{ gegen } \quad H_1: \mu\not=17$. 
+
+- Als Signifikanzniveau sei $\alpha=0,01$ gewählt. 
+
+- Als Daten liegen die folgenden Bleistiftlängen vor: 
+\begin{equation*}
+		19,2\text{cm};\ 17,4\text{cm};\ 18,5\text{cm};\ 16,5\text{cm};\
+		18,9\text{cm}. 
+\end{equation*}
+
+- Es ergibt sich $\overline x=18,1cm$ und $s^2=1,265$. 
+
+- Die Teststatistik ist
+$\displaystyle t = \frac{\overline x-\mu_0}{s}\sqrt{n} = \frac{18,1-17}{1,125}\sqrt{5} = 2,186$. 
+
+- Der kritische Wert ist das $(1-\alpha/2)$-Quantil der
+		$t(n-1)$-Verteilung, also $t_{0,995}(4) = 4,604$. 
+
+- Da für die vorliegende Realisation von $T$ gilt
+		$|2,186|<4,604$, wird $H_0$ beibehalten. 
+
+```{r, echo=FALSE,out.width="100%"}
+htmltools::tags$iframe(title = "t-Test", src =paste0(link,"Apps_RBook/#section-t-test"),  width=760, height=500)
+```
+
+
+:::
+
+***
+
+
+## Fehler 1. Art und 2. Art
+
+
+<ul>
+<li>Die Wahrscheinlichkeit für einen Fehler 1. Art (falsches Ablehnen von $H_0$):
+\[\mathbb P(H_0\text{ ablehnen}|H_0\text{ wahr})\leq \alpha\]
+wird durch die Irrtumswahrscheinlichkeit $\alpha$ für den Ablehnungsbereich **kontrolliert**; diese Schranke wird auch als **Signifikanzniveau** bezeichnet.
+
+<ul>
+<li>Ein statistischer Test heißt **Test zum Signifikanzniveau**
+      $\alpha$, $0<\alpha<1$, oder **Signifikanztest**, falls
+\begin{equation*}
+      \mathbb P(H_0\text{ ablehnen}|H_0\text{ wahr}) \leq \alpha,
+\end{equation*}
+    d.h.
+\begin{equation*}
+      \mathbb P(\text{Fehler 1. Art})\leq \alpha.
+\end{equation*}
+</li>
+<li>Im Fall des Verwerfens der Nullhypothese sagt man auch: "Das
+    Ergebnis ist **statistisch signifikant** zum Niveau $\alpha$".
+</li>
+<li>Interpretation: Werden $100$ gleichgroße Stichproben zu
+    derselben Fragestellung gezogen und gilt die Nullhypothese, dann
+    verwirft ein statistischer Test zum Niveau $\alpha=5\%$ in
+    höchstens $5$ (im Erwartungswert) der $100$ Stichproben die
+    Nullhypothese.
+  </li>
+  </ul>
+</li>
+<li>Die Wahrscheinlichkeit für einen Fehler 2. Art, bezeichnet als $\beta$,
+    wird nicht kontrolliert:
+    \[\mathbb P(H_0\text{ beibehalten}|H_1\text{ wahr}) = \beta\]
+
+Man sucht nach Tests, die den Fehler 2. Art möglichst
+    gering halten.
+
+
+## Überschreitungswahrscheinlichkeit $p$-Wert
+
+Der $p$-Wert ist definiert als die Wahrscheinlichkeit, unter $H_0$
+    den beobachteten Prüfgrößenwert oder einen in Richtung der
+    Alternative extremeren Wert zu erhalten.
+
+Ist der $p$-Wert kleiner als das vorgegebene Signifikanzniveau
+    $\alpha$, so wird $H_0$ verworfen. Ansonsten behält man $H_0$
+    bei. Ist der $p$-Wert sehr klein, bedeutet dies, dass es unter $H_0$
+    sehr unwahrscheinlich ist, den vorliegenden Prüfgrößenwert
+    zu beobachten.
+
+Der **$p$-Wert** wird häufig von Software-Paketen
+    ausgegeben. 
+
+***
+
+::: {.example #testtpw name="Qualitätsprüfung von Bleistiften"}
+
+Fortführung von \@ref(exm:testgauss).
+
+Im Beispiel Qualitätsprüfung ist der Prüfgrößenwert $z=0,21$. 
+
+Der $p$-Wert ist gegeben als:
+\begin{equation*}
+      p = \mathbb P(Z> 0,21|H_0) = 1-\mathbb P(Z\leq 0,21|H_0) =
+      1-N(0,21) = 1-0,5832 = 0,4168. 
+\end{equation*}
+
+Da der $p$-Wert größer als das vorgegebene
+    Signifikanzniveau $\alpha=0,05$ ist, kann die Nullhypothese nicht
+    verworfen werden.
+
+
+:::
+
+***
+
+Berechnung des $p-$Wertes ($Z$ ist die Teststatistik):
+
+- zweisetiger Test:
+
+\begin{align}
+p-\text{Wert} &= \mathbb P(Z>|z|\text{ unter } H_0) + \mathbb P(Z<-|z|\text{ unter } H_0)\\
+&= 2\cdot \mathbb P(Z>|z|\text{ unter } H_0) \text{ bei einer symmetrischen Verteilung von }Z.
+\end{align}
+
+- linksseitiger Test:
+
+$$
+p-\text{Wert} = \mathbb P(Z< z\text{ unter } H_0).
+$$
+
+- rechtsseitiger Test:
+
+$$
+p-\text{Wert} = \mathbb P(Z> z\text{ unter } H_0).
+$$
+
+
+***
+
+::: {.exercise name="Hypothesentests"}
+
+```{r, echo=FALSE,out.width="100%"}
+htmltools::tags$iframe(title = "Quiz_Hypoth", src="./htmls/quiz_hypoth.html",  width=760, height=500)
+```
+
+:::
+
+***
+
+
+<!--
+## Rückblick{-}
+
+```{r, echo=FALSE,out.width="100%"}
+htmltools::tags$iframe(title = "Wortwolke", src =paste0(link,"Apps_RBook/#section-wortwolke"),  width=760, height=600)
+```
+-->

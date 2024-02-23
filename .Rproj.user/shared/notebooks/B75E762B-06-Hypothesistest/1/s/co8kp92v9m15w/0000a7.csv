@@ -1,0 +1,2 @@
+"0","  text(bpm+0.1,0.65,"
+"0","       paste0(""P(X>"",round(bpm,1),"")="",round(1-pnorm(bpm,mu,sig),4)),col=3)"

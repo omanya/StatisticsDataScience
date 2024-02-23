@@ -1,0 +1,35 @@
+h1:wortwolke Wortwolke
+h1:empirische-verteilung empirische Verteilung
+h1:kennzahlen Kennzahlen
+h1:korrelation Korrelation
+h1:regression Regression
+h1:wahrscheinlichkeiten Wahrscheinlichkeiten
+h1:kennzahlen-von-zufallsvariablen Kennzahlen von Zufallsvariablen
+h1:verteilungen Verteilungen
+h2:column Column
+h3:diskrete-gleichverteilung Diskrete Gleichverteilung
+h3:bernoulli-verteilung Bernoulli-Verteilung
+h3:binomialverteilung Binomialverteilung
+h3:geometrische-verteilung Geometrische Verteilung
+h3:poisson-verteilung Poisson-Verteilung
+h1:stetige-verteilungen stetige Verteilungen
+h2:column-1 Column
+h3:normalverteilung Normalverteilung
+h3:exponentialverteilung Exponentialverteilung
+h3:stetige-gleichverteilung Stetige Gleichverteilung
+h1:ggz GGZ
+h1:zgs ZGS
+h1:stichprobenziehung Stichprobenziehung
+h1:estimates Estimates
+h1:bias Bias
+h1:mlbernoulli MLBernoulli
+h1:mlexponential MLExponential
+h1:interval-estimation Interval estimation
+h1:stichprobenumfang Stichprobenumfang
+h1:discount-campaign Discount campaign
+h1:binomialtest Binomialtest
+h1:abinomialtest ABinomialtest
+h1:gauss-test Gauss-Test
+h1:t-test t-Test
+h1:linreg LinReg
+

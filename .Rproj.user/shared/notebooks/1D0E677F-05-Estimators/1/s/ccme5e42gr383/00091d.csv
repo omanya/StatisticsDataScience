@@ -1,0 +1,7 @@
+"0",""
+"0","  "
+"0",""
+"0","  "
+"0","   #4"
+"0","  plot(ss,type='p',pch=16,ylab="""",main=""sample variance (n=100)"","
+"0","       xlab='sample',col=alpha(4,0.3),lwd=2,      ylim=c(50,150),cex=1, axes=F)"

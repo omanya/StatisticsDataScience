@@ -1,0 +1,2 @@
+"0","  text(input$lam,0.49,"
+"0","       paste0(""E(X)="",round(input$lam,4)),col=2)"

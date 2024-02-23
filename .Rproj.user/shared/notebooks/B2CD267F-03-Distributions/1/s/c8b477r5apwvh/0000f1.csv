@@ -1,0 +1,1 @@
+"0","  text(10,0.1, paste0(""1/(b-a)="",round(1/(input$bstet - input$astet),2)),col=4)"

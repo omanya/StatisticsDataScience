@@ -1,0 +1,1 @@
+"0","  arrows(input$astet,0,input$astet,1/(input$bstet - input$astet),col=4,lty=2,code=0)"

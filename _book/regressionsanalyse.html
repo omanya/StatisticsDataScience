@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 7 Regressionsanalyse 👽 | Statistics and Applications in Data Science</title>
+  <meta name="description" content="This is the script for the course." />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 7 Regressionsanalyse 👽 | Statistics and Applications in Data Science" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is the script for the course." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 7 Regressionsanalyse 👽 | Statistics and Applications in Data Science" />
+  
+  <meta name="twitter:description" content="This is the script for the course." />
+  
+
+<meta name="author" content="Maria Osipenko" />
+
+
+<meta name="date" content="2024-02-13" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="regression-analysis.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-goals-and-context"><i class="fa fa-check"></i>Course goals and context</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-goals"><i class="fa fa-check"></i>Course goals</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#terminology"><i class="fa fa-check"></i>Terminology</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html"><i class="fa fa-check"></i>Random events and probability - a short review</a>
+<ul>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#outcomes-and-events"><i class="fa fa-check"></i>Outcomes and Events</a></li>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#probabilities"><i class="fa fa-check"></i>Probabilities</a>
+<ul>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#calculating-with-probabilities"><i class="fa fa-check"></i>Calculating with probabilities</a></li>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#joint-and-conditional-probabilities-independence-of-events"><i class="fa fa-check"></i>Joint and conditional probabilities, independence of events</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="random-variables.html"><a href="random-variables.html"><i class="fa fa-check"></i><b>1</b> Random variables</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="random-variables.html"><a href="random-variables.html#discrete-random-variable"><i class="fa fa-check"></i><b>1.1</b> Discrete random variable</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="random-variables.html"><a href="random-variables.html#probability-and-distribution-functions"><i class="fa fa-check"></i><b>1.1.1</b> Probability and distribution functions</a></li>
+<li class="chapter" data-level="1.1.2" data-path="random-variables.html"><a href="random-variables.html#probability-and-distribution-functions-1"><i class="fa fa-check"></i><b>1.1.2</b> Probability and distribution functions</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="random-variables.html"><a href="random-variables.html#continuous-random-variable"><i class="fa fa-check"></i><b>1.2</b> Continuous random variable</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="random-variables.html"><a href="random-variables.html#density-function"><i class="fa fa-check"></i><b>1.2.1</b> Density function</a></li>
+<li class="chapter" data-level="1.2.2" data-path="random-variables.html"><a href="random-variables.html#distribution-function"><i class="fa fa-check"></i><b>1.2.2</b> Distribution function</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="random-variables.html"><a href="random-variables.html#key-figures-of-random-variables"><i class="fa fa-check"></i><b>1.3</b> Key figures of random variables</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="random-variables.html"><a href="random-variables.html#expected-value-and-variance"><i class="fa fa-check"></i><b>1.3.1</b> Expected value and variance</a></li>
+<li class="chapter" data-level="1.3.2" data-path="random-variables.html"><a href="random-variables.html#covariance-and-correlation"><i class="fa fa-check"></i><b>1.3.2</b> Covariance and correlation</a></li>
+<li class="chapter" data-level="1.3.3" data-path="random-variables.html"><a href="random-variables.html#quantiles-continuous-rv-only"><i class="fa fa-check"></i><b>1.3.3</b> Quantiles (continuous RV only)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="some-distribution-models.html"><a href="some-distribution-models.html"><i class="fa fa-check"></i><b>2</b> Some distribution models</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="some-distribution-models.html"><a href="some-distribution-models.html#discrete-distributions"><i class="fa fa-check"></i><b>2.1</b> Discrete distributions</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="some-distribution-models.html"><a href="some-distribution-models.html#discrete-uniform-distribution"><i class="fa fa-check"></i><b>2.1.1</b> Discrete uniform distribution</a></li>
+<li class="chapter" data-level="2.1.2" data-path="some-distribution-models.html"><a href="some-distribution-models.html#bernoulli-distribution"><i class="fa fa-check"></i><b>2.1.2</b> Bernoulli distribution</a></li>
+<li class="chapter" data-level="2.1.3" data-path="some-distribution-models.html"><a href="some-distribution-models.html#binomial-distribution"><i class="fa fa-check"></i><b>2.1.3</b> Binomial distribution</a></li>
+<li class="chapter" data-level="2.1.4" data-path="some-distribution-models.html"><a href="some-distribution-models.html#poisson-distribution"><i class="fa fa-check"></i><b>2.1.4</b> Poisson distribution 👽</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="some-distribution-models.html"><a href="some-distribution-models.html#some-continuous-distributions"><i class="fa fa-check"></i><b>2.2</b> Some continuous distributions</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="some-distribution-models.html"><a href="some-distribution-models.html#normal-distribution"><i class="fa fa-check"></i><b>2.2.1</b> Normal distribution</a></li>
+<li class="chapter" data-level="2.2.2" data-path="some-distribution-models.html"><a href="some-distribution-models.html#exponential-distribution"><i class="fa fa-check"></i><b>2.2.2</b> Exponential distribution 👽</a></li>
+<li class="chapter" data-level="2.2.3" data-path="some-distribution-models.html"><a href="some-distribution-models.html#uniform-distribution"><i class="fa fa-check"></i><b>2.2.3</b> Uniform distribution 👽</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="limit-theorems.html"><a href="limit-theorems.html"><i class="fa fa-check"></i><b>3</b> Limit theorems</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="limit-theorems.html"><a href="limit-theorems.html#strong-law-of-large-numbers"><i class="fa fa-check"></i><b>3.1</b> Strong law of large numbers 💪</a></li>
+<li class="chapter" data-level="3.2" data-path="limit-theorems.html"><a href="limit-theorems.html#central-limit-theorem"><i class="fa fa-check"></i><b>3.2</b> Central limit theorem</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="parameter-estimation.html"><a href="parameter-estimation.html"><i class="fa fa-check"></i><b>4</b> Parameter estimation</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#basic-ideas-of-inductive-statistics"><i class="fa fa-check"></i><b>4.1</b> Basic ideas of inductive statistics</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#parameter-estimation-theoretically"><i class="fa fa-check"></i><b>4.1.1</b> Parameter estimation theoretically</a></li>
+<li class="chapter" data-level="4.1.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#parameter-estimation-practical"><i class="fa fa-check"></i><b>4.1.2</b> Parameter estimation practical</a></li>
+<li class="chapter" data-level="4.1.3" data-path="parameter-estimation.html"><a href="parameter-estimation.html#random-sample-1"><i class="fa fa-check"></i><b>4.1.3</b> Random sample</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#point-estimation"><i class="fa fa-check"></i><b>4.2</b> Point estimation</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#estimation-functions-1"><i class="fa fa-check"></i><b>4.2.1</b> Estimation functions</a></li>
+<li class="chapter" data-level="4.2.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#properties-of-estimators"><i class="fa fa-check"></i><b>4.2.2</b> Properties of estimators</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="parameter-estimation.html"><a href="parameter-estimation.html#construction-of-estimators"><i class="fa fa-check"></i><b>4.3</b> Construction of estimators</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#method-of-moments"><i class="fa fa-check"></i><b>4.3.1</b> Method of moments</a></li>
+<li class="chapter" data-level="4.3.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#maximum-likelihood-method"><i class="fa fa-check"></i><b>4.3.2</b> Maximum likelihood method</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="parameter-estimation.html"><a href="parameter-estimation.html#interval-estimation"><i class="fa fa-check"></i><b>4.4</b> Interval estimation</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#alpha-confidence-interval-for-mu"><i class="fa fa-check"></i><b>4.4.1</b> <span class="math inline">\((1-\alpha)\)</span> confidence interval for <span class="math inline">\(\mu\)</span></a></li>
+<li class="chapter" data-level="4.4.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#alpha-confidence-interval-for-sigma2"><i class="fa fa-check"></i><b>4.4.2</b> <span class="math inline">\((1-\alpha)\)</span> confidence interval for <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="4.4.3" data-path="parameter-estimation.html"><a href="parameter-estimation.html#alpha-confidence-interval-for-probability-p"><i class="fa fa-check"></i><b>4.4.3</b> <span class="math inline">\((1-\alpha)\)</span> confidence interval for probability <span class="math inline">\(p\)</span></a></li>
+<li class="chapter" data-level="4.4.4" data-path="parameter-estimation.html"><a href="parameter-estimation.html#determining-n-based-on-the-length-of-confidence-intervals"><i class="fa fa-check"></i><b>4.4.4</b> Determining <span class="math inline">\(n\)</span> based on the length of confidence intervals</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>5</b> Hypothesis testing</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#basic-idea-of-statistical-testing"><i class="fa fa-check"></i><b>5.1</b> Basic idea of ​​statistical testing</a></li>
+<li class="chapter" data-level="5.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hypothesis-tests-for-p"><i class="fa fa-check"></i><b>5.2</b> Hypothesis tests for <span class="math inline">\(p\)</span></a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-exact-binomial-test"><i class="fa fa-check"></i><b>5.2.1</b> The exact binomial test</a></li>
+<li class="chapter" data-level="5.2.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-approximate-binomial-test"><i class="fa fa-check"></i><b>5.2.2</b> The approximate binomial test</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hypothesis-tests-for-mu"><i class="fa fa-check"></i><b>5.3</b> Hypothesis tests for <span class="math inline">\(\mu\)</span></a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-gauss-test"><i class="fa fa-check"></i><b>5.3.1</b> The Gauss test</a></li>
+<li class="chapter" data-level="5.3.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-t-test"><i class="fa fa-check"></i><b>5.3.2</b> The <span class="math inline">\(t\)</span> test</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#type-1-and-type-2-errors"><i class="fa fa-check"></i><b>5.4</b> Type 1 and Type 2 errors</a></li>
+<li class="chapter" data-level="5.5" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#exceeding-probability-p-value"><i class="fa fa-check"></i><b>5.5</b> Exceeding probability: <span class="math inline">\(p\)</span> value</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="regression-analysis.html"><a href="regression-analysis.html"><i class="fa fa-check"></i><b>6</b> Regression analysis</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="regression-analysis.html"><a href="regression-analysis.html#estimate-in-linear-regression-model"><i class="fa fa-check"></i><b>6.1</b> Estimate in linear regression model</a></li>
+<li class="chapter" data-level="6.2" data-path="regression-analysis.html"><a href="regression-analysis.html#testing-in-linear-regression-model"><i class="fa fa-check"></i><b>6.2</b> Testing in linear regression model</a></li>
+<li class="chapter" data-level="6.3" data-path="regression-analysis.html"><a href="regression-analysis.html#forecast-in-linear-regression-model"><i class="fa fa-check"></i><b>6.3</b> Forecast in linear regression model</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="regressionsanalyse.html"><a href="regressionsanalyse.html"><i class="fa fa-check"></i><b>7</b> Regressionsanalyse 👽</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="regressionsanalyse.html"><a href="regressionsanalyse.html#schätzen-im-linearen-regressionsmodell"><i class="fa fa-check"></i><b>7.1</b> Schätzen im linearen Regressionsmodell</a></li>
+<li class="chapter" data-level="7.2" data-path="regressionsanalyse.html"><a href="regressionsanalyse.html#testen-im-linearen-regressionsmodell"><i class="fa fa-check"></i><b>7.2</b> Testen im linearen Regressionsmodell</a></li>
+<li class="chapter" data-level="7.3" data-path="regressionsanalyse.html"><a href="regressionsanalyse.html#prognose-im-linearen-regressionsmodell"><i class="fa fa-check"></i><b>7.3</b> Prognose im linearen Regressionsmodell</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistics and Applications in Data Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="regressionsanalyse" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">Chapter 7</span> Regressionsanalyse 👽<a href="regressionsanalyse.html#regressionsanalyse" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Nun können wir sowohl die Verfahren der Intervallschätzung als auch die Hypothesentests im Kontext der linearen Regression anwenden.</p>
+<hr />
+<p>In diesem Kapitel werden wir lernen:</p>
+<ul>
+<li>Wie man das Modell der linearen Regression aus wahrscheinlichkeitstheoretischem Blickwinkel analysiert,</li>
+<li>wie man <strong>Intervallschätzung</strong> bzw.<strong>Hypothesentests</strong> für die Koeffizienten durchführt und</li>
+<li>wie man eine <strong>Vorhersage</strong> trifft..</li>
+</ul>
+<hr />
+<h3>
+Lineares Regressionsmodell aus der deskriptiven
+Statistik
+</h3>
+<ul>
+<li>
+Für zwei metrische Merkmale, <span class="math inline">\(Y\)</span> und <span class="math inline">\(X\)</span>, postuliert das
+<strong>lineare Regressionsmodell</strong> folgenden Zusammenhang:
+<span class="math display">\[\begin{equation*}
+      Y=\alpha + \beta X.
+\end{equation*}\]</span>
+</li>
+<li>
+Gegeben <span class="math inline">\(n\)</span> Beobachtungen <span class="math inline">\((y_i,x_i)\)</span>, <span class="math inline">\(i=1,\ldots, n\)</span>, (zu den
+Merkmalen <span class="math inline">\(Y\)</span> und <span class="math inline">\(X\)</span>) wird folgendes Gleichungssystem aufgestellt:
+<span class="math display">\[\begin{equation*}
+      y_i = \alpha + \beta\, x_i + \varepsilon_i,\quad i=1,\ldots, n,
+\end{equation*}\]</span>
+wobei <span class="math inline">\(\varepsilon_1, \ldots, \varepsilon_n\)</span> <strong>Fehlerterme</strong> sind, die
+so gewählt werden, dass Gleichheit gilt.
+</li>
+<li>
+Die Koeffizienten <span class="math inline">\(\alpha\)</span> und <span class="math inline">\(\beta\)</span> werden mit der Methode
+der kleinsten Quadrate bestimmt:
+<span class="math display">\[\begin{equation*}
+      \sum_{i=1}^n \varepsilon_i^2 = \sum_{i=1}^n (y_i - (\alpha+\beta\,
+      x_i))^2 \quad\rightarrow\quad \text{Minimum}.
+\end{equation*}\]</span>
+</li>
+<li>
+Im folgenden erweitern wir diesen Ansatz, indem der Fehler
+<span class="math inline">\(\varepsilon\)</span> als Zufallsvariable mit bestimmten Eigenschaften
+angenommen wird.
+</li>
+</ul>
+<h3>
+Lineare Einfachregression
+</h3>
+<ul>
+<li>
+In der linearen empirischen Beziehung
+<span class="math display">\[\begin{equation*}
+      y_i = \alpha + \beta\, x_i + \varepsilon_i, \quad i=1,\ldots, n,
+\end{equation*}\]</span>
+seien die Fehlerterme <span class="math inline">\(\varepsilon_i\)</span>
+<ul>
+<li>
+unbeobachtbare, unabhängige Realisierungen einer
+Zufallsvariablen,
+</li>
+<li>
+identisch verteilt mit <span class="math inline">\(\mathbb E(\varepsilon_i)=0\)</span> und
+<span class="math inline">\(\text{Var}(\varepsilon_i)=\sigma^2\)</span>.
+</li>
+</ul>
+</li>
+<li>
+Die Werte <span class="math inline">\(x_i\)</span>, <span class="math inline">\(i=1,\ldots, n\)</span>, können
+<ul>
+<li>
+deterministisch sein (z.B. Dosis eines Medikaments
+bei einem Versuch),
+</li>
+<li>
+Realisierungen von Zufallsvariablen <span class="math inline">\(X_i\)</span> sein (<strong>
+stochastischer Regressor</strong>).
+</li>
+<li>
+Im Fall eines stochastischen Regressors gelten die Annahmen
+über <span class="math inline">\(\varepsilon_i\)</span> dann nur bedingt, also
+<span class="math inline">\(\mathbb E(\varepsilon_i|X_i=x_i)=0\)</span>, etc.
+</li>
+<li>
+Im folgenden nehmen wir der Einfachheit halber an, der
+Regressor sei deterministisch.
+</li>
+</ul>
+</li>
+</ul>
+<h3>
+Standardmodell der linearen Einfachregression
+</h3>
+<ul>
+<li>
+Es gilt:
+<span class="math display">\[\begin{equation*}
+      Y_i = \alpha + \beta\, x_i + \varepsilon_i, \quad i=1,\ldots, n.
+\end{equation*}\]</span>
+</li>
+<li>
+Dabei sind:
+<ul>
+<li>
+<span class="math inline">\(Y_1,\ldots, Y_n\)</span>: beobachtbare metrische Zufallsvariable;
+</li>
+<li>
+<span class="math inline">\(x_1,\ldots, x_n\)</span>: gegebene deterministische Werte (oder
+Realisierungen einer ZV <span class="math inline">\(X\)</span>);
+</li>
+<li>
+<span class="math inline">\(\varepsilon_1, \ldots, \varepsilon_n\)</span>: unbeobachtbare
+ZV’en, die unabhängig und identisch verteilt sind mit
+<span class="math inline">\(\mathbb E(\varepsilon_i)=0\)</span>, <span class="math inline">\(\text{Var}(\varepsilon_i)=\sigma^2\)</span>.
+</li>
+</ul>
+</li>
+<li>
+Die Regressionskoeffizienten <span class="math inline">\(\alpha,\beta\)</span> und die Varianz
+<span class="math inline">\(\sigma^2\)</span> sind unbekannte Parameter, die aus den Daten
+<span class="math inline">\((y_i,x_i)\)</span>, <span class="math inline">\(i=1,\ldots, n\)</span> zu schätzen sind.
+</li>
+<li>
+Es gilt:
+<span class="math display">\[\begin{align}
+        \mathbb E(Y_i) &amp;= \mathbb E(\alpha + \beta x_i + \varepsilon_i) = \alpha +
+                  \beta x_i\\
+        \text{Var}(Y_i) &amp;= \text{Var}(\alpha + \beta x_i + \varepsilon)
+                          = \sigma^2.
+\end{align}\]</span>
+</li>
+<li>
+Die Verteilungen der <span class="math inline">\(Y_i\)</span> sind, bis auf die
+Verschiebung der Erwartungswerte, gleich:
+</li>
+<li>
+Die Eigenschaft gleicher Varianz <span class="math inline">\(\sigma^2\)</span> der Fehlerterme
+heißt <strong>Homoskedastizität</strong>.
+</li>
+<li>
+Aussagen zu Verteilungen von Schätzern und Testatistiken,
+auch für kleine <span class="math inline">\(n\)</span>, erhält man durch folgende - stärkere - Annahme.
+</li>
+<li>
+<strong> Normalverteilungsannahme</strong>:
+<span class="math display">\[\begin{equation*}
+      \varepsilon_i \sim N(0,\sigma^2),\quad i=1,\ldots,n,
+\end{equation*}\]</span>
+bzw.<br />
+<span class="math display">\[\begin{equation*}
+      Y_i\sim N(\alpha+ \beta x_i,\sigma^2), \quad i=1,\ldots,n.
+\end{equation*}\]</span>
+</li>
+</ul>
+<h3>
+Schätzen, Testen und Prognose
+</h3>
+<ul>
+<li>
+Im folgenden befassen wir uns mit folgenden Aspekten des
+linearen Regressionsmodells:
+<ul>
+<li>
+Punkt- und Intervallschätzung der unbekannten Parameter
+<span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>, <span class="math inline">\(\sigma^2\)</span>
+</li>
+<li>
+Testen von Hypothesen über die Regressionskoeffizienten
+<span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>
+</li>
+<li>
+Prognose der Zielvariablen <span class="math inline">\(Y\)</span> für neuen Wert <span class="math inline">\(x\)</span>
+</li>
+</ul>
+</li>
+</ul>
+<div id="schätzen-im-linearen-regressionsmodell" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Schätzen im linearen Regressionsmodell<a href="regressionsanalyse.html#schätzen-im-linearen-regressionsmodell" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</p>
+<h3>
+Kleinste-Quadrate-Schätzer
+</h3>
+<ul>
+<li>
+<strong>Kleinste-Quadrate-Methode</strong>: Bestimme <span class="math inline">\(\hat\alpha\)</span> und
+<span class="math inline">\(\hat\beta\)</span>, so dass
+<span class="math display">\[\begin{equation*}
+        \sum_{i=1}^n (Y_i-\alpha-\beta x_i)^2 \quad\rightarrow\quad \min_{\alpha,\beta}
+\end{equation*}\]</span>
+</li>
+<li>
+Minimieren ergibt:
+<span class="math display">\[\begin{align*}
+        \hat\beta &amp;= \frac{\sum_{i=1}^n (x_i-\overline x)
+                    (Y_i-\overline Y)} {\sum_{i=1}^n (x_i-\overline
+                    x)^2} = \hat\rho_{XY} \frac{\hat\sigma_Y}{\hat\sigma_X},\\[5pt]
+        \hat\alpha &amp;= \overline Y-\hat\beta \overline x,\\[5pt]
+        \hat\sigma^2&amp;= \frac{1}{n-2} \sum_{i=1}^n \hat\varepsilon_i^2
+                      = \frac{1}{n-2} \sum_{i=1}^n (Y_i-\hat\alpha -
+                      \hat\beta x_i)^2,
+\end{align*}\]</span>
+mit <strong>Residuen}</strong> <span class="math inline">\(\hat\varepsilon_i=Y_i-\hat Y_i\)</span> und <strong>
+gefitteten Werten</strong> <span class="math inline">\(\hat Y_i=\hat\alpha + \hat\beta\, x_i\)</span>,
+<span class="math inline">\(i=1,\ldots, n\)</span>.
+</li>
+<li>
+Man beachte, dass <span class="math inline">\(\hat\alpha\)</span>, <span class="math inline">\(\hat\beta\)</span> und
+<span class="math inline">\(\hat\sigma^2\)</span> von den Zufallsvariablen <span class="math inline">\(Y_1,\ldots, Y_n\)</span>
+abhängen, und es sich um Schätzfunktionen handelt.
+</li>
+<li>
+Diese sind erwartungstreu:
+<span class="math display">\[\begin{equation*}
+      \mathbb E(\hat\alpha)=\alpha, \quad \mathbb E(\hat\beta)=\beta, \quad \mathbb E(\hat\sigma^2)=\sigma^2,
+\end{equation*}\]</span>
+</li>
+<li>
+Es gilt:
+<span class="math display">\[\begin{align*}
+        \text{Var}(\hat\alpha) &amp;= \sigma_{\hat\alpha}^2 = \sigma^2 \frac{\sum x_i^2}
+                                 {n\left(\sum x_i^2 - n\overline
+                                 x^2\right)}\\
+        \text{Var}(\hat\beta) &amp;= \sigma_{\hat\beta}^2 = \frac{\sigma^2} {\sum x_i^2 -
+                                n\overline x^2}
+\end{align*}\]</span>
+</li>
+<li>
+Es gilt auch <span class="math inline">\(\sum (x_i-\overline x)^2\rightarrow\infty\)</span> für
+<span class="math inline">\(n\rightarrow\infty\)</span>, so sind die Schätzer auch konsistent. (Die
+Werte variieren hinreichend stark, maW. es kommt mit steigendem
+<span class="math inline">\(n\)</span> zusätzliche Information hinzu.)
+</li>
+<!--
+%\note{%
+%  For the proof of the variance of $\hat\beta$ it is useful to
+%  re-write
+%  \begin{equation*}
+%    \hat\beta = \frac{\sum_{i=1}^n x_i Y_i - n\overline x\overline Y}
+%    {\sum_{i=1}^n x_i^2 - n\overline x^2}
+%  \end{equation*}
+%}-->
+<li>
+Unter der Normalverteilungsannahme gilt:
+<span class="math display">\[\begin{equation*}
+      \varepsilon_i \sim N(0,\sigma^2), \quad Y_i\sim
+     N(\alpha+\beta x_i, \sigma^2), \quad \hat\alpha \sim
+     N(\alpha, \sigma_{\hat\alpha}^2), \quad \hat\beta\sim
+     N(\beta, \sigma_{\hat\beta}^2).
+\end{equation*}\]</span>
+</li>
+</ul>
+<h3>
+Verteilung der standardisierten Schätzfunktionen
+</h3>
+<ul>
+<li>
+Unter der Normalverteilungsannahme gilt:
+<span class="math display">\[\begin{equation*}
+      \frac{\hat\alpha-\alpha}{\hat\sigma_{\hat\alpha}} \sim t(n-2),
+      \quad \frac{\hat\beta-\beta}{\hat\sigma_{\hat\beta}} \sim
+      t(n-2).
+\end{equation*}\]</span>
+</li>
+<li>
+<strong>Konfidenzintervalle für <span class="math inline">\(\alpha\)</span> und <span class="math inline">\(\beta\)</span></strong>
+<span class="math display">\[\begin{equation*}
+    \hat\alpha \pm \hat\sigma_{\hat\alpha} \,
+    t_{1-\alpha/2}(n-2),\quad \hat\beta \pm \hat\sigma_{\hat\beta}\,
+    t_{1-\alpha/2}(n-2).
+\end{equation*}\]</span>
+</li>
+<li>
+Für <span class="math inline">\(n&gt;30\)</span> können die <span class="math inline">\(t\)</span>-Quantile durch <span class="math inline">\(N(0,1)\)</span>-Quantile
+ersetzt werden.
+</li>
+<li>
+Falls die Normalverteilungsannahme nicht erfüllt ist, so
+gilt sie asymptotisch, also gelten obige Ergebnisse approximativ
+für genügend großes <span class="math inline">\(n\)</span>.
+</li>
+</ul>
+</div>
+<div id="testen-im-linearen-regressionsmodell" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> Testen im linearen Regressionsmodell<a href="regressionsanalyse.html#testen-im-linearen-regressionsmodell" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h3>
+Signifikanztests
+</h3>
+<ul>
+<li>
+Von besonderer Bedeutung ist das Hypothesenpaar
+<span class="math display">\[\begin{equation*}
+      H_0: \beta=0, \quad H_1:\beta\not=0.
+\end{equation*}\]</span>
+</li>
+<li>
+Dabei bedeutet <span class="math inline">\(H_0:\beta=0\)</span>, dass tatsächlich <span class="math inline">\(Y_i=\alpha +\varepsilon_i\)</span>, <span class="math inline">\(i=1,\ldots, n\)</span>, gilt, und somit <span class="math inline">\(X\)</span> keinen
+Erklärungswert für <span class="math inline">\(Y\)</span> besitzt.
+</li>
+</ul>
+<h3>
+Der <span class="math inline">\(t\)</span>-Test
+</h3>
+<ul>
+<li>
+Der <span class="math inline">\(t\)</span>-Test kann zum Testen von
+Hypothesen bzgl. <span class="math inline">\(\alpha\)</span> und <span class="math inline">\(\alpha_0\)</span>, bzw. <span class="math inline">\(\beta\)</span> und
+<span class="math inline">\(\beta_0\)</span> eingesetzt werden.
+</li>
+<li>
+Die Teststatistiken lauten:
+<span class="math display">\[\begin{equation*}
+      T_{\alpha_0} = \frac{\hat\alpha -
+        \alpha_0}{\hat\sigma_{\hat\alpha}},\quad
+      T_{\beta_0} = \frac{\hat\beta- \beta_0}
+      {\hat\sigma_{\hat\beta}}.
+\end{equation*}\]</span>
+</li>
+<!--<li>Der <strong>$F$-Test</strong> ist ein weiterer Test zur Prüfung von 
+    $H_0:\beta=0$. 
+</li>-->
+<li>
+Statistische Programmpakete liefern typischerweise die
+<strong> <span class="math inline">\(t\)</span>-Werte</strong> und <strong> <span class="math inline">\(p\)</span>-Werte</strong> zu den
+Hypothesen <span class="math inline">\(H_0:\alpha=\alpha_0\)</span> bzw. <span class="math inline">\(H_0:\beta=\beta_0\)</span> mit
+<span class="math inline">\(\alpha_0=0\)</span> und <span class="math inline">\(\beta_0=0\)</span>.
+</li>
+<li>
+Daraus lässt sich erkennen, ob das Einbeziehen von <span class="math inline">\(\alpha\)</span>,
+bzw. <span class="math inline">\(\beta\)</span> in der Regressionsgleichung sinnvoll ist.
+</li>
+</ul>
+</div>
+<div id="prognose-im-linearen-regressionsmodell" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> Prognose im linearen Regressionsmodell<a href="regressionsanalyse.html#prognose-im-linearen-regressionsmodell" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>
+Punktschätzer zu einem neuen Wert <span class="math inline">\(x_0\)</span> ist
+<span class="math display">\[\begin{equation*}
+      \hat Y_0 = \hat\alpha + \hat\beta x_0.
+\end{equation*}\]</span>
+</li>
+<li>
+Über die Varianzeigenschaften von <span class="math inline">\(\hat\alpha\)</span> und
+<span class="math inline">\(\hat\beta\)</span> lässt sich ein Konfidenzintervall für <span class="math inline">\(Y_0\)</span>
+bestimmen.
+</li>
+<li>
+<strong> Bestimmtheitsmaß <span class="math inline">\(R^2\)</span></strong>
+<ul>
+<li>
+Das <strong>Bestimmtheitsmaß</strong> <span class="math inline">\(R^2\)</span> gibt den relativen Anteil
+der Varianz der Stichprobe <span class="math inline">\((y_1,\ldots, y_n)\)</span>, der durch
+die Regressionsgerade erklärt wird.
+</li>
+<li>
+Im Fall der linearen Regression ist es definiert als
+<span class="math display">\[\begin{equation*}
+      R^2 = 1-\frac{\sum_{i=1}^n (\hat\alpha+\hat\beta x_i-Y_i)^2} {\sum_{i=1}^n
+        (Y_i-\overline Y)^2}.
+\end{equation*}\]</span>
+</li>
+<li>
+Man kann zeigen, dass
+<span class="math display">\[\begin{equation*}
+      R^2 = \frac{\hat\beta^2 \hat\sigma_x^2}{\hat\sigma_y^2} =
+      \frac{\hat\rho_{xy}^2 \, \hat\sigma_y^2}{\hat\sigma_y^2} =
+      \hat\rho_{xy}^2.
+\end{equation*}\]</span>
+</li>
+<li>
+Es ist stets <span class="math inline">\(0\leq R^2\leq 1\)</span>, wobei
+<ul>
+<li>
+<span class="math inline">\(R^2=0\)</span> den unkorrelierten Fall, und
+</li>
+<li>
+<span class="math inline">\(R^2=1\)</span> den Fall eines perfekten linearen Zusammenhangs
+</li>
+</ul>
+<p>zwischen den Merkmalen <span class="math inline">\(X\)</span> und <span class="math inline">\(Y\)</span> widerspiegelt.</p>
+<div class="example">
+<p><span id="exm:linregth" class="example"><strong>Example 6.1  (Log-linearisierte Nachfrage) </strong></span></p>
+<iframe title="LinReg" src="http://learning-dashboard.lehre.hwr-berlin.de:3838/Apps_RBook/#section-linreg" width="760" height="900"></iframe>
+</div>
+<hr />
+<!--
+## Rückblick{-}
+
+
+```{=html}
+<iframe title="Wortwolke" src="http://learning-dashboard.lehre.hwr-berlin.de:3838/Apps_RBook/#section-wortwolke" width="760" height="600"></iframe>
+```
+-->
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="regression-analysis.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/21-Linreg.rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

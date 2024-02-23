@@ -1,0 +1,6 @@
+"0","  #legend(""topright"",col=""gray44"",lty=1,legend=""N(0,1)"",border=""n"")"
+"0","  "
+"0","  plot(xseq, pnorm(xseq,mu,sig),"
+"0","       type=""l"",col=2,axes=F,lwd=2,"
+"0","       xlim=range(xseq),"
+"0","       ylim=c(0,1.1),ylab="""",xlab="""",main=""N(x)"")"

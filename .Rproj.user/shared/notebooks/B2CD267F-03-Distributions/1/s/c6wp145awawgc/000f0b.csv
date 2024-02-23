@@ -1,0 +1,1 @@
+"0","  text((input$astet+input$bstet)/2,0.4,paste(""E(X)="",round((input$astet+input$bstet)/2,2)),col=2)"

@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 6 Hypothesentests 👽 | Statistics and Applications in Data Science</title>
+  <meta name="description" content="This is the script for the course." />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 6 Hypothesentests 👽 | Statistics and Applications in Data Science" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is the script for the course." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 6 Hypothesentests 👽 | Statistics and Applications in Data Science" />
+  
+  <meta name="twitter:description" content="This is the script for the course." />
+  
+
+<meta name="author" content="Maria Osipenko" />
+
+
+<meta name="date" content="2024-02-13" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="hypothesis-testing.html"/>
+<link rel="next" href="regressionsanalyse.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Introduction</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-goals-and-context"><i class="fa fa-check"></i>Course goals and context</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-goals"><i class="fa fa-check"></i>Course goals</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#terminology"><i class="fa fa-check"></i>Terminology</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html"><i class="fa fa-check"></i>Random events and probability - a short review</a>
+<ul>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#outcomes-and-events"><i class="fa fa-check"></i>Outcomes and Events</a></li>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#probabilities"><i class="fa fa-check"></i>Probabilities</a>
+<ul>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#calculating-with-probabilities"><i class="fa fa-check"></i>Calculating with probabilities</a></li>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#joint-and-conditional-probabilities-independence-of-events"><i class="fa fa-check"></i>Joint and conditional probabilities, independence of events</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="random-variables.html"><a href="random-variables.html"><i class="fa fa-check"></i><b>1</b> Random variables</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="random-variables.html"><a href="random-variables.html#discrete-random-variable"><i class="fa fa-check"></i><b>1.1</b> Discrete random variable</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="random-variables.html"><a href="random-variables.html#probability-and-distribution-functions"><i class="fa fa-check"></i><b>1.1.1</b> Probability and distribution functions</a></li>
+<li class="chapter" data-level="1.1.2" data-path="random-variables.html"><a href="random-variables.html#probability-and-distribution-functions-1"><i class="fa fa-check"></i><b>1.1.2</b> Probability and distribution functions</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="random-variables.html"><a href="random-variables.html#continuous-random-variable"><i class="fa fa-check"></i><b>1.2</b> Continuous random variable</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="random-variables.html"><a href="random-variables.html#density-function"><i class="fa fa-check"></i><b>1.2.1</b> Density function</a></li>
+<li class="chapter" data-level="1.2.2" data-path="random-variables.html"><a href="random-variables.html#distribution-function"><i class="fa fa-check"></i><b>1.2.2</b> Distribution function</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="random-variables.html"><a href="random-variables.html#key-figures-of-random-variables"><i class="fa fa-check"></i><b>1.3</b> Key figures of random variables</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="random-variables.html"><a href="random-variables.html#expected-value-and-variance"><i class="fa fa-check"></i><b>1.3.1</b> Expected value and variance</a></li>
+<li class="chapter" data-level="1.3.2" data-path="random-variables.html"><a href="random-variables.html#covariance-and-correlation"><i class="fa fa-check"></i><b>1.3.2</b> Covariance and correlation</a></li>
+<li class="chapter" data-level="1.3.3" data-path="random-variables.html"><a href="random-variables.html#quantiles-continuous-rv-only"><i class="fa fa-check"></i><b>1.3.3</b> Quantiles (continuous RV only)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="some-distribution-models.html"><a href="some-distribution-models.html"><i class="fa fa-check"></i><b>2</b> Some distribution models</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="some-distribution-models.html"><a href="some-distribution-models.html#discrete-distributions"><i class="fa fa-check"></i><b>2.1</b> Discrete distributions</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="some-distribution-models.html"><a href="some-distribution-models.html#discrete-uniform-distribution"><i class="fa fa-check"></i><b>2.1.1</b> Discrete uniform distribution</a></li>
+<li class="chapter" data-level="2.1.2" data-path="some-distribution-models.html"><a href="some-distribution-models.html#bernoulli-distribution"><i class="fa fa-check"></i><b>2.1.2</b> Bernoulli distribution</a></li>
+<li class="chapter" data-level="2.1.3" data-path="some-distribution-models.html"><a href="some-distribution-models.html#binomial-distribution"><i class="fa fa-check"></i><b>2.1.3</b> Binomial distribution</a></li>
+<li class="chapter" data-level="2.1.4" data-path="some-distribution-models.html"><a href="some-distribution-models.html#poisson-distribution"><i class="fa fa-check"></i><b>2.1.4</b> Poisson distribution 👽</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="some-distribution-models.html"><a href="some-distribution-models.html#some-continuous-distributions"><i class="fa fa-check"></i><b>2.2</b> Some continuous distributions</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="some-distribution-models.html"><a href="some-distribution-models.html#normal-distribution"><i class="fa fa-check"></i><b>2.2.1</b> Normal distribution</a></li>
+<li class="chapter" data-level="2.2.2" data-path="some-distribution-models.html"><a href="some-distribution-models.html#exponential-distribution"><i class="fa fa-check"></i><b>2.2.2</b> Exponential distribution 👽</a></li>
+<li class="chapter" data-level="2.2.3" data-path="some-distribution-models.html"><a href="some-distribution-models.html#uniform-distribution"><i class="fa fa-check"></i><b>2.2.3</b> Uniform distribution 👽</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="limit-theorems.html"><a href="limit-theorems.html"><i class="fa fa-check"></i><b>3</b> Limit theorems</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="limit-theorems.html"><a href="limit-theorems.html#strong-law-of-large-numbers"><i class="fa fa-check"></i><b>3.1</b> Strong law of large numbers 💪</a></li>
+<li class="chapter" data-level="3.2" data-path="limit-theorems.html"><a href="limit-theorems.html#central-limit-theorem"><i class="fa fa-check"></i><b>3.2</b> Central limit theorem</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="parameter-estimation.html"><a href="parameter-estimation.html"><i class="fa fa-check"></i><b>4</b> Parameter estimation</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#basic-ideas-of-inductive-statistics"><i class="fa fa-check"></i><b>4.1</b> Basic ideas of inductive statistics</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#parameter-estimation-theoretically"><i class="fa fa-check"></i><b>4.1.1</b> Parameter estimation theoretically</a></li>
+<li class="chapter" data-level="4.1.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#parameter-estimation-practical"><i class="fa fa-check"></i><b>4.1.2</b> Parameter estimation practical</a></li>
+<li class="chapter" data-level="4.1.3" data-path="parameter-estimation.html"><a href="parameter-estimation.html#random-sample-1"><i class="fa fa-check"></i><b>4.1.3</b> Random sample</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#point-estimation"><i class="fa fa-check"></i><b>4.2</b> Point estimation</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#estimation-functions-1"><i class="fa fa-check"></i><b>4.2.1</b> Estimation functions</a></li>
+<li class="chapter" data-level="4.2.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#properties-of-estimators"><i class="fa fa-check"></i><b>4.2.2</b> Properties of estimators</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="parameter-estimation.html"><a href="parameter-estimation.html#construction-of-estimators"><i class="fa fa-check"></i><b>4.3</b> Construction of estimators</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#method-of-moments"><i class="fa fa-check"></i><b>4.3.1</b> Method of moments</a></li>
+<li class="chapter" data-level="4.3.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#maximum-likelihood-method"><i class="fa fa-check"></i><b>4.3.2</b> Maximum likelihood method</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="parameter-estimation.html"><a href="parameter-estimation.html#interval-estimation"><i class="fa fa-check"></i><b>4.4</b> Interval estimation</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#alpha-confidence-interval-for-mu"><i class="fa fa-check"></i><b>4.4.1</b> <span class="math inline">\((1-\alpha)\)</span> confidence interval for <span class="math inline">\(\mu\)</span></a></li>
+<li class="chapter" data-level="4.4.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#alpha-confidence-interval-for-sigma2"><i class="fa fa-check"></i><b>4.4.2</b> <span class="math inline">\((1-\alpha)\)</span> confidence interval for <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="4.4.3" data-path="parameter-estimation.html"><a href="parameter-estimation.html#alpha-confidence-interval-for-probability-p"><i class="fa fa-check"></i><b>4.4.3</b> <span class="math inline">\((1-\alpha)\)</span> confidence interval for probability <span class="math inline">\(p\)</span></a></li>
+<li class="chapter" data-level="4.4.4" data-path="parameter-estimation.html"><a href="parameter-estimation.html#determining-n-based-on-the-length-of-confidence-intervals"><i class="fa fa-check"></i><b>4.4.4</b> Determining <span class="math inline">\(n\)</span> based on the length of confidence intervals</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>5</b> Hypothesis testing</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#basic-idea-of-statistical-testing"><i class="fa fa-check"></i><b>5.1</b> Basic idea of ​​statistical testing</a></li>
+<li class="chapter" data-level="5.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hypothesis-tests-for-p"><i class="fa fa-check"></i><b>5.2</b> Hypothesis tests for <span class="math inline">\(p\)</span></a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-exact-binomial-test"><i class="fa fa-check"></i><b>5.2.1</b> The exact binomial test</a></li>
+<li class="chapter" data-level="5.2.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-approximate-binomial-test"><i class="fa fa-check"></i><b>5.2.2</b> The approximate binomial test</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hypothesis-tests-for-mu"><i class="fa fa-check"></i><b>5.3</b> Hypothesis tests for <span class="math inline">\(\mu\)</span></a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-gauss-test"><i class="fa fa-check"></i><b>5.3.1</b> The Gauss test</a></li>
+<li class="chapter" data-level="5.3.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-t-test"><i class="fa fa-check"></i><b>5.3.2</b> The <span class="math inline">\(t\)</span> test</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#type-1-and-type-2-errors"><i class="fa fa-check"></i><b>5.4</b> Type 1 and Type 2 errors</a></li>
+<li class="chapter" data-level="5.5" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#exceeding-probability-p-value"><i class="fa fa-check"></i><b>5.5</b> Exceeding probability: <span class="math inline">\(p\)</span> value</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="hypothesentests.html"><a href="hypothesentests.html"><i class="fa fa-check"></i><b>6</b> Hypothesentests 👽</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="hypothesentests.html"><a href="hypothesentests.html#grundidee-des-statistischen-testens"><i class="fa fa-check"></i><b>6.1</b> Grundidee des statistischen Testens</a></li>
+<li class="chapter" data-level="6.2" data-path="hypothesentests.html"><a href="hypothesentests.html#hypothesetests-für-den-anteilswert-p"><i class="fa fa-check"></i><b>6.2</b> Hypothesetests für den Anteilswert <span class="math inline">\(p\)</span></a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="hypothesentests.html"><a href="hypothesentests.html#der-exakte-binomialtest"><i class="fa fa-check"></i><b>6.2.1</b> Der exakte Binomialtest</a></li>
+<li class="chapter" data-level="6.2.2" data-path="hypothesentests.html"><a href="hypothesentests.html#der-approximative-binomialtest"><i class="fa fa-check"></i><b>6.2.2</b> Der approximative Binomialtest</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="hypothesentests.html"><a href="hypothesentests.html#hypothesentests-für-mu"><i class="fa fa-check"></i><b>6.3</b> Hypothesentests für <span class="math inline">\(\mu\)</span></a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="hypothesentests.html"><a href="hypothesentests.html#der-gauß-test"><i class="fa fa-check"></i><b>6.3.1</b> Der Gauß-Test</a></li>
+<li class="chapter" data-level="6.3.2" data-path="hypothesentests.html"><a href="hypothesentests.html#der-t-test"><i class="fa fa-check"></i><b>6.3.2</b> Der <span class="math inline">\(t\)</span>-Test</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="hypothesentests.html"><a href="hypothesentests.html#fehler-1.-art-und-2.-art"><i class="fa fa-check"></i><b>6.4</b> Fehler 1. Art und 2. Art</a></li>
+<li class="chapter" data-level="6.5" data-path="hypothesentests.html"><a href="hypothesentests.html#überschreitungswahrscheinlichkeit-p-wert"><i class="fa fa-check"></i><b>6.5</b> Überschreitungswahrscheinlichkeit <span class="math inline">\(p\)</span>-Wert</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="regressionsanalyse.html"><a href="regressionsanalyse.html"><i class="fa fa-check"></i><b>7</b> Regressionsanalyse 👽</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="regressionsanalyse.html"><a href="regressionsanalyse.html#schätzen-im-linearen-regressionsmodell"><i class="fa fa-check"></i><b>7.1</b> Schätzen im linearen Regressionsmodell</a></li>
+<li class="chapter" data-level="7.2" data-path="regressionsanalyse.html"><a href="regressionsanalyse.html#testen-im-linearen-regressionsmodell"><i class="fa fa-check"></i><b>7.2</b> Testen im linearen Regressionsmodell</a></li>
+<li class="chapter" data-level="7.3" data-path="regressionsanalyse.html"><a href="regressionsanalyse.html#prognose-im-linearen-regressionsmodell"><i class="fa fa-check"></i><b>7.3</b> Prognose im linearen Regressionsmodell</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Statistics and Applications in Data Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="hypothesentests" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Chapter 6</span> Hypothesentests 👽<a href="hypothesentests.html#hypothesentests" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Bisher haben wir statistische Schlüsse auf Basis von numerischen Schätzern (Punktschätzer und Intervallschätzer) vorgenommen. Nun, es gibt Problemstellungen, wo man eine gewisse Annahme überprüfen möchte. Es geht weniger um eine Zahl rauszubekommen, sondern eher eine Hypothese anhand der Daten zu unterstützen (z.B. War eine Martingsaktion wirkungsvoll?).</p>
+<p>Testverfahren beantworten die Fragen hinsichtlich dieser <strong>möglicher Schlussfolgerungen</strong> eines Zufallsvorgangs (<strong>Hypothesen</strong>) und führen eine <strong>Entscheidung</strong> für eine der Möglichkeiten mit Werkzeugen der Wahrscheinlichkeitstheorie herbei.</p>
+<hr />
+<p>In diesem Kapitel werden wir lernen:</p>
+<ul>
+<li>Wie man die <strong>Hypothesen</strong> formuliert,</li>
+<li>welche <strong>Testverfahren</strong> man wann anwendet und</li>
+<li>wie man eine <strong>Testentscheidung</strong> trifft.</li>
+</ul>
+<hr />
+<div id="grundidee-des-statistischen-testens" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Grundidee des statistischen Testens<a href="hypothesentests.html#grundidee-des-statistischen-testens" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<hr />
+<div class="example">
+<p><span id="exm:test" class="example"><strong>Example 5.1  (Rabattaktion) </strong></span>Sie wollen überpüfen, ob eine Rabattaktion zur Steigerung des Umsatzes beigetragen hat.</p>
+<p>In einer Pilotstudie haben <span class="math inline">\(n=30\)</span> zufällig ausgewählte Kunden den Rabatt angeboten bekommen.
+Die restlichen Kunden haben keinen Rabatt bekommen und haben einen Durchschnittsumsatz von <span class="math inline">\(25\)</span> EUR mit einer
+Standardabweichung von <span class="math inline">\(\sigma=2,4\)</span>.</p>
+<p>Die Rabattgruppe hat einen durchschnittlichen Umsatz von <span class="math inline">\(\overline y=26,3\)</span> EUR.
+Möglichkeiten:</p>
+<ul>
+<li><p><strong>Aktion ist in Wirklichkeit wirkungsvoll</strong>: der Umsatz wird dadurch nachhaltig gesteigert und wir würden eine falsche Entscheidung treffen, wenn wir davon ausgehen, dass die Steigung der Umsätze zufällig ist <span class="math inline">\(\Rightarrow\)</span> Firma gibt möglicherweise eine wirkungsvolle Kampagne auf.</p></li>
+<li><p><strong>Aktion ist in Wirklichkeit nicht wirkungsvoll</strong>: der Umsatz in der Pilotgruppe ist aufgrund von zufälligen Schwankungen größer ausgefallen und wir würden eine falsche Entscheidung treffen, wenn wir davon ausgehen, dass die Steigung der Umsätze auf die Aktion zurückführbar ist <span class="math inline">\(\Rightarrow\)</span> Kosten für eine sinnlose Rabattaktion.</p></li>
+</ul>
+<p>Im Fall zweier möglicher, einander ausschließender Schlussfolgerungen unterscheidet man:</p>
+<ul>
+<li><p><strong>Nullhypothese</strong> <span class="math inline">\(H_0\)</span> (Status-Quo <span class="math inline">\(\leadsto\)</span> Aktion verändert nichts an dem Verhalten, Umsatz, …) wird nicht abgelehnt, solange es nicht genügend Evidenz gibt, sie zu widerlegen.</p></li>
+<li><p><strong>Alternativhypothese</strong> <span class="math inline">\(H_1\)</span> (<span class="math inline">\(\leadsto\)</span> Aktion ist wirksam, verändert günstig das Verhalten, den Umsatz, …) wird akzeptiert, wenn “ausreichend” Evidenz gegen die Nullhypothese spricht.</p></li>
+</ul>
+</div>
+<hr />
+<p>Mögliche Schlussfolgerungen und Konsequenzen:
+<span class="math display">\[
+\begin{array}{c|cc}
+      \hline
+      &amp;H_0\text{ nicht abgelehnt }&amp; H_0\text{ abgelehnt }\\\hline
+      H_0\text{ ist richtig  }&amp;\text{Entscheidung richtig }&amp; \text{Entscheidung falsch}\\
+      &amp;&amp;\text{(Fehler 1. Art)}\\
+      H_0\text{ ist falsch }&amp;\text{Entscheidung falsch}&amp;\text{Entscheidung richtig}\\
+      &amp;\text{(Fehler 2. Art)}&amp;\\\hline
+\end{array}
+\]</span>
+Fehlentscheidungen sind also immer möglich und bei einer vorliegenden Testentscheidung lässt sich nicht beurteilen, ob diese richtig oder falsch ist.</p>
+<p>Zwei Arten von Fehlentscheidungen können auftreten: falsches Ablehnen oder falsches Beibehalten der Nullhypothese.</p>
+<p>Bei einem statistischen Testproblem <span class="math inline">\(H_0\)</span> gegen <span class="math inline">\(H_1\)</span> und einem geeigneten statistischen Test spricht man von einem</p>
+<ul>
+<li><p><strong>Fehler 1. Art</strong>, wenn <span class="math inline">\(H_0\)</span> verworfen wird, obwohl <span class="math inline">\(H_0\)</span> wahr ist,</p></li>
+<li><p><strong>Fehler 2. Art</strong>, wenn <span class="math inline">\(H_0\)</span> beibehalten wird, obwohl <span class="math inline">\(H_1\)</span> wahr ist.</p></li>
+</ul>
+<p>Wir können also uns irren, wenn wir anhand der Testverfahren die Hypothesen überprüfen. Ziel ist es eine Entscheidungsstrategie so festzulegen, dass Fehler 1. Art und 2. Art möglichst klein gehalten werden.</p>
+<hr />
+<div class="example">
+<p><span id="exm:test0" class="example"><strong>Example 5.2  (Rabattaktion) </strong></span>Fortführung von <a href="hypothesis-testing.html#exm:test">5.1</a>.</p>
+<p>Wahrscheinlichkeitstheoretische Formulierung des Problems:</p>
+<ul>
+<li><p>Stichprobe <span class="math inline">\(Y_1,Y_2,\ldots,Y_{30}\)</span>: Umsätze von Pilotkunden.</p></li>
+<li><p>Annahme: <span class="math inline">\((Y_i)_{i=1,\ldots,30}\)</span> sind unabhängige Wiederholungen einer normalverteilten Zufallsvariable <span class="math inline">\(Y\)</span> mit unbekanntem Erwartungswert <span class="math inline">\(\mu\)</span> und bekannter Standardabweichung <span class="math inline">\(\sigma=2,4\)</span>.</p></li>
+</ul>
+<p>Dann, ist der Erwartungswert <span class="math inline">\(\overline Y\)</span> der <span class="math inline">\(30\)</span> Realisierungen ist normalverteilte Zufallsvariable mit Erwartungswert <span class="math inline">\(\mu\)</span> und Standardabweichung <span class="math inline">\(\sigma/\sqrt{30}\)</span>.</p>
+<p>Aufstellen der Hypothesen:</p>
+<ul>
+<li><p><span class="math inline">\(H_0\)</span>: <span class="math inline">\(\mu=25,0\)</span> (Aktion nicht wirkungsvoll,“Status Quo”)</p></li>
+<li><p><span class="math inline">\(H_1\)</span>: <span class="math inline">\(\mu&gt;25,0\)</span> (Aktion wirkungsvoll)</p></li>
+</ul>
+<p>Entscheidungsgrundlage:</p>
+<ul>
+<li><p>sinnvoll <span class="math inline">\(H_0\)</span> beizubehalten, wenn <span class="math inline">\(\overline y\)</span> nur wenig größer als <span class="math inline">\(25\)</span>.</p></li>
+<li><p>sinnvoll <span class="math inline">\(H_0\)</span> abzulehnen, wenn <span class="math inline">\(\overline y\)</span> deutlich größer, bspw. <span class="math inline">\(35.0\)</span>.</p></li>
+</ul>
+<p><span class="math inline">\(\leadsto\)</span> Finde kritisches <span class="math inline">\(\overline y^\ast\)</span>, ab dem <span class="math inline">\(H_0\)</span> abgelehnt wird.</p>
+<p>Wahl von <span class="math inline">\(\overline y^\ast\)</span> mithilfe wahrscheinlichkeitstheoretischer Überlegungen:</p>
+<ul>
+<li><p>1. Versuch: <span class="math inline">\(\overline y^\ast=25,25\)</span>
+Dann wird <span class="math inline">\(H_0\)</span> mit einer Wahrscheinlichkeit von <span class="math inline">\(28\%\)</span> abgelehnt, unter der Annahme das <span class="math inline">\(H_0\)</span> zutrifft (Fehler 1. Art):
+<span class="math display">\[\begin{align*}
+      \mathbb P(H_0 \text{ ablehnen}|H_0 \text{ ist wahr})&amp;= \mathbb P(\overline Y\geq
+        25,25|\mu=25,0)\\
+        &amp;= \mathbb P\left(\frac{\overline Y-25,0}{2,4/\sqrt{30}} \geq
+          \frac{25,25-25,0}{2,4/\sqrt{30}}\right)\\
+        &amp;= 1-N(0,57) = 0,2843
+\end{align*}\]</span>
+<span class="math inline">\(\leadsto\)</span> Wahrscheinlichkeit eines Fehlers 1. Art zu hoch</p></li>
+<li><p>2. Versuch: <span class="math inline">\(\overline y^\ast=26,5\)</span>
+<span class="math inline">\(H_0\)</span> wird “nur” mit Wahrscheinlichkeit <span class="math inline">\(0,03\%\)</span> falsch abgelehnt:
+<span class="math display">\[\begin{equation*}
+  \mathbb P(H_0 \text{ ablehnen}| H_0 \text{ ist wahr}) = \mathbb P(\overline
+  Y\geq 26,50|\mu=25,0) = 0,0003.
+\end{equation*}\]</span>
+<span class="math inline">\(\leadsto\)</span> Wahrscheinlichkeit eines Fehlers 1. Art sehr klein (gut!)</p></li>
+</ul>
+<p><strong>Aber</strong>: Wahrscheinlichkeit eines Fehlers 2. Art möglicherweise hoch (eine andere Verteilung als unter <span class="math inline">\(H_0\)</span> könnte in dem Wertebereich plausibler sein).</p>
+<p><strong>Idee</strong>: Wähle <span class="math inline">\(\overline y^\ast\)</span> so, dass <span class="math inline">\(H_0\)</span> mit vorgegebener kleiner Wahrscheinlichkeit <span class="math inline">\(\alpha\)</span>, z.B. <span class="math inline">\(\alpha=0,05\)</span>, (falsch) abgelehnt wird:<br />
+<span class="math display">\[\begin{align*}
+        \mathbb P(H_0 \text{ ablehnen}|H_0 \text{ ist wahr})&amp; =
+        \mathbb P(\overline Y
+        \geq \overline y^{\ast}|\mu=25,0) =0,05.
+\end{align*}\]</span></p>
+<p>Dies ergibt <span class="math inline">\(\overline y^\ast=25,718\)</span>.</p>
+<p>Unsere Entscheidung wäre: Ablehnen der Hypothese, Aktion habe keine Wirkung, da <span class="math inline">\(\overline Y=26,3\geq 25,718\)</span>.</p>
+<p>Es handelt sich <strong>nicht</strong> um einen Beweis, <span class="math inline">\(H_0\)</span> sei falsch. <strong>Hohe Evidenz gegen</strong> <span class="math inline">\(H_0\)</span> führt zur Ablehnung. Denn: Falls der wahre Erwartungswert <span class="math inline">\(25,0\)</span> ist, werden Stichproben mit <span class="math inline">\(\overline Y\geq 25,718\)</span> nur mit einer Wahrscheinlichkeit von <span class="math inline">\(5\%\)</span> auftreten.</p>
+<p>Entscheidungsregel: Lehne <span class="math inline">\(H_0\)</span> ab, falls <span class="math inline">\(\overline Y\geq 25,718\)</span>.</p>
+<p>Folgende Kennzahl ist noch interessant: Unter der Annahme, dass <span class="math inline">\(H_0\)</span> gilt, wie hoch ist - bei Wiederholung des Experiments - die Wahrscheinlichkeit, ein mindestens so extremes Ergebnis wie das beobachtete zu erhalten?
+Diese Kennzahl heißt <strong><span class="math inline">\(p\)</span>-Wert</strong> und wird wie folgt berechnet:</p>
+<p><span class="math display">\[\begin{equation*}
+        \mathbb P(\overline Y_{\text{Wdhl.}}\geq \overline Y|H_0)
+        = \mathbb P(\overline Y_{\text{Wdhl.}} \geq 26,3|\mu=25,0)
+        = 0,0015 = 0,15\%.
+\end{equation*}\]</span></p>
+<iframe title="Stichprobenumfang" src="http://learning-dashboard.lehre.hwr-berlin.de:3838/Apps_RBook/#section-rabattaktion" width="760" height="500"></iframe>
+</div>
+<hr />
+</div>
+<div id="hypothesetests-für-den-anteilswert-p" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Hypothesetests für den Anteilswert <span class="math inline">\(p\)</span><a href="hypothesentests.html#hypothesetests-für-den-anteilswert-p" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<hr />
+<div class="example">
+<p><span id="exm:testp0" class="example"><strong>Example 5.3  (Qualitätsprüfung) </strong></span>Vor Auslieferung einer Warenpartie soll die Qualität auf Basis einer Stichprobe geprüft werden.</p>
+<ul>
+<li><p>Es wird eine Attributenprüfung durchgeführt. D.h. Bei jedem produzierten Stück wird festgehalten, ob es den Qualitätsstandards genügt (“gut”) oder nicht (“schlecht”). Gezählt werden die schlechten Stücke - die Anzahl kann als binomialverteilt mit Parameter <span class="math inline">\(p\)</span> angenommen werden (Ausschussanteil).</p></li>
+<li><p>Ein Kunde akzeptiert Warenlieferung, falls Ausschussanteil unter <span class="math inline">\(10\%\)</span>.</p></li>
+<li><p>Aus Kostengründen kann nicht die gesamte Lieferung überprüft werden.</p></li>
+<li><p>Stichprobe von <span class="math inline">\(n=1000\)</span> Stücken ergibt <span class="math inline">\(102\)</span> Ausschussstücke.</p></li>
+<li><p>Ist der Unterschied von <span class="math inline">\(10,2\%\)</span> zu <span class="math inline">\(10\%\)</span> gering genug, um daraus schließen zu können, der tatsächliche Anteil sei kleiner als <span class="math inline">\(10\%\)</span>?</p></li>
+</ul>
+</div>
+<hr />
+<div id="der-exakte-binomialtest" class="section level3 hasAnchor" number="6.2.1">
+<h3><span class="header-section-number">6.2.1</span> Der exakte Binomialtest<a href="hypothesentests.html#der-exakte-binomialtest" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Allgemein: Seien <span class="math inline">\(X_1, \ldots, X_n\)</span> Stichprobenvariablen mit
+<span class="math display">\[\begin{equation*}
+      X_i=
+      \begin{cases}
+        1, &amp;\text{ falls } A \text{ eintritt},\\
+        0, &amp;\text{ falls } \overline A \text{ eintritt}.
+      \end{cases}
+\end{equation*}\]</span></p>
+<ul>
+<li><p>Die Wahrscheinlichkeit des Ereignisses <span class="math inline">\(\{X_i=1\}\)</span> sei <span class="math inline">\(p\)</span> (unbekannt!).</p></li>
+<li><p><strong>Statistisches Testproblem</strong>:</p>
+<ul>
+<li><p>Die interessierende Hypothese wird als <strong>Alternativhypothese</strong> <span class="math inline">\(H_1\)</span> formuliert. Sie muss sich gegen die <strong>Nullhypothese</strong> <span class="math inline">\(H_0\)</span> durchsetzen.</p></li>
+<li><p>Bei einem statistischen Test geht es darum zu entscheiden,ob das beobachtete Verhalten auch für die Grundgesamtheit gilt.</p></li>
+</ul></li>
+<li><p><strong>Teststatistik</strong> ist die Größe, von der wir die Verteilung unter <span class="math inline">\(H_0\)</span> kennen:
+<span class="math display">\[\begin{equation*}
+      \text{Anzahl } X=\sum_{i=1}^n X_i
+\end{equation*}\]</span></p></li>
+</ul>
+<p>Ist die Annahme unabhängiger Ziehungen gerechtfertigt, so ist die Anzahl <span class="math inline">\(X=\sum_{i=1}^n X_i\)</span> binomialverteilt mit Parametern <span class="math inline">\(n\)</span> und <span class="math inline">\(p\)</span>.</p>
+<ul>
+<li><strong>Ablehnungsbereich</strong>:
+Wie groß muss <span class="math inline">\(X\)</span> sein, so dass es extrem unwahrscheinlich ist, dass <span class="math inline">\(X\)</span> noch unter <span class="math inline">\(H_0\)</span> zustande gekommen ist?
+Präzisiere zunächst “extrem unwahrscheinlich”; übliche Werte <span class="math inline">\(0,01\)</span>; <span class="math inline">\(0,05\)</span>; <span class="math inline">\(0,1\)</span>, bezeichnet als <strong>Signifikanzniveau</strong>/ <strong>Konfidenzniveau</strong> mit Symbol <span class="math inline">\(\alpha\)</span>.</li>
+</ul>
+<p>Daraus ergibt sich der <strong>Ablehnungsbereich</strong>, also diejenigen Werte des Zufallsexperiment,
+die <strong>in Richtung der Alternative weisen</strong>, und deren <strong>W’keit kleiner als</strong> <span class="math inline">\(\alpha\)</span> ist.</p>
+<hr />
+<div class="example">
+<p><span id="exm:testp1" class="example"><strong>Example 5.4  (Qualitätsprüfung) </strong></span>Fortführung von <a href="hypothesis-testing.html#exm:testp0">5.3</a>.</p>
+<p><span class="math display">\[
+\begin{array}{cccccccc}\hline
+x_i&amp;101&amp;102&amp; 105 &amp;110 &amp;115&amp; 120&amp; 125\\
+\mathbb P(X&gt;x_i)&amp;0,432 &amp;0,391&amp; 0,278&amp; 0,135&amp; 0,053&amp; 0,017&amp; 0,005\\\hline
+\end{array}
+\]</span></p>
+<p><span class="math inline">\(\mathbb P(X&gt;102) = 0,391\)</span> also nicht klein genug (diese soll kleiner als die Irrtumswahrscheinlichkeit <span class="math inline">\(\alpha=0,01/0,05/0,1\)</span> sein).</p>
+<p>Was ist der kritische Wert? Ab wann würden wir ablehnen? (<span class="math inline">\(\mathbb P(X&gt;x_i)\leq \alpha\)</span>)</p>
+<p><span class="math display">\[
+\begin{array}{ccccc}\hline
+x_i&amp;115&amp; \color{red}{116}&amp; 120&amp; 125\\
+\mathbb P(X&gt;x_i)&amp; 0,053&amp;\color{red}{0,04334} &amp;0,017&amp; 0,005\\\hline
+\end{array}
+\]</span></p>
+<iframe title="Binomialtest" src="http://learning-dashboard.lehre.hwr-berlin.de:3838/Apps_RBook/#section-binomialtest" width="760" height="700"></iframe>
+</div>
+<hr />
+</div>
+<div id="der-approximative-binomialtest" class="section level3 hasAnchor" number="6.2.2">
+<h3><span class="header-section-number">6.2.2</span> Der approximative Binomialtest<a href="hypothesentests.html#der-approximative-binomialtest" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Für großes <span class="math inline">\(n\)</span> kann die Binomialverteilung durch die Normalverteilung approximiert werden <span class="math inline">\(\leadsto\)</span> <strong>approximativer Binomialtest</strong>.</p>
+<p>Sei <span class="math inline">\(X=\sum_{i=1}^n X_i\sim B(n,p)\)</span> für <span class="math inline">\(np\)</span> und <span class="math inline">\(n(1-p)\)</span> ausreichend groß. Dann gilt:
+<span class="math display">\[\begin{align*}
+      X&amp;\stackrel{\text{approx.}}{\sim} N(np, np(1-p))\quad \text{
+         bzw. }\\
+      Z=\frac{X-n\, p}{\sqrt{n\, p(1-p)}}
+      &amp;\stackrel{\text{approx.}}\sim N(0,1).
+\end{align*}\]</span></p>
+<p>Daumenregel für “ausreichend groß”: <span class="math inline">\(np&gt;5\)</span> und <span class="math inline">\(n(1-p)&gt;5\)</span>.</p>
+<div class="example">
+<p><span id="exm:testp2" class="example"><strong>Example 5.5  (Qualitätsprüfung) </strong></span>Fortführung von <a href="hypothesis-testing.html#exm:testp1">5.4</a>.</p>
+<ul>
+<li><p>Formulierung des Testproblems, ob Ausschußanteil größer
+er als <span class="math inline">\(0,1\)</span>:
+<span class="math display">\[\begin{equation*}
+    H_0: p = 0,1\quad\text{ gegen }\quad H_1: p&gt;0,1.
+\end{equation*}\]</span></p></li>
+<li><p>Bei einer Stichprobengröße von <span class="math inline">\(n=1000\)</span> werden <span class="math inline">\(X=102\)</span> Ausschußstücke beobachtet.</p></li>
+<li><p>Approximation:<span class="math inline">\(\displaystyle Z=\frac{X-1000\cdot 0,1}{\sqrt{1000\cdot 0,1\cdot 0.9}}=\frac{X-100}{\sqrt{90}} \stackrel{\text{approx.}}{\sim}N(0;1).\)</span></p></li>
+<li><p>Ablehnungsbereich <span class="math inline">\(C=\{z:z&gt;N_{1-\alpha}\}\)</span>, wobei
+<span class="math inline">\(N_{1-\alpha}\)</span> das <span class="math inline">\((1-\alpha)\)</span>-Quantil der
+Standardnormalverteilung bezeichnet (auch als <strong>kritischer
+Wert</strong> bezeichnet).</p></li>
+<li><p>Sei <span class="math inline">\(\alpha=0,05\)</span>, also kritischer Wert
+<span class="math inline">\(N_{1-\alpha}=N_{0,95} = 1,64\)</span>.</p></li>
+<li><p>Teststatistik: <span class="math inline">\(\displaystyle z=\frac{102-100}{9,5} = 0,21\)</span>.</p></li>
+<li><p>Testentscheidung: Wegen <span class="math inline">\(0,21&lt;1,64\)</span> kann <span class="math inline">\(H_0\)</span> nicht abgelehnt werden.</p></li>
+</ul>
+<p>In Worten: Die Anzahl von <span class="math inline">\(102\)</span> fehlerhaften Stücken in der
+Stichprobe lässt nicht den Schluss zu, dass der Anteil
+fehlerhafter Stücke in der <strong>gesamten</strong> Partie über <span class="math inline">\(10\%\)</span>
+liegt.</p>
+<ul>
+<li>Alternativ könnte man sich Fragen ieviele Stücke <span class="math inline">\(x^\ast\)</span> würden zu einer Ablehnung
+von <span class="math inline">\(H_0\)</span> führen? Auflösen nach <span class="math inline">\(x^\ast\)</span> von
+<span class="math display">\[\begin{equation*}
+  \frac{x^\ast-n\, p}{\sqrt{n\, p (1-p)}} &gt;N_{1-\alpha},
+\end{equation*}\]</span>
+ergibt
+<span class="math display">\[\begin{equation*}
+  x^\ast&gt;\sqrt{n\, p(1-p)} N_{1-\alpha}  + n\, p = 9,5\cdot 1,64 +
+  100 = 115,58.
+\end{equation*}\]</span></li>
+</ul>
+<iframe title="ABinomialtest" src="http://learning-dashboard.lehre.hwr-berlin.de:3838/Apps_RBook/#section-abinomialtest" width="760" height="500"></iframe>
+</div>
+<hr />
+<p>Approximativer Binomialtest (Zusammenfassung)</p>
+<ul>
+<li>Gegeben seien folgende Testprobleme über den Parameter <span class="math inline">\(p\)</span> einer
+<span class="math inline">\(B(n,p)\)</span>-Verteilung:</li>
+</ul>
+<p><span class="math display">\[\begin{align*}
+  (a) \quad&amp; H_0:p=p_0\quad\text{ gegen } \quad H_1:p\not=p_0 \text{(zweisetig)}\\
+  (b) \quad &amp; H_0:p=p_0\quad\text{ gegen } \quad H_1:p&lt;p_0 \text{(linksseitig)}\\
+  (c) \quad &amp; H_0:p=p_0\quad\text{ gegen } \quad H_1:p&gt;p_0 \text{ (rechtsseitig)}.
+\end{align*}\]</span></p>
+<ul>
+<li><p>Basierend auf der Prüfgröße
+<span class="math inline">\(\displaystyle Z = \frac{X-n\, p_0}{\sqrt{n\, p_0 (1-p_0)}}\stackrel{\text{approx.}}\sim N(0,1)\)</span>
+und dem vorgegebenen Niveau <span class="math inline">\(\alpha\)</span></p></li>
+<li><p>fällt die Entscheidung für <span class="math inline">\(H_1\)</span> im Testproblem</p></li>
+</ul>
+<p><span class="math display">\[\begin{align*}
+  (a),\quad&amp; \text{ falls } |z|&gt;N_{1-\alpha/2}\\
+  (b),\quad&amp; \text{ falls } z&lt;-N_{1-\alpha}\\
+  (c),\quad&amp;\text{ falls } z&gt;N_{1-\alpha}.
+\end{align*}\]</span></p>
+</div>
+</div>
+<div id="hypothesentests-für-mu" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> Hypothesentests für <span class="math inline">\(\mu\)</span><a href="hypothesentests.html#hypothesentests-für-mu" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="der-gauß-test" class="section level3 hasAnchor" number="6.3.1">
+<h3><span class="header-section-number">6.3.1</span> Der Gauß-Test<a href="hypothesentests.html#der-gauß-test" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Gegeben seien unabhängig identisch verteilte Zufallsvariablen
+<span class="math inline">\(X_1, \ldots, X_n\)</span> mit
+- <span class="math inline">\(X_i\sim N(\mu,\sigma^2)\)</span>, bzw.</p>
+<ul>
+<li><span class="math inline">\(X_i\)</span> mit beliebiger stetiger Verteilung, <span class="math inline">\(\mathbb E(X_i)=\mu\)</span>, <span class="math inline">\(\text{Var}(X_i)=\sigma^2\)</span>, <span class="math inline">\(n\)</span> groß genug (Faustregel <span class="math inline">\(n\geq 30\)</span>).</li>
+</ul>
+<p>Es sei <span class="math inline">\(\sigma^2\)</span> bekannt. Man betrachte folgende Testprobleme:
+<span class="math display">\[\begin{align*}
+      (a) \quad&amp; H_0:\mu=\mu_0\quad\text{ gegen } \quad H_1:\mu\not=\mu_0\\
+      (b) \quad &amp; H_0:\mu=\mu_0\quad\text{ gegen } \quad H_1:\mu&lt;\mu_0\\
+      (c) \quad &amp; H_0:\mu=\mu_0\quad\text{ gegen } \quad H_1:\mu&gt;\mu_0.
+\end{align*}\]</span></p>
+<p>Für <span class="math inline">\(\mu=\mu_0\)</span> ist <span class="math inline">\(\displaystyle Z=\sqrt{n}\, \frac{\overline X-\mu_0}{\sigma}= \frac{\overline X-\mu_0}{\sigma/\sqrt{n}}\stackrel{\text{approx.}}{\sim} N(0,1)\)</span>.</p>
+<p>Basierend auf der Teststatistik <span class="math inline">\(Z\)</span> fällt die Entscheidung für <span class="math inline">\(H_1\)</span> im Testproblem</p>
+<p><span class="math display">\[\begin{align*}
+      (a),\quad&amp; \text{ falls } |z|&gt;N_{1-\alpha/2}\\
+      (b),\quad&amp; \text{ falls } z&lt;-N_{1-\alpha}\\
+      (c),\quad&amp;\text{ falls } z&gt;N_{1-\alpha}.
+\end{align*}\]</span></p>
+<div class="example">
+<p><span id="exm:testgauss" class="example"><strong>Example 5.6  (Qualitätsprüfung von Bleistiften) </strong></span>Es werden Bleistifte produziert, deren Länge <span class="math inline">\(17\)</span>cm betragen soll.</p>
+<ul>
+<li><p>Testproblem: <span class="math inline">\(\displaystyle H_0: \mu=17\text{ gegen } H_1: \mu\not=17\)</span>. Als Signifikanzniveau sei <span class="math inline">\(\alpha=0,01\)</span> gewählt.</p></li>
+<li><p>Die Länge <span class="math inline">\(X\)</span> der Bleistifte ist approx. normalverteilt mit <span class="math inline">\(\mathbb E(X)=\mu\)</span> und <span class="math inline">\(\text{Var}(X)=\sigma^2=2,25\)</span>.</p></li>
+<li><p>Aus der laufenden Produktion wird eine Stichprobe (<span class="math inline">\(n=5\)</span>) entnommen; folgende Längen werden gemessen:</p>
+<p><span class="math inline">\(19,2\text{cm};\ 17,4\text{cm};\ 18,5\text{cm};\ 16,5\text{cm};\ 18,9\text{cm}\)</span></p></li>
+<li><p>Es ergibt sich <span class="math inline">\(\overline x=18,1\text{cm}\)</span> und als Prüfgröße</p></li>
+</ul>
+<p><span class="math display">\[\begin{equation*}
+      z=\sqrt{n}\frac{\overline x-\mu_0}{\sigma} =\sqrt{5}
+      \frac{18,1-17}{1,5} = 1,64.
+\end{equation*}\]</span></p>
+<ul>
+<li><p>Der Ablehnungsbereich ergibt sich als <span class="math inline">\((1-\alpha/2)=(1-0,005) = 0,995\)</span>-Quantil der Standardnormalverteilung, also wird <span class="math inline">\(H_0\)</span> abgelehnt, falls <span class="math inline">\(|z| &gt; 2,5758\)</span>.</p></li>
+<li><p>Wegen <span class="math inline">\(|z|=1,64\)</span> wird <span class="math inline">\(H_0\)</span> nicht abgelehnt.</p></li>
+</ul>
+<iframe title="Gauss-Test" src="http://learning-dashboard.lehre.hwr-berlin.de:3838/Apps_RBook/#section-gauss-test" width="760" height="500"></iframe>
+</div>
+<hr />
+</div>
+<div id="der-t-test" class="section level3 hasAnchor" number="6.3.2">
+<h3><span class="header-section-number">6.3.2</span> Der <span class="math inline">\(t\)</span>-Test<a href="hypothesentests.html#der-t-test" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Wie im Fall des Gauß-Tests soll ein hypothetischer Erwartungswert <span class="math inline">\(\mu_0\)</span> mit einem tatsächlichen, unbekannten Erwartungswert verglichen werden. Im Gegensatz zur Annahme beim Gauß-Test wird hier die Varianz <span class="math inline">\(\sigma^2\)</span> als unbekannt angenommen.</p>
+<p>Dies führt zu einer anderen Normierung im Nenner als beim Gauß-Test, nämlich indem die unbekannte Varianz
+<span class="math inline">\(\sigma^2\)</span> durch Stichprobenvarianz <span class="math inline">\(S^2=\sum_i (X_i-\overline X)^2/(n-1)\)</span> ersetzt wird.</p>
+<p>Im folgenden bezeichne <span class="math inline">\(t(n-1)\)</span> die Student-<span class="math inline">\(t\)</span>-Verteilung mit
+Parameter <span class="math inline">\(n-1\)</span>.</p>
+<ul>
+<li><p>Annahmen: <span class="math inline">\(X_1,\ldots, X_n\)</span> seien unabhängig und
+identisch verteilt mit <span class="math inline">\(X\sim N(\mu,\sigma^2)\)</span> bzw.<br />
+beliebig verteilt bei <span class="math inline">\(n&gt;30\)</span>.</p></li>
+<li><p>Hypothesen:
+<span class="math display">\[\begin{align*}
+  (a) \quad&amp; H_0:\mu=\mu_0\quad\text{ gegen } \quad H_1:\mu\not=\mu_0\\
+  (b) \quad &amp; H_0:\mu=\mu_0\quad\text{ gegen } \quad H_1:\mu&lt;\mu_0\\
+  (c) \quad &amp; H_0:\mu=\mu_0\quad\text{ gegen } \quad H_1:\mu&gt;\mu_0.
+\end{align*}\]</span></p></li>
+<li><p>Teststatistik:
+<span class="math inline">\(\displaystyle T=\frac{\overline X-\mu_0}{S/\sqrt{n}}\)</span>.</p></li>
+<li><p>Verteilung unter <span class="math inline">\(\mu=\mu_0\)</span>: <span class="math inline">\(t(n-1)\)</span>; für <span class="math inline">\(n&gt;30\)</span> approximativ <span class="math inline">\(N(0,1)\)</span></p></li>
+<li><p>Ablehnungsbereich:<br />
+<span class="math display">\[\begin{align*}
+      (a) \quad &amp; |t|&gt;t_{1-\alpha/2}(n-1)\\
+      (b) \quad &amp; t&lt;t_\alpha(n-1)=-t_{1-\alpha}(n-1)\\
+      (c) \quad &amp; t&gt;t_{1-\alpha}(n-1)
+\end{align*}\]</span></p></li>
+<li><p>Für <span class="math inline">\(n&gt; 30\)</span> ersetze <span class="math inline">\(t(n-1)\)</span>-Quantile durch
+<span class="math inline">\(N(0,1)\)</span>-Quantile.</p></li>
+</ul>
+<div class="example">
+<p><span id="exm:testt" class="example"><strong>Example 5.7  (Qualitätsprüfung von Bleistiften) </strong></span>Fortführung von <a href="hypothesis-testing.html#exm:testgauss">5.6</a>.</p>
+<p>Wir betrachten dieselbe Problemstellung ohne die Annahme bekannter Varianz.</p>
+<ul>
+<li><p>Testproblem:
+<span class="math inline">\(\displaystyle H_0: \mu=17\quad\text{ gegen } \quad H_1: \mu\not=17\)</span>.</p></li>
+<li><p>Als Signifikanzniveau sei <span class="math inline">\(\alpha=0,01\)</span> gewählt.</p></li>
+<li><p>Als Daten liegen die folgenden Bleistiftlängen vor:
+<span class="math display">\[\begin{equation*}
+      19,2\text{cm};\ 17,4\text{cm};\ 18,5\text{cm};\ 16,5\text{cm};\
+      18,9\text{cm}.
+\end{equation*}\]</span>{cm}.
+\end{equation*}</p></li>
+<li><p>Es ergibt sich <span class="math inline">\(\overline x=18,1cm\)</span> und <span class="math inline">\(s^2=1,265\)</span>.</p></li>
+<li><p>Die Teststatistik ist
+<span class="math inline">\(\displaystyle t = \frac{\overline x-\mu_0}{s}\sqrt{n} = \frac{18,1-17}{1,125}\sqrt{5} = 2,186\)</span>.</p></li>
+<li><p>Der kritische Wert ist das <span class="math inline">\((1-\alpha/2)\)</span>-Quantil der
+<span class="math inline">\(t(n-1)\)</span>-Verteilung, also <span class="math inline">\(t_{0,995}(4) = 4,604\)</span>.</p></li>
+<li><p>Da für die vorliegende Realisation von <span class="math inline">\(T\)</span> gilt
+<span class="math inline">\(|2,186|&lt;4,604\)</span>, wird <span class="math inline">\(H_0\)</span> beibehalten.</p></li>
+</ul>
+<iframe title="t-Test" src="http://learning-dashboard.lehre.hwr-berlin.de:3838/Apps_RBook/#section-t-test" width="760" height="500"></iframe>
+</div>
+<hr />
+</div>
+</div>
+<div id="fehler-1.-art-und-2.-art" class="section level2 hasAnchor" number="6.4">
+<h2><span class="header-section-number">6.4</span> Fehler 1. Art und 2. Art<a href="hypothesentests.html#fehler-1.-art-und-2.-art" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>
+<p>Die Wahrscheinlichkeit für einen Fehler 1. Art (falsches Ablehnen von <span class="math inline">\(H_0\)</span>):
+<span class="math display">\[\mathbb P(H_0\text{ ablehnen}|H_0\text{ wahr})\leq \alpha\]</span>
+wird durch die Irrtumswahrscheinlichkeit <span class="math inline">\(\alpha\)</span> für den Ablehnungsbereich <strong>kontrolliert</strong>; diese Schranke wird auch als <strong>Signifikanzniveau</strong> bezeichnet.</p>
+<ul>
+<li>
+Ein statistischer Test heißt <strong>Test zum Signifikanzniveau</strong>
+<span class="math inline">\(\alpha\)</span>, <span class="math inline">\(0&lt;\alpha&lt;1\)</span>, oder <strong>Signifikanztest</strong>, falls
+<span class="math display">\[\begin{equation*}
+      \mathbb P(H_0\text{ ablehnen}|H_0\text{ wahr}) \leq \alpha,
+\end{equation*}\]</span>
+d.h.
+<span class="math display">\[\begin{equation*}
+      \mathbb P(\text{Fehler 1. Art})\leq \alpha.
+\end{equation*}\]</span>
+</li>
+<li>
+Im Fall des Verwerfens der Nullhypothese sagt man auch: “Das
+Ergebnis ist <strong>statistisch signifikant</strong> zum Niveau <span class="math inline">\(\alpha\)</span>”.
+</li>
+<li>
+Interpretation: Werden <span class="math inline">\(100\)</span> gleichgroße Stichproben zu
+derselben Fragestellung gezogen und gilt die Nullhypothese, dann
+verwirft ein statistischer Test zum Niveau <span class="math inline">\(\alpha=5\%\)</span> in
+höchstens <span class="math inline">\(5\)</span> (im Erwartungswert) der <span class="math inline">\(100\)</span> Stichproben die
+Nullhypothese.
+</li>
+</ul>
+</li>
+<li>
+<p>Die Wahrscheinlichkeit für einen Fehler 2. Art, bezeichnet als <span class="math inline">\(\beta\)</span>,
+wird nicht kontrolliert:
+<span class="math display">\[\mathbb P(H_0\text{ beibehalten}|H_1\text{ wahr}) = \beta\]</span></p>
+<p>Man sucht nach Tests, die den Fehler 2. Art möglichst
+gering halten.</p>
+</div>
+<div id="überschreitungswahrscheinlichkeit-p-wert" class="section level2 hasAnchor" number="6.5">
+<h2><span class="header-section-number">6.5</span> Überschreitungswahrscheinlichkeit <span class="math inline">\(p\)</span>-Wert<a href="hypothesentests.html#überschreitungswahrscheinlichkeit-p-wert" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Der <span class="math inline">\(p\)</span>-Wert ist definiert als die Wahrscheinlichkeit, unter <span class="math inline">\(H_0\)</span>
+den beobachteten Prüfgrößenwert oder einen in Richtung der
+Alternative extremeren Wert zu erhalten.</p>
+<p>Ist der <span class="math inline">\(p\)</span>-Wert kleiner als das vorgegebene Signifikanzniveau
+<span class="math inline">\(\alpha\)</span>, so wird <span class="math inline">\(H_0\)</span> verworfen. Ansonsten behält man <span class="math inline">\(H_0\)</span>
+bei. Ist der <span class="math inline">\(p\)</span>-Wert sehr klein, bedeutet dies, dass es unter <span class="math inline">\(H_0\)</span>
+sehr unwahrscheinlich ist, den vorliegenden Prüfgrößenwert
+zu beobachten.</p>
+<p>Der <strong><span class="math inline">\(p\)</span>-Wert</strong> wird häufig von Software-Paketen
+ausgegeben.</p>
+<hr />
+<div class="example">
+<p><span id="exm:testtpw" class="example"><strong>Example 5.8  (Qualitätsprüfung von Bleistiften) </strong></span>Fortführung von <a href="hypothesis-testing.html#exm:testgauss">5.6</a>.</p>
+<p>Im Beispiel Qualitätsprüfung ist der Prüfgrößenwert <span class="math inline">\(z=0,21\)</span>.</p>
+<p>Der <span class="math inline">\(p\)</span>-Wert ist gegeben als:
+<span class="math display">\[\begin{equation*}
+      p = \mathbb P(Z&gt; 0,21|H_0) = 1-\mathbb P(Z\leq 0,21|H_0) =
+      1-N(0,21) = 1-0,5832 = 0,4168.
+\end{equation*}\]</span></p>
+<p>Da der <span class="math inline">\(p\)</span>-Wert größer als das vorgegebene
+Signifikanzniveau <span class="math inline">\(\alpha=0,05\)</span> ist, kann die Nullhypothese nicht
+verworfen werden.</p>
+</div>
+<hr />
+<p>Berechnung des <span class="math inline">\(p-\)</span>Wertes (<span class="math inline">\(Z\)</span> ist die Teststatistik):</p>
+<ul>
+<li>zweisetiger Test:</li>
+</ul>
+<p><span class="math display">\[\begin{align}
+p-\text{Wert} &amp;= \mathbb P(Z&gt;|z|\text{ unter } H_0) + \mathbb P(Z&lt;-|z|\text{ unter } H_0)\\
+&amp;= 2\cdot \mathbb P(Z&gt;|z|\text{ unter } H_0) \text{ bei einer symmetrischen Verteilung von }Z.
+\end{align}\]</span></p>
+<ul>
+<li>linksseitiger Test:</li>
+</ul>
+<p><span class="math display">\[
+p-\text{Wert} = \mathbb P(Z&lt; z\text{ unter } H_0).
+\]</span></p>
+<ul>
+<li>rechtsseitiger Test:</li>
+</ul>
+<p><span class="math display">\[
+p-\text{Wert} = \mathbb P(Z&gt; z\text{ unter } H_0).
+\]</span></p>
+<hr />
+<div class="exercise">
+<p><span id="exr:unlabeled-div-15" class="exercise"><strong>Exercise 6.1  (Hypothesentests) </strong></span></p>
+<iframe title="Quiz_Hypoth" src="./htmls/quiz_hypoth.html" width="760" height="500"></iframe>
+</div>
+<hr />
+<!--
+## Rückblick{-}
+
+
+```{=html}
+<iframe title="Wortwolke" src="http://learning-dashboard.lehre.hwr-berlin.de:3838/Apps_RBook/#section-wortwolke" width="760" height="600"></iframe>
+```
+-->
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="hypothesis-testing.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="regressionsanalyse.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/20-Hypothesentests.rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

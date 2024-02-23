@@ -1,0 +1,2 @@
+"0","  #arrows(1/input$pgeom-2,0.5,1/input$pgeom+2,0.5,lty=1,code=3,col=3)"
+"0","  text(1/input$pgeom+3,0.5,paste0(""Var(X)="",round((1-input$pgeom)/input$pgeom^2,4)),col=3)"

@@ -1,0 +1,2 @@
+"0","  #arrows(mu,max(dseq),min(xseq),max(dseq),col=4,lty=2,code=0)"
+"0","  par(xpd=F)"

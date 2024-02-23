@@ -1,0 +1,1 @@
+"0","  axis(1,at=x[c(1:3,n)], labels=c(expression(x[1]),expression(x[2]),""..."",bquote(x[.(n)])))"

@@ -1,0 +1,1 @@
+"0","  text(lams[which.max(lLfs)],lLfs[which.max(lLfs)]*2,bquote(hat(lambda)==~.(lams[which.max(lLfs)])),col=4)"

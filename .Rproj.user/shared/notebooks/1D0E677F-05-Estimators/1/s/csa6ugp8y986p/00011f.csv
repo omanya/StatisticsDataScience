@@ -1,0 +1,3 @@
+"0","  "
+"0","  plot(xx/nn,type='p',pch=16,ylab="""",xlab='sample number',col=4,lwd=2,main=""Proportion estimates (n=100)"","
+"0","       ylim=c(0.2,1),cex=1)"

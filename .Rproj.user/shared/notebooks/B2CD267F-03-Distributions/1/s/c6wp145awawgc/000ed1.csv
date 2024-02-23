@@ -1,0 +1,1 @@
+"0","  lines(xseq,pnorm(xseq,0,1),col=alpha(""gray44"",0.5))"

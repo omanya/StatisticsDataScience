@@ -1,0 +1,4 @@
+"0","  "
+"0","  lLfs<-log(Lfs)"
+"0","  #"
+"0","  plot(lams,lLfs,type=""l"",col=2,lwd=2,xlab=bquote(lambda),ylab=bquote(lnL(lambda)))"

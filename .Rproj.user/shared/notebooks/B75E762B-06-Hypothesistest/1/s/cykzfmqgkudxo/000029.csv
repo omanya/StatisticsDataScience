@@ -1,0 +1,2 @@
+"0","  text(apm+0.7,0.4,"
+"0","       paste0(""P(Z>"",round(apm,4),"")="",as.numeric(al)/2),col=2)"

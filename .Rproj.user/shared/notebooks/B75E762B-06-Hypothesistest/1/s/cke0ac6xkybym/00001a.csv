@@ -1,0 +1,4 @@
+"0","  bpm<-2.186"
+"0","  apm<-qt(1-as.numeric(al)/2,frg)"
+"0","  axis(1,at=c(floor(min(xseq)),0,bpm,apm,ceiling(max(xseq))),"
+"0","       labels=c("""",0,"""",round(apm,4),""""))"

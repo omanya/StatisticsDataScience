@@ -1,0 +1,1 @@
+"0","  axis(1,at=c(floor(min(xseq)),1/lam,0,ceiling(max(xseq))),labels=c("""",paste(""E(X)="",1/lam),"""",""""),cex=0.5)"

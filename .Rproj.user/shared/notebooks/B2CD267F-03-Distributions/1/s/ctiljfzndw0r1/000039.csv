@@ -1,0 +1,2 @@
+"0","  text(1/input$pgeom+1,0.9,"
+"0","       paste0(""E(X)="",round(1/input$pgeom,4)),col=2)"

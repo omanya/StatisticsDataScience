@@ -1,0 +1,1 @@
+"0","  text(apm+0.1,0.6,paste0(""P(X>"",round(apm,1),"")="",al),col=2)"

@@ -1,0 +1,2 @@
+"0","  text(-apm-0.6,0.4,"
+"0","       paste0(""P(T<"",-round(apm,4),"")="",round(pt(-apm,frg),3)),col=alpha(2,0.3))"

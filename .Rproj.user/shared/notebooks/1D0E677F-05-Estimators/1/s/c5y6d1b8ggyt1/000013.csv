@@ -1,0 +1,1 @@
+"0","  text(ps[which.max(Lfs)],Lfs[which.max(Lfs)]/2,bquote(hat(p)==~.(ps[which.max(Lfs)])),col=4)"

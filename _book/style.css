@@ -1,0 +1,115 @@
+p.caption {
+  color: #777;
+  margin-top: 10px;
+}
+p code {
+  white-space: inherit;
+}
+pre {
+  word-break: normal;
+  word-wrap: normal;
+}
+pre code {
+  white-space: inherit;
+}
+
+
+
+
+div.quiz {
+  background-color:rgb(247, 249, 254);
+  padding:20px 20px;
+  margin-top:10px;
+  margin-bottom:10px;
+  margin-right:10px;
+  margin-left:10px;
+  border:1px solid black;
+}
+
+div.fig{
+  background-color:white;
+  padding:20px 20px;
+  margin-top:10px;
+  margin-bottom:10px;
+  margin-right:10px;
+  margin-left:10px;
+  border:1px solid black;
+}
+
+div.app {
+  background-color:rgb(230, 231, 232);
+  padding:20px 20px;
+  margin-top:10px;
+  margin-bottom:10px;
+  margin-right:10px;
+  margin-left:10px;
+  border:1px solid black;
+}
+
+div.example {
+  background-color:#A3D8F5;
+  padding:20px 20px;
+  margin-top:10px;
+  margin-bottom:10px;
+  margin-right:10px;
+  margin-left:10px;
+  border:1px solid blue;
+}
+
+div.definition {
+  background-color:#cfc;
+  padding:20px 20px;
+  margin-top:10px;
+  margin-bottom:10px;
+  margin-right:10px;
+  margin-left:10px;
+  border:1px solid green;
+}
+
+div.exercise {
+  background-color:#FADBB7;
+  padding:20px 20px;
+  margin-top:10px;
+  margin-bottom:10px;
+  margin-right:10px;
+  margin-left:10px;
+  border:1px solid #FA9719;
+}
+
+div.details {
+  padding:20px 20px;
+  margin-top:10px;
+  margin-bottom:10px;
+  margin-right:10px;
+  margin-left:10px;
+ }
+
+div.theorem {
+  background-color:rgb(223, 211, 232);
+  padding:20px 20px;
+  margin-top:10px;
+  margin-bottom:10px;
+  margin-right:10px;
+  margin-left:10px;
+  border:1px solid black;
+}
+
+div.corollary {
+  background-color:rgb(223, 211, 232);
+  padding:20px 20px;
+  margin-top:10px;
+  margin-bottom:10px;
+  margin-right:10px;
+  margin-left:10px;
+  border:1px solid black;
+}
+
+div.goals {
+  background-color:rgb(222, 193, 194);
+  padding:20px 20px;
+  margin-top:10px;
+  margin-bottom:10px;
+  margin-right:10px;
+  margin-left:10px;
+  border:1px solid black;
+}

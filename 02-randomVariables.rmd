@@ -1,0 +1,1490 @@
+# Random variables
+
+```{js, echo=F}
+function checkAnswer_mmc(q) {
+      const selectedOptions = document.querySelectorAll('input[name="option'+q.id+'"]:checked');
+      if (selectedOptions.length === 2) {
+        const userAnswers = Array.from(selectedOptions).map(option => option.value);
+        const correctAnswers = q.answer;
+        const isCorrect = userAnswers.every(answer => correctAnswers.includes(answer));
+
+if (isCorrect) {
+          document.getElementById('result'+q.id).textContent = 'Congratulations! Your answer is correct.';
+          document.getElementById('result'+q.id).style.color = "green";
+        } else {
+        document.getElementById('result'+q.id).textContent = 'Sorry, incorrect.';
+        document.getElementById('result'+q.id).style.color = "red";
+        }
+      } else {
+        document.getElementById('result'+q.id).textContent = 'Please select two options.';
+      }
+    }
+// numeric
+function generateQuestion_num(id) {
+      // Generate two random numbers between 2 and 10
+      const num1 = Math.floor(Math.random() * 10) + 2;
+      const num2 = Math.floor(Math.random() * 10) + 2;
+      const x1 = Math.floor(Math.random() * 100) + 2;
+      const x2 = Math.floor(Math.random() * 100) + 2;
+      const x3 = Math.floor(Math.random() * 100) + 2;
+      const x4 = Math.floor(Math.random() * 100) + 2;
+      const x5 = Math.floor(Math.random() * 100) + 2;
+      const x6 = Math.floor(Math.random() * 100) + 2;
+
+       // Calculate the correct answer
+      let answer = num1*Math.sqrt(x1) + num2*Math.sqrt(x2);
+
+
+      // Return the question and answer as an object
+      return {
+       // question: num1 + "\\(\\sqrt{x}+\\)"+ num2 + "\\(\\sqrt{y}\\)" + " for \\(x=\\)" + x1 + " and \\(y=\\)" + x2,
+        question: [num1,num2,x1,x2,x3,x4,x5,x6],
+        answer: answer,
+        id: id
+      };
+    }
+
+function checkAnswer_num(q) {
+      const userAnswer = document.getElementById('answer'+q.id).value;
+      const isCorrect = Math.round(parseFloat(userAnswer)*100)/100 === Math.round(q.answer*100)/100;
+
+      if (isCorrect) {
+        document.getElementById('result'+q.id).textContent = 'Congratulations! Your answer is correct.';
+        document.getElementById('result'+q.id).style.color = "green";
+      } else {
+        document.getElementById('result'+q.id).textContent = `Sorry, incorrect. The correct answer is ` + Math.round(q.answer*10000)/10000 + '.';
+        document.getElementById('result'+q.id).style.color = "red";
+      }
+  }
+
+// plain multiple choice
+  function checkAnswer_match(q) {
+      const selectedOption = document.querySelector('input[name="option'+q.id+'"]:checked');
+      if (selectedOption) {
+        const userAnswer = selectedOption.value;
+        const isCorrect = userAnswer === q.answer;
+
+        if (isCorrect) {
+          document.getElementById('result'+q.id).textContent = 'Congratulations! Your answer is correct.';
+        } else {
+          document.getElementById('result'+q.id).textContent = `Sorry, incorrect.`;
+        }
+      } else {
+        document.getElementById('result'+q.id).textContent = 'Please select an option.';
+      }
+    }
+```
+
+
+```{r echo=FALSE, width="200%"}
+#knitr::include_graphics("./images/housewife.png",dpi=100)#dpi=100
+#knitr::include_graphics("./images/rockstar.png",dpi=90)#dpi=90#online version
+
+#link="http://3.144.126.30:3838/"
+link="http://learning-dashboard.lehre.hwr-berlin.de:3838/"# link to the apps
+```
+
+Nice to be able to calculate probabilities for various events `r emoji::emoji("smile")`! As business analysts, we mostly work with numbers. This means that we usually transfer the results of a random process to numerical values. For example, we summarize a purchase decision (the interaction of unknown customer preferences and complex consequences of customer interactions with their environment) into a few numerical values, such as the number of products purchased, orders placed or the average invoice amount. We are primarily interested in the result in the form of these numbers, while we cannot/don't want to model the customer's complex decision-making process.
+
+However, these numbers that we are looking at are not fixed but **vary** from customer to customer, month to month, etc. If we had to indicate future sales today, we would hardly be able to give a concrete value. We know approximately what values the sales volume can attain, but these are associated with **uncertainty** and therefore depend on complex events (**random processes**) that are partly controlled by chance. Probabilistically speaking, this future sales volume is a **random variable**.
+
+***
+
+In this chapter we will learn:
+  
+- How to define the random variables and what kind of examples exist ($\leadsto$ **discrete vs. continuous** random variables),
+- how to derive **distribution** of random variables and
+- how to calculate the key parameters of this distribution, as the **expected value** and the **variance**, but also the **covariance** and the **quantiles**.
+
+***
+
+A **random variable** $X$ is a variable whose values are derived from the result of a random operation.
+
+The number $x\in \mathbb R$, which represents the random variable $X$ in the course of the random process
+      assumes is called the **realization** or the value of $X$.
+
+Examples:
+
+- Sum of two dice,
+- Stock return in the next month,
+- Number of app users in a survey sample,
+
+We differentiate between two types: **discrete** and **continuous** random variables, depending on what values they can assume.
+
+The **distribution** of a random variable $X$ indicates which values in $\mathbb R$ are assumed with which probabilities. This distribution is derived from the original random process.
+ 
+ 
+Since random variables have numbers as values, we consider the following **events**:
+\begin{equation*}
+      \{X=x\},\quad \{X\not=x\}, \quad \{X\leq x\},\quad \{X>x\},
+      \quad \{a\leq X\leq b\}.
+    \end{equation*}
+These events are assigned **probabilities** by the distribution of the random variable.
+
+## Discrete random variable
+
+A random variable $X$ is called **discrete** if it assumes a finite or countably infinite number of values
+      $x_1,x_2,\ldots, x_n, \ldots$. Such as, dice numbers, number of orders, number of customers per hour, indicator of a loan default or of a product purchase.
+
+ - The **probability distribution** of $X$ is given
+      by the probabilities
+\begin{equation*}
+        \mathbb P(X=x_i)=p_i, \quad i=1,2,\ldots.
+      \end{equation*}
+
+- We denote the set of values of $X$ with $\mathcal T=\{x_1,x_2,\ldots\}$.
+
+- For the probabilities $p_1,p_2,\ldots$ applies (according to the
+    axioms):
+\begin{gather*}
+      \phantom{\quad i=1,2,\ldots} 0\leq p_i\leq 1,\quad i=1,2,\ldots,\\
+      p_1+p_2+\cdots = \sum_{i\geq 1} p_i=1.
+    \end{gather*}
+
+- The probability $\mathbb P(X\in A)$ for $A\subseteq \mathcal T$ is given
+    as \[\displaystyle \mathbb P(X\in A) = \sum_{i: x_i\in A} p_i.\]
+    
+***
+
+::: {.example #roll123zv name="Win when rolling two dice"}
+
+Continuation of \@ref(exm:roll1235).
+
+In the experiment: Sum of the numbers when rolling two fair dice with the numbers 1, 2 and 3 twice, we found:
+
+- $\Omega = \{2;3;4;5;6\}$ $\omega\in\Omega,$ $\omega=$ the sum of the numbers rolled,
+- $\mathcal F=\mathcal P(\Omega)$,
+- $\mathbb P$:
+
+$$
+\begin{array}{c|ccccc}\omega_i&2&3&4&5&6\\\hline
+\mathbb P(\{\omega_i\})&\frac 19&\frac 29&\frac 39&\frac 29&\frac 19
+\end{array}
+$$
+
+Based on this, we now define a random variable $X=$ The random win (in euros):
+
+$$
+X=\begin{cases}
+2\cdot \omega, &\text{ if } \omega \text{ odd},\\
+ - 1, &\text{ if } \omega \text{ even},\\
+\end{cases}
+$$
+
+**What values does $X$ have and how is $X$ distributed?** (what are the probabilities of the values?)
+
+Well, for each result $\omega$ we can determine the value of $X$, specifically:
+
+$$
+\begin{array}{c|ccccc}\omega_i&2&3&4&5&6\\\hline
+x_i&-1&6&-1&10&-1\\
+\mathbb P(\{\omega_i\})&\frac 19&\frac 29&\frac 39&\frac 29&\frac 19
+\end{array}
+$$
+
+The probabilities of the $X$ values correspond to the probabilities of the respective outcomes. Only, some values in the above list are doubled.
+
+Therefore, to create a distribution of $X$, we write down each value only once and sum the probabilities of the outcomes that give us that value to determine the final probability of that $X$-value:
+
+$$
+\begin{array}{c|ccc}
+x_i&-1&6&10\\\hline
+\mathbb P(x_i)=p_i&\frac 59&\frac 29&\frac 29
+\end{array}
+$$
+
+This is the distribution of $X$.
+
+Probability that $X$ is positive is calculated as:
+\begin{equation*}
+      \mathbb P(X>0)=\mathbb P(X\in \{6;10\}) = \mathbb P(X=6) + \mathbb P(X=10) = \frac{4}{9 }.
+\end{equation*}
+
+:::
+
+***
+
+### Probability and distribution functions
+
+#### Probability function {-}
+
+If you specify the distribution of $X$ like in the example \@ref(exm:roll123zv), then you only have probabilities for numbers that are in the value set $\mathcal T$. There may be other real numbers $x\not\in \mathcal T$ that do not occur or only occur with probability zero, i.e. $\mathbb P(X=x)=0$ for $x\not \in \mathcal T$. The probability function assigns a value to **every** $x\in \mathbb R$.
+
+The **probability function** $f(x)$ of a discrete random variable $X$ for $x\in \mathbb R$ is defined by
+
+\begin{equation*}
+      f(x) =
+      \begin{cases}
+        \mathbb P(X=x_i)=p_i, &\quad x=x_i\in \{x_1,x_2,\ldots, \},\\
+        0,&\quad\text{else}.
+      \end{cases}
+    \end{equation*}
+
+
+Properties of the W'function:
+
+- $f(x)\geq 0$, $x\in \mathbb R$,
+- $\sum_{i\geq 1} f(x_i)=1$
+
+#### Distribution function {-}
+
+The **(cumulative) distribution function** (cdf) of a discrete random variable is given as
+\begin{equation*}
+      F(x) = \mathbb P(X\leq x) = \sum_{i: x_i\leq x} f(x_i).
+\end{equation*}
+
+Properties of the distribution function of a discrete random variable:
+
+- $F$ is a right-sided continuous step function
+
+- $x\mapsto F(x)$ is monotonically increasing
+
+- $0\leq F(x)\leq 1$, for all $x\in \mathbb R$
+
+- $\lim_{x\rightarrow-\infty} F(x)=0$ and
+      $\lim_{x\rightarrow\infty} F(x)=1$.
+
+::: {.example #wurf123zvf name="Win when rolling two dice"}
+
+Example \@ref(exm:roll123zv) cont.
+
+- Probability function:
+\begin{align}
+f(x)&=\begin{cases}\frac 59, \text{if }x=-1,\\
+\frac 29, \text{if }x\in\{6;10\},\\
+~0, \text{else.}
+\end{cases}
+\end{align}
+
+```{r,fig.cap='Probability function for X', out.width='80%', fig.asp=.75, fig.align='center',echo=FALSE}
+  plot(c(-1,6,10),round(c(5/9,2/9,2/9),2),type="h",ylab="f(x)",xlab="x",axes=F,ylim=c(0,0.5),col=2,lwd=3)
+  axis(2,at=seq(0,0.5,0.1))
+  axis(1,at=seq(-1,10,1))
+  abline(h=0,lty=2)
+```
+ 
+ 
+- Distribution function:
+\begin{align}
+F(x)=\begin{cases}
+~0, \text{if } x< -1,\\
+\frac 59, \text{if }-1\leq x<6,\\
+\frac 79, \text{if }~~6\leq x< 10,\\
+~1, \text{if }~~x\geq 10.
+\end{cases}
+\end{align}
+
+Calculation example: if $6\leq x< 10$ then
+
+$$
+F(x)=\mathbb P(X\leq x) = \mathbb P(X=-1) + \mathbb P(X=6) =\frac 59+\frac 29 = \frac 79.
+$$
+
+```{r, fig.cap='Distribution function for X', out.width='80%', fig.asp=.75, fig.align='center',echo=FALSE}
+  plot(c(-1,6,10),round(c(5/9,7/9,1),2),type="s",ylab="F(x)",xlab="x",axes=F,ylim=c(0,1),col=NA,lwd=3)
+  arrows(-1,5/9,5.9,5/9,code=0,lwd=3,col=2)
+  arrows(6,7/9,9.9,7/9,code=0,lwd=3,col=2)
+  arrows(10,1,11.9,1,code=0,lwd=3,col=2)
+  points(c(6,10),round(c(5/9,7/9),2),col=2)
+  points(c(-1,6,10),round(c(5/9,7/9,1),2),pch=16,col=2)
+  axis(2,at=seq(0,1,0.1))
+  axis(1,at=seq(-1,12,1))
+  abline(h=0,lty=2)
+```
+
+:::
+
+
+***
+
+::: {#q22 .quiz }
+<p id="question"> <span id="question-text26"></span>
+<input type="number" id="answer26" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj26)">Submit</button></p>
+<p id="result26"></p>
+
+
+
+```{js,echo=F}
+
+ // Generate a random question
+    const questionObj26 = generateQuestion_num(26);
+// Display the question
+    document.getElementById('question-text26').textContent = "Your friend wants to play a dice game with you. You roll two fair dice with the face numbers 1; 2; 3 as in the examples above. If the sum of the numbers fallen is greater than four, you win the euro amount equal to this sum. Otherwise, your friend wins and you pay him \\(1\\) euro.\\[\\] Recall that the distribution of the sum \\(S\\) is:\\begin{array}{c|ccccc}s_i&2&3&4&5&6\\\\\\hline\\mathbb P(\\{s_i\\})&\\frac 19&\\frac 29&\\frac 39&\\frac 29&\\frac 19\\end{array} Your win \\(W\\) can be described in functional form as:\\[W=\\begin{cases}-1,&\\text{ if } S\\leq 4,\\\\ S,&\\text{ if } S>4.\\end{cases}\\] That means, that your win can only take three values: \\(-1\\) when the sum of the dice is smaller or equal than \\(4\\) and \\(5,6\\) if the sum is respectively \\(5\\) or \\(6.\\) The resulting distribution of your win \\(W\\) is (Round to four decimal places.):\\[\\]\\(\\mathbb P(W=-1)=\\)";
+    questionObj26.answer = 2/3
+```
+
+<p id="question"> <span id="question-text27"></span>
+<input type="number" id="answer27" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj27)">Submit</button></p>
+<p id="result27"></p>
+
+
+
+```{js,echo=F}
+
+ // Generate a random question
+    const questionObj27 = generateQuestion_num(27);
+// Display the question
+    document.getElementById('question-text27').textContent = "\\(\\mathbb P(W=~~5)=\\)";
+    questionObj27.answer =2/9
+```
+
+<p id="question"> <span id="question-text28"></span>
+<input type="number" id="answer28" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj28)">Submit</button></p>
+<p id="result28"></p>
+
+
+
+```{js,echo=F}
+
+ // Generate a random question
+    const questionObj28 = generateQuestion_num(28);
+// Display the question
+    document.getElementById('question-text28').textContent = "\\(\\mathbb P(W=~~6)=\\)";
+    questionObj28.answer = 1/9
+```
+
+<p id="question"> <span id="question-text29"></span>
+<input type="number" id="answer29" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj29)">Submit</button></p>
+<p id="result29"></p>
+
+
+
+```{js,echo=F}
+
+ // Generate a random question
+    const questionObj29 = generateQuestion_num(29);
+// Display the question
+    document.getElementById('question-text29').textContent = "What is the probability that you will get a positive win?\\[\\]\\(\\mathbb P(W>~0)=\\)";
+    questionObj29.answer = 1/3
+```
+
+:::
+
+<!--::: {.exercise name="Random win in a dice game"}
+
+```{r, echo=FALSE,out.width="100%"}
+#htmltools::tags$iframe(title = "Aufgabe_diskrete_ZV", src ="./htmls/aufgabe_dzv.html",  width=700, height=700)
+```
+
+:::-->
+
+
+::: {.example #ziehdzc name="Costs for customer orders"}
+
+Continuation of \@ref(exm:ziehungbest).
+
+In the example with orders via app or web, we had the following common probabilities:
+
+```{r,echo=F}
+pap<-c(0.02,0.06,0.12,0.2,0.12,0.08)
+pges<-c(0.1,0.15,0.25,0.25,0.15,0.1)
+pwe<-pges-pap
+
+papp<-gsub("\\.","\\,",pap)
+pweb<-gsub("\\.","\\,",pwe)
+```
+
+
+$$
+\begin{array}{c|cccccc}
+\mathbb P((a_i,b_i))&b_1=1&b_2=2&b_3=3&b_4=4&b_5=5&b_6=6\\\hline
+a_1=App&`r papp[1]`&`r papp[2]`&`r papp[3]`&`r papp[4]`&`r papp[5]`&`r papp[6]` \\
+a_2=Web&`r pweb[1]`&`r pweb[2]`&`r pweb[3]`&`r pweb[4]`&`r pweb[5]`&`r pweb[6]` \\
+\end{array}
+$$
+
+We also found that app users place more orders on average.
+
+Just process your order processes through a service partner. When ordering in the app, you have to pay a higher fee to the service partner. Furthermore, the fee depends on the number of orders.
+
+We define the costs that result from all ordering processes on a user account as a random variable $K$. $K$ is calculated as:
+
+```{r,echo=F}
+par0=1.0
+par1=1.5; par11<-gsub("\\.","\\,", par1)
+par2=1.0; par22<-gsub("\\.","\\,", par2)
+par3=4
+
+kostfun<-function(x,nutz="App"){
+  if(nutz=="App"){
+    out=min(par1*x,par1*par3)
+  }else{
+    out=min(par2*x,par2*par3) + par0
+  }
+  return(out)
+}
+kost1<-sapply((1:6),kostfun)
+kost2<-sapply((1:6),kostfun,nutz="Web")
+
+kost11<-gsub("\\.","\\,", kost1)
+kost22<-gsub("\\.","\\,", kost2)
+
+kwerte<-unique(sort(c(kost1,kost2)))
+kwertee<-gsub("\\.","\\,", kwerte)
+
+wkt<-function(wert,werte,wkten){
+  ind<-werte==wert
+  out=sum(wkten[ind])
+  return(out)
+}
+
+wkten<-sapply(kwerte,wkt,werte=c(kost1,kost2),wkten=c(pap,pwe))
+
+wktenn<-gsub("\\.","\\,", wkten)
+```
+
+
+$$
+K = \begin{cases}
+`r par11`\cdot \text{No. Orders}, &\text{ if via app and number. Orders }\leq `r par3`,\\
+`r par22`\cdot \text{No. Orders} + `r par0`, &\text{ if via web and number. Orders }\leq `r par3`,\\
+`r gsub("\\.","\\,",par1*par3)`, &\text{ if via app and number. Orders }>`r par3`,\\
+`r gsub("\\.","\\,",par2*par3 + par0)`, &\text{ if via web and display. Orders }>`r par3`.
+\end{cases}
+$$
+
+**How are the costs distributed?**
+
+- Values of $K$:
+
+
+$$
+\begin{array}{c|cccccc}
+(App,b_i)&(App,1)&(App,2)&(App,3)&(App,4)&(App,5)&(App,6)\\\hline
+k_{1,i}&`r kost11[1]`&`r kost11[2]`&`r kost11[3]`&`r kost11[4]`&`r kost11[5]`&`r kost11 [6]`\\
+\mathbb P(App,b_i)&`r papp[1]`&`r papp[2]`&`r papp[3]`&`r papp[4]`&`r papp[5]`&`r papp[6]`\\
+\end{array}
+$$
+
+$$
+\begin{array}{c|cccccc}
+(Web,b_i)&(Web,1)&(Web,2)&(Web,3)&(Web,4)&(Web,5)&(Web,6)\\\hline
+k_{2,i}&`r kost22[1]`&`r kost22[2]`&`r kost22[3]`&`r kost22[4]`&`r kost22[5]`&`r kost22 [6]`\\
+\mathbb P(Web,b_i)&`r pweb[1]`&`r pweb[2]`&`r pweb[3]`&`r pweb[4]`&`r pweb[5]`&`r pweb[6]`\\
+\end{array}
+$$
+
+ - Distribution of $K$:
+ 
+$$
+\begin{array}{c|cccccccc}
+k_i&`r kwertee[1]`&`r kwertee[2]`&`r kwertee[3]`&`r kwertee[4]`&`r kwertee[5]`&`r kwertee[6]`&`r kwertee[7]`\\\hline
+p_i&`r wktenn[1]`&`r wktenn[2]`&`r wktenn[3]`&`r wktenn[4]`&`r wktenn[5]`&`r wktenn[6]`&`r wktenn[7]`
+\end{array}
+$$
+:::
+
+***
+
+
+### Expected value and variance
+
+As in descriptive statistics, it often makes sense to define, in addition to the distribution, some meaningful parameters that essentially describe this distribution. For both types of random variables we define the mean value $\leadsto$ **expected value**, a measure for the spread $\leadsto$ **variance** and **standard deviation**, as well as **correlation **.
+
+Expected value and variance are the most important metrics, as many families of distributions (more on this later) are clearly defined by these two metrics. The two key metrics give us information about the mean position and variability of the values  of random variables.
+
+#### Expected value{-}
+
+The **expected value** $\mathbb E(X)$ of a **discrete** random variable $X$ with value set $\mathcal T=\{x_1,x_2,\ldots\}$ and probability function $f(x)$ is:
+\begin{equation*}
+        \mathbb E(X) = x_1 f(x_1) + x_2 f(x_2) + \cdots = \sum_{i\geq 1} x_i
+        f(x_i).
+\end{equation*}
+
+#### Properties of the expected value{-}
+
+- $\mathbb E(a X + b) = a \mathbb E (X) + b$ (linear transformation)
+- $\mathbb E(X+Y) = \mathbb E(X) + \mathbb E(Y)$ (expected value of a sum = sum of expected values)
+
+#### Variance and standard deviation{-}
+
+The **variance** of a random variable $X$ is
+
+\[\begin{equation*}
+    \sigma^2 = \text{Var}(X) = \mathbb E((X-\mathbb E(X))^2)\\
+    =\sum_{i\geq 1} (x_i-\mathbb E(X))^2 f(x_i), 
+\end{equation*}\]
+
+The **standard deviation** is $\sigma = \sqrt{\text{Var}(X)}.$
+
+- Best suited for calculating variance:
+\begin{equation*}
+    \text{Var}(X)=\mathbb E(X^2) - (\mathbb E(X))^2.
+\end{equation*}
+
+- For discrete random variables this means:
+    \begin{align}
+    \text{Var}(X)&=\sum_{i\geq1} x_i^2f(x_i)- (\mathbb E(X))^2.
+    \end{align}
+
+#### Properties of Variance{-}
+
+- $\text{Var}(aX+b)= a^2\text{Var}(X)$ (linear transformation)
+- $\text{Var}(X+Y) = \text{Var}(X) + \text{Var}(Y)$ if $X$ and $Y$ are stochastically independent.
+
+This results in the calculation rules for linear transformations ($Y=a X + b$):
+\begin{align}
+      \mathbb E(Y) &= \mathbb E (a X + b)=a \mathbb E(X) + b,\\
+      \text{Var}(Y)&=\text{Var}(a X + b) = a^2\text{Var}(X).
+\end{align}
+
+***
+
+<!--:::{.example #wurf123kenz name="Win when rolling two dice"}
+
+Fortführung von \@ref(exm:roll123zv).
+
+```{r, echo=FALSE,out.width="100%"}
+htmltools::tags$iframe(title = "Beispiel_Kennzahlen", src =paste0(link,"Apps_RBook/#section-kennzahlen-von-zufallsvariablen"),  width=760, height=700)
+```
+
+
+:::
+-->
+
+
+::: {.example #ziehdzkennz name="Costs for customer orders"}
+
+
+Example \@ref(exm:ziehdzc) cont.
+
+In this example, we derived the following probability distribution for the cost $K$:
+ 
+$$
+\begin{array}{c|ccccccc}
+k_i&`r kwertee[1]`&`r kwertee[2]`&`r kwertee[3]`&`r kwertee[4]`&`r kwertee[5]`&`r kwertee[6]`&`r kwertee[7]`\\\hline
+p_i&`r wktenn[1]`&`r wktenn[2]`&`r wktenn[3]`&`r wktenn[4]`&`r wktenn[5]`&`r wktenn[6]`&`r wktenn[7]`
+\end{array}
+$$
+
+That is,
+
+- $\mathbb E(K) = \sum_{i=1}^7 k_i\cdot p_i = `r kwertee[1]`\cdot `r wktenn[1]` + \ldots + `r kwertee[7]`\cdot `r wktenn[7]` = `r gsub("\\.","\\,",round(sum(kwerte*wkten),4))`.$
+
+- $\text{Var}(K) = \sum_{i=1}^7 k^2_i\cdot p_i  - \mathbb E(K)^2= `r kwertee[1]`^2\cdot `r wktenn[1]` + \ldots + `r kwertee[7]`^2\cdot `r wktenn[7]` -`r gsub("\\.","\\,",round(sum(kwerte*wkten),4))`^2 = `r gsub("\\.","\\,",round(sum(kwerte^2*wkten) -sum(kwerte*wkten)^2 ,4))`.$
+
+:::
+
+***
+
+::: {#q2 .quiz }
+<p id="question"> <span id="question-text20"></span>
+<input type="number" id="answer20" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj20)">Submit</button></p>
+<p id="result20"></p>
+
+
+
+```{js,echo=F}
+
+ // Generate a random question
+    const questionObj20 = generateQuestion_num(20);
+// Display the question
+    document.getElementById('question-text20').textContent = "The random variable \\(X=\\) 'Number of experienced project staff members' has the following distribution: \\[\\begin{array}{c|ccccc}x_i&0&1&2&3&4\\\\\\hline p_i&0.3&0.25&0.2&0.15&0.05\\end{array}\\] The expected number of experienced members is \\(\\mathbb E(X)=\\)";
+    questionObj20.answer = 1.3
+```
+
+<p id="question"> <span id="question-text21"></span>
+<input type="number" id="answer21" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj21)">Submit</button></p>
+<p id="result21"></p>
+
+
+
+```{js,echo=F}
+
+ // Generate a random question
+    const questionObj21 = generateQuestion_num(21);
+// Display the question
+    document.getElementById('question-text21').textContent = "The standard deviation of the number of experienced project members is (round to four decimal places) \\(\\sqrt{\\text{Var}(X)}\\)";
+    questionObj21.answer = 1.2288
+```
+
+
+---
+
+<p id="question"> <span id="question-text22"></span>
+<input type="number" id="answer22" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj22)">Submit</button></p>
+<p id="result22"></p>
+
+
+
+```{js,echo=F}
+
+ // Generate a random question
+    const questionObj22 = generateQuestion_num(22);
+// Display the question
+    document.getElementById('question-text22').textContent = "You are given two independent random variables \\(X\\) and \\(Y\\) with: \\[\\mathbb E(X) = 2, \\mathbb E(Y)=-1, \\text{Var}(X)=3, \\text{Var}(Y)=10.\\] Compute \\(\\mathbb E("+ questionObj22.question[0]+ "X-" + questionObj21.question[0] + "Y+"+ questionObj22.question[1]+ ")=\\)";
+    questionObj22.answer = questionObj22.question[0]*2-questionObj21.question[0]*(-1) + questionObj22.question[1]
+```
+
+<p id="question"> <span id="question-text23"></span>
+<input type="number" id="answer23" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj23)">Submit</button></p>
+<p id="result23"></p>
+
+
+
+```{js,echo=F}
+
+ // Generate a random question
+    const questionObj23 = generateQuestion_num(23);
+// Display the question
+    document.getElementById('question-text23').textContent = "Compute \\(\\text{Var}("+ questionObj22.question[0]+ "X-" + questionObj21.question[0] + "Y+"+ questionObj22.question[1]+ ")=\\)";
+    questionObj23.answer = Math.pow(questionObj22.question[0],2)*3+Math.pow(questionObj21.question[0],2)*10
+```
+
+:::
+***
+
+
+### Covariance and correlation
+
+Whenever we are dealing with several random variables as in example \@ref(exm:ziehungbest), the question of association between the variables arises. If we can find a positive association pattern between the number of orders and the usage of app, then we could possibly boost the sales by promoting the mobile app usage.
+
+A measure of linear dependence between two random variables is their covariance. The **covariance** of two random variables $X$ and $Y$ is determined by
+\begin{equation*}
+      \sigma_{XY}=\text{Cov}(X,Y) =\mathbb E[(X-\mathbb E(X))\, (Y-\mathbb E(Y))] =
+      \mathbb E[X\cdot Y] - \mathbb E(X)\, \mathbb E(Y).
+\end{equation*}
+
+Specifically for discrete random variables:
+$$
+\text{Cov}(X,Y) =\sum_{i,j}x_i\cdot y_j\cdot f(x_i,y_j) - \left(\sum_ix_i\cdot f(x_i)\right)\cdot\left( \sum_jy_j\cdot f(y_j)\right).
+$$
+
+The **correlation coefficient** is determined by
+\begin{equation*}
+      \rho_{XY}=\frac{\sigma_{XY}}{\sigma_X\, \sigma_Y} =
+      \frac{\text{Cov}(X,Y)} {\sqrt{\text{Var}(X)}\, \sqrt{\text{Var}(Y)}}.
+\end{equation*}
+
+- $X$ and $Y$ are called **uncorrelated** if $\text{Cov}(X,Y)=0$.
+
+- $-1\leq \rho_{XY}\leq 1$
+
+<!--- Properties of covariance and correlation coefficient
+
+    - $\text{Cov}(aX + b, c Y + d) = a\, c\, \text{Cov}(X,Y)$
+    - $\text{Cov}(X,Y)=\text{Cov}(Y,X)$
+    - $-1\leq \rho_{XY}\leq 1$
+    - $|\rho_{XY}|=1$ $\iff$ there are numbers $\beta\not=0$ and $\alpha$ with $Y=\alpha + \beta X$ (linearity)
+-->
+
+- If $X, Y$ are independent, then they are also uncorrelated.
+
+***
+
+::: {.example #ziehungbestKov name="Orders and Usage"}
+
+In the example \@ref(exm:ziehungbest) we looked at the joint distribution of the app usage and orders. Now we define two random variables:
+
+- $A=\begin{cases}1, &\text{ falls } App\\0, &\text{ falls } Web\end{cases}$ (an indicator of app usage).
+
+- $B=b_i$, $b_i\in\{1; 2; \ldots 6\}$ the number of orders.
+
+The joint probabilities are:
+
+$$
+\begin{array}{c|cccccc}
+\mathbb P((a_i,b_i))&B=1&B=2&B=3&B=4&B=5&B=6\\\hline
+A=1&`r papp[1]`&`r papp[2]`&`r papp[3]`&`r papp[4]`&`r papp[5]`&`r papp[6]`\\
+A=0&`r pweb[1]`&`r pweb[2]`&`r pweb[3]`&`r pweb[4]`&`r pweb[5]`&`r pweb[6]`\\
+\end{array}
+$$
+
+**Are the two quantities correlated?**
+
+```{r,echo=F}
+pa<-sum(pap)
+paa<-gsub("\\.","\\,",pa)
+aap<-gsub("\\.","\\,",1-pa)
+
+#erw
+pbe<-apply(rbind(pap,pwe),2,sum)
+pbee<-gsub("\\.","\\,",pbe)
+erwb<-sum((1:6)*pbe)
+erwbb<-gsub("\\.","\\,",round(erwb,4))
+
+#var
+vara<-pa*(1-pa); varaa<-gsub("\\.","\\,",round(vara,4))
+varb<-sum((1:6)^2*pbe) - erwb^2; varbb<-gsub("\\.","\\,",round(varb,4))
+
+mycov<-sum((1:6)*pap) - pa*erwb
+mycovv<-gsub("\\.","\\,",round(mycov,4))
+
+mycor<-mycov/sqrt(vara*varb)
+mycorr<-gsub("\\.","\\,",round(mycor,4))
+```
+
+- Expected values
+
+\begin{align}
+\mathbb E(A)&=1\cdot`r paa`  + 0\cdot`r aap` = `r paa`,\\
+\mathbb E(B)&=1\cdot`r pbee[1]`  + 2\cdot`r pbee[2]` +\ldots + 6\cdot`r pbee[6]`=`r erwbb`.
+\end{align}
+
+- Variances:
+
+\begin{align}
+\text{Var}(A)&=1^2\cdot`r paa`  + 0^2\cdot`r aap` - `r paa`^2 = `r varaa`,\\
+\text{Var}(B)&=1^2\cdot`r pbee[1]`  + 2^2\cdot`r pbee[2]` +\ldots + 6^2\cdot`r pbee[6]`  - `r erwbb`^2=`r varbb`.
+\end{align}
+
+
+- Covariance:
+
+\begin{align}
+\text{Cov}(A,B)&=\mathbb E(A\cdot B) - \mathbb E(A)\, \mathbb E(B)\\
+&=1\cdot 1\cdot`r papp[1]`  + 1\cdot 2\cdot`r papp[2]` + 1\cdot 3\cdot`r papp[3]` + 1\cdot 4\cdot`r papp[4]` \\
+&+ 1\cdot 5\cdot`r papp[5]` + 1\cdot 6\cdot`r papp[6]`  \text{ (für A=1 und B=1;2;$\ldots$ 6)} + \\
+&+ 0\cdot 1\cdot`r pweb[1]` + \dots + 0\cdot 6\cdot`r pweb[6]`\text{ (für A=0 und B=1;2;$\ldots$ 6)} - \\
+&- `r paa`\cdot`r erwbb` = `r mycovv`.
+\end{align}
+
+- Correlation:
+
+\begin{align}
+\rho_{A,B}&=\frac{\text{Cov}(A,B)}{\sqrt{\text{Var}(A)}\cdot\sqrt{\text{Var}(B)}}\\
+&= \frac{`r mycovv`}{\sqrt{`r varaa`}\cdot\sqrt{`r varbb`}} = `r mycorr`.
+\end{align}
+
+So the two random variables are **positively correlated**.
+
+:::
+
+Yuhu! We have a positive association between the app usage and the number of orders. It means, that by increasing the incentive for the app usage, we could increase our sales.
+
+***
+
+
+## Continuous random variables
+
+We have seen how to model discrete random variables. However, there are certainly cases where the framework of discrete random variables is not sufficient. For example, when we look at sizes, lengths, volumes, but also when we examine sales, times in the online shop, waiting times or security returns. These variables take on many different values, which makes modeling difficult for us because we have to take probabilities into account for all values `r emoji::emoji("thinking_face")`. In addition, due to measurement precision, we usually cannot distinguish between online shopping time of $12$ minutes and $12,0001$ minutes. Then why not just look at a range $(12, 12.1)$ minutes? So it makes sense for some variables, instead of looking at fixed values, to look at entire **areas** ($\leadsto$ **continuous random variables**) and the "fullness" or, in other words, the **density** of these areas as the basis for the probability calculation, with the probabilities represented as areas under this density on the corresponding section. This implies that the probability of hitting a very specific value (the point probability) becomes zero.
+
+A random variable $X$ is said to be **continuous** if there is a function (**density function**) $x\mapsto f(x)\geq 0$,
+    so that for every interval $[a,b]$ we have:
+\begin{equation*}
+      \mathbb P(a\leq X\leq b)=\int_a^b f(x) dx.
+\end{equation*}
+
+- The set of values ​​$\mathcal T\subseteq\mathbb R$ of a continuous random variable is uncountable. It corresponds either to the whole $\mathbb R$ or to the subsets of $\mathbb R$ (intervals).
+
+### Density function
+
+- Density properties:
+
+    - $f(x)\geq 0$ for all $x\in \mathbb R$
+    - $\int_{\mathbb R} f(x)\, dx=1$
+
+- The point probability, $\mathbb P(X=x)=0$ for all $x\in \mathbb R$ if $X$ represents a continuous random variable.
+
+- Graphical representation:
+
+```{r,echo=F,fig.cap='Example: Density function', out.width='80%', fig.asp=.75, fig.align='center'}
+library(scales)
+  x<-seq(-5,5,by=0.1)
+  fx<-dnorm(x)
+  plot(x,fx,type="l",col=4,lwd=2, xlim=c(-5,5),axes=F)
+  axis(2)
+  axis(1, at=seq(-5,5))
+  abline(h=0,lty=2,col="gray44")
+  arrows(1,0,2,0,col=2,code=0,lwd=3)
+  par(xpd=T)
+  text(1.5,-0.05,"B=[1;2]",col=2)
+  arrows(1,0,1,dnorm(1),col=2,code=0)
+  arrows(2,0,2,dnorm(2),col=2,code=0)
+  polygon(c(seq(1,2,0.1),2,1),c(dnorm(seq(1,2,0.1)),0,0),col=alpha(2,0.5),border =NA)
+
+```
+
+- Probabilities are represented by areas under density
+    $f(x)$ set. Calculating the probability that $X$ values ​​in $B$
+    accepts:
+\begin{equation*}
+      \mathbb P(X\in B) = \int_B f(x)\, dx = \int_a^b f(x)dx
+\end{equation*}
+
+
+### Distribution function
+
+- The **(cumulative) distribution function** of a continuous
+    Random variable is given as
+\begin{equation*}
+      F(x) = \mathbb P(X\leq x) = \int_{-\infty}^x f(t)\, dt.
+\end{equation*}
+
+- Properties of the distribution function for continuous random variables:
+
+    - $F$ is a continuous function
+    - $x\mapsto F(x)$ is monotonically increasing
+    - $0\leq F(x)\leq 1$, for all $x\in \mathbb R$
+    - $\lim_{x\rightarrow-\infty} F(x)=0$ and
+    - $\lim_{x\rightarrow\infty} F(x)=1$.
+
+- Graphical representation:
+
+```{r,echo=F,fig.cap='Example: Probability function of a continuous random variable', out.width='80%', fig.asp=.75, fig.align='center'}
+
+  x<-seq(-5,5,by=0.1)
+  Fx<-pnorm(x)
+  plot(x,Fx,type="l",col=4,lwd=2, xlim=c(-5,5),axes=F)
+  axis(2)
+  axis(1, at=seq(-5,5))
+  abline(h=0,lty=2,col="gray44")
+  abline(h=1,lty=2,col="gray44")
+  # arrows(1,0,2,0,col=2,code=0,lwd=3)
+  par(xpd=T)
+  # text(1.5,-0.05,"B=[1;2]",col=2)
+  arrows(1,0,1,pnorm(1),col=3,code=0,lty=2)
+  arrows(2,0,2,pnorm(2),col=2,code=0,lty=2)
+  arrows(2,pnorm(2),-1,pnorm(2),col=3,code=0,lty=1)
+  arrows(1,pnorm(1),-1,pnorm(1),col=2,code=0,lty=1)
+  text(0,1.1,"F(b)",col=3)
+  text(0,0.7,"F(a)",col=2)
+  arrows(-1,pnorm(2),-1,pnorm(1),code=0,lwd=3,col=6)
+  text(-2,0.9,"P(a<X<b)",col=6)
+  #polygon(c(seq(1,2,0.1),2,1),c(dnorm(seq(1,2,0.1)),0,0),col=alpha(2,0.5),border =NA)
+  
+```
+
+- If the distribution function $F$ is given, this is what you get
+    Density $f$ by deriving:
+\begin{equation*}
+      f(x) = F^\prime(x),\quad\text{ differentiable for $F$ in $x$}
+\end{equation*}
+
+- Calculating the probability that $X$ values ​​in $B$
+    accepts:
+\begin{equation*}
+      \mathbb P(X\in B) = \mathbb P(a\leq X \leq b) = F(b) - F(a).
+\end{equation*}
+
+***
+
+::: {.example #stZV name="Time in the online shop as a continuous random variable"}
+
+We model the random variable $X=$ time in the online shop in minutes as a continuous random variable with the density:
+
+```{r,echo=F}
+options(scipen=999)
+a=0; b=100; c=20 
+
+aa<-gsub("\\.","\\,",round(a,4)); bb<-gsub("\\.","\\,",round(b,4)); cc<-gsub("\\.","\\,",round(c,4))
+
+pars<-c(2/((b-a)*(c-a)), -2*a/((b-a)*(c-a)), 2*b/((b-a)*(b-c)),-2/((b-a)*(b-c)))
+
+parss<-round(pars,5)
+parss[c(1,4)][parss[c(1,4)]=="0"]<-""
+parss<-sapply(parss,gsub,pattern="\\.", replacement="\\,")
+parss[parss=="0"]<-""
+
+```
+
+$$
+f(x) = \begin{cases}`r parss[1]`\cdot x `r parss[2]`, &\text{ für } `r aa`\leq x\leq `r cc`,\\
+                      `r parss[3]` `r parss[4]`\cdot x, &\text{ für } `r cc`< x\leq `r bb`.\end{cases}
+$$
+
+That is,
+
+```{r,echo=F,fig.cap='Probability density  of X=Time in online shop', out.width='80%', fig.asp=.75, fig.align='center'}
+library(scales)
+x<-seq(a,b,0.1)
+
+fx<-function(x,a=0,b=2,c=0.7){
+    if(x>c&x<=b){
+      px<-(2*(b-x))/((b-a)*(b-c))
+    } else if (x>=a&x<=c){
+      px<-(2*(x-a))/((b-a)*(c-a))
+    } else {
+      px<-0
+    }
+    return(px)
+}
+
+xwert<-60
+
+top<-2/(b-a); topp<-gsub("\\.","\\,",round(top,4))
+px<-sapply(x,fx,a=a,b=b,c=c)
+  
+plot(x,px,lwd=2,col=4,type="l",axes=F,ylab="f(x)",ylim=c(0,0.02))
+axis(1)
+axis(2,at=c(0,0.01,top,0.02),labels=c(0,"0,01",topp,"0,02"),cex.axis=0.8)
+abline(v=c,lty=2,col="gray44")
+abline(h=0,lty=2,col="gray44")
+#polygon(c(x[x<=c],c,c),c(px[x<=c],2/(b-a),0),col=alpha(2,0.3),border =NA)
+#polygon(c(x[x<=xwert],xwert,xwert),c(px[x<=xwert],fx(xwert),0),col=alpha(3,0.9),density=3,border =NA)
+#arrows(xwert,fx(xwert,a=a,b=b,c=c),xwert,0,code=0,lwd=1,lty=1,col=alpha(3,0.9))
+#text(c/2+1,0.005,paste0("P(X<",cc,")"),col=2)
+#arrows(0,0,c,0,col=2,code=0,lwd=3)
+#arrows(0,top,c,top,col=1,code=0,lwd=1,lty=2)
+#text(xwert/2+1,0.005,paste0("P(X<",xwert,")"),col=alpha(3,0.9))
+
+```
+
+We compute the event probabilities: 
+
+- $\{X<`r cc`\}=\text{"Zeit im Shop weniger als `r cc` Minuten"}$: 
+  \begin{align}
+  \mathbb P(X<`r cc`)&= \displaystyle \int_0^{`r cc`} (`r parss[1]`\cdot x `r parss[2]`)dx = \text{Area of the red triangle}\\
+  &= \frac{1}{2}\cdot `r cc`\cdot `r topp` = `r gsub("\\.","\\,",round(0.5*c*top,4))`.
+  \end{align}
+  
+- $\{X<`r xwert`\}=\text{"Zeit im Shop weniger als `r xwert` Minuten"}$:
+	\begin{align}
+	\mathbb P(X<`r xwert`)&= 1-\mathbb P(X\geq `r xwert`)=1-\displaystyle \int^{`r bb`}_{`r xwert`} (`r parss[3]` `r parss[4]`\cdot x)dx \\
+	&= 1- \text{Area of the transparent triagle} = 1-\frac{1}{2}\cdot `r b-xwert`\cdot `r gsub("\\.","\\,",fx(xwert,a=a,b=b,c=c))` = `r gsub("\\.","\\,",round(1-0.5*(b-xwert)*fx(xwert,a=a,b=b,c=c),4))`.
+	\end{align}
+	
+```{r,echo=F,fig.cap='Probability density of X=Time in online shop with probabilities as areas under the density fucntion.', out.width='80%', fig.asp=.75, fig.align='center'}
+plot(x,px,lwd=2,col=4,type="l",axes=F,ylab="f(x)",ylim=c(0,0.02))
+axis(1)
+axis(2,at=c(0,0.01,top,0.02),labels=c(0,"0,01",topp,"0,02"),cex.axis=0.8)
+abline(v=c,lty=2,col="gray44")
+abline(h=0,lty=2,col="gray44")
+polygon(c(x[x<=c],c,c),c(px[x<=c],2/(b-a),0),col=alpha(2,0.3),border =NA)
+polygon(c(x[x<=xwert],xwert,xwert),c(px[x<=xwert],fx(xwert),0),col=alpha(3,0.9),density=3,border =NA)
+arrows(xwert,fx(xwert,a=a,b=b,c=c),xwert,0,code=0,lwd=1,lty=1,col=alpha(3,0.9))
+text(c/2+1,0.005,paste0("P(X<",cc,")"),col=2)
+arrows(0,0,c,0,col=2,code=0,lwd=3)
+arrows(0,top,c,top,col=1,code=0,lwd=1,lty=2)
+text(xwert/2+1,0.005,paste0("P(X<",xwert,")"),col=alpha(3,0.9))
+```
+
+	
+Computing the cumulative probability function from the density function:
+
+1. case: $x\in [{`r aa`},{`r cc`}]$:
+
+\begin{align}
+F(x) &= \int_{{`r aa`}}^x f(t)~ dt = \int_{`r a`}^x (`r parss[1]`\cdot t `r parss[2]`)~ dt=\Big[`r parss[1]`\cdot \frac{t^2}2 `r parss[2]`\Big]_{`r a`}^x \\
+& = `r parss[1]`\cdot \frac{x^2}2 `r parss[2]` - (`r parss[1]`\cdot \frac{`r a`^2}2 `r parss[2]`)\\
+&=`r gsub("\\.","\\,",pars[1]/2)`x^2.
+\end{align}
+
+```{r,echo=F}
+parsF<-c(round(0.5*c*top - (pars[3]*c + pars[4]*c^2/2),4),pars[3],pars[4]/2)
+
+# parsF<-c(1/(b*c),#vor x^2, a=0, a<=x<=c
+#           1-b^2/(b*(b-c)), #konst, c<x<=b
+#           2*b/(b*(b-c)),#vor x c<x<=b
+#          -1/(b*(b-c)) #vor x^2
+# )
+# 0.000500 -0.250000  0.025000 -0.000125
+
+parssF<-parsF#gsub("\\.","\\,",parsF)
+```
+
+
+2. case: $x\in ({`r cc`},{`r bb`}]$:
+\begin{align}
+\displaystyle F(x) &= \int_{`r aa`}^x f(t)~ dt\\
+&= \int_{`r aa`}^{`r cc`} (`r parss[1]`\cdot t `r parss[2]`)~ dt + \int_{`r cc`}^x (`r parss[3]` `r parss[4]`\cdot t)~ dt\\
+&=`r gsub("\\.","\\,",round(0.5*c*top,4))` + \big[`r parss[3]`\cdot t `r parss[4]`\cdot \frac{t^2}2 \big]_{`r cc`}^x\\
+&=`r gsub("\\.","\\,",round(0.5*c*top,4))` + `r parss[3]`\cdot x `r parss[4]`\cdot \frac{x^2}2 - (`r parss[3]`\cdot `r cc` `r parss[4]`\cdot \frac{`r cc`^2}2) \\
+&= `r parssF[1]` + `r parssF[2]`x `r parssF[3]`x^2.
+\end{align}
+
+That is:
+
+$$
+F(x) =
+	\begin{cases}
+	0,&x<`r aa`,\\
+	`r gsub("\\.","\\,",pars[1]/2)`x^2,&`r aa`\leq x\leq `r cc`,\\
+	`r parssF[1]` + `r parssF[2]`x `r parssF[3]`x^2,&`r cc`<x\leq `r bb`,\\
+	1,&x>`r bb`.
+	\end{cases}
+$$
+ 
+```{r,echo=F,fig.cap='Cumulative distribution function of X=Time in online shop', out.width='80%', fig.asp=.75, fig.align='center'}
+  Fx<-function(x){
+    if(x>=a&x<=c){
+      px<-pars[1]/2*x^2
+    } else if (x<a){
+      px<-0
+    } else if(x>b){
+      px<-1
+    } else {
+      px<-parsF[1] + parsF[2]*x + parsF[3]*x^2
+    }
+    return(px)
+  }
+  px<-sapply(x,Fx)
+  
+  plot(x,px,lwd=2,col=4,type="l",axes=F,ylab="F(x)")
+  axis(1)
+  axis(2)
+  #c
+  arrows(c,0,c,Fx(c),col=2,code=0,lty=2)
+  arrows(c,Fx(c),-2,Fx(c),col=2,code=0,lty=2)
+  
+  
+```
+
+
+Using the cumulative distribution function, we can calculate the event probabilities: 
+
+- $\{X<`r cc`\}=\text{"Time in shop less than `r cc` minutes"}$: \begin{align}\mathbb P(X<`r cc`)&= \mathbb P(X\leq`r cc`)=F(`r cc`) = `r gsub("\\.","\\,",pars[1]/2)`\cdot `r cc`^2= `r round(Fx(c),4)`.\end{align}
+  
+- $\{X<`r xwert`\}=\text{"Zeit im Shop weniger als `r xwert` Minuten"}$:\begin{align}\mathbb P(X<`r xwert`)&=\mathbb P(X\leq`r xwert`)=F(`r xwert`) =`r parssF[1]` + `r parssF[2]`\cdot `r xwert` `r parssF[3]`\cdot `r xwert`^2= `r round(Fx(xwert),4)`.\end{align}
+	
+- $\{X >`r xwert/2`\}=\text{"Time in shop less than `r xwert/2` minutes"}$:\begin{align}
+	\mathbb P(X>`r xwert/2`)&=1-\mathbb P(X\leq`r xwert/2`)= 1-F(`r xwert/2`) \\&= 1-(`r parssF[1]` + `r parssF[2]`\cdot `r xwert/2` `r parssF[3]`\cdot `r xwert/2`^2)\\
+	&= `r round(1-Fx(xwert/2),4)`.\end{align}
+	
+```{r,echo=F,fig.cap='Cumulative probability function of X=Time in online shop with probabilities', out.width='80%', fig.asp=.75, fig.align='center'}
+  plot(x,px,lwd=2,col=4,type="l",axes=F,ylab="F(x)")
+  axis(1)
+  axis(2)
+  #X<20
+  arrows(c,0,c,Fx(c),col=2,code=0,lty=2)
+  arrows(c,Fx(c),-2,Fx(c),col=2,code=0,lty=2)
+  text(c/2,Fx(c)+0.05,paste0("P(X<",cc,")=F(",c,")"),col=2)
+  
+  #X<60
+  arrows(xwert,0,xwert,Fx(xwert),col=3,code=0,lty=2)
+  arrows(xwert,Fx(xwert),-2,Fx(xwert),col=3,code=0,lty=2)
+  text(xwert/2,Fx(xwert)+0.05,paste0("P(X<",xwert,")=F(",xwert,")"),col=3)
+  
+  #X>30
+  arrows(xwert/2,0,xwert/2,Fx(xwert/2),col=6,code=0,lty=2)
+  arrows(xwert/2,Fx(xwert/2),-2,Fx(xwert/2),col=6,code=0,lty=2)
+  text(xwert/4,Fx(xwert/2)+0.05,paste0("F(",xwert/2,")"),col=6)
+  
+  par(xpd=T)
+  arrows(b,0,b,Fx(b),col=6,code=0,lty=2)
+  arrows(b,Fx(b),-2,Fx(b),col=6,code=0,lty=2)
+  text(xwert/4,Fx(b)+0.05,paste0("F(",b,")=1"),col=6)
+  par(xpd=F)
+  
+  arrows(0,Fx(b),0,Fx(xwert/2),code=0,lwd=3,col=6)
+  text(6.5,0.7,paste0("P(X>",xwert/2,")"),col=6)
+```
+
+:::
+
+***
+
+::: {#q23 .quiz }
+
+```{js}
+  // Generate a random question
+    const questionObj210 = {
+      question: 'Let X be a continuous random variable with the distribution function:\\[F(x)=\\begin{cases}x^2,&\\text{ if }0\\leq x \\leq 1,\\\\0,&\\text{ if } x<0,\\\\1,&\\text{ if }x>1.\\end{cases}\\] The density function for \\(X\\) must be \\[\\]',
+      options: ['\\(f(x)=\\begin{cases}2x,&\\text{ if }0\\leq x \\leq 1,\\\\0,&\\text{ if } x<0,\\\\1,&\\text{ if }x>1.\\end{cases}\\)','\\(f(x)=\\begin{cases}x^2,&\\text{ if }0\\leq x \\leq 1,\\\\0,&\\text{ if } x<0,\\\\1,&\\text{ if }x>1.\\end{cases}\\)' ,'\\(f(x)=\\begin{cases}2x,&\\text{ if }0\\leq x \\leq 1,\\\\0,&\\text{ if } x<0,x>1.\\end{cases}\\)', '\\(\\mathbb R\\)', '\\(f(x)=\\begin{cases}\\frac13 x^3,&\\text{ if }0\\leq x \\leq 1,\\\\0,&\\text{ if } x<0,\\\\1,&\\text{ if }x>1.\\end{cases}\\)'],
+      answer: '3',
+      id: 210
+    };
+```
+
+<p class="question"> <span id="question-text210"></span></p>
+<div class="options">
+  <label>
+      <input type="radio" name="option210" value=1> \\(f(x)=\\begin{cases}2x,&\\text{ if }0\\leq x \\leq 1,\\\\0,&\\text{ if } x<0,\\\\1,&\\text{ if }x>1.\\end{cases}\\)
+    </label>
+    <br>
+    <label>
+  <input type="radio" name="option210" value=2> \\(f(x)=\\begin{cases}x^2,&\\text{ if }0\\leq x \\leq 1,\\\\0,&\\text{ if } x<0,\\\\1,&\\text{ if }x>1.\\end{cases}\\)
+    </label>
+    <br>
+    <label>
+      <input type="radio" name="option210" value=3> \\(f(x)=\\begin{cases}2x,&\\text{ if }0\\leq x \\leq 1,\\\\0,&\\text{ if } x<0,x>1.\\end{cases}\\)
+      </label>
+    <br>
+    <label>
+      <input type="radio" name="option210" value=4> \\(f(x)=\\begin{cases}\\frac13 x^3,&\\text{ if }0\\leq x \\leq 1,\\\\0,&\\text{ if } x<0,\\\\1,&\\text{ if }x>1.\\end{cases}\\)
+    </label>
+    </div>
+  <button onclick="checkAnswer_match(questionObj210)">Submit</button>
+  <p id="result210"></p>
+
+```{js, echo=F}
+  // Display the question
+    document.getElementById('question-text210').textContent = questionObj210.question;
+```
+
+<p id="question"> <span id="question-text211"></span>
+<input type="number" id="answer211" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj211)">Submit</button></p>
+<p id="result211"></p>
+
+
+
+```{js,echo=F}
+
+ // Generate a random question
+    const questionObj211 = generateQuestion_num(211);
+// Display the question
+    document.getElementById('question-text211').textContent = "For the same random variable \\(X\\) compute:\\[\\]\\(\\mathbb P(0.1 < X < 0.3)=\\)";
+    questionObj211.answer = Math.pow(0.3,2) - Math.pow(0.1,2)
+```
+
+<p id="question"> <span id="question-text212"></span>
+<input type="number" id="answer212" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj212)">Submit</button></p>
+<p id="result212"></p>
+
+
+
+```{js,echo=F}
+
+ // Generate a random question
+    const questionObj212 = generateQuestion_num(212);
+// Display the question
+    document.getElementById('question-text212').textContent = "\\(\\mathbb P(0.1 \\leq X \\leq 0.3)=\\)";
+    questionObj212.answer = Math.pow(0.3,2) - Math.pow(0.1,2)
+```
+
+<p id="question"> <span id="question-text213"></span>
+<input type="number" id="answer213" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj213)">Submit</button></p>
+<p id="result213"></p>
+
+
+
+```{js,echo=F}
+
+ // Generate a random question
+    const questionObj213 = generateQuestion_num(213);
+// Display the question
+    document.getElementById('question-text213').textContent = "\\(\\mathbb P(X > 0.5)=\\)";
+    questionObj213.answer = 1-Math.pow(0.5,2)
+```
+
+<p id="question"> <span id="question-text214"></span>
+<input type="number" id="answer214" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj214)">Submit</button></p>
+<p id="result214"></p>
+
+
+
+```{js,echo=F}
+
+ // Generate a random question
+    const questionObj214 = generateQuestion_num(214);
+// Display the question
+    document.getElementById('question-text214').textContent = "\\(\\mathbb P(0.1 \\leq X \\leq 0.3|X\\leq 0.5)=\\)";
+    questionObj214.answer = (Math.pow(0.3,2) - Math.pow(0.1,2))/Math.pow(0.5,2)
+```
+ 
+:::
+
+<!--::: {.exercise name="Continuous random variable"}
+
+```{r, echo=FALSE,out.width="100%"}
+#htmltools::tags$iframe(title = "Quiz_stetige_Zufallsvariablen", src ="./htmls/quiz_szv.html",  width=700, height=500)
+```
+
+:::-->
+
+***
+
+### Expected value and variance
+
+Expected value and variance are the most important metrics, as many families of distributions (more on this later) are clearly defined by these two metrics. The two measures give us information about the mean position and variability of the values  of random variables.
+
+#### Expected value{-}
+
+The **expected value** $\mathbb E(X)$ of a **continuous** random variable $X$ with density $f(x)$ is
+\begin{equation*}
+        \mathbb E(X) = \int_{-\infty}^\infty x\, f(x)\, dx.
+\end{equation*}
+      
+#### Properties of the expected value{-}
+
+- $\mathbb E(a X + b) = a \mathbb E (X) + b$ (linear transformation)
+- $\mathbb E(X+Y) = \mathbb E(X) + \mathbb E(Y)$ (expected value of a sum = sum of expected values)
+- $\mathbb E(X\cdot Y) = \mathbb E(X)\cdot \mathbb E(Y)$ if $X$ and $Y$ are stochastically independent.
+
+#### Variance and standard deviation{-}
+
+The **variance** of a continuous random variable $X$ is
+
+\begin{equation*}
+    \sigma^2 = \text{Var}(X) = \mathbb E((X-\mathbb E(X))^2)=
+         = \int_{-\infty}^\infty (x-\mathbb E(X))^2\, f(x)\, dx.
+\end{equation*}
+
+The **standard deviation** is $\sigma = \sqrt{\text{Var}(X)}.$
+
+- Best suited for calculating variance:
+\begin{equation*}
+    \text{Var}(X)=\mathbb E(X^2) - (\mathbb E(X))^2.
+\end{equation*}
+
+- For continuous random variables this means:
+    \begin{align}
+    \text{Var}(X)&=\int_{-\infty}^{\infty} x^2f(x)dx- (\mathbb E(X))^2.
+    \end{align}
+
+#### Properties of Variance{-}
+
+- $\text{Var}(aX+b)= a^2\text{Var}(X)$ (linear transformation)
+- $\text{Var}(X+Y) = \text{Var}(X) + \text{Var}(Y)$ if $X$ and $Y$ are stochastically independent.
+
+This results in the calculation rules for linear transformations ($Y=a X + b$):
+\begin{align}
+      \mathbb E(Y) &= \mathbb E (a X + b)=a \mathbb E(X) + b,\\
+      \text{Var}(Y)&=\text{Var}(a X + b) = a^2\text{Var}(X).
+\end{align}
+
+
+***
+
+::: {.example #stZVkenz name="Time in the online shop as a continuous random variable"}
+
+The random variable $X=$ time in the online shop in minutes has the density:
+
+
+$$
+f(x) = \begin{cases}`r parss[1]`\cdot x `r parss[2]`, &\text{ für } `r aa`\leq x\leq `r cc`,\\
+                      `r parss[3]` `r parss[4]`\cdot x, &\text{ für } `r cc`< x\leq `r bb`.\end{cases}
+$$
+
+We have:
+
+- Expected value:
+
+```{r,echo=F}
+intx1<-function(x){
+  ix<-pars[1]*x^3/3# + pars[3]*x^2/2 + pars[4]*x^3/3
+  return(ix)
+}
+intx2<-function(x){
+  ix<-pars[3]*x^2/2 + pars[4]*x^3/3
+  return(ix)
+}
+
+myint1<-(intx1(c) - intx1(0)) 
+myint2<-(intx2(b) - intx2(c))
+myint<-myint1 + myint2
+myintt<-gsub("\\.","\\,",round(myint,4)); myintt1<-gsub("\\.","\\,",round(myint1,4)); myintt2<-gsub("\\.","\\,",round(myint2,4))
+```
+
+
+\begin{align}
+\mathbb E(X) &= \int_{-\infty}^{\infty}x\cdot f(x)dx = \int_{0}^{`r cc`}x\cdot f(x)dx + \int_{`r cc`}^{`r bb`}x\cdot f(x)dx\\
+&=\int_{0}^{`r cc`}x\cdot(`r parss[1]`\cdot x `r parss[2]`)dx + \int_{`r cc`}^{`r bb`}x\cdot (`r parss[3]` `r parss[4]`\cdot x)dx\\
+&=\int_{0}^{`r cc`}`r parss[1]`\cdot x^2 dx + \int_{`r cc`}^{`r bb`}`r parss[3]`\cdot x `r parss[4]`\cdot x^2dx\\
+&=\Big[`r parss[1]`\cdot \frac{x^3}3\Big]_{0}^{`r cc`} + \Big[`r parss[3]`\cdot \frac{x^2}2 `r parss[4]`\cdot \frac{x^3}3\Big]_{`r cc`}^{`r bb`}\\
+&=`r myintt1` + `r myintt2` = `r myintt`.
+\end{align}
+
+- Variance:
+
+```{r,echo=F}
+intx3<-function(x){
+  ix<-pars[1]*x^4/4
+  return(ix)
+}
+intx4<-function(x){
+  ix<-pars[3]*x^3/3 + pars[4]*x^4/4
+  return(ix)
+}
+
+myint3<-(intx3(c) - intx3(0)) 
+myint4<-(intx4(b) - intx4(c))
+myint5<-myint3 + myint4 - myint^2
+myintt5<-gsub("\\.","\\,",round(myint5,4)); myintt3<-gsub("\\.","\\,",round(myint3,4)); myintt4<-gsub("\\.","\\,",round(myint4,4))
+```
+
+
+\begin{align}
+\text{Var}(X) &= \mathbb E(X^2) - \mathbb E(X) = \int_{-\infty}^{\infty}x^2\cdot f(x)dx  - `r myintt`^2\\
+&\ldots \text{ (analog zu dem Erwartungswert) }\\
+&=\int_{0}^{`r cc`}`r parss[1]`\cdot x^3 dx + \int_{`r cc`}^{`r bb`}\big(`r parss[3]`\cdot x^2 `r parss[4]`\cdot x^3\big)dx - `r myintt`^2\\
+&=\Big[`r parss[1]`\cdot \frac{x^4}4\Big]_{0}^{`r cc`} + \Big[`r parss[3]`\cdot \frac{x^3}3 `r parss[4]`\cdot \frac{x^4}4\Big]_{`r cc`}^{`r bb`}- `r myintt`^2\\
+&=`r myintt3` + `r myintt4` - `r myintt`^2= `r myintt5`.
+\end{align}
+
+
+:::
+
+***
+
+::: {#q3 .quiz }
+<p id="question"> <span id="question-text24"></span></p>
+<input type="number" id="answer24" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj24)">Submit</button>
+<p id="result24"></p>
+
+
+
+```{js,echo=F}
+
+ // Generate a random question
+    const questionObj24 = generateQuestion_num(24);
+// Display the question
+    document.getElementById('question-text24').textContent = "\\(X=\\) 'Proportion of the customers who are sattisfied with your serice' follows the distribution with the cumulative distribution function:\\[F(x)=\\begin{cases}x^2,&\\text{ if } 0\\leq x\\leq 1,\\\\0,&\\text{ if }x<0,\\\\1,&\\text{ if }x>1.\\end{cases}\\] Compute the expected value for \\(X\\):";
+    questionObj24.answer = 0.6667
+```
+
+
+<p id="question"> <span id="question-text25"></span>
+<input type="number" id="answer25" placeholder="Enter your answer">
+<button onclick="checkAnswer_num(questionObj25)">Submit</button></p>
+<p id="result25"></p>
+
+
+
+```{js,echo=F}
+
+ // Generate a random question
+    const questionObj25 = generateQuestion_num(25);
+// Display the question
+    document.getElementById('question-text25').textContent = "Now the proportion is transformed as follows: \\[Y=" + questionObj25.question[0] + "X-" + questionObj25.question[1] + ".\\] \\(\\mathbb E(Y)=\\)";
+    questionObj25.answer = questionObj25.question[0]*0.6667-questionObj25.question[1]
+```
+
+:::
+
+<!--::: {.exercise name="Erwartungswert und Varianz"}
+
+```{r, echo=FALSE,out.width="100%"}
+htmltools::tags$iframe(title = "Erwartungswert und Varianz", src ="./htmls/quiz_kennz.html",  width=700, height=500)
+```
+
+:::-->
+
+***
+
+### Quantiles of continuous random variables
+
+In the first part of statistics, we determined empirical quantiles. They helped us to understand which value divides the ordered observations so that at least a proportion $p$ of the observations are less than or equal and at least a proportion $1-p$ - greater or equal. In other words, $\hat q_p$ has answered the question: which value is fallen below with frequency $p$ or exceeded with frequency $1-p$? The same logic is used to define **quantiles** for random variables, except that it is now about the probability of falling below or exceeding this value.
+
+The **$p$-quantile** of a **continuous** random variable $X$ with density $f(x)>0$ on an interval in $\mathbb R$ is the number $q_p$ with $0<p< 1$, for which applies:
+\begin{equation*}
+      \mathbb P(X<q_p)=\mathbb P(X\leq q_p)=F(q_p)=p.
+\end{equation*}
+
+The quantile is (for continuous random variables) clearly determined by the inverse of the distribution function,
+\begin{equation*}
+    q_p=F^{(-1)}(p).
+\end{equation*}
+
+```{r,echo=F,fig.cap='Quantil der Standardnormalverteilung für p=0,9', out.width='80%', fig.asp=.75, fig.align='center'}
+  x<-seq(-5,5,by=0.1)
+pp=0.9
+  Fx<-pnorm(x)
+  plot(x,Fx,type="l",col=4,lwd=2, xlim=c(-5,5),axes=F)
+  axis(2)
+  axis(1, at=seq(-5,5))
+  abline(h=0,lty=2,col="gray44")
+  abline(h=1,lty=2,col="gray44")
+  # arrows(1,0,2,0,col=2,code=0,lwd=3)
+  par(xpd=T)
+  qp=round(qnorm(pp),4)
+  arrows(qp,0,qp,pp,code=0,col=2)
+  arrows(qp,pp,-5,pp,code=0,col=2)
+  par(xpd=T)
+  text(qp,-0.09, bquote(Q[.(pp)]==.(qp)),col=2)
+  text(0.1,pp+0.05,paste0("F(",qp,")=",pp),col=2)
+```
+
+Special cases:
+
+- $p=0.25$, then $Q_p$ is called lower quartile
+
+- $p=0.50$, then $Q_p$ is called median
+
+- $p=0.75$, then $Q_p$ is called upper quartile
+
+***
+
+::: {.example #stZVqp name="Time in the online shop as a continuous random variable"}
+
+See empirical data on this \@ref(exm:stZV).
+
+The random variable $X=$ time in the online shop in minutes has the distribution function:
+
+$$
+F(x) =
+	\begin{cases}
+	0,&x<`r aa`,\\
+	`r gsub("\\.","\\,",pars[1]/2)`x^2,&`r aa`\leq x\leq `r cc`,\\
+	`r parssF[1]` + `r parssF[2]`x `r parssF[3]`x^2,&`r cc`<x\leq `r bb`,\\
+	1,&x>`r bb`.
+	\end{cases}
+$$
+
+
+- $0.1$ quantile:
+The distribution function takes the value $0.1$ on the intercept $0\leq x \leq 20$, so we set \[F(q_{0,1})=0.1\rightarrow 0.0005q_{0.1}^ 2 = 0.1\] and solve for $q_{0.1}$: \[q_{0.1} = \pm\sqrt{\frac{0.1}{0.0005}} = \pm 14, 1421,\] so $q_{0,1} =14.1421$, since $0\leq q_{0,1} \leq 20$ must hold.
+
+With a probability of 10%, the time spent in the online shop is shorter than $14.1421$ minutes.
+
+- $0.9$ quantile:
+The distribution function takes the value $0.9$ on the intercept $20\leq x \leq 100$, so we set \[F(q_{0.9})=0.9\rightarrow -0.25 + 0.025 q_{ 0.9} - 0.000125q_{0.1}^2 = 0.9.\] Then ($abc$ formula for quadratic equations $ax^2 + bx + c=0$: $x_{1,2}=\frac{-b\pm\sqrt{b^2 - 4ac}}{2a}$) we have \[q_{0.9} = \frac{-0.025\pm\sqrt{0.025^2 - 4\cdot(-0.000125)\cdot(-1.15)}}{2\cdot ( -0.000125)}.\] In addition, $q_{0.9}$ should be between $20$ and $100$. So, let's take the "$+$ version" and calculate $q_{0.9} = 71.7157$.
+
+With a probability of 10%, time spent in the online shop is longer than $71.7157$ minutes.
+
+:::
+
+***
+
+::: {#q2quant .quiz }
+
+```{js}
+  // Generate a random question
+    const questionObj215 = {
+      question: 'Let X be a continuous random variable with the distribution function:\\[F(x)=\\begin{cases}x^2,&\\text{ if }0\\leq x \\leq 1,\\\\0,&\\text{ if } x<0,\\\\1,&\\text{ if }x>1.\\end{cases}\\] Its quartile is:\\[\\]\\(q_{0.25}=\\)',
+      options: [0.1111,0.1667, 0.3333, 0.5, 0.6667],
+      answer: '4',
+      id: 215
+    };
+```
+
+<p class="question"> <span id="question-text215"></span></p>
+<div class="options">
+  <label>
+      <input type="radio" name="option215" value=1> 0.1111
+    </label>
+    <label>
+  <input type="radio" name="option215" value=2> 0.25
+    </label>
+    <label>
+      <input type="radio" name="option215" value=3> 0.3333
+    </label>
+    <label>
+      <input type="radio" name="option215" value=4> 0.5
+    </label>
+    <label>
+      <input type="radio" name="option215" value=5> 0.6667
+    </label>
+  </div>
+  <button onclick="checkAnswer_match(questionObj215)">Submit</button>
+  <p id="result215"></p>
+
+```{js, echo=F}
+  // Display the question
+    document.getElementById('question-text215').textContent = questionObj215.question;
+```
+
+:::
+
+<!--::: {.exercise name="Quantile von Zufallsvariablen"}
+
+```{r, echo=FALSE,out.width="100%"}
+htmltools::tags$iframe(title = "Aufgabe_QUantileZV", src ="./htmls/Aufgabe_QuantileZV.html",  width=700, height=500)
+```
+
+:::-->
+
+
+
+***
+<!--
+## Rückblick{-}
+
+```{r, echo=FALSE,out.width="100%"}
+htmltools::tags$iframe(title = "Wortwolke", src =paste0(link,"Apps_RBook/#section-wortwolke"),  width=760, height=600)
+```
+
+-->

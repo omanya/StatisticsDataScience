@@ -1,0 +1,549 @@
+
+# Bedingte Wahrscheinlichkeiten und Unabhängigkeit
+
+Bedingte Wahrscheinlichkeiten drücken aus, dass Informationen über das Eintreten eines Ereignisses $B$ die Beurteilung der Wahrscheinlichkeit eines Ereignisses $A$ beeinflussen können.
+
+Beispiel: Die Beurteilung der Wahrscheinlichkeit, dass ein 40-jähriger Mann einen Schlaganfall erleidet, unterscheidet sich in Abhängigkeit davon, ob bekannt ist, dass er Bluthochdruck hat, oder ob diese Information nicht vorliegt.
+
+Auch im betrieblichen Zusammenhang steht häufig nicht die gemeinsame Verteilung im Fokus, sondern man möchte eher wissen, was passiert mit einem Ereignis von Interesse, wenn ein anderes damit verbundenes Ereignis bereits eingetreten ist. Bspw. wenn bekannt ist, dass ein zufällig ausgewählter Kunde die App nutzt, wie viele Bestellungen pro Monat könnte man bei dem Kunden erwarten? Die Chance für die jeweilige Bestellungsanzahl wird durch **bedingte Wahrscheinlichkeiten** beschrieben.
+
+In anderen Situationen sind einige bedingten Wahrscheinlichkeiten bekannt, aber man bräuchte die "umgekehrten" bedingten Wahrscheinlichkeiten bzw. die totalen (die unbedingten) Wahrscheinlichkeiten. Zum Beispiel, wenn man bei einem Ratingmodell die Angaben zu den Chancen in einer Ratingkategorie zu laden bei späterem Ausfall hat, aber die Umkehrung davon, also die Chance auszufallen, wenn man in eine bestimmte Ratingkategorie einsortiert wird (Ausfallwahrscheinlichkeit pro Ratingkategorie), braucht. In diesem Fall ist auch die **totale Wahrscheinlichkeit** (Ausfallwahrscheinlichkeit gesamt) von Interesse.
+
+Für die Beurteilung von Wahrscheinlichkeiten bei Zusatzinformationen ist entscheidend, ob die involvierten Ereignisse **abhängig** oder **unabhängig** sind.
+
+***
+
+In diesem Kapitel werden wir lernen:
+  
+- Wie man die Wahrscheinlichkeiten für ein Ereignis unter der Bedingung, dass ein anderes Eriegnis schon eingetreten ist, kalkuliert und interpretiert ($\leadsto$ **bedingte Wahrscheilichkeit**) und
+- wie man anhand der bedingten Wahrscheinlichkeiten **Unabhängigkeit** von Ereignissen überprüft.
+- Wie man aus bedingten Wahrscheinlichkeiten die unbedingten ausrechnet ($\leadsto$ **totale Wahrscheilichkeit**) und
+- wie man das Ereignis von Interesse und die Bedingung in der bedingten Wahrscheinlichkeit bei Bedarf "austauschen" kann ($\leadsto$ **Satz von Bayes**).
+
+
+***
+
+## Bedingte Wahrscheinlichkeiten
+
+Für zwei Ereignisse $A,B\subseteq \Omega$ und mit \(\mathbb P(B)>0\) die **bedingte Wahrscheinlichkeit** von \(A\) unter \(B\) definiert als
+
+$$
+\mathbb P(A|B) = \displaystyle \frac {\mathbb P(A\cap B)}{ \mathbb P(B)}.
+$$
+
+***
+
+::: {.example #wurf123b name="2-maliges Würfeln"}
+
+Fortführung von \@ref(exm:wurf123ff).
+
+In dem Experiment: 2-maliges Würfeln eines fairen Spielwürfels mit den Augenzahlen 1,2 und 3 auf jeweils zwei Seiten des Würfels haben wir definiert:
+
+- Ergebnismenge:
+\begin{align*}
+        \Omega &= \{(1;1), (1;2), (1;3), (2;1),\ldots, (3;3)\}\\
+        &=\{(a,b) | a,b\in \{1; 2; 3\}\},
+\end{align*}
+wobei $a=\text {Ergebnis im 1. Wurf}$ und $b=\text {Ergebnis 2. im Wurf}$
+
+- Ereignisse:
+
+    - $A=$“Die Augensumme beider Würfel beträgt 4”, $B=$“Die Augenzahlen beider Würfel ungerade” und. $A\cap B=$“Die Augensumme beider Würfel beträgt 4 und zugleich die Augenzahlen sind ungerade”.
+    
+- Wahrscheinlichkeiten:
+    
+\begin{align}
+\mathbb P(A) &= \frac{|A|}{|\Omega|}= \frac 13,\\
+\mathbb P(B) &= \frac{|B|}{|\Omega|}=\frac 49,\\
+\mathbb P(A\cap B) &= \frac{|A\cap B|}{|\Omega|}=\frac 29.
+\end{align}
+
+Gilt nun $B$ als sicher verändert sich die Chance für $A$:
+
+$$
+\mathbb P(A|B)=\frac {\mathbb P(A\cap B)}{ \mathbb P(B)} = \frac {\frac 29}{\frac 49} = \frac 12.
+$$
+
+Die Chancen für $A$ unter der Zusatzinformation über $B$ sind nun gestiegen ($\mathbb P(A|B)=\frac 12$) gegenüber der Situation vorher ($\mathbb P(A)=\frac 13$).
+
+- Interaktiv:
+
+```{r, echo=FALSE,out.width="100%"}
+htmltools::tags$iframe(title = "Wahrscheinlichkeiten", src=paste0("http://learning-dashboard.lehre.hwr-berlin.de:3838/Apps_RBook/#section-wahrscheinlichkeiten"),  width=760, height=700)
+```
+
+:::
+
+***
+
+
+## Unabhängigkeit
+
+Bedingte Wahrscheinlichkeiten drücken aus, dass Informationen über das Eintreten eines Ereignisses $B$ die Beurteilung der Wahrscheinlichkeit eines Ereignisses $A$ beeinflussen können.
+
+Wenn die Information über das Eintreten dieses Ereignisses **keine Auswirkung** auf die Wahrscheinlichkeit von $A$ hat, so sind diese Ereignisse **stochastisch unabhängig**: 
+
+\begin{equation*}
+        \mathbb P(A|B) = \mathbb P(A).
+\end{equation*}
+
+### Kriterien für Unabhängigkeit{-}
+
+Im Fall stochastischer Unabhängigkeit: 
+$\displaystyle \mathbb P(A|B) = \frac{\mathbb P(A\cap B)}{\mathbb P(B)} =\mathbb P(A)$, so dass
+\begin{equation*}
+        \mathbb P(A\cap B) = \mathbb P(A)\cdot \mathbb P(B),
+\end{equation*}
+sich ergibt,     wobei $\mathbb P(B)>0$ vorausgesetzt wird. 
+
+Die Ereignisse $A$, $B$ und $C$ sind unabhängig, wenn
+\begin{align*}
+      \mathbb P(A\cap B) &= \mathbb P(A)\cdot \mathbb P(B),\\
+      \mathbb P(A\cap C) &= \mathbb P(A)\cdot \mathbb P(C),\\
+      \mathbb P(B\cap C) &= \mathbb P(B)\cdot \mathbb P(C),\\
+      \mathbb P(A\cap B\cap C) &= \mathbb P(A)\cdot \mathbb P(B)\cdot \mathbb P(C).
+    \end{align*}
+Für **Unabhängigkeit von drei Ereignissen** müssen **alle** aufgeführten Kriterien erfüllt sein.
+
+***
+
+::: {.example #wurf123abh name="2-maliges Würfeln"}
+
+Fortführung von \@ref(exm:wurf123b).
+
+In dem Experiment: 2-maliges Würfeln eines fairen Spielwürfels mit den Augenzahlen 1,2 und 3 auf jeweils zwei Seiten des Würfels sind die definierten Ereignisse $A$ und $B$ abhängig, da:
+
+\begin{align}
+\mathbb P(A\cap B) &=\frac 29\not = \frac 13\cdot\frac 49.
+\end{align}
+
+Also, sind $A$ und $B$ abhängig. Die Gleiche kann man aus $\mathbb P(A|B)=\frac 12\not=\frac 13=\mathbb P(A)$ erschliessen.
+
+:::
+
+***
+
+
+::: {.exercise name="Bedingte Wahrscheinlichkeiten und Unabhängigkeit"}
+
+```{r, echo=FALSE,out.width="100%"}
+htmltools::tags$iframe(title = "Aufgabe_Bedingte_Wkt", src ="./htmls/quiz_bedwkt.html",  width=760, height=500)
+```
+
+
+:::
+
+***
+
+## Zusatzinformationen bei Stichprobenziehung
+
+Auch bei Analyse von Kundenmerkmalen ist es häufig von Belangen bedingte Größen zu modellieren. Bspw. wenn bekannt ist, dass ein zufällig ausgewählter Kunde die App nutzt, wie viele Bestellungen pro Monat könnte man bei dem Kunden erwarten?
+
+::: {.example #ziehungbed name="Bestellungen und Nutzung"}
+
+Wir nehmen an, dass wir die **gemeinsame Wahrscheinlichkeiten** bereits kennen. 
+
+**Wie sieht die Verteilung von Bestellungenanzahl bei App-Nutzern aus?**
+
+- Ergebnismenge: 
+
+\begin{align}
+\Omega &= \{(App; 1), (App; 2),\ldots, (App; 6),\ldots, \\
+&~~~~(Web;1),\ldots,(Web; 6) \}\\
+|\Omega|&=12.
+\end{align}
+
+- Ereignisraum: $\mathcal F=\mathcal P(\Omega).$
+
+- Wahrscheinlichkeitsmaß: (Annahme, dass wir die gemeinsamen Wahrscheinlichkeiten kennen)
+
+```{r,echo=F}
+pap<-c(0.02,0.06,0.12,0.2,0.12,0.08)
+pges<-c(0.1,0.15,0.25,0.25,0.15,0.1)
+pwe<-pges-pap
+
+papp<-gsub("\\.","\\,",pap)
+pweb<-gsub("\\.","\\,",pwe)
+pgess<-gsub("\\.","\\,",pges)
+pa1<-sum(pap)
+pbga1<-gsub("\\.","\\,",round(pap/pa1,4))
+pbga2<-gsub("\\.","\\,",round(pwe/sum(pwe),4))
+erwb<-gsub("\\.","\\,",round(sum((1:6)*round(pap/pa1,4)),4))
+erw2<-gsub("\\.","\\,",round(sum((1:6)*round(pwe/sum(pwe),4)),4))
+```
+
+
+\begin{equation}
+\begin{array}{c|cccccc}
+\mathbb P((a_i,b_i))&b_1=1&b_2=2&b_3=3&b_4=4&b_5=5&b_6=6\\\hline
+a_1=App&`r papp[1]`&`r papp[2]`&`r papp[3]`&`r papp[4]`&`r papp[5]`&`r papp[6]`\\
+a_2=Web&`r pweb[1]`&`r pweb[2]`&`r pweb[3]`&`r pweb[4]`&`r pweb[5]`&`r pweb[6]`\\
+\end{array} (\#eq:vertab)
+\end{equation}
+
+- Ereignisse:
+
+    - $A_1 =$ Nutzung von der App:
+    \begin{align}\mathbb P(A_1)&= `r gsub("\\.","\\,",sum(c(pap[1:6])))`.\end{align}
+    
+    - $B_{i}=$ Anzahl von Bestellungen $=i$ $\leadsto$
+    \begin{align}\mathbb P(B_{i})&=\mathbb P((App;i),(Web;i)):\end{align}
+$$
+    \begin{array}{c|cccccc}
+    i&1&2&3&4&5&6\\\hline
+    \mathbb P(B_i) &`r pgess[1]`&`r pgess[2]`&`r pgess[3]`&`r pgess[4]`&`r pgess[5]`&`r pgess[6]`
+    \end{array}
+$$
+
+    - $A_1\cap B_{i}=$ $i$ Bestellungen über App $\leadsto$ $A_1\cap B_{i}=\{(App;i),(App;i),(App;i),(App;i)\}$
+    \begin{align}\mathbb P(A_1\cap B_{i})&=\mathbb P((App;i)).\end{align}
+    $\leadsto$ erste Zeile in \@ref(eq:vertab).
+
+- Bedingte Verteilung von $B_i$ gegeben $A_1$ ist ($\mathbb P(B_i|A_1 = \frac{\mathbb P(A_1\cap B_{i})}{\mathbb P(A_1)}$):
+
+$$
+    \begin{array}{c|cccccc}
+    i&1&2&3&4&5&6\\\hline
+    \mathbb P(B_i|A_1) &`r pbga1[1]`&`r pbga1[2]`&`r pbga1[3]`&`r pbga1[4]`&`r pbga1[5]`&`r pbga1[6]`
+    \end{array}
+$$
+**Welche Anzahl an Bestellungen erwarten wir also von den App-Nutzern im Mittel?**
+
+$$
+1\cdot `r pbga1[1]` + 2\cdot `r pbga1[2]` + 3\cdot `r pbga1[3]` + 4\cdot `r pbga1[4]` + 5\cdot `r pbga1[5]` + 6\cdot `r pbga1[6]` = `r erwb`
+$$
+
+**...und von den Web-Nutzern?**
+
+:::
+
+***
+
+::: {.exercise name="mittlere Anzahl von Bestellungen"}
+
+```{r, echo=FALSE,out.width="100%"}
+htmltools::tags$iframe(title = "Aufgabe_Bestellungen", src ="./htmls/aufgabe_mittlere_anzahl_bestellungen.html",  width=760, height=500)
+```
+
+:::
+
+***
+
+## Totale Wahrscheinlichkeit und die Formel von Bayes
+
+Wie schon angedeutet, gibt es Situationen, wo einige bedingten Wahrscheinlichkeiten bekannt sind, aber man bräuchte die die totalen (die unbedingten) Wahrscheinlichkeiten oder die "umgekehrten" bedingten Wahrscheinlichkeiten. Wir illustrieren das Ganze an einem Beispiel zu Produktempfehlungen.
+
+***
+
+::: {.example #premf name="Produktempfehlungen"}
+
+Fortführung von \@ref(exm:wurf123b).
+
+Ein (eingekauftes) Modell für Produktempfehlungen hat meistens Qualitätsangaben, die quantifizieren, wie gut das Modell die Kunden in die passenden Produktempfehlungsgruppen sortiert. Da diese Modelle an den Datensätzen von Kunden trainiert werden, über die man bereits weiß, welches Produkt sie gekauft haben, gibt es nach der Modellbildung ein Maß für die Güte der Trennung, wie etwa die "richtig-positiv"-Wahrscheinlichkeiten, dass die Kunden, die später das Produkt $x$ gekauft haben, auch in die Produktempfehlungsgruppe $x$ einsortiert werden. Oder eben die "falsch-positiv"-Wahrscheinlichkeiten, dass die Produktempfehlung verfehlt wird.
+
+Gehen wir davon aus, dass es drei Produktgruppen gibt ($G = \{G_1;G_2,G_3\}$), für die das Modell Empfehlungen für jeden Kunden ausgibt ($E=\{E_1,E_2,E_3\}$).
+
+Die Grundlage für die Modellbildung sind die Gruppen $G = \{G_1;G_2,G_3\}$ von Kunden, die das jeweilige Produkt gekauft haben. Aus verschiedensten Merkmalen von Kunden soll das Algorithmus eine "Formel" herleiten, wie man anhand der Merkmalsasuprägungen feststellen kann, für welches Produkt der Kunde sich demnächst entscheidet. Danach wird das Modell getestet und es wird festgestellt, wie hoch beträgt die Wahrscheinlichkeit, dass das Modell die richtige bzw. eine falsche Empfehlung ausgibt. Idealerweise, kriegen alle Kunden aus $G_1$ die Empfehlung $E_1$ usw.
+
+Wie gut das Modell (ohne die Info zu haben zu welcher Gruppe der Kunde gehört) die ensprechende Empfehlung zuordnet, kann man pro Produktgruppe via Kalkulation von bedingten Wahrscheinlichkeit feststellen:
+
+<!--
+Ein Ratingmodell hat meistens Qualitätsangaben, die quantifizieren, wie gut das Modell die Kunden, denen die Ausfall droht, von den solventen Kunden trennen. Da diese Modelle an den Datensätzen von Kunden trainiert werden, über die man bereits weiß, ob die Ausfall hatten oder nicht, gibt es nach der Modellbildung ein Maß für die Güte der Trennung, wie etwa die Wahrscheinlichkeiten die jeweilige Kategorie zu bekommen separat für die **Gruppe der  solventen Kunden** und für die **Gruppen der Kunden mit (Teil)Ausfall**.
+
+Gehen wir davon aus, dass drei Ratingkategorien ($R$) von dem Modell vergeben werden $1$, $2$ und $3$. Die Situation am Ende der Periode ist $S$. Die Gruppe der solventen Kunden nennen wir $K$ (kein Ausfall), die Gruppe mit Teilausfall bezeichnen wir als $T$ und die letzte Gruppe mit kompleten Ausfall als $A$.
+
+Folgenden Trennungswahrscheinlichkeiten (gegeben die Situation am Ende der Periode $Y$) sind für das verwendete Ratingmodell:
+-->
+
+```{r,echo=F}
+peg11<-c(0.8,0.15,0.05)
+peg22<-c(0.2,0.6,0.2)
+peg33<-c(0.05,0.1,0.85)
+pe<-cbind(peg11,peg22,peg33)
+
+peg1<-gsub("\\.","\\,",peg11)
+peg2<-gsub("\\.","\\,",peg22)
+peg3<-gsub("\\.","\\,",peg33)
+```
+
+\begin{align}
+\mathbb P(E|G)&=\begin{pmatrix}
+&G_1&G_2&G_3\\
+E_1&`r peg1[1]`&`r peg2[1]`&`r peg3[1]`\\
+E_2&`r peg1[2]`&`r peg2[2]`&`r peg3[2]`\\
+E_3&`r peg1[3]`&`r peg2[3]`&`r peg3[3]`
+\end{pmatrix}
+\end{align}
+
+Pro Gruppe sieht man dann ganz gut, wie viel anteilig klassifiziert man richtig (bspw. $G_1\leadsto$ $\mathbb P(E_1|G_1)=0,8$), bzw. falsch (bspw. $G_2\leadsto$ $\mathbb P(E_1|G_2) + P(E_3|G_2)=0,4$).
+
+Die wichtigen Fragen dabei sind:
+
+- Wie wahrscheinlich ist es, dass übehaupt Empfehlungen für das jeweilige Produkt angeboten wird? (Zu welchen Anteilen werden sie die Empfehlungen für die Produkte ausgeben? KPIs, Raufereien zwischen den Produktteams, ...)
+
+- Wie hoch werden die Konvergenzraten (convergence rates) pro Produkt sein? (wie viele von den Kunden, denen eine Produktempfehlung angeboten wird, dann das Produkt tatsächlich kaufen? Wir wollen hohe convergence rates.)
+
+Die erste Frage könnte mit Angabe von $\mathbb P(E_i)$, die zweite - mit Angabe von $\mathbb P(G_i|E_i)$ beantwortet werden. Nur, wie berechnen wir diese Wahrscheinlichkeiten, wenn wir bloss die bedingten Wahrscheinlichkeiten der Form $\mathbb P(E_i|G_i)$ haben? (und vielleicht noch die Ahnung von den Kundenanteilen haben, Produkte $1,2,3$ kaufen $\leadsto$ $\mathbb P(G_i)$). Die Antwort liefern die **Formel der totalen Wahrscheinlichkeit** und die **Bayes-Formel**.
+
+:::
+
+***
+
+
+
+### Totale Wahrscheinlichkeit
+
+Wir untersuchen, wie bedingte Wahrscheinlichkeiten genutzt werden können, um unbedingte Wahrscheinlichkeiten eines Ereignisses zu bestimmen.
+
+Die Mengen $A_1, \ldots, A_n$ bilden eine **Zerlegung** (Partition) von $\Omega$, falls
+
+- $A_i\cap A_j=\emptyset$ für $i\not=j$, d.h. die Mengen
+    $A_1, \ldots, A_n$ sind paarweise disjunkt, 
+
+- $A_1\cup\cdots\cup A_n=\Omega$. 
+
+Für eine Zerlegung $A_1,\ldots, A_n$ von $\Omega$ gilt für $B\in\mathcal F$ die **Formel der totalen Wahrscheinlichkeit**:
+\begin{equation*}
+      \mathbb P(B) = \sum_{i=1}^n \mathbb P(B|A_i)\, \mathbb P(A_i).
+    \end{equation*}
+<!--Bemerkung: Die Aussage folgt aus 
+    $\mathbb P(B|A_i)\mathbb P(A_i)=\mathbb P(B\cap A_i)$
+    und $B=(B\cap A_1)\cup \cdots\cup (B\cap A_n)$.
+-->
+
+***
+
+::: {.example #premff name="Produktempfehlungen"}
+
+Fortführung von \@ref(exm:premf).
+
+Angenommen, die Anteile von Kunden, die die Produkte kaufen, fallen folgendermaßen aus:
+
+```{r,echo=F}
+pg<-c(0.5,0.3,0.2)
+pgg<-gsub("\\.","\\,",pg)
+
+#peg<-cbind(peg11,peg22,peg33)
+
+pe11<-sum(pe[1,]*pg)
+pe22<-sum(pe[2,]*pg)
+pe33<-sum(pe[3,]*pg)
+
+pe1<-gsub("\\.","\\,",pe11)
+pe2<-gsub("\\.","\\,",pe22)
+pe3<-gsub("\\.","\\,",pe33)
+```
+
+
+$$
+\begin{array}{c|ccc}
+i&1&2&3\\\hline
+\mathbb P(G_i)&`r pgg[1]`&`r pgg[2]`&`r pgg[3]`
+\end{array}
+$$
+Da unser Unternehmen nur die drei Produkte empfehlt, bilden $G_1,G_2$ und $G_3$ eine Zerlegung von des gesamten Produkempfehlungssystem $\Omega$.
+
+Wir können nun die erste Frage "Wie wahrscheinlich ist es, dass übehaupt Empfehlungen für das jeweilige Produkt angeboten wird? (Zu welchen Anteilen werden sie die Empfehlungen für die Produkte ausgeben?)" mit Hilfe der totalen Wahrscheinlihckeit beantworten.
+
+\begin{align}
+\mathbb P(E_1)&=\mathbb P(E_1|G_1)\cdot \mathbb P(G_1) + \mathbb P(E_1|G_2)\cdot \mathbb P(G_2) + \mathbb P(E_1|G_3)\cdot \mathbb P(G_3) \\
+&=`r peg1[1]`\cdot `r pgg[1]` + `r peg2[1]`\cdot `r pgg[2]`+ `r peg3[1]`\cdot `r pgg[3]` \\
+&=`r pe1[1]`
+\end{align}
+
+<!--
+Analog:
+
+\begin{align}
+\mathbb P(E_2)&=`r pe2[1]`\\
+\mathbb P(E_3)&=`r pe3[1]`
+\end{align}
+-->
+
+**Kannst du noch $\mathbb P(E_2)$ und $\mathbb P(E_3)$ kalkulieren?**
+
+:::
+
+***
+
+::: {.exercise name="totale Wahrscheinlichkeit: Produktempfehlungen"}
+
+```{r, echo=FALSE,out.width="100%"}
+htmltools::tags$iframe(title = "Aufgabe_totale_Wkt_Prodemf", src ="./htmls/totale_wkt_prodempf.html",  width=760, height=700)
+```
+
+:::
+
+***
+
+
+### Bayes-Formel
+
+Die Bayes-Formel kann genutzt werden, die Schlussweise  umzudrehen.
+
+Beispiel: In der Medizin interessiert man sich für die Wahrscheinlichkeit einer Krankheit im Fall, dass ein medizinischer Test positiv ausfällt.
+
+Es seien $A$ und $B$ zwei Ereignisse mit $\mathbb P(B)>0$. Dann gilt: 
+
+\begin{equation*}
+        \mathbb P(A|B) = \frac{\mathbb P(B|A)\cdot \mathbb P(A)}{\mathbb P(B)}. 
+      \end{equation*}
+
+Es sei $A_1,\ldots, A_n$ eine Zerlegung von $\Omega$ mit
+      $\mathbb P(A_i)>0$ und $\mathbb P(B|A_i)>0$ für mindestens ein $i$. Dann gilt 
+\begin{equation*}
+    \mathbb P(A_k|B) = \frac{\mathbb P(B|A_k)\, \mathbb P(A_k)} {\sum_{i=1}^n \mathbb P(B|A_i)\,
+      \mathbb P(A_i)} = \frac{\mathbb P(B|A_k)\, \mathbb P(A_k)} {\mathbb P(B)}\quad \text{
+      für } k=1,\ldots, n.
+  \end{equation*}
+
+***
+
+::: {.example #premfff name="Produktempfehlungen"}
+
+Fortführung von \@ref(exm:premff).
+
+Nun können wir auch die Frage nach den erwarteten convergence rates beantworten:
+
+```{r,echo=F}
+
+pge11<-peg11[1]*pg[1]/pe11
+pge22<-peg22[2]*pg[2]/pe22
+pge33<-peg33[3]*pg[3]/pe33
+
+pge1<-gsub("\\.","\\,",round(pge11,4))
+pge2<-gsub("\\.","\\,",round(pge22,4))
+pge3<-gsub("\\.","\\,",round(pge33,4))
+
+```
+
+Nach der Bayes-Formel:
+
+\begin{align}
+\mathbb P(G_1|E_1) &= \frac{\mathbb P(E_1|G_1)\cdot \mathbb P(G_1)}{\mathbb P(E_1)}\\
+&=\frac{`r peg1[1]`\cdot`r pgg[1]`}{`r pe1[1]`} = `r pge1[1]`.
+\end{align}
+
+**Kannst du die converge rates für $G_2$ und $G_3$ kalkulieren?**
+
+:::
+
+
+***
+
+::: {.exercise name="Bayes-Formel für Produktempfehlungen"}
+
+```{r, echo=FALSE,out.width="100%"}
+htmltools::tags$iframe(title = "Aufgabe_Bayes_Wkt_Prodemf", src ="./htmls/bayes_wkt_prodempf.html",  width=760, height=700)
+```
+
+:::
+
+***
+
+### Produktempfehlungen nach 'Naive-Bayes'-Methode `r emoji::emoji("alien")`
+
+```{r,echo=F}
+ppmat<-cbind(
+  c(0.1,0.4,0.2,0.3), # gegeben G1
+  c(0.2,0.1,0.4,0.3), #gegeben G2
+  c(0.6,0.1,0.1,0.2) #gegeben G3
+)
+```
+
+
+Wenn man ein Modell für die Produktempfehlungen selber entwickeln möchte, sind einem wieder die bedingten Wahrscheinlichkeiten und die Formeln aus diesem Thema behilflich.
+
+***
+
+::: {.example #premfeig name="Eigenen Produktempfehlungen"}
+
+Gehen wir weiterhin davon aus, dass es drei Produktgruppen gibt ($G = \{G_1;G_2,G_3\}$), für die das Modell Empfehlungen für jeden Kunden ausgeben soll ($E=\{E_1,E_2,E_3\}$).
+
+Die Grundlage für die Modellbildung bilden die Gruppen $G = \{G_1;G_2,G_3\}$ von Kunden, die das jeweilige Produkt gekauft haben. Aus verschiedensten Merkmalen von Kunden soll wir nun eine "Formel" herleiten, wie man anhand der Merkmalsasuprägungen feststellen kann, zu welchem Produkt der Kunde "tendiert".
+
+Wir betrachten nur zwei Merkmale:
+
+- Kundenalter ($X_1$) aufgeteilt in $\leq 25$ und $> 25$.
+- Die letzte Rechnung in Euro ($X_2$) unterschieden nach $\leq 50$ und $> 50$.
+
+Dafür können wir pro Gruppe Wahrscheinlichkeiten der obigen Ausprägungen berechnen. Z.B. haben wir folgende Anteile berechnet:
+
+- In $G_1$:
+
+$$
+\begin{array}{c|cc}
+\mathbb P(X_1,X_2|G_1) &\leq 50&>50\\\hline
+\leq 25 &`r gsub("\\.","\\,",round(ppmat[1,1],4))`&`r gsub("\\.","\\,",round(ppmat[2,1],4))`\\
+> 25 &`r gsub("\\.","\\,",round(ppmat[3,1],4))`&`r gsub("\\.","\\,",round(ppmat[4,1],4))`\\
+\end{array}
+$$
+
+- In $G_2$:
+
+$$
+\begin{array}{c|cc}
+\mathbb P(X_1,X_2|G_2) &\leq 50&>50\\\hline
+\leq 25 &`r gsub("\\.","\\,",round(ppmat[1,2],4))`&`r gsub("\\.","\\,",round(ppmat[2,2],4))`\\
+> 25 &`r gsub("\\.","\\,",round(ppmat[3,2],4))`&`r gsub("\\.","\\,",round(ppmat[4,2],4))`\\
+\end{array}
+$$
+
+- In $G_3$:
+
+$$
+\begin{array}{c|cc}
+\mathbb P(X_1,X_2|G_3) &\leq 50&>50\\\hline
+\leq 25 &`r gsub("\\.","\\,",round(ppmat[1,3],4))`&`r gsub("\\.","\\,",round(ppmat[2,3],4))`\\
+> 25 &`r gsub("\\.","\\,",round(ppmat[3,3],4))`&`r gsub("\\.","\\,",round(ppmat[4,3],4))`\\
+\end{array}
+$$
+
+Was wir aber in Wirklichkeit brauchen sind die "umgekehrten" bedingten Wahrscheinlichkeiten (Wahrscheinlichkeit für Produktkategorie gegeben die Datenkonstellationen). Also, unter der Massgabe, dass
+
+$$
+\begin{array}{c|ccc}
+i&1&2&3\\\hline
+\mathbb P(G_i)&`r pgg[1]`&`r pgg[2]`&`r pgg[3]`
+\end{array}
+$$
+und mit Hilfe der totalen Wahscheinlichkeit:
+
+\begin{align}
+\mathbb P(X_1\leq 25 \text{ und } X_2\leq 50) &=`r gsub("\\.","\\,",round(ppmat[1,1],4))`\cdot `r pgg[1]` + `r gsub("\\.","\\,",round(ppmat[1,2],4))`\cdot `r pgg[2]` + `r gsub("\\.","\\,",round(ppmat[1,3],4))`\cdot `r pgg[3]`= `r gsub("\\.","\\,",round(sum(ppmat[1,]*pg),4))`.\\
+\mathbb P(X_1\leq 25 \text{ und } X_2> 50) &= \ldots \text{analog}\ldots = `r gsub("\\.","\\,",round(sum(ppmat[2,]*pg),4))`\\
+\mathbb P(X_1> 25 \text{ und } X_2\leq 50) &= \ldots \text{analog}\ldots = `r gsub("\\.","\\,",round(sum(ppmat[3,]*pg),4))`\\
+\mathbb P(X_1> 25 \text{ und } X_2> 50) &= \ldots \text{analog}\ldots = `r gsub("\\.","\\,",round(sum(ppmat[4,]*pg),4))`\\
+\end{align}
+
+Und mit Hilfe der Bayes-Formel:
+
+- für die Konstellation Nr. 1 $K_1 = X_1\leq 25 \text{ und } X_2\leq 50$:
+
+```{r,echo=F}
+pgikj<-matrix(NA,3,4)
+for(i in 1:3){
+  for(j in 1:4){
+    pgikj[i,j]<-ppmat[j,i]*pg[i]/sum(ppmat[j,]*pg)
+  }
+}  
+```
+
+
+\begin{align}
+\mathbb P(G_1|K_1) &=\frac{`r gsub("\\.","\\,",round(ppmat[1,1],4))`\cdot `r pgg[1]`}{`r gsub("\\.","\\,",round(sum(ppmat[1,]*pg),4))`}  = `r gsub("\\.","\\,",round(ppmat[1,1]*pg[1]/sum(ppmat[1,]*pg),4))`\\
+\mathbb P(G_2|K_1) &= \ldots \text{analog}\ldots =`r gsub("\\.","\\,",round(ppmat[1,2]*pg[2]/sum(ppmat[1,]*pg),4))`\\
+\mathbb P(G_3|K_1) &= \ldots \text{analog}\ldots =`r gsub("\\.","\\,",round(ppmat[1,3]*pg[3]/sum(ppmat[1,]*pg),4))`
+\end{align}
+
+:::
+
+***
+
+<!--
+## Rückblick{-}
+
+```{r, echo=FALSE,out.width="100%"}
+htmltools::tags$iframe(title = "Wortwolke", src ="http://learning-dashboard.lehre.hwr-berlin.de:3838/Apps_RBook/#section-wortwolke",  width=760, height=600)
+```
+-->

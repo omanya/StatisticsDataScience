@@ -1,0 +1,4 @@
+"0","  bpm<-1.64*sig + mu"
+"0","  apm<-qnorm(1-as.numeric(al)/2,mu,sig)"
+"0","  axis(1,at=c(floor(min(xseq)),mu,bpm,apm,ceiling(max(xseq))),"
+"0","       labels=c("""",mu,"""",round(apm,1),""""))"

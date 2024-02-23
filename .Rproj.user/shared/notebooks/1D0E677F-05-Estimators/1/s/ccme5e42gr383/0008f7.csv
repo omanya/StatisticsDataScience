@@ -1,0 +1,5 @@
+"0","  "
+"0","  "
+"0","    #2"
+"0","  plot(sstild,type='p',pch=16,ylab="""",xlab='sample',col=alpha(4,0.3),lwd=2,main=""mean squared deviation (n=100)"","
+"0","       ylim=c(50,150),cex=1, axes=F)"

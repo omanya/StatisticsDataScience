@@ -1,0 +1,1 @@
+"0","  legend(20,90,col=c(2,3,""cyan""),lty=c(2,1,1),lwd=2, bty=""n"",legend=c(""average of the estimates"","" pop. variance"",""bias""))"
