@@ -546,7 +546,7 @@ $B(n,p)$ distribution:
 \end{align*}
 
 - Based on the test size
-$\displaystyle Z = \frac{X-n\, p_0}{\sqrt{n\, p_0 (1-p_0)}}\stackrel{\text{approx.}}\sim N(0,1)$
+\(\displaystyle Z = \frac{X-n\, p_0}{\sqrt{n\, p_0 (1-p_0)}}\stackrel{\text{approx.}}\sim N(0,1)\)
 and the given level $\alpha$
 
 - the decision is made for $H_1$ in the test problem
@@ -582,7 +582,7 @@ Consider the following test problems:
 
 and  test statistics:
 
-\[\displaystyle Z= \frac{\overline X-\mu_0}{\sigma/ \sqrt{n}}\stackrel{\text{approx.}}{\sim} N(0,1).\]
+\[\displaystyle Z= \frac{\overline X-\mu_0}{\sigma/ \sqrt{n}}\stackrel{}{\sim} N(0,1).\]
 
 Based on the test statistic $Z$, the decision in favor of $H_1$ in the test problem:
 
@@ -730,13 +730,13 @@ under $H_0.$
 - Rejection region:
 
 \begin{align*}
-\text{(a)} \quad & |t|>t_{1-\alpha/2}(n-1)\\
-\text{(b)} \quad & t<t_\alpha(n-1)=-t_{1-\alpha}(n-1)\\
-\text{(c)} \quad & t>t_{1-\alpha}(n-1)
+\text{(a)} \quad & |t|>t_{1-\alpha/2(n-1)}\\
+\text{(b)} \quad & t<t_{\alpha(n-1)}=-t_{1-\alpha(n-1)}\\
+\text{(c)} \quad & t>t_{1-\alpha(n-1)}
 \end{align*}
 
 - For $n > 30$ quantiles of $t(n-1)$ can be replaced by the quantiles of
-$N(0,1)$ because for more thatn $30$ degrees of freedom, $t$-distribution can be well-approximated by the normal distribution.
+$N(0,1)$ because for more than $30$ degrees of freedom, $t$-distribution can be well-approximated by the normal distribution.
 
 
 ::: {.example #testt name="Quality inspection of pencils"}

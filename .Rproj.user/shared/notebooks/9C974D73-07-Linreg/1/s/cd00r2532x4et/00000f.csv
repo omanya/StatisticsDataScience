@@ -17,5 +17,8 @@
 "0","#sd(no) # real sd 1.431782/sqrt(6)"
 "0","norders<-no"
 "0",""
+"0","df<-data.frame(norders,app,times)"
+"0","write.csv(df, file=""norders.csv"")"
+"0",""
 "0","mod<-lm(norders~app)"
 "0","out<-summary(mod)"

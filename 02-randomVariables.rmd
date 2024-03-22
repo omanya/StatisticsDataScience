@@ -1074,7 +1074,7 @@ Using the cumulative distribution function, we can calculate the event probabili
 
 ::: {#q23 .quiz }
 
-```{js}
+```{js, echo=F}
   // Generate a random question
     const questionObj210 = {
       question: 'Let X be a continuous random variable with the distribution function:\\[F(x)=\\begin{cases}x^2,&\\text{ if }0\\leq x \\leq 1,\\\\0,&\\text{ if } x<0,\\\\1,&\\text{ if }x>1.\\end{cases}\\] The density function for \\(X\\) must be \\[\\]',
@@ -1431,7 +1431,7 @@ With a probability of 10%, time spent in the online shop is longer than $71.7157
 
 ::: {#q2quant .quiz }
 
-```{js}
+```{js,echo=F}
   // Generate a random question
     const questionObj215 = {
       question: 'Let X be a continuous random variable with the distribution function:\\[F(x)=\\begin{cases}x^2,&\\text{ if }0\\leq x \\leq 1,\\\\0,&\\text{ if } x<0,\\\\1,&\\text{ if }x>1.\\end{cases}\\] Its quartile is:\\[\\]\\(q_{0.25}=\\)',

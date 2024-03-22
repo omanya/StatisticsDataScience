@@ -634,7 +634,7 @@ We already know the following estimation functions quite well:
 A **point estimate** for $\theta$ is a function of realizations of the form 
 \[t=g(x_1,\ldots, x_n).\]
 
-The resulting numerical value $g(x_1,\ldots, x_n)$ is called **estimate**. For example, $g(x_1,\ldots, x_n)=\displaystyle \frac{1}{n}\sum_i x_i$ is estimate for expected value $\theta=\mathbb E X$.
+The resulting numerical value $g(x_1,\ldots, x_n)$ is called **estimate**. For example, $g(x_1,\ldots, x_n)=\displaystyle \frac{1}{n}\sum_i x_i$ is an estimate for expected value $\theta=\mathbb E X$.
 
 ***
 
@@ -1386,15 +1386,15 @@ The starting point is the point estimator $\displaystyle\frac{\overline X-\mu}{S
 - The following applies: $\displaystyle \frac{\overline X-\mu}{S/\sqrt{n}}\sim t(n-1)$, where $t(n-1)$ is a Student $t $ distribution with parameters
   denotes $n-1$, and thus:
 \begin{equation*}
-    \mathbb P\left(-t_{1-\alpha/2}(n-1) \leq \frac{\overline X-\mu}{S/\sqrt{n}}\leq
-    t_{1-\alpha/2}(n-1)\right) = 1-\alpha,
+    \mathbb P\left(-t_{1-\alpha/2,(n-1) }\leq \frac{\overline X-\mu}{S/\sqrt{n}}\leq
+    t_{1-\alpha/2,(n-1)}\right) = 1-\alpha,
 \end{equation*}
   with $t_{1-\alpha/2}(n-1)$ the corresponding quantile of the $t$ distribution.
 
 - Reshaping gives the confidence interval
 \begin{equation*}
-    \left[\overline X-t_{1-\alpha/2}(n-1) \frac{S}{\sqrt{n}},
-      \overline X + t_{1-\alpha/2}(n-1) \frac{S}{\sqrt{n}}\right].
+    \left[\overline X-t_{1-\alpha/2,(n-1)} \frac{S}{\sqrt{n}},
+      \overline X + t_{1-\alpha/2,(n-1)} \frac{S}{\sqrt{n}}\right].
 \end{equation*}
 
 ::: {.example #intsch22 name="Monthly returns"}
@@ -1682,8 +1682,8 @@ $(1-\alpha)$ confidence interval for $\sigma^2$ for a normally distributed chara
 
 The two-sided confidence interval is determined by the limits
 \begin{equation*}
-      \left[\frac{(n-1)S^2}{q_{1-\alpha/2}(n-1)} ,
-      \frac{(n-1)S^2}{q_{\alpha/2}(n-1)}\right].
+      \left[\frac{(n-1)S^2}{q_{1-\alpha/2,(n-1)}} ,
+      \frac{(n-1)S^2}{q_{\alpha/2,(n-1)}}\right].
 \end{equation*}
 
 Note that - in contrast to the normal or $t$ distribution - the $\chi^2$ distribution is not symmetric.
@@ -1698,16 +1698,16 @@ Example \@ref(exm:intsch22) cont.
 - Quantiles:
 $$
 \begin{array}[t]{rcl}
-      q_{\alpha/2}(n-1) &=& q_{0.025}(11) =
+      q_{\alpha/2,(n-1)} &=& q_{0.025,(11)} =
                                 3.8157\\
-     q_{1-\alpha/2}(n-1) &=& q_{0.975}(11) = 21.9200
+     q_{1-\alpha/2,(n-1) }&=& q_{0.975,(11)} = 21.9200
     \end{array}
 $$
 
 - Confidence interval:
 \[\begin{align*}
-      &\left[\frac{(n-1)S^2}{q_{1-\alpha/2}(n-1)} ,
-      \frac{(n-1)S^2}{q_{\alpha/2}(n-1)}\right]=\\\\
+      &\left[\frac{(n-1)S^2}{q_{1-\alpha/2(n-1)}} ,
+      \frac{(n-1)S^2}{q_{\alpha/2(n-1)}}\right]=\\\\
    & \left[\frac{11\cdot 0.2284}{21.9200}, \frac{11\cdot
         0.2284}{3.8157}\right]
     = \left[0.1146; 0.6584\right]

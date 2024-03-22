@@ -279,7 +279,7 @@ Returning to our example \@ref(exm:linreg):
 
 Now we use historical data on the amount of orders and the information on app usage to estimate the parameters of the linear relationship assumed.
 
-The output of running a linear regression is:
+The output of running a linear regression in gretl is:
 
 ```{r,echo=F}
 n=100
@@ -301,24 +301,28 @@ no=a+b1*app+b2*times+0.1*rnorm(n) # average of 6 months
 #sd(no) # real sd 1.431782/sqrt(6)
 norders<-no
 
+# df<-data.frame(norders,app,times)
+# write.csv(df, file="norders.csv")
+
 mod<-lm(norders~app)
 out<-summary(mod)
 ```
 
-![](images/linreg2.png){width=70%}
+![](images/linreg2gr.png){width=70%}
 
 
-We see, that the estimates are:
+We see, that the estimates are ($\color{green}{n=100}$):
 
-\[\hat\alpha=`r round(mod$coefficients[1],4)`\]
+\[\hat\alpha=`r round(mod$coefficients[1],4)` \leadsto \text{const}\]
 
 and
 
-\[\hat\beta=`r round(mod$coefficients[2],4)`.\]
+\[\hat\beta=`r round(mod$coefficients[2],4)`\leadsto \text{app}.\]
 
-The estimated residual standard deviation is:
+The estimated residual standard deviation can be deduced from the **sum of squared residuals** ($\sum_{i=1}^n\hat\varepsilon_i^2$), contained in the output, as:
 
-\[\hat \sigma_\varepsilon = 0.4534.\]
+
+\[\hat \sigma_\varepsilon = \sqrt{\frac{\color{blue}{\sum_{i=1}^n\hat\varepsilon_i^2}}{\color{green}{n}-2}} = \sqrt{\frac{\color{blue}{20.14512}}{98}}=0.4534.\]
 
 <!--Now we have a formula for forecasting the average amount of orders using the information on app usage:
 
@@ -360,9 +364,10 @@ For $n>30$ the $t$ quantiles can be replaced by $N(0,1)$ quantiles
 
 For our linear model in example \@ref(exm:linreg2), we can confidence intervall for the coefficients based on the results returned.
 
-![](images/linreg3.png){width=70%}
+![](images/linreg3gr.png){width=70%}
 
-- \(95\%\)-CI for \(\hat\alpha\) (\(n=100\)):
+- \(95\%\CI for \(\hat\alpha\) (\(\color{green}{n=100}\)):
+)-CI for \(\hat\alpha\) (\(n=100\)):
 
 \[[`r round(mod$coefficients[1],4)` - t_{0.975, 98}\cdot `r round(out$coefficients[1,2],4)`; `r round(mod$coefficients[1],4)` + t_{0.975, 98}\cdot `r round(out$coefficients[1,2],4)`] = [`r round(mod$coefficients[1]- qt(0.975,98)*out$coefficients[1,2],4)`; `r round(mod$coefficients[1]+ qt(0.975,98)*out$coefficients[1,2],4)`]\]
 
@@ -418,9 +423,9 @@ The relevant test type is the $t$-test.The $t$-test should be used to test
 
 For our linear model in example \@ref(exm:linreg2), we can conduct significance testing based on the results returned.
 
-![](images/linreg4.png){width=70%}
+![](images/linreg4gr.png){width=70%}
 
-Since both $p$-values are very small, we reject the Null hypothesis of zero coefficients. Of course, we can also use the $t$-values (the $t$-test statistics values) and check whether they lie in the rejection region instead.
+Since both $p$-values are very small ([scientific notation](https://en.wikipedia.org/wiki/Scientific_notation)), we reject the Null hypothesis of zero coefficients. Of course, we can also use the $t$-values (the $t$-ratio) and check whether they lie in the rejection region instead.
 
 :::
 
@@ -431,7 +436,7 @@ Besides the significance tests, also other hypothesis can be tested using the re
 
 For our linear model in example \@ref(exm:linreg2), we can test the hypothesis whether the obtained \(\beta\) is significantly smaller than \(1.\) based on the results returned.
 
-![](images/linreg3.png){width=70%}
+![](images/linreg3gr.png){width=70%}
 
 - Hypothesis: \(H_0: \beta=1\) vs \(H_1: \beta<1\)
 
@@ -475,7 +480,7 @@ It holds $0\leq R^2\leq 1$, where $R^2=0$ the uncorrelated case, and $R^2=1$ the
 
 Let us take a look on the output of running a linear regression is from example \@ref(exm:linreg) again.
 
-![](images/linreg5.png){width=70%}
+![](images/linreg5gr.png){width=70%}
 
 Now we have a formula for forecasting the average amount of orders using the information on app usage:
 
@@ -491,7 +496,7 @@ Using the result above, we can now forecast the average amount of orders dependi
 
 \[norders \approx `r round(mod$coefficients[1],4)` + `r round(mod$coefficients[2],4)`\cdot 0 = `r round(mod$coefficients[1]+ mod$coefficients[2]*0,4)`.\]
 
-With our model, we explained a fairly large proportion \(43.2\%\) of the variation in the number of orders data.
+With our model, we explained a fairly large proportion \({43.2\%}\) of the variation in the number of orders data as indicated by \(\color{orange}{R^2}\).
 
 :::
 
@@ -742,7 +747,7 @@ out2<-summary(mod2)
 
 ```
 
-![](images/linreg6.png)
+![](images/linreg6gr.png){width=70%}
 
 
 - Function to forecast the number of orders:

@@ -1,4 +1,0 @@
-"0","  "
-"0","  "
-"0","  text(-bpm-1,0.45,"
-"0","       paste0(""P(T<"",-round(bpm,3),"")="",round(pt(-bpm,frg),3)),col=alpha(3,0.3))"

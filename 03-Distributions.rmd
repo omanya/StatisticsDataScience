@@ -873,7 +873,7 @@ $$
 
 ::: {#q32 .quiz }
 
-```{js}
+```{js, echo=F}
 
 
 // Generate a random question
@@ -903,7 +903,7 @@ $$
   <button onclick="checkAnswer_match(questionObj39)">Submit</button>
   <p id="result39"></p>
 
-```{js}
+```{js, echo=F}
     // Display the question
     document.getElementById('question-text39').textContent = questionObj39.question;
 
@@ -925,7 +925,7 @@ $$
     questionObj310.answer = 4
 ```
 
-```{js}
+```{js, echo=F}
   // Generate a random question
     const questionObj311 = {
       question: 'Five buses have already left without air conditioning. So you give up and go to the S-Bahn - at least you can open the windows there. S-Bahn traffic is once again irregular due to a police operation. On average, \\(2\\) S-Bahn trains run every hour at irregular intervals. If \\(Y = \\)"The number of S-Bahn trains that will run in the next \\(15\\) minutes" is modeled, then:',
@@ -1336,7 +1336,7 @@ since these random variables represent a linear combination of independent, norm
 ```
 
 
-```{js}
+```{js, echo=F}
   // Generate a random question
     const questionObj317 = {
       question: "Now we are interested in the random variable \\(Z=\\) 'Number of weeks in the year when the inventory is not sufficient' (hint: \\(52\\) weeks in the year). How is \\(Z\\) distributed?",
