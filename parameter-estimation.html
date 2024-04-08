@@ -23,7 +23,7 @@
 <meta name="author" content="Maria Osipenko" />
 
 
-<meta name="date" content="2024-02-23" />
+<meta name="date" content="2024-04-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1278,14 +1278,14 @@ and a <span class="math inline">\((1-\alpha)\)</span> confidence interval is giv
 <li><p>The following applies: <span class="math inline">\(\displaystyle \frac{\overline X-\mu}{S/\sqrt{n}}\sim t(n-1)\)</span>, where <span class="math inline">\(t(n-1)\)</span> is a Student $t $ distribution with parameters
 denotes <span class="math inline">\(n-1\)</span>, and thus:
 <span class="math display">\[\begin{equation*}
-  \mathbb P\left(-t_{1-\alpha/2}(n-1) \leq \frac{\overline X-\mu}{S/\sqrt{n}}\leq
-  t_{1-\alpha/2}(n-1)\right) = 1-\alpha,
+  \mathbb P\left(-t_{1-\alpha/2,(n-1) }\leq \frac{\overline X-\mu}{S/\sqrt{n}}\leq
+  t_{1-\alpha/2,(n-1)}\right) = 1-\alpha,
 \end{equation*}\]</span>
 with <span class="math inline">\(t_{1-\alpha/2}(n-1)\)</span> the corresponding quantile of the <span class="math inline">\(t\)</span> distribution.</p></li>
 <li><p>Reshaping gives the confidence interval
 <span class="math display">\[\begin{equation*}
-  \left[\overline X-t_{1-\alpha/2}(n-1) \frac{S}{\sqrt{n}},
-    \overline X + t_{1-\alpha/2}(n-1) \frac{S}{\sqrt{n}}\right].
+  \left[\overline X-t_{1-\alpha/2,(n-1)} \frac{S}{\sqrt{n}},
+    \overline X + t_{1-\alpha/2,(n-1)} \frac{S}{\sqrt{n}}\right].
 \end{equation*}\]</span></p></li>
 </ul>
 <div class="example">
@@ -1538,8 +1538,8 @@ function checkAnswer_num2(q) {
 <p><span class="math inline">\((1-\alpha)\)</span> confidence interval for <span class="math inline">\(\sigma^2\)</span> for a normally distributed characteristic</p>
 <p>The two-sided confidence interval is determined by the limits
 <span class="math display">\[\begin{equation*}
-      \left[\frac{(n-1)S^2}{q_{1-\alpha/2}(n-1)} ,
-      \frac{(n-1)S^2}{q_{\alpha/2}(n-1)}\right].
+      \left[\frac{(n-1)S^2}{q_{1-\alpha/2,(n-1)}} ,
+      \frac{(n-1)S^2}{q_{\alpha/2,(n-1)}}\right].
 \end{equation*}\]</span></p>
 <p>Note that - in contrast to the normal or <span class="math inline">\(t\)</span> distribution - the <span class="math inline">\(\chi^2\)</span> distribution is not symmetric.</p>
 <hr />
@@ -1550,15 +1550,15 @@ function checkAnswer_num2(q) {
 <li><p>Quantiles:
 <span class="math display">\[
 \begin{array}[t]{rcl}
-    q_{\alpha/2}(n-1) &amp;=&amp; q_{0.025}(11) =
+    q_{\alpha/2,(n-1)} &amp;=&amp; q_{0.025,(11)} =
                               3.8157\\
-   q_{1-\alpha/2}(n-1) &amp;=&amp; q_{0.975}(11) = 21.9200
+   q_{1-\alpha/2,(n-1) }&amp;=&amp; q_{0.975,(11)} = 21.9200
   \end{array}
 \]</span></p></li>
 <li><p>Confidence interval:
 <span class="math display">\[\begin{align*}
-    &amp;\left[\frac{(n-1)S^2}{q_{1-\alpha/2}(n-1)} ,
-    \frac{(n-1)S^2}{q_{\alpha/2}(n-1)}\right]=\\\\
+    &amp;\left[\frac{(n-1)S^2}{q_{1-\alpha/2(n-1)}} ,
+    \frac{(n-1)S^2}{q_{\alpha/2(n-1)}}\right]=\\\\
 &amp; \left[\frac{11\cdot 0.2284}{21.9200}, \frac{11\cdot
       0.2284}{3.8157}\right]
   = \left[0.1146; 0.6584\right]

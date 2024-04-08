@@ -23,7 +23,7 @@
 <meta name="author" content="Maria Osipenko" />
 
 
-<meta name="date" content="2024-02-23" />
+<meta name="date" content="2024-04-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -463,14 +463,14 @@ with <strong>residuals</strong> <span class="math inline">\(\hat\varepsilon_i=Y_
 <p>Returning to our example <a href="regression-analysis.html#exm:linreg">7.1</a>:</p>
 <div class="example">
 <p><span id="exm:linreg2" class="example"><strong>Example 7.2  (Forecasting number of orders) </strong></span>Now we use historical data on the amount of orders and the information on app usage to estimate the parameters of the linear relationship assumed.</p>
-<p>The output of running a linear regression is:</p>
-<p><img src="images/linreg2.png" style="width:70.0%" /></p>
-<p>We see, that the estimates are:</p>
-<p><span class="math display">\[\hat\alpha=2.85\]</span></p>
+<p>The output of running a linear regression in gretl is:</p>
+<p><img src="images/linreg2gr.png" style="width:70.0%" /></p>
+<p>We see, that the estimates are (<span class="math inline">\(\color{green}{n=100}\)</span>):</p>
+<p><span class="math display">\[\hat\alpha=2.85 \leadsto \text{const}\]</span></p>
 <p>and</p>
-<p><span class="math display">\[\hat\beta=0.8108.\]</span></p>
-<p>The estimated residual standard deviation is:</p>
-<p><span class="math display">\[\hat \sigma_\varepsilon = 0.4534.\]</span></p>
+<p><span class="math display">\[\hat\beta=0.8108\leadsto \text{app}.\]</span></p>
+<p>The estimated residual standard deviation can be deduced from the <strong>sum of squared residuals</strong> (<span class="math inline">\(\sum_{i=1}^n\hat\varepsilon_i^2\)</span>), contained in the output, as:</p>
+<p><span class="math display">\[\hat \sigma_\varepsilon = \sqrt{\frac{\color{blue}{\sum_{i=1}^n\hat\varepsilon_i^2}}{\color{green}{n}-2}} = \sqrt{\frac{\color{blue}{20.14512}}{98}}=0.4534.\]</span></p>
 <!--Now we have a formula for forecasting the average amount of orders using the information on app usage:
 
 \[norders \approx 2.85 + 0.8108\cdot app.\]
@@ -505,9 +505,10 @@ be replaced. If the normal distribution assumption is not met, the above results
 for sufficiently large <span class="math inline">\(n\)</span>.</p>
 <div class="example">
 <p><span id="exm:linreg3" class="example"><strong>Example 7.3  (Forecasting number of orders) </strong></span>For our linear model in example <a href="regression-analysis.html#exm:linreg2">7.2</a>, we can confidence intervall for the coefficients based on the results returned.</p>
-<p><img src="images/linreg3.png" style="width:70.0%" /></p>
+<p><img src="images/linreg3gr.png" style="width:70.0%" /></p>
 <ul>
-<li><span class="math inline">\(95\%\)</span>-CI for <span class="math inline">\(\hat\alpha\)</span> (<span class="math inline">\(n=100\)</span>):</li>
+<li><span class="math inline">\(95\%\CI for \(\hat\alpha\)</span> (<span class="math inline">\(\color{green}{n=100}\)</span>):
+)-CI for <span class="math inline">\(\hat\alpha\)</span> (<span class="math inline">\(n=100\)</span>):</li>
 </ul>
 <p><span class="math display">\[[2.85 - t_{0.975, 98}\cdot 0.0745; 2.85 + t_{0.975, 98}\cdot 0.0745] = [2.7021; 2.9979]\]</span></p>
 <ul>
@@ -554,13 +555,13 @@ or <span class="math inline">\(\beta\)</span> makes sense in the regression equ
 </ul>
 <div class="example">
 <p><span id="exm:linreg4" class="example"><strong>Example 7.4  (Forecasting number of orders) </strong></span>For our linear model in example <a href="regression-analysis.html#exm:linreg2">7.2</a>, we can conduct significance testing based on the results returned.</p>
-<p><img src="images/linreg4.png" style="width:70.0%" /></p>
-<p>Since both <span class="math inline">\(p\)</span>-values are very small, we reject the Null hypothesis of zero coefficients. Of course, we can also use the <span class="math inline">\(t\)</span>-values (the <span class="math inline">\(t\)</span>-test statistics values) and check whether they lie in the rejection region instead.</p>
+<p><img src="images/linreg4gr.png" style="width:70.0%" /></p>
+<p>Since both <span class="math inline">\(p\)</span>-values are very small (<a href="https://en.wikipedia.org/wiki/Scientific_notation">scientific notation</a>), we reject the Null hypothesis of zero coefficients. Of course, we can also use the <span class="math inline">\(t\)</span>-values (the <span class="math inline">\(t\)</span>-ratio) and check whether they lie in the rejection region instead.</p>
 </div>
 <p>Besides the significance tests, also other hypothesis can be tested using the results. For example, we could test, whether the obtained <span class="math inline">\(\beta\)</span> is significantly smaller than <span class="math inline">\(1.\)</span></p>
 <div class="example">
 <p><span id="exm:linreg5" class="example"><strong>Example 7.5  (Forecasting number of orders) </strong></span>For our linear model in example <a href="regression-analysis.html#exm:linreg2">7.2</a>, we can test the hypothesis whether the obtained <span class="math inline">\(\beta\)</span> is significantly smaller than <span class="math inline">\(1.\)</span> based on the results returned.</p>
-<p><img src="images/linreg3.png" style="width:70.0%" /></p>
+<p><img src="images/linreg3gr.png" style="width:70.0%" /></p>
 <ul>
 <li><p>Hypothesis: <span class="math inline">\(H_0: \beta=1\)</span> vs <span class="math inline">\(H_1: \beta&lt;1\)</span></p></li>
 <li><p>Test statistics value: <span class="math display">\[t=\frac{0.8108 - 1}{0.0939} = -2.0152\]</span></p></li>
@@ -592,7 +593,7 @@ the variance of the sample <span class="math inline">\((y_1,\ldots, y_n)\)</span
 <p>It holds <span class="math inline">\(0\leq R^2\leq 1\)</span>, where <span class="math inline">\(R^2=0\)</span> the uncorrelated case, and <span class="math inline">\(R^2=1\)</span> the case of a perfect linear relationship between the features <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</p>
 <div class="example">
 <p><span id="exm:linreg5" class="example"><strong>Example 7.5  (Forecasting number of orders) </strong></span>Let us take a look on the output of running a linear regression is from example <a href="regression-analysis.html#exm:linreg">7.1</a> again.</p>
-<p><img src="images/linreg5.png" style="width:70.0%" /></p>
+<p><img src="images/linreg5gr.png" style="width:70.0%" /></p>
 <p>Now we have a formula for forecasting the average amount of orders using the information on app usage:</p>
 <p><span class="math display">\[norders \approx 2.85 + 0.8108\cdot app.\]</span></p>
 <p>Using the result above, we can now forecast the average amount of orders depending on whether a customer uses the app or not.</p>
@@ -604,7 +605,7 @@ the variance of the sample <span class="math inline">\((y_1,\ldots, y_n)\)</span
 <li>for a web user, we have:</li>
 </ul>
 <p><span class="math display">\[norders \approx 2.85 + 0.8108\cdot 0 = 2.85.\]</span></p>
-<p>With our model, we explained a fairly large proportion <span class="math inline">\(43.2\%\)</span> of the variation in the number of orders data.</p>
+<p>With our model, we explained a fairly large proportion <span class="math inline">\({43.2\%}\)</span> of the variation in the number of orders data as indicated by <span class="math inline">\(\color{orange}{R^2}\)</span>.</p>
 </div>
 <!--::: {.example #linregth name="Log-linearized demand"}
 
@@ -834,7 +835,7 @@ Submit
   \beta&amp;=(\bf{X}^\top \bf{X})^{-1}\, \bf{X}^\top\, \bf{Y}
   \end{align*}\]</span></li>
 </ul>
-<p><img src="images/linreg6.png" style="width:70.0%" /></p>
+<p><img src="images/linreg6gr.png" style="width:70.0%" /></p>
 <ul>
 <li><p>Function to forecast the number of orders:
 <span class="math display">\[norders\approx 2.0121 + 0.7941\cdot app + 0.0198\cdot times.\]</span></p></li>

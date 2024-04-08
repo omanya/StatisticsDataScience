@@ -23,7 +23,7 @@
 <meta name="author" content="Maria Osipenko" />
 
 
-<meta name="date" content="2024-02-23" />
+<meta name="date" content="2024-04-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -590,7 +590,7 @@ and the given level <span class="math inline">\(\alpha\)</span></p></li>
       (c) \quad &amp; H_0:\mu=\mu_0\quad\text{ versus } \quad H_1:\mu&gt;\mu_0.
 \end{align*}\]</span></p>
 <p>and test statistics:</p>
-<p><span class="math display">\[\displaystyle Z= \frac{\overline X-\mu_0}{\sigma/ \sqrt{n}}\stackrel{\text{approx.}}{\sim} N(0,1).\]</span></p>
+<p><span class="math display">\[\displaystyle Z= \frac{\overline X-\mu_0}{\sigma/ \sqrt{n}}\stackrel{}{\sim} N(0,1).\]</span></p>
 <p>Based on the test statistic <span class="math inline">\(Z\)</span>, the decision in favor of <span class="math inline">\(H_1\)</span> in the test problem:</p>
 <p><span class="math display">\[\begin{align*}
       (a),\quad&amp; \text{ if } |z|&gt;N_{1-\alpha/2}\\
@@ -642,13 +642,13 @@ identically distributed with <span class="math inline">\(X\sim N(\mu,\sigma^2)\)
 <li>Rejection region:</li>
 </ul>
 <p><span class="math display">\[\begin{align*}
-\text{(a)} \quad &amp; |t|&gt;t_{1-\alpha/2}(n-1)\\
-\text{(b)} \quad &amp; t&lt;t_\alpha(n-1)=-t_{1-\alpha}(n-1)\\
-\text{(c)} \quad &amp; t&gt;t_{1-\alpha}(n-1)
+\text{(a)} \quad &amp; |t|&gt;t_{1-\alpha/2(n-1)}\\
+\text{(b)} \quad &amp; t&lt;t_{\alpha(n-1)}=-t_{1-\alpha(n-1)}\\
+\text{(c)} \quad &amp; t&gt;t_{1-\alpha(n-1)}
 \end{align*}\]</span></p>
 <ul>
 <li>For <span class="math inline">\(n &gt; 30\)</span> quantiles of <span class="math inline">\(t(n-1)\)</span> can be replaced by the quantiles of
-<span class="math inline">\(N(0,1)\)</span> because for more thatn <span class="math inline">\(30\)</span> degrees of freedom, <span class="math inline">\(t\)</span>-distribution can be well-approximated by the normal distribution.</li>
+<span class="math inline">\(N(0,1)\)</span> because for more than <span class="math inline">\(30\)</span> degrees of freedom, <span class="math inline">\(t\)</span>-distribution can be well-approximated by the normal distribution.</li>
 </ul>
 <div class="example">
 <p><span id="exm:testt" class="example"><strong>Example 6.7  (Quality inspection of pencils) </strong></span>Example <a href="hypothesis-testing.html#exm:testgauss">6.6</a> cont.</p>
