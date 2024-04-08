@@ -168,3 +168,17 @@ interval-estimators
 testing-in-linear-regression-model
 forecast-in-linear-regression-models
 multivariate-linear-regression
+fig:unnamed-chunk-3
+fig:unnamed-chunk-4
+fig:unnamed-chunk-21
+fig:unnamed-chunk-22
+fig:unnamed-chunk-24
+fig:unnamed-chunk-25
+fig:unnamed-chunk-38
+approximation-von-binomialverteilten-zufallsvariablen
+def:defexpect
+def:defvar
+def:defcov
+def:defexpectcont
+def:defvarcont
+def:defquant
