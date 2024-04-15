@@ -23,7 +23,7 @@
 <meta name="author" content="Maria Osipenko" />
 
 
-<meta name="date" content="2024-04-09" />
+<meta name="date" content="2024-04-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -660,7 +660,7 @@ Figure 3.5: Binomial distribution with n=500 and p=0.01
     const questionObj38 = generateQuestion_num(38);
 // Display the question
     document.getElementById('question-text38').textContent = "is therefore:";
-    questionObj38.answer = binomialCDF(Math.floor(questionObj35.question[0]*8),(questionObj35.question[0]*10),0.25)
+    questionObj38.answer = 1-binomialCDF(Math.floor(questionObj35.question[0]*8),(questionObj35.question[0]*10),0.25)
 </script>
 </div>
 <!--::: {.exercise name="Discrete distributions"}
@@ -887,7 +887,7 @@ $$
 <script>
   // Generate a random question
     const questionObj311 = {
-      question: 'Five buses have already left without air conditioning. So you give up and go to the S-Bahn - at least you can open the windows there. S-Bahn traffic is once again irregular due to a police operation. On average, \\(2\\) S-Bahn trains run every hour at irregular intervals. If \\(Y = \\)"The number of S-Bahn trains that will run in the next \\(15\\) minutes" is modeled, then:',
+      question: 'Five buses have already left without air conditioning. So you give up and go to the S-Bahn - at least you can open the windows there. S-Bahn traffic is once again irregular due to a police operation. On average, \\(2\\) S-Bahn trains run every hour at irregular intervals. If \\(Y = \\)"The number of S-Bahn trains that will run in the next \\(15\\) minutes" is modeled, then \\(Y\\sim\\):',
       options: ['\\(Ber(0.5)\\)', '\\(B(n=4,p=0.5)\\)', ' \\(G(p=0.5)\\)', '\\(Poi(\\lambda=0.5)\\)'],
       answer: '4',
       id: 311
@@ -964,7 +964,7 @@ Figure 3.8: Distributional models for continuous random variables
       \exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right), \quad x\in \mathbb R.
 \end{equation*}\]</span></p>
 <ul>
-<li><p>Key figures:
+<li><p>Key parameters:
 <span class="math display">\[\begin{equation*}
     \mathbb E(X)=\mu\quad\text{ and }\quad \text{Var}(X)=\sigma^2.
 \end{equation*}\]</span></p></li>
@@ -1034,7 +1034,7 @@ Figure 3.9: Distributional models for continuous random variables
 <li><p><span class="math inline">\(X_i\sim N(\mu_X,\sigma_X^2)\)</span> by assumption, since we are selecting from a normally distributed population.</p></li>
 <li><p><span class="math inline">\(X_i\)</span> independent, as you move with replacement</p></li>
 <li><p><span class="math inline">\(\bar X = \frac 1n\sum_{i=1}^n\)</span> using the additive property of the normal distribution,</p></li>
-<li><p><span class="math inline">\(\bar X\sim N(\mu_X,\frac{\sigma_X^2}n)\)</span>, since <span class="math inline">\(\mathbb E(\bar n X_i) = \frac 1n\cdot n\cdot \mu_X\)</span> and <span class="math inline">\(\text{Var}(\bar frac 1{n^2}\cdot n\cdot \sigma_X^2\)</span>.</p></li>
+<li><p><span class="math inline">\(\bar X\sim N(\mu_X,\frac{\sigma_X^2}n)\)</span>, since <span class="math inline">\(\mathbb E(\bar n X_i) = \frac 1n\cdot n\cdot \mu_X\)</span> and <span class="math inline">\(\text{Var}(\bar \frac 1{n^2}\cdot n\cdot \sigma_X^2\)</span>.</p></li>
 <li><p>Or <span class="math inline">\(\frac{\bar X-\mu_X}{\frac{\sigma_X}{\sqrt n}}\sim N(0;1)\)</span>.</p></li>
 </ul>
 </div>
@@ -1047,13 +1047,13 @@ Figure 3.9: Distributional models for continuous random variables
 <p>These include:</p>
 <ul>
 <li><span class="math inline">\(Y_1,\ldots, Y_n\)</span>: observable metric random variable;</li>
-<li><span class="math inline">\(x_1,\ldots, x_n\)</span>: given deterministic values ​​(or
-Realizations of a ZV <span class="math inline">\(X\)</span>);</li>
+<li><span class="math inline">\(x_1,\ldots, x_n\)</span>: given deterministic values (or
+Realizations of a rv <span class="math inline">\(X\)</span>);</li>
 <li><span class="math inline">\(\varepsilon_1, \ldots, \varepsilon_n\)</span>: unobservables
-ZV’s that are independent and identically distributed with
+rv’s that are independent and identically distributed with
 <span class="math inline">\(\mathbb E(\varepsilon_i)=0\)</span>, <span class="math inline">\(\text{Var}(\varepsilon_i)=\sigma^2\)</span>.</li>
 </ul>
-<p>Under the normal distribution assumption <span class="math inline">\(\varepsilon_i\sim N(0,\sigma^2)\quad i=1,\ldots,n\)</span> independent of <span class="math inline">\(X_i\sim N(\mu_X,\sigma_X^2)\)</span> (in case $X $ random) applies:</p>
+<p>Under the normal distribution assumption <span class="math inline">\(\varepsilon_i\sim N(0,\sigma^2)\quad i=1,\ldots,n\)</span> independent of <span class="math inline">\(X_i\sim N(\mu_X,\sigma_X^2)\)</span> (in case <span class="math inline">\(X\)</span> random) applies:</p>
 <p><span class="math display">\[\begin{equation*}
       Y_i\sim N(\alpha+ \beta x_i,\sigma^2), \quad i=1,\ldots,n.
 \end{equation*}\]</span></p>
@@ -1111,7 +1111,7 @@ ZV’s that are independent and identically distributed with
  // Generate a random question
     const questionObj315 = generateQuestion_num(315);
 // Display the question
-    document.getElementById('question-text315').textContent = "The weekly demand for an art object in an online art store is normally distributed with mean \\(50\\) and standard deviation \\(5\\). The store typically has an inventory of \\(60\\) pieces and orders once a week.\\[\\] What is the probability that demand will not be met in a week?";
+    document.getElementById('question-text315').textContent = "The weekly demand for an art object in an online art store is normally distributed with mean \\(50\\) and standard deviation \\(5\\). The store typically has an inventory of \\(60\\) pieces and orders once a week.\\[\\] What is the probability that a week's demand will not be met?";
     questionObj315.answer = 1-normalCDF(60,50,5)
 </script>
 <p id="question">
@@ -1293,7 +1293,7 @@ Figure 3.11: Distributional models for continuous random variables
  // Generate a random question
     const questionObj319 = generateQuestion_num(319);
 // Display the question
-    document.getElementById('question-text319').textContent = "What is the probability that you will catch a subway after just one minute?";
+    document.getElementById('question-text319').textContent = "What is the probability that you catch a subway having waited for one minute at most?";
     questionObj319.answer = 0.2
 </script>
 <p id="question">
@@ -1418,7 +1418,7 @@ Figure 3.13: Einige t-Verteilungen
 <p><span class="math display">\[\begin{align}
 \frac{\bar X-\mu_X}{\frac{S_X}{\sqrt n}} &amp;= \frac{\overbrace{\frac{\bar X-\mu_X}{\sigma_X/\sqrt n}}^{N(0,1)}}{\underbrace{\sqrt\frac{(n-1)S^2_X}{\sigma^2_X}}_{()^2\sim \chi^2(n-1)}/\sqrt{n-1}}\sim t(n-1).
 \end{align}\]</span></p>
-<p>So a standard normally distributed ZV <span class="math inline">\(\frac{\bar /\sigma_X/(n-1)\)</span> (divided by the degrees of freedom of the latter) and by definition of the <span class="math inline">\(t\)</span> distribution <span class="math inline">\(\frac{\bar X-\mu_X}{\frac{S_X}{\sqrt n} So }\)</span> is <span class="math inline">\(t\)</span>-distributed with <span class="math inline">\(n-1\)</span> degrees of freedom.</p>
+<p>So a standard normally distributed rv <span class="math inline">\(\frac{\bar /\sigma_X/(n-1)\)</span> (divided by the degrees of freedom of the latter) and by definition of the <span class="math inline">\(t\)</span> distribution <span class="math inline">\(\frac{\bar X-\mu_X}{\frac{S_X}{\sqrt n} So }\)</span> is <span class="math inline">\(t\)</span>-distributed with <span class="math inline">\(n-1\)</span> degrees of freedom.</p>
 </div>
 <hr />
 <div class="example">
