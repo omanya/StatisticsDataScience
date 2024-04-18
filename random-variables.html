@@ -23,7 +23,7 @@
 <meta name="author" content="Maria Osipenko" />
 
 
-<meta name="date" content="2024-04-15" />
+<meta name="date" content="2024-04-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -421,8 +421,8 @@ f(x)&amp;=\begin{cases}\frac 59, \text{if }x=-1,\\
 \end{cases}
 \end{align}\]</span></li>
 </ul>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-18"></span>
-<img src="_main_files/figure-html/unnamed-chunk-18-1.png" alt="Probability function for X" width="80%" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-59"></span>
+<img src="_main_files/figure-html/unnamed-chunk-59-1.png" alt="Probability function for X" width="80%" />
 <p class="caption">
 Figure 2.1: Probability function for X
 </p>
@@ -442,8 +442,8 @@ F(x)=\begin{cases}
 <p><span class="math display">\[
 F(x)=\mathbb P(X\leq x) = \mathbb P(X=-1) + \mathbb P(X=6) =\frac 59+\frac 29 = \frac 79.
 \]</span></p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-19"></span>
-<img src="_main_files/figure-html/unnamed-chunk-19-1.png" alt="Distribution function for X" width="80%" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-60"></span>
+<img src="_main_files/figure-html/unnamed-chunk-60-1.png" alt="Distribution function for X" width="80%" />
 <p class="caption">
 Figure 2.2: Distribution function for X
 </p>
@@ -793,8 +793,8 @@ a_2=0&amp;0.08&amp;0.09&amp;0.13&amp;0.05&amp;0.03&amp;0.02\\
 <p><span class="math display">\[\begin{align}
 \text{Cov}(A,B)&amp;=\mathbb E(A\cdot B) - \mathbb E(A)\, \mathbb E(B)\\
 &amp;=1\cdot 1\cdot0.02  + 1\cdot 2\cdot0.06 + 1\cdot 3\cdot0.12 + 1\cdot 4\cdot0.2 \\
-&amp;+ 1\cdot 5\cdot0.12 + 1\cdot 6\cdot0.08  \text{ (für A=1 und B=1;2;$\ldots$ 6)} + \\
-&amp;+ 0\cdot 1\cdot0.08 + \dots + 0\cdot 6\cdot0.02\text{ (für A=0 und B=1;2;$\ldots$ 6)} - \\
+&amp;+ 1\cdot 5\cdot0.12 + 1\cdot 6\cdot0.08  \text{ (for A=1 and B=1;2;$\ldots$ 6)} + \\
+&amp;+ 0\cdot 1\cdot0.08 + \dots + 0\cdot 6\cdot0.02\text{ (for A=0 and B=1;2;$\ldots$ 6)} - \\
 &amp;- 0,6\cdot3,5 = 0,28.
 \end{align}\]</span></p>
 <ul>
@@ -832,8 +832,8 @@ so that for every interval <span class="math inline">\([a,b]\)</span> we have:
 <li><p>The <strong>point probability is zero</strong>: <span class="math inline">\(\mathbb P(X=x)=0\)</span> for all <span class="math inline">\(x\in \mathbb R\)</span> if <span class="math inline">\(X\)</span> represents a continuous random variable.</p></li>
 <li><p>Graphical representation:</p></li>
 </ul>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-33"></span>
-<img src="_main_files/figure-html/unnamed-chunk-33-1.png" alt="Example: Density function" width="80%" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-74"></span>
+<img src="_main_files/figure-html/unnamed-chunk-74-1.png" alt="Example: Density function" width="80%" />
 <p class="caption">
 Figure 2.3: Example: Density function
 </p>
@@ -864,8 +864,8 @@ Random variable is given as
 </ul></li>
 <li><p>Graphical representation:</p></li>
 </ul>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-34"></span>
-<img src="_main_files/figure-html/unnamed-chunk-34-1.png" alt="Example: Probability function of a continuous random variable" width="80%" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-75"></span>
+<img src="_main_files/figure-html/unnamed-chunk-75-1.png" alt="Example: Probability function of a continuous random variable" width="80%" />
 <p class="caption">
 Figure 2.4: Example: Probability function of a continuous random variable
 </p>
@@ -884,12 +884,12 @@ Figure 2.4: Example: Probability function of a continuous random variable
 <div class="example">
 <p><span id="exm:stZV" class="example"><strong>Example 2.6  (Time in the online shop as a continuous random variable) </strong></span>We model the random variable <span class="math inline">\(X=\)</span> time in the online shop in minutes as a continuous random variable with the density:</p>
 <p><span class="math display">\[
-f(x) = \begin{cases}0,001\cdot x , &amp;\text{ für } 0\leq x\leq 20,\\
-                      0,025 -0,00025\cdot x, &amp;\text{ für } 20&lt; x\leq 100.\end{cases}
+f(x) = \begin{cases}0,001\cdot x , &amp;\text{ for } 0\leq x\leq 20,\\
+                      0,025 -0,00025\cdot x, &amp;\text{ for } 20&lt; x\leq 100.\end{cases}
 \]</span></p>
 <p>That is,</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-36"></span>
-<img src="_main_files/figure-html/unnamed-chunk-36-1.png" alt="Probability density  of X=Time in online shop" width="80%" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-77"></span>
+<img src="_main_files/figure-html/unnamed-chunk-77-1.png" alt="Probability density  of X=Time in online shop" width="80%" />
 <p class="caption">
 Figure 2.5: Probability density of X=Time in online shop
 </p>
@@ -907,32 +907,52 @@ Figure 2.5: Probability density of X=Time in online shop
   &amp;= 1- \text{Area of the transparent triagle} = 1-\frac{1}{2}\cdot 40\cdot 0,01 = 0,8.
   \end{align}\]</span></p></li>
 </ul>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-37"></span>
-<img src="_main_files/figure-html/unnamed-chunk-37-1.png" alt="Probability density of X=Time in online shop with probabilities as areas under the density fucntion." width="80%" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-78"></span>
+<img src="_main_files/figure-html/unnamed-chunk-78-1.png" alt="Probability density of X=Time in online shop with probabilities as areas under the density fucntion." width="80%" />
 <p class="caption">
 Figure 2.6: Probability density of X=Time in online shop with probabilities as areas under the density fucntion.
 </p>
 </div>
-<p>Computing the cumulative probability function from the density function:</p>
+</div>
+<div class="example">
+<p><span id="exm:stZV" class="example"><strong>Example 2.6  (Time in the online shop as a continuous random variable II) </strong></span>Computing the <strong>cumulative probability function</strong> from the density function:</p>
+<p><span class="math display">\[F(x)=\int_{-\infty}^{x}\overbrace{f(t)}^{density~of~X}dt\stackrel{x&gt;0}{=}\int_{0}^{x}f(t)dt.\]</span></p>
+<p>Since the density change form depending on whether <span class="math inline">\(0&lt;x\leq 20\)</span> or <span class="math inline">\(20&lt;x \leq100\)</span>, we have to consider the following cases:</p>
+<div class="row">
+<div class="column" style="width:40%;">
 <ol style="list-style-type: decimal">
 <li>case: <span class="math inline">\(x\in [{0},{20}]\)</span>:</li>
 </ol>
+</div>
+<div class="column" style="width:35%;">
+<p><img src="_main_files/figure-html/unnamed-chunk-79-1.png" width="672" /></p>
+</div>
+</div>
 <p><span class="math display">\[\begin{align}
-F(x) &amp;= \int_{{0}}^x f(t)~ dt = \int_{0}^x (0,001\cdot t )~ dt=\Big[0,001\cdot \frac{t^2}2 \Big]_{0}^x \\
-&amp; = 0,001\cdot \frac{x^2}2  - (0,001\cdot \frac{0^2}2 )\\
-&amp;=0,0005x^2.
+F(x) &amp;= \int_{{0}}^x f(t)~ dt = \int_{0}^x (0.001\cdot t )~ dt=\left[0.001\cdot \frac{t^2}2 0\right]_{0}^x \\
+&amp; = 0.001\cdot \frac{x^2}2  - \left(0.001\cdot \frac{0^2}2 \right)\\
+&amp;=0.0005x^2.
 \end{align}\]</span></p>
+<div class="row">
+<div class="column" style="width:40%;">
 <ol start="2" style="list-style-type: decimal">
-<li>case: <span class="math inline">\(x\in ({20},{100}]\)</span>:
-<span class="math display">\[\begin{align}
-\displaystyle F(x) &amp;= \int_{0}^x f(t)~ dt\\
-&amp;= \int_{0}^{20} (0,001\cdot t )~ dt + \int_{20}^x (0,025 -0,00025\cdot t)~ dt\\
-&amp;=0,2 + \big[0,025\cdot t -0,00025\cdot \frac{t^2}2 \big]_{20}^x\\
-&amp;=0,2 + 0,025\cdot x -0,00025\cdot \frac{x^2}2 - (0,025\cdot 20 -0,00025\cdot \frac{20^2}2) \\
-&amp;= -0.25 + 0.025x -0.000125x^2.
-\end{align}\]</span></li>
+<li>case: <span class="math inline">\(x\in ({20},{100}]\)</span>:</li>
 </ol>
-<p>That is:</p>
+</div>
+<div class="column" style="width:35%;">
+<p><img src="_main_files/figure-html/unnamed-chunk-81-1.png" width="672" /></p>
+</div>
+</div>
+<p><span class="math display">\[\begin{align}
+\displaystyle F(x) &amp;= \int_{0}^x f(t)~ dt\\
+&amp;= \int_{0}^{20} (0.001\cdot t )~ dt + \int_{20}^x (0.025 -0.00025\cdot t)~ dt\\
+&amp;=0.2 + \left[0.025\cdot t -0.00025\cdot \frac{t^2}2 \right]_{20}^x\\
+&amp;=0.2 + 0.025\cdot x -0.00025\cdot \frac{x^2}2 - \left(0.025\cdot 20 -0.00025\cdot \frac{20^2}2\right) \\
+&amp;= -0.25 + 0.025x -0.000125x^2.
+\end{align}\]</span></p>
+<p>:::{.row}
+::: {.column width=“60%”}
+That is:</p>
 <p><span class="math display">\[
 F(x) =
     \begin{cases}
@@ -942,8 +962,8 @@ F(x) =
     1,&amp;x&gt;100.
     \end{cases}
 \]</span></p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-39"></span>
-<img src="_main_files/figure-html/unnamed-chunk-39-1.png" alt="Cumulative distribution function of X=Time in online shop" width="80%" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-82"></span>
+<img src="_main_files/figure-html/unnamed-chunk-82-1.png" alt="Cumulative distribution function of X=Time in online shop" width="80%" />
 <p class="caption">
 Figure 2.7: Cumulative distribution function of X=Time in online shop
 </p>
@@ -956,8 +976,8 @@ Figure 2.7: Cumulative distribution function of X=Time in online shop
   \mathbb P(X&gt;30)&amp;=1-\mathbb P(X\leq30)= 1-F(30) \\&amp;= 1-(-0.25 + 0.025\cdot 30 -0.000125\cdot 30^2)\\
   &amp;= 0.6125.\end{align}\]</span></p></li>
 </ul>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-40"></span>
-<img src="_main_files/figure-html/unnamed-chunk-40-1.png" alt="Cumulative probability function of X=Time in online shop with probabilities" width="80%" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-83"></span>
+<img src="_main_files/figure-html/unnamed-chunk-83-1.png" alt="Cumulative probability function of X=Time in online shop with probabilities" width="80%" />
 <p class="caption">
 Figure 2.8: Cumulative probability function of X=Time in online shop with probabilities
 </p>
@@ -1054,7 +1074,7 @@ Figure 2.8: Cumulative probability function of X=Time in online shop with probab
 <p id="result214">
 </p>
 <p>
-Hint: use conditional probability and note that \(\mathbb P((0.1 \leq X \leq 0.3)(X\leq 0.5))=\(\mathbb P(0.1 \leq X \leq 0.3)\)
+Hint: use conditional probability and note that \(\mathbb P((0.1 \leq X \leq 0.3)\cap (X\leq 0.5))=\mathbb P(0.1 \leq X \leq 0.3)\)
 </p>
 <script>
 
@@ -1126,10 +1146,17 @@ Hint: use conditional probability and note that \(\mathbb P((0.1 \leq X \leq 0.3
 <hr />
 <div class="example">
 <p><span id="exm:stZVkenz" class="example"><strong>Example 2.7  (Time in the online shop as a continuous random variable) </strong></span>The random variable <span class="math inline">\(X=\)</span> time in the online shop in minutes has the density:</p>
+<div class="row">
+<div class="column" style="width:60%;">
 <p><span class="math display">\[
-f(x) = \begin{cases}0,001\cdot x , &amp;\text{ für } 0\leq x\leq 20,\\
-                      0,025 -0,00025\cdot x, &amp;\text{ für } 20&lt; x\leq 100.\end{cases}
+f(x) = \begin{cases}0,001\cdot x , &amp;\text{ for } 0\leq x\leq 20,\\
+                      0,025 -0,00025\cdot x, &amp;\text{ for } 20&lt; x\leq 100.\end{cases}
 \]</span></p>
+</div>
+<div class="column" style="width:35%;">
+<p><img src="_main_files/figure-html/unnamed-chunk-91-1.png" width="672" /></p>
+</div>
+</div>
 <p>We have:</p>
 <ul>
 <li>Expected value:</li>
@@ -1145,7 +1172,7 @@ f(x) = \begin{cases}0,001\cdot x , &amp;\text{ für } 0\leq x\leq 20,\\
 <li>Variance:</li>
 </ul>
 <p><span class="math display">\[\begin{align}
-\text{Var}(X) &amp;= \mathbb E(X^2) - \mathbb E(X) = \int_{-\infty}^{\infty}x^2\cdot f(x)dx  - 40^2\\
+\text{Var}(X) &amp;= \mathbb E(X^2) - (\mathbb E(X))^2 = \int_{-\infty}^{\infty}x^2\cdot f(x)dx  - 40^2\\
 &amp;\ldots \text{ (analog zu dem Erwartungswert) }\\
 &amp;=\int_{0}^{20}0,001\cdot x^3 dx + \int_{20}^{100}\big(0,025\cdot x^2 -0,00025\cdot x^3\big)dx - 40^2\\
 &amp;=\Big[0,001\cdot \frac{x^4}4\Big]_{0}^{20} + \Big[0,025\cdot \frac{x^3}3 -0,00025\cdot \frac{x^4}4\Big]_{20}^{100}- 40^2\\
@@ -1209,10 +1236,10 @@ f(x) = \begin{cases}0,001\cdot x , &amp;\text{ für } 0\leq x\leq 20,\\
     q_p=F^{(-1)}(p).
 \end{equation*}\]</span></p>
 </div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-53"></span>
-<img src="_main_files/figure-html/unnamed-chunk-53-1.png" alt="Quantil der Standardnormalverteilung für p=0,9" width="80%" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-97"></span>
+<img src="_main_files/figure-html/unnamed-chunk-97-1.png" alt="Quantile of s atandard normal distribution for p=0,9" width="80%" />
 <p class="caption">
-Figure 2.9: Quantil der Standardnormalverteilung für p=0,9
+Figure 2.9: Quantile of s atandard normal distribution for p=0,9
 </p>
 </div>
 <p>Special cases:</p>
@@ -1225,15 +1252,22 @@ Figure 2.9: Quantil der Standardnormalverteilung für p=0,9
 <div class="example">
 <p><span id="exm:stZVqp" class="example"><strong>Example 2.8  (Time in the online shop as a continuous random variable) </strong></span>Example <a href="random-variables.html#exm:stZV">2.6</a> cont.</p>
 <p>The random variable <span class="math inline">\(X=\)</span> time in the online shop in minutes has the distribution function:</p>
-<p><span class="math display">\[
+<div class="row">
+<div class="column" style="width:60%;">
+<p><span class="math display">\[\small{
 F(x) =
     \begin{cases}
     0,&amp;x&lt;0,\\
     0,0005x^2,&amp;0\leq x\leq 20,\\
     -0.25 + 0.025x -0.000125x^2,&amp;20&lt;x\leq 100,\\
     1,&amp;x&gt;100.
-    \end{cases}
+    \end{cases}}
 \]</span></p>
+</div>
+<div class="column" style="width:35%;">
+<p><img src="_main_files/figure-html/unnamed-chunk-98-1.png" width="672" /></p>
+</div>
+</div>
 <ul>
 <li><span class="math inline">\(0.1\)</span> quantile:
 The distribution function takes the value <span class="math inline">\(0.1\)</span> on the intercept <span class="math inline">\(0\leq x \leq 20\)</span>, so we set <span class="math display">\[F(q_{0,1})=0.1\rightarrow 0.0005q_{0.1}^ 2 = 0.1\]</span> and solve for <span class="math inline">\(q_{0.1}\)</span>: <span class="math display">\[q_{0.1} = \pm\sqrt{\frac{0.1}{0.0005}} = \pm 14, 1421,\]</span> so <span class="math inline">\(q_{0,1} =14.1421\)</span>, since <span class="math inline">\(0\leq q_{0,1} \leq 20\)</span> must hold.</li>
@@ -1241,7 +1275,7 @@ The distribution function takes the value <span class="math inline">\(0.1\)</spa
 <p>With a probability of 10%, the time spent in the online shop is shorter than <span class="math inline">\(14.1421\)</span> minutes.</p>
 <ul>
 <li><span class="math inline">\(0.9\)</span> quantile:
-The distribution function takes the value <span class="math inline">\(0.9\)</span> on the intercept <span class="math inline">\(20\leq x \leq 100\)</span>, so we set <span class="math display">\[F(q_{0.9})=0.9\rightarrow -0.25 + 0.025 q_{ 0.9} - 0.000125q_{0.1}^2 = 0.9.\]</span> Then (<span class="math inline">\(abc\)</span> formula for quadratic equations <span class="math inline">\(ax^2 + bx + c=0\)</span>: <span class="math inline">\(x_{1,2}=\frac{-b\pm\sqrt{b^2 - 4ac}}{2a}\)</span>) we have <span class="math display">\[q_{0.9} = \frac{-0.025\pm\sqrt{0.025^2 - 4\cdot(-0.000125)\cdot(-1.15)}}{2\cdot ( -0.000125)}.\]</span> In addition, <span class="math inline">\(q_{0.9}\)</span> should be between <span class="math inline">\(20\)</span> and <span class="math inline">\(100\)</span>. So, let’s take the “<span class="math inline">\(+\)</span> version” and calculate <span class="math inline">\(q_{0.9} = 71.7157\)</span>.</li>
+The distribution function takes the value <span class="math inline">\(0.9\)</span> on the intercept <span class="math inline">\(20\leq x \leq 100\)</span>, so we set <span class="math display">\[F(q_{0.9})=0.9\rightarrow -0.25 + 0.025 q_{ 0.9} - 0.000125q_{0.9}^2 = 0.9.\]</span> Then (<span class="math inline">\(abc\)</span> formula for quadratic equations <span class="math inline">\(ax^2 + bx + c=0\)</span>: <span class="math inline">\(x_{1,2}=\frac{-b\pm\sqrt{b^2 - 4ac}}{2a}\)</span>) we have <span class="math display">\[q_{0.9} = \frac{-0.025\pm\sqrt{0.025^2 - 4\cdot(-0.000125)\cdot(-1.15)}}{2\cdot ( -0.000125)}.\]</span> In addition, <span class="math inline">\(q_{0.9}\)</span> should be between <span class="math inline">\(20\)</span> and <span class="math inline">\(100\)</span>. So, let’s take the “<span class="math inline">\(+\)</span> version” and calculate <span class="math inline">\(q_{0.9} = 71.7157\)</span>.</li>
 </ul>
 <p>With a probability of 10%, time spent in the online shop is longer than <span class="math inline">\(71.7157\)</span> minutes.</p>
 </div>

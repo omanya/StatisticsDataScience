@@ -23,7 +23,7 @@
 <meta name="author" content="Maria Osipenko" />
 
 
-<meta name="date" content="2024-04-15" />
+<meta name="date" content="2024-04-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -465,8 +465,8 @@ $A: \text{Anzahl von App-Nutzern unter den 20 Befragten}$, da $\mathbb P(App) = 
 f(x) = \begin{cases}0,001\cdot x , &amp;\text{ für } 0\leq x\leq 20,\\
                       0,025 -0,00025\cdot x, &amp;\text{ für } 20&lt; x\leq 100.\end{cases}
 \]</span></p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-112"></span>
-<img src="_main_files/figure-html/unnamed-chunk-112-1.png" alt="Density function of X=time in the online shop" width="40%" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-157"></span>
+<img src="_main_files/figure-html/unnamed-chunk-157-1.png" alt="Density function of X=time in the online shop" width="40%" />
 <p class="caption">
 Figure 4.1: Density function of X=time in the online shop
 </p>
@@ -501,7 +501,7 @@ Figure 4.1: Density function of X=time in the online shop
  // Generate a random question
     const questionObj41 = generateQuestion_num(41);
 // Display the question
-    document.getElementById('question-text41').textContent = "We want to model the invoice amount (Rechnungshöhe) of  \\(i\\)th customer as a random variable \\(R_i\\)  and then model the average invoice amount of  \\(n\\)  customers  \\(\\bar R=\\frac 1n\\sum_{i=1}^nR_i.\\) We assume that the invoice amounts of different customers \\(R_1,\\ldots,R_n\\) are independently and identically distributed with  \\(\\mathbb E(R_i)=" + (questionObj41.question[0]*10) + "\\)  and \\(\\text{Var}(R_i)=" + (questionObj41.question[1]*100) + "\\) but the actual distribution is unknown.\\[\\] Every day, over several days, we calculate the daily average of the invoice amounts of  \\(n=" + (questionObj40.question[0]*10) + "\\) randomly selected customers. How is the average invoice amount approximately distributed?\\[\\]\\(\\bar R\\) is approximately normal distributed with \\[\\]\\(\\mu=\\)";
+    document.getElementById('question-text41').textContent = "We want to model the invoice amount (Rechnungshöhe) of  \\(i\\)th customer as a random variable \\(R_i\\)  and then model the average invoice amount of  \\(n\\)  customers  \\(\\bar R=\\frac 1n\\sum_{i=1}^nR_i.\\) We assume that the invoice amounts of different customers \\(R_1,\\ldots,R_n\\) are independently and identically distributed with  \\(\\mathbb E(R_i)=" + (questionObj41.question[0]*10) + "\\)  and \\(\\text{Var}(R_i)=" + (questionObj41.question[1]*100) + "\\) but the actual distribution is unknown.\\[\\] Every day, over several days, we calculate the daily average of the invoice amounts of  \\(n=" + (questionObj40.question[0]*10) + "\\) randomly selected customers. How is the average invoice amount approximately distributed?\\[\\]\\(\\bar R\\) is approximately normal distributed with \\[\\]\\(\\mathbb E(\\overline R)=\\)";
     questionObj41.answer = (questionObj41.question[0]*10)
 </script>
 <p id="question">
@@ -516,7 +516,7 @@ Figure 4.1: Density function of X=time in the online shop
  // Generate a random question
     const questionObj42 = generateQuestion_num(42);
 // Display the question
-    document.getElementById('question-text42').textContent = "\\(\\sigma^2=\\)";
+    document.getElementById('question-text42').textContent = "\\(\\text{Var}(\\overline R)=\\)";
     questionObj42.answer = (questionObj41.question[1]*100)/(questionObj40.question[0]*10)
 </script>
 <p id="question">

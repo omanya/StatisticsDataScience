@@ -23,7 +23,7 @@
 <meta name="author" content="Maria Osipenko" />
 
 
-<meta name="date" content="2024-04-15" />
+<meta name="date" content="2024-04-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -349,8 +349,8 @@ function normalCDF(x, mean, std) {
 <!--
 <iframe src="http://learning-dashboard.lehre.hwr-berlin.de:3838/Apps_RBook/#section-verteilungen" width="672" height="600px" data-external="1"></iframe>
 -->
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-61"></span>
-<img src="_main_files/figure-html/unnamed-chunk-61-1.png" alt="Distributional models for discrete random variables" width="672" />
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-106"></span>
+<img src="_main_files/figure-html/unnamed-chunk-106-1.png" alt="Distributional models for discrete random variables" width="672" />
 <p class="caption">
 Figure 3.1: Distributional models for discrete random variables
 </p>
@@ -387,8 +387,8 @@ Figure 3.1: Distributional models for discrete random variables
 <li>Variance: <span class="math inline">\(\text{Var}(X)=\frac 15 (1^2 + 2^2 + \ldots + 5^2) - 3^2 = 2\)</span>. So the standard deviation of the NUMBER of product recommendations is <span class="math inline">\(\sqrt{2}\)</span>.</li>
 </ul></li>
 </ul>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-63"></span>
-<img src="_main_files/figure-html/unnamed-chunk-63-1.png" alt="Discrete uniform distribution with n=5" width="672" />
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-108"></span>
+<img src="_main_files/figure-html/unnamed-chunk-108-1.png" alt="Discrete uniform distribution with n=5" width="672" />
 <p class="caption">
 Figure 3.2: Discrete uniform distribution with n=5
 </p>
@@ -449,8 +449,8 @@ is <strong>Bernoulli distributed</strong> with parameter <span class="math inlin
 <li><span class="math inline">\(\text{Var}(A) = 0.6\cdot (1-0.6) = 0.24.\)</span></li>
 </ul>
 <p>We took a little longer when we had to calculate these metrics “from scratch” in <a href="random-variables.html#exm:ziehungbestKov">2.5</a> 😏</p>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-64"></span>
-<img src="_main_files/figure-html/unnamed-chunk-64-1.png" alt="Bernoulli distribution with p=0.6" width="672" />
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-109"></span>
+<img src="_main_files/figure-html/unnamed-chunk-109-1.png" alt="Bernoulli distribution with p=0.6" width="672" />
 <p class="caption">
 Figure 3.3: Bernoulli distribution with p=0.6
 </p>
@@ -479,10 +479,7 @@ and <span class="math inline">\(f(k)=0\)</span> otherwise.Remember: Binomial coe
     \mathbb E(X) = np\quad\text{ and }\quad \text{Var}(X) = n p(1-p)
 \end{equation*}\]</span></p></li>
 <li><p><strong>Additive property</strong>: The sum of independent binomial distributed random variables with the same parameter <span class="math inline">\(p\)</span> is again
-binomially distributed:</p></li>
-</ul>
-<p>if <span class="math inline">\(X\sim B(n,p)\)</span> and <span class="math inline">\(Y\sim B(m,p)\)</span> are independent, then <span class="math inline">\(X+Y\sim B(n+m,p)\)</span>.</p>
-<ul>
+binomially distributed: <br>if <span class="math inline">\(X\sim B(n,p)\)</span> and <span class="math inline">\(Y\sim B(m,p)\)</span> are independent, then <span class="math inline">\(X+Y\sim B(n+m,p)\)</span>.</p></li>
 <li><p>Application examples:</p>
 <ul>
 <li>Number of loans in a portfolio that are not being serviced (assumption: loans default independently of each other.)</li>
@@ -510,8 +507,8 @@ binomially distributed:</p></li>
 \text{Var}(X)&amp;= n\cdot \color{blue}{p}\cdot(1-\color{blue}{p}) = 10\cdot \color{blue}{0.6}\cdot (1-\color{blue}{0.6}) = 2.4.
 \end{align}\]</span></p></li>
 </ul>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-65"></span>
-<img src="_main_files/figure-html/unnamed-chunk-65-1.png" alt="Binomial distribution with n=10 and p=0.6" width="672" />
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-110"></span>
+<img src="_main_files/figure-html/unnamed-chunk-110-1.png" alt="Binomial distribution with n=10 and p=0.6" width="672" />
 <p class="caption">
 Figure 3.4: Binomial distribution with n=10 and p=0.6
 </p>
@@ -530,8 +527,8 @@ Figure 3.4: Binomial distribution with n=10 and p=0.6
         \mathbb P(P&gt;1) &amp;=1-\mathbb P(P\leq 1) =1-\sum_{k=0}^1\binom{n}{k}p^k(1-p)^{n-k} \\
         &amp;=1- \Big(\frac{500!}{0!500!}(\color{blue}{0,01})^0(1-\color{blue}{0.01})^{500} + \frac{500!}{1!499!}(\color{blue}{0.01})^1(1-\color{blue}{0.01})^{499}\Big)=0,9602.
 \end{align*}\]</span></p>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-66"></span>
-<img src="_main_files/figure-html/unnamed-chunk-66-1.png" alt="Binomial distribution with n=500 and p=0.01" width="672" />
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-111"></span>
+<img src="_main_files/figure-html/unnamed-chunk-111-1.png" alt="Binomial distribution with n=500 and p=0.01" width="672" />
 <p class="caption">
 Figure 3.5: Binomial distribution with n=500 and p=0.01
 </p>
@@ -716,8 +713,8 @@ and <span class="math inline">\(f(k)=0\)</span> else.</p>
 &amp;=(1-0.6)^0\cdot 0.6 + (1-0.6)^1\cdot 0.6 + \ldots + (1-0.6)^3\cdot 0.6 = 0,9898.
 \end{align*}\]</span></p></li>
 </ul>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-76"></span>
-<img src="_main_files/figure-html/unnamed-chunk-76-1.png" alt="Geometric distribution with p=0.6" width="672" />
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-121"></span>
+<img src="_main_files/figure-html/unnamed-chunk-121-1.png" alt="Geometric distribution with p=0.6" width="672" />
 <p class="caption">
 Figure 3.6: Geometric distribution with p=0.6
 </p>
@@ -735,7 +732,7 @@ Figure 3.6: Geometric distribution with p=0.6
 <p>Under the following assumptions, <span class="math inline">\(X\)</span> is <strong>Poisson distributed</strong>:</p>
 <ul>
 <li>Two events cannot occur at the same time.</li>
-<li>The probability that an event occurs in a small time interval of length <span class="math inline">\(\Delta t\)</span> is approximately <span class="math inline">\(\lambda\Delta t\)</span>.</li>
+<li>The probability that an event occurs in a small time interval of length <span class="math inline">\(\Delta t\)</span> is approximately <span class="math inline">\(\lambda\Delta t\)</span>, where <span class="math inline">\(\lambda\)</span> is <strong>intensity</strong> - the average number of events per time interval.</li>
 <li>The probability of occurrence depends only on the length of the time interval, not on the location.</li>
 <li>The numbers of events in disjoint subintervals are independent.</li>
 </ul>
@@ -779,8 +776,8 @@ If <span class="math inline">\(X\sim Poi(\lambda)\)</span> and <span class="math
 \mathbb P(B_{total}&gt;10)&amp;=1-\mathbb P(B_{total}\leq 10) = 1-(f_{poi_{15}}(0) + f_{poi_{15}}( 1) + \ldots+ f_{poi_{15}}(10))\\ &amp;=1-\exp(-15)\cdot\Big(\frac{15^0}{0!}+\frac{15^ 1}{1!}+\ldots+\frac{15^{10}}{10!}\Big)= 0.8815.
 \end{align}\]</span></p></li>
 </ul>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-77"></span>
-<img src="_main_files/figure-html/unnamed-chunk-77-1.png" alt="Poisson distribution with \(\lambda=15\)" width="672" />
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-122"></span>
+<img src="_main_files/figure-html/unnamed-chunk-122-1.png" alt="Poisson distribution with \(\lambda=15\)" width="672" />
 <p class="caption">
 Figure 3.7: Poisson distribution with <span class="math inline">\(\lambda=15\)</span>
 </p>
@@ -947,8 +944,8 @@ $$
 <div id="continuous-distributions" class="section level2 hasAnchor" number="3.2">
 <h2><span class="header-section-number">3.2</span> Continuous distributions<a href="some-important-distribution-models.html#continuous-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>There are also continuous random variables distribution models that are used in several contexts. We will learn about a pair of continuous distributions here.</p>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-86"></span>
-<img src="_main_files/figure-html/unnamed-chunk-86-1.png" alt="Distributional models for continuous random variables" width="672" />
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-131"></span>
+<img src="_main_files/figure-html/unnamed-chunk-131-1.png" alt="Distributional models for continuous random variables" width="672" />
 <p class="caption">
 Figure 3.8: Distributional models for continuous random variables
 </p>
@@ -1020,8 +1017,8 @@ In particular in the case <span class="math inline">\(\mu=0\)</span>: <span clas
 &amp; = 0.8944 - 0.1056 = 0.7887.
 \end{align*}\]</span></p></li>
 </ul>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-88"></span>
-<img src="_main_files/figure-html/unnamed-chunk-88-1.png" alt="Distributional models for continuous random variables" width="672" />
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-133"></span>
+<img src="_main_files/figure-html/unnamed-chunk-133-1.png" alt="Distributional models for continuous random variables" width="672" />
 <p class="caption">
 Figure 3.9: Distributional models for continuous random variables
 </p>
@@ -1033,9 +1030,12 @@ Figure 3.9: Distributional models for continuous random variables
 <ul>
 <li><p><span class="math inline">\(X_i\sim N(\mu_X,\sigma_X^2)\)</span> by assumption, since we are selecting from a normally distributed population.</p></li>
 <li><p><span class="math inline">\(X_i\)</span> independent, as you move with replacement</p></li>
-<li><p><span class="math inline">\(\bar X = \frac 1n\sum_{i=1}^n\)</span> using the additive property of the normal distribution,</p></li>
-<li><p><span class="math inline">\(\bar X\sim N(\mu_X,\frac{\sigma_X^2}n)\)</span>, since <span class="math inline">\(\mathbb E(\bar n X_i) = \frac 1n\cdot n\cdot \mu_X\)</span> and <span class="math inline">\(\text{Var}(\bar \frac 1{n^2}\cdot n\cdot \sigma_X^2\)</span>.</p></li>
-<li><p>Or <span class="math inline">\(\frac{\bar X-\mu_X}{\frac{\sigma_X}{\sqrt n}}\sim N(0;1)\)</span>.</p></li>
+<li><p><span class="math inline">\(\overline X = \frac 1n\sum_{i=1}^n\)</span> using the additive property of the normal distribution,</p></li>
+<li><p><span class="math inline">\(\overline X\sim N(\mu_X,\frac{\sigma_X^2}n)\)</span>, since <span class="math inline">\(\mathbb E(\overline X) = \frac 1n\cdot n\cdot \mu_X=\color{blue}{\mu_X}\)</span>, <span class="math inline">\({\text{Var}(\overline X)}=\frac 1{n^2}\cdot n\cdot \sigma_X^2=\color{red}{\frac {\sigma^2_X}{n}}\)</span>, and <span class="math inline">\(\sqrt{\text{Var}(\overline X)} = \color{red}{\frac {\sigma_X}{\sqrt n}}\)</span>.</p></li>
+<li><p>Hence the sample mean is distributed as follows:
+<span class="math display">\[\overline X\sim N\left (\color{blue}{\mu_X};\color{red}{\frac {\sigma^2_X}{n}}\right),\]</span>
+and the standardized sample mean:
+<span class="math display">\[\frac{\overline X-\color{blue}{\mu_X}}{\color{red}{\frac {\sigma_X}{\sqrt n}}}\sim N(0;1).\]</span></p></li>
 </ul>
 </div>
 <hr />
@@ -1053,18 +1053,20 @@ Realizations of a rv <span class="math inline">\(X\)</span>);</li>
 rv’s that are independent and identically distributed with
 <span class="math inline">\(\mathbb E(\varepsilon_i)=0\)</span>, <span class="math inline">\(\text{Var}(\varepsilon_i)=\sigma^2\)</span>.</li>
 </ul>
-<p>Under the normal distribution assumption <span class="math inline">\(\varepsilon_i\sim N(0,\sigma^2)\quad i=1,\ldots,n\)</span> independent of <span class="math inline">\(X_i\sim N(\mu_X,\sigma_X^2)\)</span> (in case <span class="math inline">\(X\)</span> random) applies:</p>
+<p>The coefficient estimators are:
+<span class="math display">\[\begin{align*}
+\hat\beta &amp;= \frac{\sum _{i=1}^n (x_i-\overline x) (Y_i-\overline Y)} {\sum _{i=1}^n (x_i-\overline x) ^2},\\
+\hat\alpha &amp;=\overline Y-\hat\beta \overline x.
+\end{align*}\]</span></p>
+<p>Under the <strong>normal distribution assumption</strong> <span class="math inline">\(\varepsilon_i\sim N(0,\sigma^2)\quad i=1,\ldots,n\)</span> independent of <span class="math inline">\(X_i\sim N(\mu_X,\sigma_X^2)\)</span> (in case <span class="math inline">\(X\)</span> random) applies:</p>
 <p><span class="math display">\[\begin{equation*}
       Y_i\sim N(\alpha+ \beta x_i,\sigma^2), \quad i=1,\ldots,n.
 \end{equation*}\]</span></p>
-<p>and</p>
+<p>Since the estimators for the coefficients are <strong>linear combinations of normal rvs</strong>:</p>
 <p><span class="math display">\[\begin{align*}
-\hat\beta &amp;= \frac{\sum _{i=1}^n (x_i-\overline x) (Y_i-\overline Y)} {\sum _{i=1}^n (x_i-\overline x) ^2}\\
-&amp;\sim N(\beta, \sigma_{\hat\beta}^2),\\
-\hat\alpha &amp;=\overline Y-\hat\beta \overline x\\
-&amp;\sim N(\alpha, \sigma_{\hat\alpha}^2).
+\hat\beta&amp;\sim N(\beta, \sigma_{\hat\beta}^2),\\
+\hat\alpha&amp;\sim N(\alpha, \sigma_{\hat\alpha}^2).
 \end{align*}\]</span></p>
-<p>since these random variables represent a linear combination of independent, normally distributed random variables.</p>
 </div>
 <div id="q33" class="quiz">
 <p id="question">
@@ -1203,8 +1205,8 @@ and <span class="math inline">\(f(x)=0\)</span> else.</p>
 <p><span class="math display">\[
 \mathbb P(X&lt;5) = F_{E}(5) = 1-\text{e}^{-0,1\cdot 5} = 0,3935
 \]</span></p>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-96"></span>
-<img src="_main_files/figure-html/unnamed-chunk-96-1.png" alt="Distributional models for continuous random variables" width="672" />
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-141"></span>
+<img src="_main_files/figure-html/unnamed-chunk-141-1.png" alt="Distributional models for continuous random variables" width="672" />
 <p class="caption">
 Figure 3.10: Distributional models for continuous random variables
 </p>
@@ -1247,18 +1249,18 @@ Figure 3.10: Distributional models for continuous random variables
 \end{align*}\]</span></p>
 <hr />
 <div class="example">
-<p><span id="exm:dunif" class="example"><strong>Example 3.11  (Update banner ads) </strong></span>In the last example for advertising banners <a href="some-important-distribution-models.html#exm:dpoisvert">3.6</a> we modeled clicks. Well, advertising banners change and then have to be updated on the SHop website.</p>
+<p><span id="exm:dunif" class="example"><strong>Example 3.11  (Update banner ads) </strong></span>In the last example for advertising banners <a href="some-important-distribution-models.html#exm:dpoisvert">3.6</a> we modeled clicks. Well, advertising banners change and then have to be updated on the shop website.</p>
 <p>You’ve created a new banner ad template and want to update your ads. A transport script fetches all advertising updates every <span class="math inline">\(20\)</span> minutes. After the transport script picks up your new template, it is immediately online.</p>
 <ul>
-<li><p>Random variable <span class="math inline">\(Z: \text{&#39;Waiting time in minutes until the web display is updated&#39;}\)</span> follows a continuous uniform distribution on the time interval <span class="math inline">\([0,20]\)</span>: <span class="math inline">\(Z\sim U([0,20])\)</span>.</p></li>
+<li><p>Random variable <span class="math inline">\(Z: \text{&#39;Waiting time in minutes until the ad display is updated&#39;}\)</span> follows a continuous uniform distribution on the time interval <span class="math inline">\([0,20]\)</span>: <span class="math inline">\(Z\sim U([0,20])\)</span>.</p></li>
 <li><p>Expected value and variance:
 <span class="math display">\[\begin{align*}
 \mathbb E(Z)&amp;=\frac{a+b}2=\frac{20}2=10,\\
 \text{Var}(Z)&amp;=\frac{(b-a)^2}{12} = \frac{400}{12}=33\frac13.
 \end{align*}\]</span></p></li>
 </ul>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-97"></span>
-<img src="_main_files/figure-html/unnamed-chunk-97-1.png" alt="Distributional models for continuous random variables" width="672" />
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-142"></span>
+<img src="_main_files/figure-html/unnamed-chunk-142-1.png" alt="Distributional models for continuous random variables" width="672" />
 <p class="caption">
 Figure 3.11: Distributional models for continuous random variables
 </p>
@@ -1354,8 +1356,8 @@ Figure 3.11: Distributional models for continuous random variables
 \end{equation*}\]</span></p></li>
 <li><p>Some <span class="math inline">\(\chi^2\)</span> distributions:</p></li>
 </ul>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-103"></span>
-<img src="_main_files/figure-html/unnamed-chunk-103-1.png" alt="Einige Chi-Quadrat-Verteilungen" width="80%" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-148"></span>
+<img src="_main_files/figure-html/unnamed-chunk-148-1.png" alt="Einige Chi-Quadrat-Verteilungen" width="80%" />
 <p class="caption">
 Figure 3.12: Einige Chi-Quadrat-Verteilungen
 </p>
@@ -1370,7 +1372,8 @@ Figure 3.12: Einige Chi-Quadrat-Verteilungen
 <p><span class="math display">\[
 S^2=\frac 1{n-1}\Big((X_1 - \bar X)^2 + \ldots + (X_n - \bar X)^2 \Big)
 \]</span>
-Then the random variable <span class="math inline">\(\frac{(n-1)S^2}{\sigma^2}\)</span> is <span class="math inline">\(\chi^2\)</span>-distributed with <span class="math inline">\(n-1\)</span> degrees of freedom.</p>
+Then the random variable <span class="math inline">\(\frac{(n-1)S^2}{\sigma^2}\)</span> is <span class="math inline">\(\chi^2\)</span>-distributed with <span class="math inline">\(n-1\)</span> degrees of freedom:
+<span class="math display">\[\frac{(n-1)S^2}{\sigma^2}\sim\chi^2(n-1).\]</span></p>
 </div>
 <hr />
 </div>
@@ -1392,8 +1395,8 @@ Then the random variable <span class="math inline">\(\frac{(n-1)S^2}{\sigma^2}\)
 <ul>
 <li>Some <span class="math inline">\(t\)</span> distributions:</li>
 </ul>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-105"></span>
-<img src="_main_files/figure-html/unnamed-chunk-105-1.png" alt="Einige t-Verteilungen" width="80%" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-150"></span>
+<img src="_main_files/figure-html/unnamed-chunk-150-1.png" alt="Einige t-Verteilungen" width="80%" />
 <p class="caption">
 Figure 3.13: Einige t-Verteilungen
 </p>
@@ -1411,14 +1414,16 @@ Figure 3.13: Einige t-Verteilungen
 <li><span class="math inline">\(\frac{\bar X-\mu_X}{\frac{\sigma_X}{\sqrt n}}\sim N(0;1)\)</span>.</li>
 </ul>
 <p>But if <span class="math inline">\(\sigma_X^2\)</span> is unknown and is estimated, one replaces the true standard deviation in standardization with the estimate <span class="math inline">\(S\)</span> (<span class="math inline">\(S_X=\sqrt{S_X^2}\)</span>, <span class="math inline">\(S_X^2\)</span> is the sample variance) , then:</p>
-<ul>
-<li><p><span class="math inline">\(\frac{\bar X-\mu_X}{\frac{S_X}{\sqrt n}}\sim t(n-1)\)</span>.</p></li>
-<li><p>Calculations<span class="math inline">\(^\ast\)</span>:</p></li>
-</ul>
+<p><span class="math display">\[\frac{\bar X-\mu_X}{\frac{S_X}{\sqrt n}}\sim t(n-1).\]</span></p>
+<details>
+<summary>
+Calculations<span class="math inline">\(^\ast\)</span>
+</summary>
 <p><span class="math display">\[\begin{align}
-\frac{\bar X-\mu_X}{\frac{S_X}{\sqrt n}} &amp;= \frac{\overbrace{\frac{\bar X-\mu_X}{\sigma_X/\sqrt n}}^{N(0,1)}}{\underbrace{\sqrt\frac{(n-1)S^2_X}{\sigma^2_X}}_{()^2\sim \chi^2(n-1)}/\sqrt{n-1}}\sim t(n-1).
+\frac{\overline X-\mu_X}{\frac{S_X}{\sqrt n}} &amp;= \frac{\overbrace{\frac{\bar X-\mu_X}{\sigma_X/\sqrt n}}^{N(0,1)}}{\underbrace{\sqrt\frac{(n-1)S^2_X}{\sigma^2_X}}_{(\cdot)^2\sim \chi^2(n-1)}/\sqrt{n-1}}\sim t(n-1).
 \end{align}\]</span></p>
-<p>So a standard normally distributed rv <span class="math inline">\(\frac{\bar /\sigma_X/(n-1)\)</span> (divided by the degrees of freedom of the latter) and by definition of the <span class="math inline">\(t\)</span> distribution <span class="math inline">\(\frac{\bar X-\mu_X}{\frac{S_X}{\sqrt n} So }\)</span> is <span class="math inline">\(t\)</span>-distributed with <span class="math inline">\(n-1\)</span> degrees of freedom.</p>
+So we have a standard normally distributed rv divided by the square root of a <span class="math inline">\(\chi^2\)</span>-distributed random variable which is in turn divided by the square root of the degrees of its freedom. Thus, by definition of the <span class="math inline">\(t\)</span> distribution <span class="math inline">\(\frac{\overline X-\mu_X}{\frac{S_X}{\sqrt n}}\)</span> is <span class="math inline">\(t\)</span>-distributed with <span class="math inline">\(n-1\)</span> degrees of freedom.
+</details>
 </div>
 <hr />
 <div class="example">
@@ -1427,10 +1432,10 @@ Figure 3.13: Einige t-Verteilungen
 <li><p>Since <span class="math inline">\(\sigma^2\)</span> - the variance of the unobservable error terms <span class="math inline">\(\varepsilon_i\)</span> is always estimated by <span class="math inline">\(\hat\sigma^2 = \frac 1{n-2}\sum_{i=1}^n\big (Y_i - (\hat \alpha + \hat \beta x_i)\big)^2\)</span> (<span class="math inline">\(n-2\)</span> comes from the fact that we now estimate two parameters <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> and <span class="math inline">\(2\)</span> degrees of freedom as a result lose) and</p></li>
 <li><p>The variances of the estimators <span class="math inline">\(\sigma_{\hat\alpha}^2\)</span> and <span class="math inline">\(\sigma_{\hat\beta}^2\)</span> are based on this and must therefore also be determined by the estimates <span class="math inline">\(\hat\sigma_{\hat\alpha }^2\)</span> and <span class="math inline">\(\hat\sigma_{\hat\beta}^2\)</span> are replaced, the following applies:</p></li>
 </ul>
-<p><span class="math display">\[
-\frac{\hat\beta - \beta}{\hat\sigma_{\hat\beta}}\sim t(n-2)\,\
-\frac{\hat\alpha - \alpha}{\hat\sigma_{\hat\alpha}}\sim t(n-2).
-\]</span></p>
+<p><span class="math display">\[\begin{align}
+\frac{\hat\beta - \beta}{\hat\sigma_{\hat\beta}}&amp;\sim t(n-2),\\
+\frac{\hat\alpha - \alpha}{\hat\sigma_{\hat\alpha}}&amp;\sim t(n-2).
+\end{align}\]</span></p>
 <p>These derived distributions will be useful to us later when we quantify the uncertainty associated with an estimate.</p>
 </div>
 <hr />
