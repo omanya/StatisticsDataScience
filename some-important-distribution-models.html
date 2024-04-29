@@ -23,7 +23,7 @@
 <meta name="author" content="Maria Osipenko" />
 
 
-<meta name="date" content="2024-04-18" />
+<meta name="date" content="2024-04-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -971,32 +971,33 @@ Figure 3.8: Distributional models for continuous random variables
     \exp\left(-\frac{x^2}{2}\right), \quad x\in \mathbb R.
 \end{equation*}\]</span></p></li>
 <li><p>The density of the standard normal distribution is denoted as <span class="math inline">\(\varphi(x)\)</span> and the distribution function as <span class="math inline">\(N(x)\)</span>.</p></li>
-<li><p>Properties of normal distribution</p>
+</ul>
+<div id="properties-of-normal-distribution" class="section level4 unnumbered hasAnchor">
+<h4>Properties of normal distribution<a href="some-important-distribution-models.html#properties-of-normal-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<pre><code>- The density is **symmetrical about $\mu$**, i.e.
+\begin{equation*}
+    \varphi(\mu-x) = \varphi(\mu+x), \quad x\in \mathbb R.
+\end{equation*}
+In particular in the case $\mu=0$: $\varphi(-x)=\varphi(x)$.
+- The following applies to the distribution function of the standard normal distribution: $N(-x) = 1- N(x)$
+- **Standardize**:
+
+    - $X$ is $N(\mu,\sigma^2)$-distributed $\iff$ $\displaystyle\frac{X-\mu}{\sigma}$ is $N(0,1)$-distributed .
+    - $Y$ is $N(0,1)$-distributed $\iff$ $\mu + \sigma Y$ is $N(\mu,\sigma^2)$-distributed.
+
+- Probabilities within $\sigma$ bounds
+\begin{align*}
+\mathbb P(|X-\mu|\leq \sigma) &amp;= 0.6827\\
+\mathbb P(|X-\mu|\leq 2\sigma) &amp;= 0.9545\\
+\mathbb P(|X-\mu|\leq 3\sigma) &amp;= 0.9973
+\end{align*}
+- Addition property: If $X\sim N(\mu_X,\sigma_X^2)$ and $Y\sim N(\mu_Y,\sigma_Y^2)$ are independent, then
+\begin{equation*}
+X+Y\sim
+N(\mu_X+\mu_Y, \sigma_X^2+\sigma_Y^2).
+\end{equation*}</code></pre>
 <ul>
-<li><p>The density is <strong>symmetrical about <span class="math inline">\(\mu\)</span></strong>, i.e.
-<span class="math display">\[\begin{equation*}
-  \varphi(\mu-x) = \varphi(\mu+x), \quad x\in \mathbb R.
-  \end{equation*}\]</span>
-In particular in the case <span class="math inline">\(\mu=0\)</span>: <span class="math inline">\(\varphi(-x)=\varphi(x)\)</span>.</p></li>
-<li><p>The following applies to the distribution function of the standard normal distribution: <span class="math inline">\(N(-x) = 1- N(x)\)</span></p></li>
-<li><p><strong>Standardize</strong>:</p>
-<ul>
-<li><span class="math inline">\(X\)</span> is <span class="math inline">\(N(\mu,\sigma^2)\)</span>-distributed <span class="math inline">\(\iff\)</span> <span class="math inline">\(\displaystyle\frac{X-\mu}{\sigma}\)</span> is <span class="math inline">\(N(0,1)\)</span>-distributed .</li>
-<li><span class="math inline">\(Y\)</span> is <span class="math inline">\(N(0,1)\)</span>-distributed <span class="math inline">\(\iff\)</span> <span class="math inline">\(\mu + \sigma Y\)</span> is <span class="math inline">\(N(\mu,\sigma^2)\)</span>-distributed.</li>
-</ul></li>
-<li><p>Probabilities within <span class="math inline">\(\sigma\)</span> bounds
-<span class="math display">\[\begin{align*}
-  \mathbb P(|X-\mu|\leq \sigma) &amp;= 0.6827\\
-  \mathbb P(|X-\mu|\leq 2\sigma) &amp;= 0.9545\\
-  \mathbb P(|X-\mu|\leq 3\sigma) &amp;= 0.9973
-  \end{align*}\]</span></p></li>
-<li><p>Addition property: If <span class="math inline">\(X\sim N(\mu_X,\sigma_X^2)\)</span> and <span class="math inline">\(Y\sim N(\mu_Y,\sigma_Y^2)\)</span> are independent, then
-<span class="math display">\[\begin{equation*}
-  X+Y\sim
-  N(\mu_X+\mu_Y, \sigma_X^2+\sigma_Y^2).
-  \end{equation*}\]</span></p></li>
-</ul></li>
-<li><p>Probability with which an <span class="math inline">\(N(\mu,\sigma^2)\)</span>-distributed random variable lies between the boundaries <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>:</p></li>
+<li>Probability with which an <span class="math inline">\(N(\mu,\sigma^2)\)</span>-distributed random variable lies between the boundaries <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>:</li>
 </ul>
 <p><span class="math display">\[\begin{equation*}
       \mathbb P(a\leq X\leq b) = \mathbb P\left(\frac{a-\mu}{\sigma}\leq
@@ -1024,6 +1025,19 @@ Figure 3.9: Distributional models for continuous random variables
 </p>
 </div>
 </div>
+</div>
+<div id="calculating-with-normal-distribution" class="section level4 unnumbered hasAnchor">
+<h4>Calculating with normal distribution<a href="some-important-distribution-models.html#calculating-with-normal-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The distribution function <span class="math inline">\(N(x)\)</span> of a (standard) normally distributed random variable does not have a closed form. Therefore, we use statistical software to calculate the probabilities and to obtain the quantiles.</p>
+<ul>
+<li>Probabilities (Tools<span class="math inline">\(\rightarrow\)</span> p-value finder)</li>
+</ul>
+<p><img src="images/gretl_pfind1.png" /></p>
+<p><img src="images/gretl_pfind2.png" /></p>
+<ul>
+<li>Quantiles (Tools<span class="math inline">\(\rightarrow\)</span> statistical tables)</li>
+</ul>
+<p><img src="images/q_n.png" /></p>
 <hr />
 <div class="example">
 <p><span id="exm:normvertmittel" class="example"><strong>Example 3.8  (Sample mean of normally distributed random variables) </strong></span>If we make a random selection (with replacement) from a normally distributed population and write down a possible result as <span class="math inline">\(n\)</span> random variable “placeholders” as <span class="math inline">\(X_1, X_2, \ldots, X_n\)</span>, or calculate the mean <span class="math inline">\(\bar X\)</span> , then:</p>
@@ -1170,6 +1184,7 @@ rv’s that are independent and identically distributed with
 </div>
 <hr />
 </div>
+</div>
 <div id="exponential-distribution" class="section level3 hasAnchor" number="3.2.2">
 <h3><span class="header-section-number">3.2.2</span> Exponential distribution<a href="some-important-distribution-models.html#exponential-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The <strong>exponential distribution</strong> is often used to model waiting times under the assumption that the remaining waiting time does not depend on the lifespan that has already elapsed (“<strong>memorylessness</strong>”).</p>
@@ -1187,7 +1202,7 @@ and <span class="math inline">\(f(x)=0\)</span> else.</p>
 <ul>
 <li><p>The distribution function is
 <span class="math inline">\(F(x)=1-\text e^{-\lambda x}\)</span>, for <span class="math inline">\(x&gt;0\)</span>.</p></li>
-<li><p>Key figures:
+<li><p>Key parameters:
 <span class="math display">\[\begin{equation*}
     \mathbb E(X) = \frac{1}{\lambda} \quad\text{ and }\quad
     \text{Var}(X)=\frac{1}{\lambda^2}.
@@ -1198,12 +1213,12 @@ and <span class="math inline">\(f(x)=0\)</span> else.</p>
 <p><span id="exm:dexptrans" class="example"><strong>Example 3.10  (Transaction duration in payment service) </strong></span>As part of fraud prevention, you monitor transaction times (i.e. the waiting times until a payment transaction is completed) in seconds.</p>
 <p>You model the random variable <span class="math inline">\(X =\)</span>“transaction duration in seconds” as exponentially distributed. The average transaction duration is <span class="math inline">\(5\)</span> seconds.</p>
 <ul>
-<li><p><span class="math inline">\(\mathbb E(X) = 10\)</span> <span class="math inline">\(\leadsto\)</span> <span class="math inline">\(\lambda = \frac 1{\mathbb E(X)}=\frac 1{10}=0,1\)</span></p></li>
-<li><p><span class="math inline">\(X\sim E(0,1)\)</span> and</p></li>
+<li><p><span class="math inline">\(\mathbb E(X) = 10\)</span> <span class="math inline">\(\leadsto\)</span> <span class="math inline">\(\lambda = \frac 1{\mathbb E(X)}=\frac 1{10}=0.1\)</span></p></li>
+<li><p><span class="math inline">\(X\sim E(0.1)\)</span> and</p></li>
 <li><p>the probability of transaction times less than 5 seconds:</p></li>
 </ul>
 <p><span class="math display">\[
-\mathbb P(X&lt;5) = F_{E}(5) = 1-\text{e}^{-0,1\cdot 5} = 0,3935
+\mathbb P(X&lt;5) = F_{E}(5) = 1-\text{e}^{-0.1\cdot 5} = 0,3935
 \]</span></p>
 <div class="figure"><span style="display:block;" id="fig:unnamed-chunk-100"></span>
 <img src="_main_files/figure-html/unnamed-chunk-100-1.png" alt="Distributional models for continuous random variables" width="672" />
@@ -1211,17 +1226,17 @@ and <span class="math inline">\(f(x)=0\)</span> else.</p>
 Figure 3.10: Distributional models for continuous random variables
 </p>
 </div>
-<p>Transactions with long transaction times are suspicious of fraud and may need to be checked manually. You now want to set the threshold for the duration of the transaction: if the threshold is exceeded, the accuracy of the transaction is checked again manually by an employee. However, a maximum of $10% of transactions should be checked.</p>
+<p>Transactions with long transaction times are suspicious of fraud and may need to be checked manually. You now want to set the threshold for the duration of the transaction: if the threshold is exceeded, the accuracy of the transaction is checked again manually by an employee. However, a maximum of <span class="math inline">\(10\%\)</span> of transactions should be checked.</p>
 <p><strong>How do you choose an appropriate threshold?</strong></p>
 <ul>
 <li><p>The approach (<span class="math inline">\(x_0\)</span> is the threshold):
 <span class="math display">\[\begin{equation*}
-    \mathbb P(X &gt; x_0) = 1-F_E(x_0)= 1-(1-\text e^{-0,1 x_0}) = 0.1,
+    \mathbb P(X &gt; x_0) = 1-F_E(x_0)= 1-(1-\text e^{-0.1 x_0}) = 0.1,
 \end{equation*}\]</span></p></li>
 <li><p>Solving for <span class="math inline">\(x_0\)</span> gives:</p></li>
 </ul>
 <p><span class="math display">\[\begin{equation*}
-    x_0 =-\ln (0.1)/0,1 = 1,0536\text{ Sekunden}.
+    x_0 =-\ln (0.1)/0.1 = 1,0536\text{ Sekunden}.
 \end{equation*}\]</span></p>
 <ul>
 <li>The threshold value should therefore be approximately 1,05 seconds.</li>
@@ -1238,7 +1253,7 @@ Figure 3.10: Distributional models for continuous random variables
 (and <span class="math inline">\(f(x)=0\)</span> otherwise).</p>
 <ul>
 <li><p>The distribution function is <span class="math inline">\(F(x) = \frac{x-a}{b-a} 1_{[a,b]}(x) +1_{(b,\infty)}(x)\)</span>.</p></li>
-<li><p>Key figures:</p></li>
+<li><p>Key parameters:</p></li>
 </ul>
 <p><span class="math display">\[\begin{align*}
       \mathbb E(X)&amp;= \int_a^b x\cdot
@@ -1367,7 +1382,7 @@ Figure 3.12: Einige Chi-Quadrat-Verteilungen
 </ul>
 <hr />
 <div class="example">
-<p><span id="exm:chivertmittel" class="example"><strong>Example 3.12  (Stichprobenvarianz von normalverteilten Zufallsvariablen) </strong></span>Example <a href="some-important-distribution-models.html#exm:normvertmittel">3.8</a> cont.</p>
+<p><span id="exm:chivertmittel" class="example"><strong>Example 3.12  (Sample variance of normally distributed random variables) </strong></span>Example <a href="some-important-distribution-models.html#exm:normvertmittel">3.8</a> cont.</p>
 <p>If we also estimate the variance from the sample using the sample variance:</p>
 <p><span class="math display">\[
 S^2=\frac 1{n-1}\Big((X_1 - \bar X)^2 + \ldots + (X_n - \bar X)^2 \Big)
