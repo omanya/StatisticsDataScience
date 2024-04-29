@@ -974,28 +974,31 @@ Figure 3.8: Distributional models for continuous random variables
 </ul>
 <div id="properties-of-normal-distribution" class="section level4 unnumbered hasAnchor">
 <h4>Properties of normal distribution<a href="some-important-distribution-models.html#properties-of-normal-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<pre><code>- The density is **symmetrical about $\mu$**, i.e.
-\begin{equation*}
-    \varphi(\mu-x) = \varphi(\mu+x), \quad x\in \mathbb R.
-\end{equation*}
-In particular in the case $\mu=0$: $\varphi(-x)=\varphi(x)$.
-- The following applies to the distribution function of the standard normal distribution: $N(-x) = 1- N(x)$
-- **Standardize**:
-
-    - $X$ is $N(\mu,\sigma^2)$-distributed $\iff$ $\displaystyle\frac{X-\mu}{\sigma}$ is $N(0,1)$-distributed .
-    - $Y$ is $N(0,1)$-distributed $\iff$ $\mu + \sigma Y$ is $N(\mu,\sigma^2)$-distributed.
-
-- Probabilities within $\sigma$ bounds
-\begin{align*}
-\mathbb P(|X-\mu|\leq \sigma) &amp;= 0.6827\\
-\mathbb P(|X-\mu|\leq 2\sigma) &amp;= 0.9545\\
-\mathbb P(|X-\mu|\leq 3\sigma) &amp;= 0.9973
-\end{align*}
-- Addition property: If $X\sim N(\mu_X,\sigma_X^2)$ and $Y\sim N(\mu_Y,\sigma_Y^2)$ are independent, then
-\begin{equation*}
-X+Y\sim
-N(\mu_X+\mu_Y, \sigma_X^2+\sigma_Y^2).
-\end{equation*}</code></pre>
+<ul>
+<li><p>The density is <strong>symmetrical about <span class="math inline">\(\mu\)</span></strong>, i.e.
+<span class="math display">\[\begin{equation*}
+      \varphi(\mu-x) = \varphi(\mu+x), \quad x\in \mathbb R.
+  \end{equation*}\]</span>
+In particular in the case <span class="math inline">\(\mu=0\)</span>: <span class="math inline">\(\varphi(-x)=\varphi(x)\)</span>.</p></li>
+<li><p>The following applies to the distribution function of the standard normal distribution: <span class="math inline">\(N(-x) = 1- N(x)\)</span></p></li>
+<li><p><strong>Standardization</strong>:</p>
+<ul>
+<li><span class="math inline">\(X\)</span> is <span class="math inline">\(N(\mu,\sigma^2)\)</span>-distributed <span class="math inline">\(\iff\)</span> <span class="math inline">\(\displaystyle\frac{X-\mu}{\sigma}\)</span> is <span class="math inline">\(N(0,1)\)</span>-distributed .</li>
+<li><span class="math inline">\(Y\)</span> is <span class="math inline">\(N(0,1)\)</span>-distributed <span class="math inline">\(\iff\)</span> <span class="math inline">\(\mu + \sigma Y\)</span> is <span class="math inline">\(N(\mu,\sigma^2)\)</span>-distributed.</li>
+</ul></li>
+</ul>
+<p><br>
+- Probabilities within <span class="math inline">\(\sigma\)</span> bounds
+<span class="math display">\[\begin{align*}
+    \mathbb P(|X-\mu|\leq \sigma) &amp;= 0.6827\\
+    \mathbb P(|X-\mu|\leq 2\sigma) &amp;= 0.9545\\
+    \mathbb P(|X-\mu|\leq 3\sigma) &amp;= 0.9973
+    \end{align*}\]</span>
+- <strong>Additive property</strong>: If <span class="math inline">\(X\sim N(\mu_X,\sigma_X^2)\)</span> and <span class="math inline">\(Y\sim N(\mu_Y,\sigma_Y^2)\)</span> are independent, then
+<span class="math display">\[\begin{equation*}
+    X+Y\sim
+    N(\mu_X+\mu_Y, \sigma_X^2+\sigma_Y^2).
+    \end{equation*}\]</span></p>
 <ul>
 <li>Probability with which an <span class="math inline">\(N(\mu,\sigma^2)\)</span>-distributed random variable lies between the boundaries <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>:</li>
 </ul>
