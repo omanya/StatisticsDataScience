@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 5 Parameter estimation | Statistics and Data Science Applications</title>
   <meta name="description" content="This is the script for the course." />
-  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 5 Parameter estimation | Statistics and Data Science Applications" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Maria Osipenko" />
 
 
-<meta name="date" content="2024-04-29" />
+<meta name="date" content="2024-05-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -789,9 +789,9 @@ of the random sample <span class="math inline">\((X_1,\ldots, X_n)\)</span> an <
 <div class="example">
 <p><span id="exm:sch" class="example"><strong>Example 5.5  (Examples of estimators) </strong></span>We already know the following estimation functions quite well:</p>
 <ul>
-<li><p><span class="math inline">\(\displaystyle\overline X = \frac{1}{n} \sum_{i=1}^n\)</span></p></li>
-<li><p><span class="math inline">\(\displaystyle \overline X = \frac{1}{n} \sum_{i=1}^n\)</span>
-<strong>Probability of occurrence</strong> <span class="math inline">\(\mathbb P(X=1)\)</span>.</p></li>
+<li><p><span class="math inline">\(\displaystyle\overline X = \frac{1}{n} \sum_{i=1}^nX_i\)</span> is an estimator for the <strong>population mean</strong> <span class="math inline">\(\mu_X=\mathbb E(X).\)</span></p></li>
+<li><p><span class="math inline">\(\displaystyle \overline Y = \frac{1}{n} \sum_{i=1}^nY_i,\)</span> where <span class="math inline">\(Y_i\)</span>s take the values <span class="math inline">\(\{0,1\},\)</span> is an estimator for the
+<strong>probability</strong> <span class="math inline">\(\mathbb P(Y=1)\)</span>.</p></li>
 <li><p><span class="math inline">\(\hat\sigma_X^2=\displaystyle S_X^2 = g(X_1,\ldots, X_n) = \frac{1}{n-1}\sum_{i=1}^n (X_i-\overline X )^2\)</span> is estimator for the <strong>variance</strong> <span class="math inline">\(\sigma_X^2=\text{Var}(X)\)</span>.</p></li>
 </ul>
 </div>
@@ -824,13 +824,13 @@ of the random sample <span class="math inline">\((X_1,\ldots, X_n)\)</span> an <
 <div class="example">
 <p><span id="exm:erwtr" class="example"><strong>Example 5.6  (Unbiasedness of the sample mean) </strong></span>We check whether the sample mean <span class="math inline">\(\bar X\)</span> is unbiased for <span class="math inline">\(\mathbb E(X)\)</span> and the relative frequency (<span class="math inline">\(h_{Y=1}=\bar Y\)</span>, <span class="math inline">\(Y\in\{0;1\}\)</span> ) are unbiased for <span class="math inline">\(\mathbb P(Y=1)\)</span>.</p>
 <ul>
-<li><p><span class="math inline">\(\overline X=\displaystyle \frac{1}{n} \sum_{i=1}^n\)</span> because
+<li><p><span class="math inline">\(\overline X=\displaystyle \frac{1}{n} \sum_{i=1}^nX_i\)</span> is unbiased estimator for the <strong>population mean</strong> <span class="math inline">\(\mu\)</span> because
 <span class="math display">\[\begin{equation*}
     \mathbb E(\overline X) = \frac{1}{n} \sum_{i=1}^n \mathbb E(X_i) = \frac{1}{n}
     n\cdot \mu = \mu.
 \end{equation*}\]</span></p></li>
 <li><p>The <strong>relative frequency</strong> <span class="math inline">\(H_{Y=1}=\displaystyle \overline Y=\displaystyle\frac{1}{n}\sum_{i=1}^n Y_i\)</span>, with <span class="math inline">\(Y_i\in \{0,1\}\)</span>,
-is unbiased estimator for the <strong>share value</strong>/ the <strong>probability of occurrence</strong> <span class="math inline">\(\mathbb P(Y=1)\)</span>.
+is unbiased estimator for the <strong>share</strong>/ the <strong>probability</strong> <span class="math inline">\(\mathbb P(Y=1)\)</span>.
 <span class="math display">\[\begin{equation*}
     \mathbb E(\overline Y) = \frac{1}{n} \sum_{i=1}^n \mathbb E(Y_i) = \frac{1}{n} \sum_{i=1}^n \mathbb P(Y_i=1)\frac{1}{n}
     n\cdot \mathbb P(Y=1) = \mathbb P(Y=1).
