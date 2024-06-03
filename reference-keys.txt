@@ -89,7 +89,7 @@ exm:intsch22
 exm:intschkont
 exm:intsch222
 exm:intsch3
-fig:unnamed-chunk-160
+fig:unnamed-chunk-159
 exm:test
 exm:test0
 exm:testp0
@@ -149,8 +149,8 @@ construction-of-estimators
 method-of-moments
 maximum-likelihood-method
 interval-estimation
-alpha-confidence-interval-for-mu
-type-c-approximate-confidence-interval-for-mu-for-any-distribution
+alpha-confidence-intervals-for-mu
+c-approximate-confidence-intervals-for-mu-of-an-arbitrary-distribution
 alpha-confidence-interval-for-sigma2
 alpha-confidence-interval-for-probability-p
 determining-n-based-on-the-length-of-confidence-intervals

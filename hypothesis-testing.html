@@ -23,7 +23,7 @@
 <meta name="author" content="Maria Osipenko" />
 
 
-<meta name="date" content="2024-05-14" />
+<meta name="date" content="2024-06-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -158,7 +158,7 @@
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="parameter-estimation.html"><a href="parameter-estimation.html#interval-estimation"><i class="fa fa-check"></i><b>5.4</b> Interval estimation</a>
 <ul>
-<li class="chapter" data-level="5.4.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#alpha-confidence-interval-for-mu"><i class="fa fa-check"></i><b>5.4.1</b> <span class="math inline">\((1-\alpha)\)</span> confidence interval for <span class="math inline">\(\mu\)</span></a></li>
+<li class="chapter" data-level="5.4.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#alpha-confidence-intervals-for-mu"><i class="fa fa-check"></i><b>5.4.1</b> <span class="math inline">\((1-\alpha)\)</span> confidence intervals for <span class="math inline">\(\mu\)</span></a></li>
 <li class="chapter" data-level="5.4.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#alpha-confidence-interval-for-sigma2"><i class="fa fa-check"></i><b>5.4.2</b> <span class="math inline">\((1-\alpha)\)</span> confidence interval for <span class="math inline">\(\sigma^2\)</span></a></li>
 <li class="chapter" data-level="5.4.3" data-path="parameter-estimation.html"><a href="parameter-estimation.html#alpha-confidence-interval-for-probability-p"><i class="fa fa-check"></i><b>5.4.3</b> <span class="math inline">\((1-\alpha)\)</span> confidence interval for probability <span class="math inline">\(p\)</span></a></li>
 <li class="chapter" data-level="5.4.4" data-path="parameter-estimation.html"><a href="parameter-estimation.html#determining-n-based-on-the-length-of-confidence-intervals"><i class="fa fa-check"></i><b>5.4.4</b> Determining <span class="math inline">\(n\)</span> based on the length of confidence intervals</a></li>
@@ -331,38 +331,40 @@ function normalCDF(x, mean, std) {
   return prob
 }
 </script>
-<p>So far we have made statistical inferences based on numerical estimators (point estimators and interval estimators). Well, there are problems where you want to test a certain assumption. It’s less about getting a number and more about supporting a hypothesis based on the data (e.g. was a marketing campaign effective?).</p>
-<p>Test procedures answer the questions regarding these <strong>possible conclusions</strong> of a random process (<strong>hypotheses</strong>) and bring about a <strong>decision</strong> for one of the possibilities using tools of probability theory.</p>
+<p>So far we have conducted statistical inference based on numerical estimator values (point estimates and interval estimates). Well, there are problems where you want to verify a certain assumption or hypothesis. It’s less about getting a number and more about supporting a <strong>hypothesis</strong> based on the data (e.g. was a marketing campaign effective?).</p>
+<p><strong>Statistical hypothesis testing</strong> answer the questions regarding whether the data supports certain hypotheses about the underlying distribution or not and allow to come up with a <strong>decision</strong> for one of the possibilities using the tools of probability theory.</p>
 <hr />
 <p>In this chapter we will learn:</p>
 <ul>
-<li>How to formulate the <strong>hypotheses</strong>,</li>
+<li>How to formulate the <strong>test hypotheses</strong>,</li>
 <li>which <strong>test procedures</strong> should be used and when?</li>
-<li>how to make a <strong>test decision</strong>.</li>
+<li>how to make a sound <strong>test decision</strong>.</li>
 </ul>
 <hr />
 <div id="the-basic-idea-of-statistical-testing" class="section level2 hasAnchor" number="6.1">
 <h2><span class="header-section-number">6.1</span> The basic idea of statistical testing<a href="hypothesis-testing.html#the-basic-idea-of-statistical-testing" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <hr />
 <div class="example">
-<p><span id="exm:test" class="example"><strong>Example 6.1  (Discount campaign) </strong></span>You want to check whether a discount campaign has contributed to increasing sales.</p>
-<p>In a pilot study, <span class="math inline">\(n=30\)</span> randomly selected customers were offered the discount.
-The remaining customers did not receive a discount and have an average invoice amount of <span class="math inline">\(25\)</span> EUR with a known
-standard deviation of <span class="math inline">\(\sigma=2.4\)</span>.</p>
-<p>The discount group has an average invoice amount of <span class="math inline">\(\overline y=26.3\)</span> EUR.
-There are two possibilities:</p>
+<p><span id="exm:test" class="example"><strong>Example 6.1  (Discount campaign) </strong></span>Suppose you would like to check whether a discount campaign has contributed to a persistent increase in sales.</p>
 <ul>
-<li><p><strong>The campaign is actually effective</strong>: it increases sales sustainably and we would be making a wrong decision if we assume that the increase in sales is random <span class="math inline">\(\Rightarrow\)</span> Company may abandon an effective campaign.</p></li>
-<li><p><strong>The campaign is actually ineffective</strong>: sales in the pilot group increased due to random fluctuations and we would be making a wrong decision if we assumed that the increase in sales was due to the promotion <span class="math inline">\(\Rightarrow\)</span> cost for a pointless discount campaign.</p></li>
+<li><p>A pilot group of <span class="math inline">\(n=30\)</span> randomly selected customers participated in the discount campaign and got a discount offer.</p></li>
+<li><p>The remaining customers did not receive a discount and generated the average sales amount of <span class="math inline">\(25\)</span> EUR with a known
+standard deviation of <span class="math inline">\(\sigma=2.4\)</span>.</p></li>
+<li><p>The discount group generated the average sales amount of <span class="math inline">\(\overline y=26.3\)</span> EUR. <strong>Does this mean, that the marketing campaign brings about a persistent sales increase?</strong></p></li>
 </ul>
-<p>In the case of two possible, mutually exclusive conclusions, a distinction is made:</p>
+<p>There are two possibilities:</p>
 <ul>
-<li><p><strong>null hypothesis</strong> <span class="math inline">\(H_0\)</span> (status quo <span class="math inline">\(\leadsto\)</span> action does not change behavior, sales, …) is not rejected as long as there is not enough evidence to refute it.</p></li>
-<li><p><strong>Alternative hypothesis</strong> <span class="math inline">\(H_1\)</span> (<span class="math inline">\(\leadsto\)</span> action is effective, favorably changes behavior, sales, …) is accepted if “sufficient” evidence speaks against the null hypothesis.</p></li>
+<li><p><strong>The campaign is actually effective</strong>: it increases sales persistently and we would be making a wrong decision by assuming that the increase in sales is random <span class="math inline">\(\Rightarrow\)</span> Company may abandon an effective campaign.</p></li>
+<li><p><strong>The campaign is actually ineffective</strong>: sales in the pilot group appeared higher just by chance, due to random fluctuations and we would be making a wrong decision by assuming that the increase in sales was due to the campaign <span class="math inline">\(\Rightarrow\)</span> cost for a pointless discount campaign.</p></li>
+</ul>
+<p>In the case of such two mutually exclusive conclusions, we distinguish between:</p>
+<ul>
+<li><p><strong>null hypothesis</strong> <span class="math inline">\(H_0\)</span> (status quo <span class="math inline">\(\leadsto\)</span> action <strong>does not</strong> change behavior, increase sales, …) is not rejected as long as there is <em>not enough evidence</em> to refute it.</p></li>
+<li><p><strong>Alternative hypothesis</strong> <span class="math inline">\(H_1\)</span> (<span class="math inline">\(\leadsto\)</span> action is effective, <strong>favorably changes</strong> behavior, increases sales, …) is accepted if <em>“sufficient” evidence</em> speaks against the null hypothesis.</p></li>
 </ul>
 </div>
 <hr />
-<p>Possible conclusions and consequences:</p>
+<p>Wrong decisions are always possible and it is not possible to judge whether a given test decision is right or wrong. However, we construct statistical tests in such a way, that incorrect decisions have low probability.</p>
 <p><span class="math display">\[
 \begin{array}{c|cc}
       \hline
@@ -373,11 +375,10 @@ There are two possibilities:</p>
       &amp;\text{(Type 2 error)}&amp;\\\hline
 \end{array}
 \]</span></p>
-<p>Wrong decisions are always possible and it is not possible to judge whether a given test decision is right or wrong. However, we construct statistical test in a way, that incorrect decisions have low probability.</p>
-<p>Two types of incorrect decisions can occur: incorrectly rejecting or incorrectly maintaining the null hypothesis:</p>
+<p>Two types of incorrect decisions can occur: incorrectly rejecting or incorrectly retain the null hypothesis:</p>
 <ul>
 <li><p><strong>Type 1 error</strong> when <span class="math inline">\(H_0\)</span> is rejected even though <span class="math inline">\(H_0\)</span> is true,</p></li>
-<li><p><strong>Type 2 error</strong> when <span class="math inline">\(H_0\)</span> is retained even though <span class="math inline">\(H_1\)</span> is true.</p></li>
+<li><p><strong>Type 2 error</strong> when <span class="math inline">\(H_0\)</span> is not rejected even though <span class="math inline">\(H_1\)</span> is true.</p></li>
 </ul>
 <p>The aim is to define a decision-making strategy so that Type 1 and Type 2 errors are kept as small as possible.</p>
 <hr />
@@ -429,7 +430,7 @@ Then <span class="math inline">\(H_0\)</span> is rejected with a probability of 
 \end{align*}\]</span></p>
 <p>This gives <span class="math inline">\(\overline y^\ast=25.718\)</span>.</p>
 <p>Our decision would be: Reject the hypothesis that action has no effect because <span class="math inline">\(\overline Y=26.3\geq 25.718\)</span>.</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-166-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-165-1.png" width="672" /></p>
 <p>This is <strong>not</strong> proof that <span class="math inline">\(H_0\)</span> is false. <strong>High evidence against</strong> <span class="math inline">\(H_0\)</span> leads to rejection. Because: If the true expected value is <span class="math inline">\(25.0\)</span>, samples with <span class="math inline">\(\overline Y\geq 25.718\)</span> will only occur with a probability of <span class="math inline">\(5\%\)</span>.</p>
 <p>Decision rule: Reject <span class="math inline">\(H_0\)</span> if <span class="math inline">\(\overline Y\geq 25.718\)</span>.</p>
 <p>The following key figure is also interesting: Assuming that <span class="math inline">\(H_0\)</span> holds, what is the probability - if the experiment is repeated - of obtaining a result that is at least as extreme as the one observed?
@@ -504,7 +505,7 @@ x_i&amp;115&amp; \color{red}{116}&amp; 120&amp; 125\\
 \mathbb P(X&gt;x_i)&amp; 0,053&amp;\color{red}{0,04334} &amp;0,017&amp; 0,005\\\hline
 \end{array}
 \]</span></p>
-<p><img src="_main_files/figure-html/unnamed-chunk-168-1.png" width="100%" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-167-1.png" width="100%" /></p>
 </div>
 <hr />
 </div>
@@ -545,7 +546,7 @@ for <span class="math inline">\(x^\ast\)</span> results
   100 = 115.58.
 \end{equation*}\]</span></li>
 </ul>
-<p><img src="_main_files/figure-html/unnamed-chunk-169-1.png" width="100%" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-168-1.png" width="100%" /></p>
 </div>
 <hr />
 <p>Approximate binomial test (summary)</p>
@@ -615,7 +616,7 @@ and the given level <span class="math inline">\(\alpha\)</span></p></li>
 <li><p>The rejection region is given as the <span class="math inline">\((1-\alpha/2)=(1-0.005) = 0.995\)</span>-quantile of the standard normal distribution, so <span class="math inline">\(H_0\)</span> is rejected if <span class="math inline">\(|z| &gt;2.5758.\)</span></p></li>
 <li><p>Because <span class="math inline">\(|z|=1.64\)</span>, <span class="math inline">\(H_0\)</span> is not rejected.</p></li>
 </ul>
-<p><img src="_main_files/figure-html/unnamed-chunk-170-1.png" width="100%" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-169-1.png" width="100%" /></p>
 </div>
 <hr />
 </div>
@@ -673,7 +674,7 @@ identically distributed with <span class="math inline">\(X\sim N(\mu,\sigma^2)\)
 <li><p>Since for the present realization of <span class="math inline">\(T\)</span> holds
 <span class="math inline">\(|2.186|&lt;4.604\)</span>, <span class="math inline">\(H_0\)</span> is not rejected.</p></li>
 </ul>
-<p><img src="_main_files/figure-html/unnamed-chunk-171-1.png" width="100%" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-170-1.png" width="100%" /></p>
 </div>
 <div id="q61" class="quiz">
 <script>

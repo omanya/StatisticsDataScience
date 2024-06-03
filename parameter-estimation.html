@@ -23,7 +23,7 @@
 <meta name="author" content="Maria Osipenko" />
 
 
-<meta name="date" content="2024-05-14" />
+<meta name="date" content="2024-06-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -158,7 +158,7 @@
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="parameter-estimation.html"><a href="parameter-estimation.html#interval-estimation"><i class="fa fa-check"></i><b>5.4</b> Interval estimation</a>
 <ul>
-<li class="chapter" data-level="5.4.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#alpha-confidence-interval-for-mu"><i class="fa fa-check"></i><b>5.4.1</b> <span class="math inline">\((1-\alpha)\)</span> confidence interval for <span class="math inline">\(\mu\)</span></a></li>
+<li class="chapter" data-level="5.4.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#alpha-confidence-intervals-for-mu"><i class="fa fa-check"></i><b>5.4.1</b> <span class="math inline">\((1-\alpha)\)</span> confidence intervals for <span class="math inline">\(\mu\)</span></a></li>
 <li class="chapter" data-level="5.4.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#alpha-confidence-interval-for-sigma2"><i class="fa fa-check"></i><b>5.4.2</b> <span class="math inline">\((1-\alpha)\)</span> confidence interval for <span class="math inline">\(\sigma^2\)</span></a></li>
 <li class="chapter" data-level="5.4.3" data-path="parameter-estimation.html"><a href="parameter-estimation.html#alpha-confidence-interval-for-probability-p"><i class="fa fa-check"></i><b>5.4.3</b> <span class="math inline">\((1-\alpha)\)</span> confidence interval for probability <span class="math inline">\(p\)</span></a></li>
 <li class="chapter" data-level="5.4.4" data-path="parameter-estimation.html"><a href="parameter-estimation.html#determining-n-based-on-the-length-of-confidence-intervals"><i class="fa fa-check"></i><b>5.4.4</b> Determining <span class="math inline">\(n\)</span> based on the length of confidence intervals</a></li>
@@ -960,7 +960,7 @@ the expected value is estimated by <span class="math inline">\(\overline X=\disp
 <ul>
 <li><p>Theoretically:</p>
 <ul>
-<li>Distribution assumption: <span class="math inline">\(\mathbb P\in\{B(1,p) | p\in \Theta=[0,1]\}\)</span></li>
+<li>Distribution assumption: <span class="math inline">\(X\sim Ber(p), p\in [0,1]\)</span></li>
 <li>First moment of the distribution: <span class="math inline">\(\mathbb E(X) = p\)</span></li>
 <li>First moment of the sample: <span class="math inline">\(\bar X = \frac 1n \sum_{i=1}^n X_i\)</span></li>
 <li>Estimator: <span class="math inline">\(\hat p = \overline X\)</span> (proportion of “successes” in the sample)</li>
@@ -978,7 +978,7 @@ the expected value is estimated by <span class="math inline">\(\overline X=\disp
 <ul>
 <li><p>Theoretically:</p>
 <ul>
-<li>Distribution assumption: <span class="math inline">\(\mathbb P\in\{E(\lambda)| \lambda&gt;0\}\)</span></li>
+<li>Distribution assumption: <span class="math inline">\(X\sim E(\lambda), \lambda&gt;0\)</span></li>
 <li>First moment of the distribution: <span class="math inline">\(\mathbb E(X) = \displaystyle\frac{1}{\lambda}\)</span></li>
 <li>First moment of the sample: <span class="math inline">\(\bar X = \frac 1n \sum_{i=1}^n X_i\)</span></li>
 <li>Estimator: <span class="math inline">\(\hat\lambda = \displaystyle\frac{1}{\overline X}\)</span> (because then: <span class="math inline">\(\overline X = \displaystyle \mathbb E(X) = \frac{1}{\lambda}\)</span> )</li>
@@ -996,7 +996,7 @@ the expected value is estimated by <span class="math inline">\(\overline X=\disp
 <ul>
 <li><p>Theoretically:</p>
 <ul>
-<li>Distribution assumption: <span class="math inline">\(\mathbb P\in\{N(\mu,\sigma^2)|\mu\in \mathbb R, \sigma^2&gt;0\}\)</span></li>
+<li>Distribution assumption: <span class="math inline">\(X\sim N(\mu,\sigma^2),\mu\in \mathbb R, \sigma^2&gt;0\)</span></li>
 <li>First moment of the distribution: <span class="math inline">\(\mathbb E(X) = \mu\)</span></li>
 <li>First moment of the sample: <span class="math inline">\(\bar X = \frac 1n \sum_{i=1}^n X_i\)</span></li>
 <li>Second moment of the distribution: <span class="math inline">\(\mathbb E(X^2) = \mu^2 + \sigma^2\)</span></li>
@@ -1020,34 +1020,32 @@ the expected value is estimated by <span class="math inline">\(\overline X=\disp
 <div id="maximum-likelihood-method" class="section level3 hasAnchor" number="5.3.2">
 <h3><span class="header-section-number">5.3.2</span> Maximum likelihood method<a href="parameter-estimation.html#maximum-likelihood-method" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Let <span class="math inline">\(X_1,\ldots, X_n\)</span> be independent, identically distributed random variables.
-The distribution of <span class="math inline">\(X_i\)</span>, <span class="math inline">\(i=1,\ldots, n\)</span> is unknown, but we assume that the distribution belongs to a <strong>distribution model</strong> that characterizes <span class="math inline">\(\theta\)</span> by an appropriate <strong>parameterization</strong> is.</p>
-<p>That is, <span class="math inline">\(X_i\)</span> has probability function or density <span class="math inline">\(f(x|\theta)\)</span>, <span class="math inline">\(\theta\in\Theta\)</span>, where <span class="math inline">\(\theta\)</span> is a vector of parameters from the set <span class="math inline">\(\Theta\)</span>.</p>
+The distribution of <span class="math inline">\(X_i\)</span>, <span class="math inline">\(i=1,\ldots, n\)</span> is unknown, but we assume that the distribution belongs to a <strong>distribution model</strong> parameterized by an unknown <span class="math inline">\(\theta\)</span>.</p>
+<p>That is, <span class="math inline">\(X_i\)</span> has probability function or density <span class="math inline">\(f(x|\theta)\)</span>, <span class="math inline">\(\theta\in\Theta\)</span>, where <span class="math inline">\(\theta\)</span> is a vector of punknown arameters from the set <span class="math inline">\(\Theta\)</span>.</p>
 <p>The <strong>maximum likelihood principle</strong> states:</p>
-<p>For the sample result <span class="math inline">\((x_1,\ldots, x_n)\)</span>, choose the value <span class="math inline">\(\hat\theta\)</span> as the estimated value for <span class="math inline">\(\theta\)</span>, below which the <strong>probability of the sample result occurring is greatest</strong>.</p>
-<p>The sentence “under which the probability of the outcome occurring is greatest” can be replaced by: “under which the corresponding probability function or density is maximum”. The latter is quantified using the <strong>likelihood function</strong>:</p>
+<p>For the sample outcome <span class="math inline">\((x_1,\ldots, x_n)\)</span>, choose the value <span class="math inline">\(\hat\theta\)</span> as the estimate for <span class="math inline">\(\theta\)</span>, for which the <strong>probability of the sample outcome is the greatest</strong>.</p>
+<p>The sentence “for which the probability of the sample outcome is the greatest” can be replaced by: “for which the corresponding probability function or density is at its maximum”. The latter is quantified using the <strong>likelihood function</strong>:</p>
 <ul>
-<li><p>If a realization <span class="math inline">\((x_1,\ldots, x_n)\)</span> is given, the density can be determined as a function of the unknown parameters <span class="math inline">\(\theta\)</span>
-comprehend
+<li><p>If a sample realization <span class="math inline">\((x_1,\ldots, x_n)\)</span> is given, the joint probability / density (<span class="math inline">\(\leadsto\)</span> <strong>Linkelihood</strong>) of the sample outcome can be determined as a function of the unknown parameters <span class="math inline">\(\theta\)</span>:
 <span class="math display">\[\begin{equation*}
     L(\theta)= f(x_1,\ldots, x_n|\theta).
 \end{equation*}\]</span></p></li>
-<li><p>Because of the <strong>independence</strong> of the random sample, the following applies to the joint probability function / density:
+<li><p>Because of the <strong>independence</strong> of the random sample, the following applies to the joint probability / density:
 <span class="math display">\[\begin{equation*}
     L(\theta)=f(x_1,\ldots, x_n|\theta) = f(x_1|\theta)\cdot f(x_2|\theta)\cdot \dots \cdot f(x_n|\theta).
 \end{equation*}\]</span></p></li>
-<li><p>The <strong>Maximum Likelihood Principle</strong> says: for <span class="math inline">\(x_1,\ldots, x_n\)</span>, choose as parameter estimate the parameter <span class="math inline">\(\hat\theta\)</span> for which the <strong>likelihood is maximum</strong>, i.e.
+<li><p>The <strong>Maximum Likelihood Principle</strong>: for <span class="math inline">\(x_1,\ldots, x_n\)</span>, choose the parameter <span class="math inline">\(\hat\theta\)</span> as a parameter estimate, for which the <strong>likelihood is maximum</strong>, i.e.
 <span class="math display">\[\begin{equation*}
     L(\hat\theta)=\max_{\theta} L(\theta),
 \end{equation*}\]</span>
-or
+corresponding to
 <span class="math display">\[\begin{equation*}
-    f(x_1,\ldots, x_n|\hat\theta) = \max_{\theta} f(x_1,\ldots,
-    x_n|\theta).
+    f(x_1,\ldots, x_n|\hat\theta) = \max_{\theta} f(x_1,\ldots,x_n|\theta).
 \end{equation*}\]</span></p></li>
 </ul>
-<p>For the given realizations <span class="math inline">\(x_1,\ldots, x_n\)</span>, one chooses the parameter <span class="math inline">\(\hat\theta\)</span> for which the probability or density that these values ​​occur is <strong>maximum</strong>. These are the parameters <span class="math inline">\(\theta\)</span> that provide the <strong>most plausible explanation</strong> for how these values ​​came about. The estimate depends in particular on the sample: <span class="math inline">\(\hat\theta=\hat\theta(x_1,\ldots, x_n)\)</span>.</p>
+<p>Thus, for the given realizations <span class="math inline">\(x_1,\ldots, x_n\)</span>, one chooses the parameter estimate <span class="math inline">\(\hat\theta\)</span>, for which the probability or density of those realizations occurring together in a sample is <strong>maximum</strong>. These are the values for the parameters <span class="math inline">\(\theta\)</span> that provide the <strong>most plausible explanation</strong> for how these sample came about. The estimate depends in particular on the sample: <span class="math inline">\(\hat\theta=\hat\theta(x_1,\ldots, x_n)\)</span>.</p>
 <ul>
-<li><p>The estimating function <span class="math inline">\(g(x_1,\ldots, x_n)=\hat\theta(x_1,\ldots, x_n)\)</span> is called <strong>maximum likelihood estimator</strong> (ML estimator).</p></li>
+<li><p>The corresponding estimating function <span class="math inline">\(g(X_1,\ldots, X_n)=\hat\theta(X_1,\ldots, X_n)\)</span> is called <strong>maximum likelihood estimator</strong> (ML estimator).</p></li>
 <li><p>To practically determine the maximum, one often chooses the <strong>logarithm of the likelihood function</strong>, the <strong>log-likelihood</strong>, as this converts the product of the densities into a sum:
 <span class="math display">\[\begin{equation*}
     \mathcal L(\theta) = \ln L(\theta) = \sum_{i=1}^n \ln f(x_i|\theta).
@@ -1122,43 +1120,41 @@ L(\lambda) = f(x_1|\lambda)\cdots f(x_4|\lambda) = \prod_{i=1}^4
 </div>
 <div id="interval-estimation" class="section level2 hasAnchor" number="5.4">
 <h2><span class="header-section-number">5.4</span> Interval estimation<a href="parameter-estimation.html#interval-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The point estimate provides a parameter estimate <span class="math inline">\(\hat\theta\)</span>, which is typically not the same as the true value <span class="math inline">\(\theta\)</span>. In addition to the estimate <span class="math inline">\(\hat\theta\)</span> itself, one can specify the <strong>precision</strong> of the estimator by taking into account the <strong>variability of the estimator</strong>.</p>
-<p>The <strong>Interval Estimation</strong> is a way to directly incorporate the accuracy of the estimation process. The result of the estimation is an <strong>interval</strong>. However, it is not really possible to hit the true parameter with certainty. The <strong>error probability</strong> <span class="math inline">\(\alpha\)</span>, with which the method returns an interval that does not contain the true value <span class="math inline">\(\theta\)</span>, is given. Common values <span class="math inline">\(\alpha\)</span> are <span class="math inline">\(\alpha=0.1\)</span>, <span class="math inline">\(\alpha=0.05\)</span> and <span class="math inline">\(\alpha=0.01\)</span>.</p>
-<p>The <strong>coverage probability/confidence level</strong> <span class="math inline">\(1-\alpha\)</span> is the probability that the procedure returns an interval that contains the value <span class="math inline">\(\theta\)</span>.</p>
-<p>Since the width of such an interval can also be understood as the accuracy of the estimate, the <strong>sample size</strong>, which ensures a certain level of accuracy at the given level of certainty, can be derived from it.
-***</p>
+<p>The point estimate provides a parameter estimate <span class="math inline">\(\hat\theta\)</span>, which is typically <em>not the same as the true value</em> <span class="math inline">\(\theta\)</span>. In addition to the <strong>point estimate</strong> <span class="math inline">\(\hat\theta\)</span> itself, one can take into account the <strong>variability of the underlying estimator</strong>.</p>
+<p><strong>Interval estimation</strong> is a way to directly incorporate the accuracy in the estimation process. The result of the estimation is an <strong>interval</strong> which is constructed in a way to cover the true parameter with certain high coverage probability with common values <span class="math inline">\(1-\alpha \in\{0.9,0.95,0.99\}\)</span>. The <strong>coverage probability/confidence level</strong> <span class="math inline">\(1-\alpha\)</span> is the probability that the procedure returns an interval that contains the value <span class="math inline">\(\theta\)</span>. The <strong>error probability</strong> <span class="math inline">\(\alpha\)</span>, with which the method returns an interval that does not contain the true value <span class="math inline">\(\theta\)</span>, is given by <span class="math inline">\(\alpha=0.1\)</span>, <span class="math inline">\(\alpha=0.05\)</span> and <span class="math inline">\(\alpha=0.01\)</span> respectively.</p>
+<p>Since <strong>the width of such an interval</strong> can also be understood as the accuracy of the estimate, the <strong>sample size</strong>, which ensures some predefined accuracy for the given confidence level, can be derived from it.</p>
+<hr />
 <div class="example">
-<p><span id="exm:intsch" class="example"><strong>Example 5.14  (Estimate the average invoice amount (Rechnungsbetrag)) </strong></span>Our estimator - the sample mean <span class="math inline">\(\bar{X}=\frac 1n \sum_{i=1}^n\)</span>. The values fluctuate less as the sample size <span class="math inline">\(n\)</span> increases.</p>
+<p><span id="exm:intsch" class="example"><strong>Example 5.14  (Estimate the average invoice amount (Rechnungsbetrag)) </strong></span>Our estimator is the sample mean <span class="math inline">\(\overline{X}=\frac 1n \sum_{i=1}^nX_i\)</span> which values fluctuate less as the sample size <span class="math inline">\(n\)</span> increases.</p>
 <p><strong>But how exactly is the relationship to the sample size?</strong></p>
-<p>The answer is provided by the central limit theorem (CLT). If the sample variables <span class="math inline">\(X_1,X_2,\ldots, X_n\)</span> are identical and independently distributed with a finite mean <span class="math inline">\(\mu_X\)</span> and a finite variance <span class="math inline">\(\sigma_X^2\)</span>, the approximate distribution of sample mean is: <span class="math display">\[\bar{X} \stackrel{a}{\sim} N(\mu_X, \frac{\sigma_X^2}{n})\]</span> or in its standardized version: <span class="math display">\[\frac{\bar X-\mu_X}{\sigma_X/\sqrt{n}}\stackrel{a}{\sim}N(0;1).\]</span></p>
-<p>The sample size depends on the unknown variance in the population. In practice, an estimate of the variance is used. You should assume a rather higher value.</p>
+<p>The answer is provided by the central limit theorem (CLT). If the sample variables <span class="math inline">\(X_1,X_2,\ldots, X_n\)</span> are identically and independently distributed with a finite mean <span class="math inline">\(\mu_X\)</span> and a finite variance <span class="math inline">\(\sigma_X^2\)</span>, the approximate distribution of sample mean is: <span class="math display">\[\bar{X} \stackrel{a}{\sim} N\Big(\mu_X, \frac{\sigma_X^2}{n}\Big)\]</span> or in its standardized version: <span class="math display">\[\frac{\overline X-\mu_X}{\sigma_X/\sqrt{n}}\stackrel{a}{\sim}N(0;1).\]</span></p>
+<p>The variance of the estimator depends on the sample size <span class="math inline">\(n\)</span> and on the possibly unknown variance in the population <span class="math inline">\(\sigma^2\)</span>. In practice, if <span class="math inline">\(\sigma^2\)</span> is unknown, an estimate of the population variance is used.</p>
 <ul>
-<li>Assuming <span class="math inline">\(\sigma_X=100\)</span> is known or determined by experience and <span class="math inline">\(n=50\)</span>, therefore <span class="math inline">\(\frac{\sigma_X^2}{n}=\frac{100}{50}=2\)</span>, then according to CLT :
-<span class="math display">\[\bar{X}\stackrel{a}{\sim} N(\mu_X; 2)\text{ or }\frac{\bar X-\mu_X}{\sqrt 2}\stackrel{a}{\sim} N(0;1)\]</span></li>
-</ul>
-<p>I.e. <span class="math inline">\(\mathbb P\left(-1.96\leq\frac{\overline X-\mu_X}{\sqrt 2}\leq1.96\right)=0.95\leftrightarrow\)</span> <span class="math inline">\(\mathbb P\left(-1 .96\cdot \sqrt 2\leq \overline X-\mu_X\leq1.96\cdot \sqrt 2\right)=0.95\)</span> and with 95% probability the values of <span class="math inline">\(\bar x\)</span> away from <span class="math inline">\(\mu_X\)</span>.</p>
-<ul>
-<li>Rearranging the inequalities within the probability according to <span class="math inline">\(\mu_X\)</span> gives:</li>
+<li><p>Assuming <span class="math inline">\(\sigma_X=100\)</span> is known and <span class="math inline">\(n=50\)</span>, it follows <span class="math inline">\(\frac{\sigma_X^2}{n}=\frac{100}{50}=2\)</span>, then according to the CLT :
+<span class="math display">\[\overline{X}\stackrel{a}{\sim} N(\mu_X; 2)\]</span>
+or <span class="math display">\[\frac{\overline X-\mu_X}{\sqrt 2}\stackrel{a}{\sim} N(0;1).\]</span> Thus, we know that <span class="math display">\[\mathbb P\left(-1.96\leq\frac{\overline X-\mu_X}{\sqrt 2}\leq1.96\right)=0.95.\]</span></p></li>
+<li><p>Rearranging the inequalities within the probability according to <span class="math inline">\(\mu_X\)</span> gives:</p></li>
 </ul>
 <p><span class="math display">\[\begin{align}
-\mathbb P\left(-1.96\cdot \sqrt 2\leq \bar X-\mu_X\leq 1.96\cdot \sqrt 2\right)&amp;=0.95~~ |\leadsto -\bar X\\
-\mathbb P\left(-\bar X-1.96\cdot \sqrt 2\leq-\mu_X\leq -\bar X+1.96\cdot \sqrt2\right)&amp;=0.95~~|\leadsto :(-1)\\
-\mathbb P\left(\bar X+1.96\cdot \sqrt 2\geq\mu_X\geq \bar X-1.96\cdot \sqrt 2\right)&amp;=0.95~~|\leadsto \text{swipping the sides}\\
-\mathbb P\left(\bar X-1.96\cdot \sqrt 2\leq\mu_X\leq \bar X+1.96\cdot \sqrt 2\right)&amp;=0.95
+\mathbb P\left(-1.96\leq\frac{\overline X-\mu_X}{\sqrt 2}\leq1.96\right)&amp;=0.95~~|\leadsto \cdot\sqrt{2}\\
+\mathbb P\left(-1.96\cdot \sqrt 2\leq \overline X-\mu_X\leq 1.96\cdot \sqrt 2\right)&amp;=0.95~~ |\leadsto -\overline X\\
+\mathbb P\left(-\overline X-1.96\cdot \sqrt 2\leq-\mu_X\leq -\overline X+1.96\cdot \sqrt2\right)&amp;=0.95~~|\leadsto :(-1)\\
+\mathbb P\left(\overline X+1.96\cdot \sqrt 2\geq\mu_X\geq \overline X-1.96\cdot \sqrt 2\right)&amp;=0.95~~|\leadsto \text{swipping the sides}\\
+\mathbb P\left(\overline X-1.96\cdot \sqrt 2\leq\mu_X\leq \overline X+1.96\cdot \sqrt 2\right)&amp;=0.95
 \end{align}\]</span></p>
-<p>With 95% probability, the above term guarantees us that the unknown parameter <span class="math inline">\(\mu_X\)</span> is somewhere between <span class="math inline">\(\bar X-1.96\cdot \sqrt 2\)</span> and <span class="math inline">\(\bar X+1.96\cdot \sqrt 2\)</span>.</p>
+<p>With <span class="math inline">\(95\%\)</span> probability, the above term guarantees us that the unknown parameter <span class="math inline">\(\mu_X\)</span> is somewhere between <span class="math inline">\(\overline X-1.96\cdot \sqrt 2\)</span> and <span class="math inline">\(\overline X+1.96\cdot \sqrt 2\)</span>.</p>
 <ul>
-<li><p>Now <span class="math inline">\(\bar X-1.96\cdot \sqrt 2\)</span> and <span class="math inline">\(\bar X+1.96\cdot \sqrt 2\)</span> are random variables and the values vary with each new sampling.</p></li>
-<li><p>For a concrete sampling, you can calculate the values <span class="math inline">\(\overline x-1.96\cdot \sqrt 2\)</span> and <span class="math inline">\(\overline x+1.96\cdot \sqrt 2\)</span> and get an estimation interval for <span class="math inline">\(\mu_X\)</span> as a result:</p></li>
+<li><p>Now <span class="math inline">\(\overline X-1.96\cdot \sqrt 2\)</span> and <span class="math inline">\(\overline X+1.96\cdot \sqrt 2\)</span> are random variables and the values vary with each new sampling.</p></li>
+<li><p>For a concrete sample, one can calculate the values <span class="math inline">\(\overline x-1.96\cdot \sqrt 2\)</span> and <span class="math inline">\(\overline x+1.96\cdot \sqrt 2\)</span> and get an interval estimate for <span class="math inline">\(\mu_X\)</span> as a result:</p></li>
 </ul>
 <p><span class="math display">\[
-[\overline x-1,96\cdot \sqrt 2; \overline x+1,96\cdot \sqrt 2].
+[\overline x-1.96\cdot \sqrt 2; \overline x+1.96\cdot \sqrt 2].
 \]</span></p>
 <ul>
-<li>or for a general sample size (<span class="math inline">\(\text{Var}(\overline X) = \sigma^2/n\)</span> <span class="math inline">\(\leadsto \sqrt{\text{Var}(\overline X)} = \sigma/\sqrt n\)</span>):</li>
+<li>for a general sample size <span class="math inline">\(n\)</span> holds <span class="math inline">\(\text{Var}(\overline X) = \sigma^2/n\)</span> <span class="math inline">\(\leadsto \sqrt{\text{Var}(\overline X)} = \sigma/\sqrt n\)</span> and:</li>
 </ul>
 <p><span class="math display">\[
-\left[\overline x-1,96\cdot \frac{10}{\sqrt n}; \overline x+1,96\cdot \frac{10}{\sqrt n}\right].
+\left[\overline x-1.96\cdot \frac{10}{\sqrt n}; \overline x+1.96\cdot \frac{10}{\sqrt n}\right].
 \]</span></p>
 <div id="app200" class="app">
 <h3>
@@ -1214,25 +1210,32 @@ showInterv(200)
 <p><img src="_main_files/figure-html/unnamed-chunk-143-1.png" width="672" /></p>
 </div>
 <hr />
-<div id="alpha-confidence-interval-for-mu" class="section level3 hasAnchor" number="5.4.1">
-<h3><span class="header-section-number">5.4.1</span> <span class="math inline">\((1-\alpha)\)</span> confidence interval for <span class="math inline">\(\mu\)</span><a href="parameter-estimation.html#alpha-confidence-interval-for-mu" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="type-a-confidence-interval-for-mu-with-known-variance-sigma2-nmusigma2-distributed-random-variables" class="section level4 unnumbered hasAnchor">
-<h4>Type A: Confidence interval for <span class="math inline">\(\mu\)</span> with known variance <span class="math inline">\(\sigma^2\)</span> (<span class="math inline">\(N(\mu,\sigma^2)\)</span>-distributed random variables)<a href="parameter-estimation.html#type-a-confidence-interval-for-mu-with-known-variance-sigma2-nmusigma2-distributed-random-variables" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>The starting point is the point estimator <span class="math inline">\(\overline X\)</span>, which is <span class="math inline">\(N(\mu,\sigma^2/n)\)</span>-distributed.</p>
+<p>Obviously, computation of confidence intervals depends on the confidence level <span class="math inline">\(1-\alpha\)</span> and the sample size <span class="math inline">\(n\)</span>. Moreover, also the following factors matter for the interval estimation:</p>
 <ul>
-<li><p>The standardized sample mean <span class="math inline">\(\displaystyle\frac{\overline X-\mu}{\sigma/\sqrt{n}}\)</span> is <span class="math inline">\(N(0,1)\)</span>-distributed; therefore:
+<li>the parameter, for which the interval estimation is conducted (<span class="math inline">\(\leadsto \mu, \sigma^2,p\)</span>)</li>
+<li>the distribution in the population (normal vs non-normal with large <span class="math inline">\(n\)</span>),</li>
+<li>the knowledge of other population parameters (<span class="math inline">\(\sigma^2\)</span> in case of confidence intervals for <span class="math inline">\(\mu\)</span>).</li>
+</ul>
+<div id="alpha-confidence-intervals-for-mu" class="section level3 hasAnchor" number="5.4.1">
+<h3><span class="header-section-number">5.4.1</span> <span class="math inline">\((1-\alpha)\)</span> confidence intervals for <span class="math inline">\(\mu\)</span><a href="parameter-estimation.html#alpha-confidence-intervals-for-mu" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="a-confidence-intervals-for-mu-of-a-normally-distributed-population-with-known-variance-sigma2" class="section level4 unnumbered hasAnchor">
+<h4>A: Confidence intervals for <span class="math inline">\(\mu\)</span> of a <mark>normally</mark> distributed population with <mark>known variance</mark> <span class="math inline">\(\sigma^2\)</span><a href="parameter-estimation.html#a-confidence-intervals-for-mu-of-a-normally-distributed-population-with-known-variance-sigma2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Assume that we sample from a normally distributed population with unknown <span class="math inline">\(\mu\)</span> but known variance <span class="math inline">\(\sigma^2\)</span>. Thus, we would like to conduct interval estimation for <span class="math inline">\(X\sim N(\mu,\sigma^2)\)</span>.</p>
+<ul>
+<li><p>The starting point is the point estimator <span class="math inline">\(\overline X\)</span>, which is <span class="math inline">\(N(\mu,\sigma^2/n)\)</span>-distributed.</p></li>
+<li><p>The standardized sample mean <span class="math inline">\(\displaystyle\frac{\overline X-\mu}{\sigma/\sqrt{n}}\)</span> is <span class="math inline">\(N(0,1)\)</span>-distributed, therefore:
 <span class="math display">\[\begin{equation*}
     \mathbb P\left(-N_{1-\alpha/2} \leq \frac{\overline
       X-\mu}{\sigma/\sqrt{n}}\leq N_{1-\alpha/2}\right)=1-\alpha,
 \end{equation*}\]</span>
 with <span class="math inline">\(N_{1-\alpha/2}\)</span> the <span class="math inline">\(1-\alpha/2\)</span> quantile of the standard normal distribution.</p></li>
-<li><p>Forming results in:
+<li><p>Rearranging the term inside the probability as in <a href="parameter-estimation.html#exm:intsch">5.14</a> results in:
 <span class="math display">\[\begin{equation*}
       1-\alpha = \mathbb P\left(\overline X - N_{1-\alpha/2}
       \frac{\sigma}{\sqrt{n}} \leq \mu \leq \overline X + N_{1-\alpha/2}
       \frac{\sigma}{\sqrt{n}}\right),
 \end{equation*}\]</span>
-and a <span class="math inline">\((1-\alpha)\)</span> confidence interval is given by
+and the <span class="math inline">\((1-\alpha)\)</span> confidence interval is given by:
 <span class="math display">\[\begin{equation*}
       \left[\overline X - N_{1-\alpha/2}
       \frac{\sigma}{\sqrt{n}}, \overline X + N_{1-\alpha/2}
@@ -1241,19 +1244,25 @@ and a <span class="math inline">\((1-\alpha)\)</span> confidence interval is giv
 </ul>
 <hr />
 <div class="example">
-<p><span id="exm:intsch2" class="example"><strong>Example 5.15  (Monthly returns) </strong></span>Given: monthly returns of a stock <span class="math inline">\(A\)</span></p>
+<p><span id="exm:intsch2" class="example"><strong>Example 5.15  (Monthly returns) </strong></span>Compute the <span class="math inline">\(95\%\)</span>-confidence interval for the mean of monthly stock returns.</p>
 <ul>
-<li><p>random monthly return <span class="math inline">\(X\sim N(\mu,\sigma^2)\)</span> with <span class="math inline">\(\sigma^2 = 0.25\)</span></p></li>
-<li><p>Data: <span class="math inline">\(12\)</span> monthly returns in <span class="math inline">\(\%\)</span></p>
-<span class="math display">\[\begin{array}[t]{|*{4}{cc|}}
-    \hline
-    n &amp; x_n &amp; n &amp; x_n &amp; n &amp; x_n &amp; n &amp; x_n \\\hline
-    1 &amp; 0.35 &amp; 4 &amp; \phantom{-}0.52 &amp; 7 &amp; -0.48 &amp; 10 &amp; 0.29\\
-    2 &amp; 0.89 &amp; 5 &amp; \phantom{-}0.12 &amp; 8 &amp; -0.37 &amp; 11 &amp; 0.41\\
-    3 &amp; 1.02 &amp; 6 &amp; -0.22 &amp; 9 &amp; \phantom{-}0.07 &amp; 12 &amp; 0.72\\\hline
-\end{array}\]</span></li>
-<li><p>Error probability <span class="math inline">\(\alpha=5\%\)</span> <span class="math inline">\(\Rightarrow\)</span> Confidence level <span class="math inline">\(1-\alpha=0.95\)</span></p></li>
-<li><p>Sample mean: <span class="math inline">\(\displaystyle \overline x=\frac{3.32}{12}=0.2767\%\)</span></p></li>
+<li><p>random monthly return <span class="math inline">\(X\sim N(\mu,\sigma^2)\)</span> with known <span class="math inline">\(\sigma^2 = 0.25\)</span></p></li>
+<li><p>Data: <span class="math inline">\(12\)</span> monthly returns in <span class="math inline">\(\%\)</span></p></li>
+</ul>
+<span class="math display">\[\begin{array}{c|cccccccccccc}
+     i&amp;1&amp;2&amp;3&amp;4&amp;5&amp;6&amp;7&amp;8&amp;9&amp;10&amp;11&amp;12\\\hline
+      x_i&amp;0.35&amp;0.89&amp;1.02&amp;0.52&amp;0.12&amp;-0.22&amp;-0.48&amp;-0.37&amp;0.07&amp;0.29&amp;0.41&amp;0.72
+\end{array}\]</span>
+<!-- \begin{array}[t]{|*{4}{cc|}} -->
+<!--       \hline -->
+<!--       n & x_n & n & x_n & n & x_n & n & x_n \\\hline -->
+<!--       1 & 0.35 & 4 & \phantom{-}0.52 & 7 & -0.48 & 10 & 0.29\\ -->
+<!--       2 & 0.89 & 5 & \phantom{-}0.12 & 8 & -0.37 & 11 & 0.41\\ -->
+<!--       3 & 1.02 & 6 & -0.22 & 9 & \phantom{-}0.07 & 12 & 0.72\\\hline -->
+<!-- \end{array} -->
+<ul>
+<li><p>Confidence level <span class="math inline">\(1-\alpha=0.95\)</span> <span class="math inline">\(\Rightarrow\)</span> error probability <span class="math inline">\(\alpha=0.05.\)</span></p></li>
+<li><p>Sample mean: <span class="math inline">\(\displaystyle \overline x=\frac 1{12}(0.35 + \ldots + 0.72)=\frac{3.32}{12}=0.2767\%\)</span></p></li>
 <li><p><span class="math inline">\((1-\alpha/2)\)</span>-quantile <span class="math inline">\(N_{1-\alpha/2} = N_{0.975} =1.96\)</span></p></li>
 <li><p>Realized confidence interval:
 <span class="math display">\[\begin{align*}
@@ -1271,18 +1280,17 @@ and a <span class="math inline">\((1-\alpha)\)</span> confidence interval is giv
 </div>
 <hr />
 </div>
-<div id="type-b-confidence-interval-for-mu-with-unknown-variance-sigma2-nmusigma2-distributed-random-variables" class="section level4 unnumbered hasAnchor">
-<h4>Type B: Confidence interval for <span class="math inline">\(\mu\)</span> with unknown variance <span class="math inline">\(\sigma^2\)</span> (<span class="math inline">\(N(\mu,\sigma^2)\)</span>-distributed random variables)<a href="parameter-estimation.html#type-b-confidence-interval-for-mu-with-unknown-variance-sigma2-nmusigma2-distributed-random-variables" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>The starting point is the point estimator <span class="math inline">\(\displaystyle\frac{\overline X-\mu}{S/\sqrt{n}}\)</span>, where <span class="math inline">\(S^2=\displaystyle\frac{1}{n-1}\sum_{i =1}^n (X_i-\overline X)^2\)</span> is an estimate for <span class="math inline">\(\sigma^2\)</span>.</p>
+<div id="b-confidence-intervals-for-mu-of-a-normally-distributed-population-with-unknown-variance-sigma2" class="section level4 unnumbered hasAnchor">
+<h4>B: Confidence intervals for <span class="math inline">\(\mu\)</span> of a <mark>normally</mark> distributed population with <mark>unknown variance</mark> <span class="math inline">\(\sigma^2\)</span><a href="parameter-estimation.html#b-confidence-intervals-for-mu-of-a-normally-distributed-population-with-unknown-variance-sigma2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The starting point is the standardized point estimator <span class="math inline">\(\displaystyle\frac{\overline X-\mu}{S/\sqrt{n}}\)</span>, where <span class="math inline">\(S^2=\displaystyle\frac{1}{n-1}\sum_{i =1}^n (X_i-\overline X)^2\)</span> is an estimate for <span class="math inline">\(\sigma^2\)</span>.</p>
 <ul>
-<li><p>The following applies: <span class="math inline">\(\displaystyle \frac{\overline X-\mu}{S/\sqrt{n}}\sim t(n-1)\)</span>, where <span class="math inline">\(t(n-1)\)</span> is a Student $t $ distribution with parameters
-denotes <span class="math inline">\(n-1\)</span>, and thus:
+<li><p>The following applies: <span class="math inline">\(\displaystyle \frac{\overline X-\mu}{S/\sqrt{n}}\sim t(n-1)\)</span>, where <span class="math inline">\(t(n-1)\)</span> is the <span class="math inline">\(t\)</span>-distribution with <span class="math inline">\(n-1\)</span> degrees of freedom, and thus:
 <span class="math display">\[\begin{equation*}
   \mathbb P\left(-t_{1-\alpha/2,(n-1) }\leq \frac{\overline X-\mu}{S/\sqrt{n}}\leq
   t_{1-\alpha/2,(n-1)}\right) = 1-\alpha,
 \end{equation*}\]</span>
-with <span class="math inline">\(t_{1-\alpha/2}(n-1)\)</span> the corresponding quantile of the <span class="math inline">\(t\)</span> distribution.</p></li>
-<li><p>Reshaping gives the confidence interval
+where <span class="math inline">\(t_{1-\alpha/2,(n-1)}\)</span> is the <span class="math inline">\(1-\alpha/2\)</span>-quantile of the <span class="math inline">\(t\)</span>-distribution with <span class="math inline">\(n-1\)</span> degrees of freedom.</p></li>
+<li><p>Rearranging gives us the confidence interval:
 <span class="math display">\[\begin{equation*}
   \left[\overline X-t_{1-\alpha/2,(n-1)} \frac{S}{\sqrt{n}},
     \overline X + t_{1-\alpha/2,(n-1)} \frac{S}{\sqrt{n}}\right].
@@ -1291,13 +1299,20 @@ with <span class="math inline">\(t_{1-\alpha/2}(n-1)\)</span> the corresponding 
 <div class="example">
 <p><span id="exm:intsch22" class="example"><strong>Example 5.16  (Monthly returns) </strong></span>Example <a href="parameter-estimation.html#exm:intsch2">5.15</a> cont.</p>
 <ul>
-<li><p>Sample mean: <span class="math inline">\(\overline x=\displaystyle\frac{3.32}{12}=0.2767\%\)</span></p></li>
-<li><p>Sample variance: <span class="math inline">\(s^2 = \displaystyle\frac{2.5124}{11} =0.2284\)</span></p></li>
-<li><p><span class="math inline">\((1-\alpha/2)\)</span>-quantile: <span class="math inline">\(t_{1-\alpha/2}(n-1) = t_{0.975}(11) =2.2010\)</span></p></li>
+<li>Data: <span class="math inline">\(12\)</span> monthly returns in <span class="math inline">\(\%\)</span></li>
+</ul>
+<span class="math display">\[\begin{array}{c|cccccccccccc}
+     i&amp;1&amp;2&amp;3&amp;4&amp;5&amp;6&amp;7&amp;8&amp;9&amp;10&amp;11&amp;12\\\hline
+      x_i&amp;0.35&amp;0.89&amp;1.02&amp;0.52&amp;0.12&amp;-0.22&amp;-0.48&amp;-0.37&amp;0.07&amp;0.29&amp;0.41&amp;0.72
+\end{array}\]</span>
+<ul>
+<li><p>Sample mean: <span class="math inline">\(\overline x=0.2767\%\)</span></p></li>
+<li><p>Sample variance: <span class="math inline">\(s^2 = \frac 1{12-1}\cdot\Big((0.35-0.2767)^2 + \ldots + (0.72-0.2767)^2\Big)=\displaystyle\frac{2.5124}{11} =0.2284\)</span></p></li>
+<li><p><span class="math inline">\((1-\alpha/2)\)</span>-quantile: <span class="math inline">\(t_{1-\alpha/2,(n-1)} = t_{0.975,(11)} =2.2010\)</span></p></li>
 <li><p>Realized confidence interval:
 <span class="math display">\[\begin{align*}
-  &amp;\left[\overline x-t_{1-\alpha/2}(n-1) \frac{s}{\sqrt{n}},
-    \overline x + t_{1-\alpha/2}(n-1) \frac{s}{\sqrt{n}}\right]= \\
+  &amp;\left[\overline x-t_{1-\alpha/2,(n-1)} \frac{s}{\sqrt{n}},
+    \overline x + t_{1-\alpha/2,(n-1)} \frac{s}{\sqrt{n}}\right]= \\
    &amp; \left[0.2767-2.201\cdot\frac{\sqrt{0.2284}}{\sqrt{12}}
       ; 0.2767 + 2.201\cdot \frac{\sqrt{0.2284}}
       {\sqrt{12}}\right]
@@ -1307,17 +1322,17 @@ with <span class="math inline">\(t_{1-\alpha/2}(n-1)\)</span> the corresponding 
 </div>
 <hr />
 </div>
-<div id="type-c-approximate-confidence-interval-for-mu-for-any-distribution" class="section level4 hasAnchor" number="5.4.1.1">
-<h4><span class="header-section-number">5.4.1.1</span> Type C: Approximate confidence interval for <span class="math inline">\(\mu\)</span> for any distribution<a href="parameter-estimation.html#type-c-approximate-confidence-interval-for-mu-for-any-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>For <strong>any distribution</strong> but a large sample size (<span class="math inline">\(n&gt;30\)</span>), the confidence interval results from the approximate normal distribution.</p>
+<div id="c-approximate-confidence-intervals-for-mu-of-an-arbitrary-distribution" class="section level4 hasAnchor" number="5.4.1.1">
+<h4><span class="header-section-number">5.4.1.1</span> C: Approximate confidence intervals for <span class="math inline">\(\mu\)</span> of an <marka>arbitrary distribution</mark><a href="parameter-estimation.html#c-approximate-confidence-intervals-for-mu-of-an-arbitrary-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>In case of <strong>an arbitrary distribution</strong> with finite variance and a large sample size (<span class="math inline">\(n&gt; 30\)</span>), the confidence interval results from the approximate normal distribution via the CLT.</p>
 <p><span class="math inline">\((1-\alpha)\)</span> confidence interval for <span class="math inline">\(\mu\)</span> with any distribution (<span class="math inline">\(n&gt;30\)</span>)
-- If <span class="math inline">\(\sigma^2\)</span> is known, represents
+- If <span class="math inline">\(\sigma^2\)</span> is known, we get:
 <span class="math display">\[\begin{equation*}
         \left[\overline X - N_{1-\alpha/2}
         \frac{\sigma}{\sqrt{n}}, \overline X + N_{1-\alpha/2}
         \frac{\sigma}{\sqrt{n}}\right].
 \end{equation*}\]</span>
-represents an <strong>approximate confidence interval</strong>.</p>
+as an <strong>approximate confidence interval</strong>.</p>
 <ul>
 <li>Analogously: If <span class="math inline">\(\sigma^2\)</span> is unknown, then
 <span class="math display">\[\begin{equation*}
@@ -1328,15 +1343,22 @@ represents an <strong>approximate confidence interval</strong>.</p>
 <hr />
 <div class="example">
 <p><span id="exm:intschkont" class="example"><strong>Example 5.17  (Estimating the average invoice amount) </strong></span>Example <a href="parameter-estimation.html#exm:intsch">5.14</a> cont.</p>
-<p>In this example, we have already derived the <span class="math inline">\(95\%\)</span> confidence interval for the mean invoice amount and <span class="math inline">\(\sigma\)</span> known <span class="math inline">\((n=100)\)</span>:</p>
+<ul>
+<li>In this example, we have already derived the <span class="math inline">\(95\%\)</span> confidence interval for the mean invoice amount and <span class="math inline">\(\sigma=10\)</span> known <span class="math inline">\((n=100)\)</span>:</li>
+</ul>
 <p><span class="math display">\[
 \overline X\pm 1.96\cdot \frac{\sigma}{\sqrt n}
-\]</span></p>
-<p>Now if <span class="math inline">\(\sigma\)</span> is unknown, we replace it with the estimate <span class="math inline">\(S\)</span>:</p>
+\]</span>
+- For a sample outcome with <span class="math inline">\(\overline x=26.83\)</span>, we have:</p>
+<p><span class="math display">\[26.83\pm1.96\cdot\frac{10}{\sqrt{100}} = [24.87,~28.79]\]</span></p>
+<ul>
+<li>Now, if <span class="math inline">\(\sigma\)</span> is unknown, we replace it with <span class="math inline">\(S\)</span>:</li>
+</ul>
 <p><span class="math display">\[
 \overline X\pm 1.96\cdot \frac{S}{\sqrt n}
 \]</span>
-We are allowed to keep the quantiles of the standard normal distribution, since <span class="math inline">\(t\)</span> quantiles for <span class="math inline">\(n\)</span> large approach these.</p>
+- For a sample outcome with <span class="math inline">\(\overline x=26.83\)</span> and <span class="math inline">\(s=11.46\)</span>, we have:</p>
+<p><span class="math display">\[26.83\pm1.96\cdot\frac{11.46}{\sqrt{100}} = [24.58,~29.08].\]</span></p>
 </div>
 <hr />
 <!--::: {.exercise name="Confidence intervals for average temperature"}
@@ -1424,7 +1446,7 @@ function checkAnswer_num2(q) {
     const questionObj56 = generateQuestion_num(56);
     const questionObj561 = generateQuestion_num2(561, n=5,min=10, max=60);
 // Display the question
-    document.getElementById('question-text56').textContent = "For a sample of customer ages: \\["+ questionObj561.sample.join(", ") + "\\] compute the confindence interval for the mean age for \\(\\alpha="+ questionObj561.question[2] + "\\).Assume that customer agea are normally distributed." + " \\[\\] The point estimate for \\(\\mu\\) is ";
+    document.getElementById('question-text56').textContent = "For a sample of customer ages: \\["+ questionObj561.sample.join(", ") + "\\] compute the confindence interval for the mean age for \\(\\alpha="+ questionObj561.question[2] + "\\). Assume that customer ages are normally distributed." + " \\[\\] The point estimate for \\(\\mu\\) is (round to two decimal places)";
     questionObj56.answer = questionObj561.question[0]
 </script>
 <hr />
@@ -1473,7 +1495,7 @@ function checkAnswer_num2(q) {
  // Generate a random question
     const questionObj58 = generateQuestion_num(58);
 // Display the question
-    document.getElementById('question-text58').textContent = "The point estimate for \\(\\sigma\\) is ";
+    document.getElementById('question-text58').textContent = "The point estimate for \\(\\sigma\\) is (round to two decimal places)";
     questionObj58.answer = Math.sqrt(questionObj561.question[1])
 </script>
 <hr />
@@ -1489,7 +1511,7 @@ function checkAnswer_num2(q) {
  // Generate a random question
     const questionObj59 = generateQuestion_num(59);
 // Display the question
-    document.getElementById('question-text59').textContent = "The required quantile is";
+    document.getElementById('question-text59').textContent = "The required quantile is (round to four decimal places)";
     questionObj59.answer = questionObj561.question[4]
 </script>
 <hr />
@@ -1506,25 +1528,7 @@ function checkAnswer_num2(q) {
  // Generate a random question
     const questionObj610 = generateQuestion_num2(610);
 // Display the question
-    document.getElementById('question-text610').textContent = "The resulting confidence interval is";
-    questionObj610.answer1 = questionObj561.question[0] - questionObj561.question[4]*Math.sqrt(questionObj561.question[1])/Math.sqrt(5);
-    questionObj610.answer2 = questionObj561.question[0] + questionObj561.question[4]*Math.sqrt(questionObj561.question[1])/Math.sqrt(5);
-</script>
-<hr />
-<p id="question">
-<span id="question-text610"></span>
-</p>
-<input type="number" id="answer1610" placeholder="Enter your answer">
-<input type="number" id="answer2610" placeholder="Enter your answer">
-<button onclick="checkAnswer_num2(questionObj610)">Submit</button>
-<p id="result610">
-</p>
-<script>
-
- // Generate a random question
-    const questionObj610 = generateQuestion_num2(610);
-// Display the question
-    document.getElementById('question-text610').textContent = "The resulting confidence interval is";
+    document.getElementById('question-text610').textContent = "The resulting confidence interval is (round to four decimal places)";
     questionObj610.answer1 = questionObj561.question[0] - questionObj561.question[4]*Math.sqrt(questionObj561.question[1])/Math.sqrt(5);
     questionObj610.answer2 = questionObj561.question[0] + questionObj561.question[4]*Math.sqrt(questionObj561.question[1])/Math.sqrt(5);
 </script>
@@ -1534,31 +1538,40 @@ function checkAnswer_num2(q) {
 </div>
 <div id="alpha-confidence-interval-for-sigma2" class="section level3 hasAnchor" number="5.4.2">
 <h3><span class="header-section-number">5.4.2</span> <span class="math inline">\((1-\alpha)\)</span> confidence interval for <span class="math inline">\(\sigma^2\)</span><a href="parameter-estimation.html#alpha-confidence-interval-for-sigma2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Now it’s about interval estimation for the unknown variance <span class="math inline">\(\sigma^2\)</span>.</p>
-<p><span class="math inline">\((1-\alpha)\)</span> confidence interval for <span class="math inline">\(\sigma^2\)</span> for a normally distributed characteristic</p>
-<p>The two-sided confidence interval is determined by the limits
+<p>Now it’s about interval estimation for the unknown variance <span class="math inline">\(\sigma^2\)</span>. The starting point is the sample variance <span class="math inline">\(S^2 = \frac 1{n-1}\sum_{i=1}^n (X_i-\overline X)^2\)</span> as the estimator for the true variance <span class="math inline">\(\sigma^2\)</span>. In distributional terms, it holds:
+<span class="math display">\[\frac{(n-1)S^2}{\sigma^2}\sim \chi^2(n-1).\]</span></p>
+<p>Therefore:
+<span class="math display">\[\mathbb P\Big(\chi^2_{\alpha/2,(n-1)}\leq \frac{(n-1)S^2}{\sigma^2}\leq \chi^2_{1-\alpha/2,(n-1)}\Big) = 1-\alpha,\]</span></p>
+<p>where <span class="math inline">\(\chi^2_{\alpha/2,(n-1)}\)</span> is the <span class="math inline">\(\alpha/2\)</span>-quantile and <span class="math inline">\(\chi^2_{1-\alpha/2,(n-1)}\)</span> is the <span class="math inline">\(1-\alpha/2\)</span>-quantile of the <span class="math inline">\(\chi^2\)</span>-distribution with <span class="math inline">\(n-1\)</span> degrees of freedom.</p>
+<p>Rearranging the term inside the probability gives:
+<span class="math display">\[\begin{align}
+\mathbb P\Big(\chi^2_{\alpha/2,(n-1)}\leq \frac{(n-1)S^2}{\sigma^2}\leq \chi^2_{1-\alpha/2,(n-1)}\Big)&amp;=1-\alpha~~|\leadsto \text{take the reciprocal value}\\
+\mathbb P\left(\frac1{\chi^2_{\alpha/2,(n-1)}}\geq \frac{\sigma^2}{(n-1)S^2}\geq \frac1{\chi^2_{1-\alpha/2,(n-1)}}\right)&amp;=1-\alpha~~ |\leadsto \cdot (n-1)S^2\\
+\mathbb P\left(\frac{(n-1)S^2}{\chi^2_{\alpha/2,(n-1)}}\geq \sigma^2\geq \frac{(n-1)S^2}{\chi^2_{1-\alpha/2,(n-1)}}\right)&amp;=1-\alpha~~|\leadsto \text{swipping the sides}\\
+\mathbb P\left(\frac{(n-1)S^2}{\chi^2_{1-\alpha/2,(n-1)}} \leq \sigma^2\leq \frac{(n-1)S^2}{\chi^2_{\alpha/2,(n-1)}} \right)&amp;=1-\alpha
+\end{align}\]</span></p>
+<p>The resulting <span class="math inline">\((1-\alpha)\)</span> confidence interval for <span class="math inline">\(\sigma^2\)</span> for a normally distributed population is is given by:
 <span class="math display">\[\begin{equation*}
-      \left[\frac{(n-1)S^2}{q_{1-\alpha/2,(n-1)}} ,
-      \frac{(n-1)S^2}{q_{\alpha/2,(n-1)}}\right].
+      \left[\frac{(n-1)S^2}{\chi^2_{1-\alpha/2,(n-1)}} ,\frac{(n-1)S^2}{\chi^2_{\alpha/2,(n-1)}} \right].
 \end{equation*}\]</span></p>
-<p>Note that - in contrast to the normal or <span class="math inline">\(t\)</span> distribution - the <span class="math inline">\(\chi^2\)</span> distribution is not symmetric.</p>
+<p>Note that - in contrast to the normal or <span class="math inline">\(t\)</span> distribution - the <span class="math inline">\(\chi^2\)</span> distribution is not symmetric. The required quantiles are both positive and take on different values.</p>
 <hr />
 <div class="example">
 <p><span id="exm:intsch222" class="example"><strong>Example 5.18  (Monthly returns) </strong></span>Example <a href="parameter-estimation.html#exm:intsch22">5.16</a> cont.</p>
 <ul>
-<li><p>Sample variance: <span class="math inline">\(s^2 = \displaystyle\frac{2.5124}{11} =0.2284\)</span></p></li>
+<li><p>Sample variance: <span class="math inline">\(s^2 = 0.2284\)</span></p></li>
 <li><p>Quantiles:
 <span class="math display">\[
 \begin{array}[t]{rcl}
-    q_{\alpha/2,(n-1)} &amp;=&amp; q_{0.025,(11)} =
+    \chi^2_{\alpha/2,(n-1)} &amp;=&amp; \chi^2_{0.025,(11)} =
                               3.8157\\
-   q_{1-\alpha/2,(n-1) }&amp;=&amp; q_{0.975,(11)} = 21.9200
+   \chi^2_{1-\alpha/2,(n-1) }&amp;=&amp; \chi^2_{0.975,(11)} = 21.9200
   \end{array}
 \]</span></p></li>
 <li><p>Confidence interval:
 <span class="math display">\[\begin{align*}
-    &amp;\left[\frac{(n-1)S^2}{q_{1-\alpha/2(n-1)}} ,
-    \frac{(n-1)S^2}{q_{\alpha/2(n-1)}}\right]=\\\\
+    &amp;\left[\frac{(n-1)s^2}{\chi^2_{0.975,(n-1)}} ,
+    \frac{(n-1)s^2}{\chi^2_{0.025,(n-1)}}\right]=\\\\
 &amp; \left[\frac{11\cdot 0.2284}{21.9200}, \frac{11\cdot
       0.2284}{3.8157}\right]
   = \left[0.1146; 0.6584\right]
@@ -1578,7 +1591,7 @@ function checkAnswer_num2(q) {
  // Generate a random question
     const questionObj611 = generateQuestion_num(611);
 // Display the question
-    document.getElementById('question-text611').textContent = "For a sample of customer ages: \\["+ questionObj561.sample.join(", ") + "\\] compute the confindence interval for age variance for \\(\\alpha="+ questionObj561.question[2] + "\\). Assume that customer ages are normally distributed." + " \\[\\] The point estimate for \\(\\sigma^2\\) is ";
+    document.getElementById('question-text611').textContent = "For a sample of customer ages: \\["+ questionObj561.sample.join(", ") + "\\] compute the confindence interval for the age variance for \\(\\alpha="+ questionObj561.question[2] + "\\). Assume that the customer ages are normally distributed." + " \\[\\] The point estimate for \\(\\sigma^2\\) is (round to two decimal places)";
     questionObj611.answer = questionObj561.question[1]
 </script>
 <hr />
@@ -1595,7 +1608,7 @@ function checkAnswer_num2(q) {
  // Generate a random question
     const questionObj612 = generateQuestion_num2(612);
 // Display the question
-    document.getElementById('question-text612').textContent = "The required \\(\\chi^2\\)-quantiles are (starting with the smaller value):";
+    document.getElementById('question-text612').textContent = "The required \\(\\chi^2\\)-quantiles are (starting with the smaller value, round to four decimal places):";
     questionObj612.answer1 = questionObj561.question[5];
     questionObj612.answer2 = questionObj561.question[6];
     
@@ -1614,7 +1627,7 @@ function checkAnswer_num2(q) {
  // Generate a random question
     const questionObj613 = generateQuestion_num2(613);
 // Display the question
-    document.getElementById('question-text613').textContent = "The resulting confidence interval is:";
+    document.getElementById('question-text613').textContent = "The resulting confidence interval is (round to four decimal places)";
     questionObj613.answer2 = 4*questionObj561.question[1]/questionObj561.question[5];
     questionObj613.answer1 = 4*questionObj561.question[1]/questionObj561.question[6];
     
@@ -1624,9 +1637,7 @@ function checkAnswer_num2(q) {
 </div>
 <div id="alpha-confidence-interval-for-probability-p" class="section level3 hasAnchor" number="5.4.3">
 <h3><span class="header-section-number">5.4.3</span> <span class="math inline">\((1-\alpha)\)</span> confidence interval for probability <span class="math inline">\(p\)</span><a href="parameter-estimation.html#alpha-confidence-interval-for-probability-p" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Let <span class="math inline">\(X_1,\ldots, X_n\)</span>, with <span class="math inline">\(X_i\in \{0,1\}\)</span>, be independent Bernoulli experiments.</p>
-<p>The sum of successes <span class="math inline">\(X_i=1\)</span>, <span class="math inline">\(i=1,\ldots, n\)</span>, is binomially distributed: <span class="math inline">\(\sum_{i=1}^n X_i\sim B(n,p)\)</span> with unknown parameter <span class="math inline">\(p\)</span> .</p>
-<p>The ZGS states that <span class="math inline">\(\overline X\)</span> is approximately normally distributed with <span class="math inline">\(\mathbb E(\overline X)=p\)</span> and <span class="math inline">\(\text{Var}(\overline X) = p(1-p)/n\)</span>.</p>
+<p>Let <span class="math inline">\(X_1,\ldots, X_n\)</span>, with <span class="math inline">\(X_i\in \{0,1\}\)</span>, be independent Bernoulli random variables. The CLT states that <span class="math inline">\(\overline X\)</span> is approximately normally distributed with <span class="math inline">\(\mathbb E(\overline X)=p\)</span> and <span class="math inline">\(\text{Var}(\overline X) = p(1-p)/n\)</span>.</p>
 <p>For a sufficiently large sample size (<span class="math inline">\(n\cdot p&gt;5\)</span> and <span class="math inline">\(n\cdot (1-p)&gt;5\)</span>), an <strong>approximate confidence interval</strong> is given by
 <span class="math display">\[\begin{equation*}
       \left[\hat p - N_{1-\alpha/2} \sqrt{\frac{\hat p(1-\hat p)}{n}}, \hat
@@ -1660,7 +1671,7 @@ where <span class="math inline">\(\hat p=\overline X\)</span> denotes the relati
     questionObj6141 = generateQuestion_num2(6141,n=35,p=0.4,min=10,max=40,dec=4)
     const questionObj614 = generateQuestion_num(614);
 // Display the question
-    document.getElementById('question-text614').textContent = "For the sample of \\(n=35\\) customer app usage answers: \\["+ questionObj6141.sample01.join(", ") + "\\] compute the confindence interval for the corresponding proportion for \\(\\alpha="+ questionObj6141.question[2] + "\\)." + " \\[\\] The point estimate for \\(p\\) is ";
+    document.getElementById('question-text614').textContent = "For the sample of \\(n=35\\) customer app usage answers: \\["+ questionObj6141.sample01.join(", ") + "\\] compute the confindence interval for the corresponding proportion for \\(\\alpha="+ questionObj6141.question[2] + "\\)." + " \\[\\] The point estimate for \\(p\\) is (round to four decimals)";
     questionObj614.answer = questionObj6141.question[7]
 </script>
 <p id="question">
@@ -1675,7 +1686,7 @@ where <span class="math inline">\(\hat p=\overline X\)</span> denotes the relati
  // Generate a random question
     const questionObj615 = generateQuestion_num(615);
 // Display the question
-    document.getElementById('question-text615').textContent = "The required quantile is";
+    document.getElementById('question-text615').textContent = "The required quantile is (round to four decimals)";
     questionObj615.answer = questionObj6141.question[3]
 </script>
 <p id="question">
@@ -1691,7 +1702,7 @@ where <span class="math inline">\(\hat p=\overline X\)</span> denotes the relati
  // Generate a random question
     const questionObj616 = generateQuestion_num2(616);
 // Display the question
-    document.getElementById('question-text616').textContent = "The resulting approximate confidence interval is";
+    document.getElementById('question-text616').textContent = "The resulting approximate confidence interval is (round to four decimals)";
     questionObj616.answer1 = questionObj6141.question[7] - questionObj6141.question[3]*Math.sqrt((questionObj6141.question[7]*(1-questionObj6141.question[7])))/Math.sqrt(35);
     questionObj616.answer2 = questionObj6141.question[7] + questionObj6141.question[3]*Math.sqrt((questionObj6141.question[7]*(1-questionObj6141.question[7])))/Math.sqrt(35);
 </script>
@@ -1700,33 +1711,32 @@ where <span class="math inline">\(\hat p=\overline X\)</span> denotes the relati
 </div>
 <div id="determining-n-based-on-the-length-of-confidence-intervals" class="section level3 hasAnchor" number="5.4.4">
 <h3><span class="header-section-number">5.4.4</span> Determining <span class="math inline">\(n\)</span> based on the length of confidence intervals<a href="parameter-estimation.html#determining-n-based-on-the-length-of-confidence-intervals" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>If a certain precision (e.g. <span class="math inline">\(\pm 1\%\)</span> or <span class="math inline">\(\pm 0.01\)</span>) with <span class="math inline">\(1-\alpha\)</span> confidence is to be achieved in an estimation problem, one can use the * *Length** of the associated confidence interval to determine the required sample size.</p>
+<p>If a certain precision (e.g. <span class="math inline">\(\pm 1\%\)</span> or <span class="math inline">\(\pm 0.01\)</span>) with a given high confidence has to be achieved in an estimation problem, one can utilize the <strong>length</strong> of the associated confidence interval to determine the required <strong>sample size</strong>.</p>
 <iframe title="Problemstellung" src="./htmls/Problemstellung.html" width="760" height="700"></iframe>
-<p>The length of the <span class="math inline">\(1-\alpha\)</span> confidence interval for <span class="math inline">\(p\)</span> is:</p>
+<p>The <strong>length</strong> of the <span class="math inline">\(1-\alpha\)</span> confidence interval for <span class="math inline">\(p\)</span> is:</p>
 <p><span class="math display">\[\begin{align}
 \text{upper limit} - \text{lower limit} &amp;=
 p + N_{1-\alpha/2} \sqrt{\frac{\hat p(1-\hat p)}{n}} - \Big( p - N_{1-\alpha/2} \sqrt{ \frac{\hat p(1-\hat p)}{n}}\Big)\\
 &amp;=2\cdot N_{1-\alpha/2} \frac{\sqrt{\hat p(1-\hat p)}}{\sqrt{n}}
 \end{align}\]</span>
-Before a sample is drawn, <span class="math inline">\(\hat p\)</span> is a random variable, so so is the term <span class="math inline">\(\sqrt{\hat p(1-\hat p)}\)</span>. However, you can limit it upwards, because for <span class="math inline">\(p=\frac 12\)</span> it takes on the maximum value.</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-160"></span>
-<img src="_main_files/figure-html/unnamed-chunk-160-1.png" alt="f(p)=p(1-p)" width="80%" />
+Before a sample is drawn, <span class="math inline">\(\hat p\)</span> is a random variable, so is the term <span class="math inline">\(\sqrt{\hat p(1-\hat p)}\)</span>. However, you can the later from above, because for <span class="math inline">\(p=\frac 12\)</span> it takes on the maximum value.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-159"></span>
+<img src="_main_files/figure-html/unnamed-chunk-159-1.png" alt="f(p)=p(1-p)" width="80%" />
 <p class="caption">
 Figure 5.1: f(p)=p(1-p)
 </p>
 </div>
 <p>I.e. the maximum length of the confidence interval in this case is (<span class="math inline">\(p=\frac 12\)</span> inserted):</p>
-<p><span class="math display">\[\text{max. length} = \frac{N_{1-\alpha/2}}{\sqrt{n}}\]</span></p>
-<p><img src="images/intschn.png" style="width:50.0%" /></p>
-<p>In order to maintain the needed accuracy, we set:</p>
+<p><span class="math display">\[\text{max. length} = 2\cdot N_{1-\alpha/2} \frac{\sqrt{\frac12(1-\frac12)}}{\sqrt{n}}=\frac{N_{1-\alpha/2}}{\sqrt{n}}.\]</span></p>
+<p>In order to maintain the required <span class="math inline">\(\pm\)</span>accuracy, we set:</p>
 <p><span class="math display">\[
-\frac{N_{1-\alpha/2}}{\sqrt{n}}\leq 2\cdot\text{accuracy} = 2g
+\frac{N_{1-\alpha/2}}{\sqrt{n}}\leq 2\cdot\text{accuracy}
 \]</span>
 and solve for <span class="math inline">\(n\)</span>:</p>
 <p><span class="math display">\[
-\sqrt n\geq \frac 12\cdot\frac{N_{1-\alpha/2}}{g}\rightarrow n\geq \left(\frac 12\cdot\frac{N_{1-\alpha/2}}{g}\right)^2
+\sqrt n\geq \frac 12\cdot\frac{N_{1-\alpha/2}}{\text{accuracy}}\rightarrow n\geq \left(\frac 12\cdot\frac{N_{1-\alpha/2}}{\text{accuracy}}\right)^2
 \]</span>
-For example, if the accuracy of <span class="math inline">\(0.01\)</span> is required at the confidence level of <span class="math inline">\(99\%\)</span>, then the minimum sample size is <span class="math inline">\(n\geq 66348,966\)</span>.</p>
+For example, if the <span class="math inline">\(\pm\)</span>accuracy of <span class="math inline">\(\pm 0.01\)</span> is required at the confidence level of <span class="math inline">\(99\%\)</span>, then the minimum sample size is <span class="math inline">\(n\geq 16588\)</span>.</p>
 <hr />
 <div id="q56" class="quiz">
 <p id="question">
@@ -1741,8 +1751,8 @@ For example, if the accuracy of <span class="math inline">\(0.01\)</span> is req
  // Generate a random question
     const questionObj617 = generateQuestion_num(617);
 // Display the question
-    document.getElementById('question-text617').textContent = "Compute the minimum required sample size \\(n\\) for the app usage sample in the previous quiz question which guarantees that the estimation accurancy on the confidence level of \\("+((1-questionObj6141.question[2])*100) + "\\%\\) is \\(\\pm 0.1.\\) The resulting \\(n\\geq\\)";
-    questionObj617.answer = Math.floor(Math.pow(0.5*questionObj6141.question[3]/0.1,2)+1)
+    document.getElementById('question-text617').textContent = "Compute the minimum required sample size \\(n\\) for the app usage sample in the previous quiz question which guarantees that the estimation accurancy on the confidence level of \\("+((1-questionObj6141.question[2])*100) + "\\%\\) is \\(\\pm 0.05.\\) The resulting \\(n\\geq\\)";
+    questionObj617.answer = Math.floor(Math.pow(0.5*questionObj6141.question[3]/0.05,2)+1)
 </script>
 </div>
 <!--::: {.exercise name="Interval estimation"}
