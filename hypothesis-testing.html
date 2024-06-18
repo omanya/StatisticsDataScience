@@ -469,15 +469,14 @@ This probability is called the <strong><span class="math inline">\(p-\)</span>va
   (c) \quad &amp; H_0:\mu\leq (=)~\mu_0\quad&amp;\text{ versus } \quad H_1:\mu&gt;\mu_0 &amp;\text{ (right-sided)}
 \end{align*}\]</span></p>
 <ul>
-<li><strong>Test statistics</strong> is the random variable, for which the distribution under <span class="math inline">\(H_0\)</span> is known:
-<span class="math display">\[\begin{equation*}
-      \[\displaystyle Z= \frac{\overline X-\mu_0}{\sigma/ \sqrt{n}}\stackrel{}{\sim} N(0,1).\]
-\end{equation*}\]</span></li>
+<li><strong>Test statistics</strong> is the random variable, for which the distribution under <span class="math inline">\(H_0\)</span> is known:</li>
 </ul>
-<p>If the assumption of independent draws is justified, then <span class="math inline">\(X=\sum_{i=1}^n X_i\)</span> is <strong>binomially distributed</strong> with parameters <span class="math inline">\(n\)</span> and <span class="math inline">\(p\)</span>.</p>
+<p><span class="math display">\[\overline X\sim N\left(\mu, \frac{\sigma^2}n\right)\]</span>
+or standardized:
+<span class="math display">\[\displaystyle Z= \frac{\overline X-\mu_0}{\sigma/ \sqrt{n}}\stackrel{}{\sim} N(0,1).\]</span></p>
 <ul>
 <li><strong>Rejection region</strong>:
-How large does <span class="math inline">\(X\)</span> have to be so that it is extremely unlikely that <span class="math inline">\(X\)</span> follows the distribution under <span class="math inline">\(H_0\)</span>?
+How large does <span class="math inline">\(\overline X\)</span> or <span class="math inline">\(Z\)</span> have to be so that it is extremely unlikely that <span class="math inline">\(\overline X\)</span> or <span class="math inline">\(Z\)</span> follows the distribution under <span class="math inline">\(H_0\)</span>?
 First, specify “extremely unlikely”; usual values <span class="math inline">\(0.01\)</span>; <span class="math inline">\(0.05\)</span>; <span class="math inline">\(0.1\)</span>, denoted as <strong>significance level</strong>/ <strong>confidence level</strong> with symbol <span class="math inline">\(\alpha\)</span>.</li>
 </ul>
 <p>This results in the <strong>rejection region</strong>, i.e. those values of the random experiment,
@@ -569,7 +568,7 @@ $N(0,1)$ because for more than $30$ degrees of freedom, $t$-distribution can be 
 </div>
 <div id="hypothesis-tests-for-p" class="section level2 hasAnchor" number="6.3">
 <h2><span class="header-section-number">6.3</span> Hypothesis tests for <span class="math inline">\(p\)</span><a href="hypothesis-testing.html#hypothesis-tests-for-p" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Now we formally define hypothesis testing starting with the tests for proportion <span class="math inline">\(p\)</span>. Consider the following example:</p>
+<p>Now we formally define hypothesis testing for proportion <span class="math inline">\(p\)</span>. Consider the following example:</p>
 <hr />
 <div class="example">
 <p><span id="exm:testp0" class="example"><strong>Example 6.5  (Quality inspection) </strong></span>Before a batch of goods is delivered, the quality is checked on the basis of a random sample.</p>
