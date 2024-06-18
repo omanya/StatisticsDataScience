@@ -23,7 +23,7 @@
 <meta name="author" content="Maria Osipenko" />
 
 
-<meta name="date" content="2024-06-17" />
+<meta name="date" content="2024-06-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -167,15 +167,15 @@
 <li class="chapter" data-level="6" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>6</b> Hypothesis testing</a>
 <ul>
 <li class="chapter" data-level="6.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-basic-idea-of-statistical-testing"><i class="fa fa-check"></i><b>6.1</b> The basic idea of statistical testing</a></li>
-<li class="chapter" data-level="6.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hypothesis-tests-for-p"><i class="fa fa-check"></i><b>6.2</b> Hypothesis tests for <span class="math inline">\(p\)</span></a>
+<li class="chapter" data-level="6.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hypothesis-tests-for-mu"><i class="fa fa-check"></i><b>6.2</b> Hypothesis tests for <span class="math inline">\(\mu\)</span></a>
 <ul>
-<li class="chapter" data-level="6.2.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-exact-binomial-test"><i class="fa fa-check"></i><b>6.2.1</b> The exact binomial test</a></li>
-<li class="chapter" data-level="6.2.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-approximate-binomial-test"><i class="fa fa-check"></i><b>6.2.2</b> The approximate binomial test</a></li>
+<li class="chapter" data-level="6.2.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-gauss-test"><i class="fa fa-check"></i><b>6.2.1</b> The Gauss test</a></li>
+<li class="chapter" data-level="6.2.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-t-test"><i class="fa fa-check"></i><b>6.2.2</b> The <span class="math inline">\(t\)</span> test</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hypothesis-tests-for-mu"><i class="fa fa-check"></i><b>6.3</b> Hypothesis tests for <span class="math inline">\(\mu\)</span></a>
+<li class="chapter" data-level="6.3" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hypothesis-tests-for-p"><i class="fa fa-check"></i><b>6.3</b> Hypothesis tests for <span class="math inline">\(p\)</span></a>
 <ul>
-<li class="chapter" data-level="6.3.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-gauss-test"><i class="fa fa-check"></i><b>6.3.1</b> The Gauss test</a></li>
-<li class="chapter" data-level="6.3.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-t-test"><i class="fa fa-check"></i><b>6.3.2</b> The <span class="math inline">\(t\)</span> test</a></li>
+<li class="chapter" data-level="6.3.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-exact-binomial-test"><i class="fa fa-check"></i><b>6.3.1</b> The exact binomial test</a></li>
+<li class="chapter" data-level="6.3.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#the-approximate-binomial-test"><i class="fa fa-check"></i><b>6.3.2</b> The approximate binomial test</a></li>
 </ul></li>
 <li class="chapter" data-level="6.4" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#type-1-and-type-2-errors"><i class="fa fa-check"></i><b>6.4</b> Type 1 and Type 2 errors</a></li>
 <li class="chapter" data-level="6.5" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#exceeding-probability-p-value"><i class="fa fa-check"></i><b>6.5</b> Exceeding probability: <span class="math inline">\(p-\)</span>value</a></li>
@@ -443,12 +443,136 @@ This probability is called the <strong><span class="math inline">\(p-\)</span>va
 </div>
 <hr />
 </div>
-<div id="hypothesis-tests-for-p" class="section level2 hasAnchor" number="6.2">
-<h2><span class="header-section-number">6.2</span> Hypothesis tests for <span class="math inline">\(p\)</span><a href="hypothesis-testing.html#hypothesis-tests-for-p" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="hypothesis-tests-for-mu" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Hypothesis tests for <span class="math inline">\(\mu\)</span><a href="hypothesis-testing.html#hypothesis-tests-for-mu" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We have already seen the example with the discount campaign, where we actually care about mean sales <span class="math inline">\(\rightarrow \mu\)</span>! The population mean <span class="math inline">\(\mu\)</span> is a distribution parameter, that builds frequently a basis for hypothesis testing. Below we specify the tests concerning hypothesis testing about <span class="math inline">\(\mu.\)</span></p>
+<div id="the-gauss-test" class="section level3 hasAnchor" number="6.2.1">
+<h3><span class="header-section-number">6.2.1</span> The Gauss test<a href="hypothesis-testing.html#the-gauss-test" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Assume that independent, identically distributed random variables are given
+<span class="math inline">\(X_1, \ldots, X_n\)</span> with</p>
+<ul>
+<li><p><span class="math inline">\(X_i\sim N(\mu,\sigma^2)\)</span>, or</p></li>
+<li><p><span class="math inline">\(X_i\)</span> with any continuous distribution, <span class="math inline">\(\mathbb E(X_i)=\mu\)</span>, <span class="math inline">\(\text{Var}(X_i)=\sigma^2\)</span>, <span class="math inline">\(n\)</span> big enough (rule of thumb <span class="math inline">\(n\geq 30\)</span> ).</p></li>
+<li><p><mark><span class="math inline">\(\sigma^2\)</span> is known</mark>.</p></li>
+</ul>
+<p>Consider the following test problems.</p>
+<ul>
+<li><p><strong>Statistical testing problem</strong>:</p>
+<ul>
+<li><p>The hypothesis of interest is formulated as <strong>alternative hypothesis</strong> <span class="math inline">\(H_1\)</span>. It is checked against the complementary <strong>null hypothesis</strong> <span class="math inline">\(H_0\)</span>.</p></li>
+<li><p>A statistical test is about deciding whether the observed behavior in a sample applies to the whole population.</p></li>
+</ul></li>
+</ul>
+<p><span class="math display">\[\begin{align*}
+  (a) \quad&amp; H_0:\mu=\mu_0\quad&amp;\text{ versus } \quad H_1:\mu\not=\mu_0 &amp;\text{ (two-sided)}\\
+  (b) \quad &amp; H_0:\mu\geq (=)~\mu_0\quad&amp;\text{ versus } \quad H_1:\mu&lt;\mu_0 &amp;\text{ (left-sided)}\\
+  (c) \quad &amp; H_0:\mu\leq (=)~\mu_0\quad&amp;\text{ versus } \quad H_1:\mu&gt;\mu_0 &amp;\text{ (right-sided)}
+\end{align*}\]</span></p>
+<ul>
+<li><strong>Test statistics</strong> is the random variable, for which the distribution under <span class="math inline">\(H_0\)</span> is known:
+<span class="math display">\[\begin{equation*}
+      \[\displaystyle Z= \frac{\overline X-\mu_0}{\sigma/ \sqrt{n}}\stackrel{}{\sim} N(0,1).\]
+\end{equation*}\]</span></li>
+</ul>
+<p>If the assumption of independent draws is justified, then <span class="math inline">\(X=\sum_{i=1}^n X_i\)</span> is <strong>binomially distributed</strong> with parameters <span class="math inline">\(n\)</span> and <span class="math inline">\(p\)</span>.</p>
+<ul>
+<li><strong>Rejection region</strong>:
+How large does <span class="math inline">\(X\)</span> have to be so that it is extremely unlikely that <span class="math inline">\(X\)</span> follows the distribution under <span class="math inline">\(H_0\)</span>?
+First, specify “extremely unlikely”; usual values <span class="math inline">\(0.01\)</span>; <span class="math inline">\(0.05\)</span>; <span class="math inline">\(0.1\)</span>, denoted as <strong>significance level</strong>/ <strong>confidence level</strong> with symbol <span class="math inline">\(\alpha\)</span>.</li>
+</ul>
+<p>This results in the <strong>rejection region</strong>, i.e. those values of the random experiment,
+which <strong>point in the direction of the alternative hypothesis</strong>, and whose probability under <span class="math inline">\(H_0\)</span> is <strong>less than</strong> <span class="math inline">\(\alpha\)</span>:</p>
+<p>Based on the test statistics <span class="math inline">\(Z\)</span>, the decision in favor of <span class="math inline">\(H_1\)</span> in the test problem is taken, if:</p>
+<p><span class="math display">\[\begin{align*}
+      (a)\quad&amp; |z|&gt;N_{1-\alpha/2}&amp;\text{ (two-sided)}\\
+      (b)\quad&amp; z&lt;-N_{1-\alpha}&amp;\text{ (left-sided)}\\
+      (c)\quad&amp;z&gt;N_{1-\alpha}&amp;\text{ (right-sided)}
+\end{align*}\]</span></p>
+<div class="example">
+<p><span id="exm:testgauss" class="example"><strong>Example 6.3  (Quality inspection of pencils) </strong></span>Pencils are produced with a should be length of <span class="math inline">\(17\)</span> cm.</p>
+<ul>
+<li><p>Test problem:
+<span class="math display">\[\begin{align*}
+    (a) \quad&amp; H_0:\mu=17\quad\text{ versus } \quad H_1:\mu\not=17&amp;\text{ (two-sided)}\\
+\end{align*}\]</span></p></li>
+<li><p><span class="math inline">\(\alpha=0.01\)</span> is chosen as the significance level.</p></li>
+<li><p>The length <span class="math inline">\(X\)</span> of the pencils is approx. normally distributed with <span class="math inline">\(\mathbb E(X)=\mu\)</span> and <span class="math inline">\(\text{Var}(X)=\sigma^2=(1.5)^2=2.25\)</span>.</p></li>
+<li><p>Test statistics: <span class="math inline">\(Z = \frac{\overline{X}-\mu_0}{\sigma/\sqrt{n}}=\frac{\overline{X}-17}{1.5/\sqrt{n}}\sim N(0;1).\)</span></p></li>
+<li><p>A sample (<span class="math inline">\(n=5\)</span>) is taken from current production; the following lengths are measured:</p>
+<p><span class="math display">\[19.2\mathrm{cm};\ 17.4\mathrm{cm};\ 18.5\mathrm{cm};\ 16.5\mathrm{cm};\ 18.9\mathrm{cm}\]</span></p></li>
+<li><p>This results in <span class="math inline">\(\overline x=18.1\text{cm}\)</span> and the realization of the test statistics:</p></li>
+</ul>
+<p><span class="math display">\[\begin{equation*}
+      z=\frac{\overline x-\mu_0}{\sigma/\sqrt{n}} =
+      \frac{18.1-17}{\sqrt{2.25}/\sqrt{5}} = 1.64.
+\end{equation*}\]</span></p>
+<ul>
+<li><p>The rejection region is given as the <span class="math inline">\((1-\alpha/2)=(1-0.005) = 0.995\)</span>-quantile of the standard normal distribution, so <span class="math inline">\(H_0\)</span> is rejected if <span class="math inline">\((a)~|z| &gt;2.5758.\)</span></p></li>
+<li><p>Because <span class="math inline">\(|z|=1.64\not &gt;2.5758\)</span>, <span class="math inline">\(H_0\)</span> is not rejected.</p></li>
+</ul>
+<p><img src="_main_files/figure-html/unnamed-chunk-167-1.png" width="100%" /></p>
+</div>
+<hr />
+</div>
+<div id="the-t-test" class="section level3 hasAnchor" number="6.2.2">
+<h3><span class="header-section-number">6.2.2</span> The <span class="math inline">\(t\)</span> test<a href="hypothesis-testing.html#the-t-test" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>As in the case of the Gauss test, a hypothetical expected value <span class="math inline">\(\mu_0\)</span> should be compared with an actual, unknown expected value. In contrast to the assumption in the Gauss test, <mark>the variance <span class="math inline">\(\sigma^2\)</span> is assumed to be unknown</mark> here.</p>
+<p>This leads to a different normalization in the denominator of the test statistics than in the Gaussian test, namely the unknown variance
+<span class="math inline">\(\sigma^2\)</span> is replaced by sample variance <span class="math inline">\(S^2=\sum_i (X_i-\overline X)^2/(n-1)\)</span>.</p>
+<p>In the following, let <span class="math inline">\(t(n-1)\)</span> denote the Student <span class="math inline">\(t\)</span> distribution with parameter <span class="math inline">\(n-1\)</span> (degrees of freedom).</p>
+<ul>
+<li><p>Assumptions: <span class="math inline">\(X_1,\ldots, X_n\)</span> are independent and
+identically distributed with <span class="math inline">\(X\sim N(\mu,\sigma^2)\)</span> or arbitrarily distributed and <span class="math inline">\(n&gt;30\)</span>.</p></li>
+<li><p>Hypotheses:
+<span class="math display">\[\begin{align*}
+\text{(a)} \quad &amp; H_0:\mu=\mu_0\quad\text{ versus } \quad H_1:\mu\not=\mu_0\\
+\text{(b)} \quad &amp; H_0:\mu=\mu_0\quad\text{ versus } \quad H_1:\mu&lt;\mu_0\\
+\text{(c)} \quad &amp; H_0:\mu=\mu_0\quad\text{ versus } \quad H_1:\mu&gt;\mu_0.
+\end{align*}\]</span></p></li>
+<li><p>Test statistics:
+<span class="math display">\[\displaystyle T=\frac{\overline X-\mu_0}{S/\sqrt{n}}\sim t(n-1)\]</span></p></li>
+</ul>
+<p>under <span class="math inline">\(H_0.\)</span></p>
+<ul>
+<li>Rejection region:</li>
+</ul>
+<p><span class="math display">\[\begin{align*}
+\text{(a)} \quad &amp; |t|&gt;t_{1-\alpha/2,n-1}\\
+\text{(b)} \quad &amp; t&lt;t_{\alpha,n-1}=-t_{1-\alpha,n-1}\\
+\text{(c)} \quad &amp; t&gt;t_{1-\alpha,n-1}
+\end{align*}\]</span></p>
+<!--- For $n > 30$ quantiles of $t(n-1)$ can be replaced by the quantiles of
+$N(0,1)$ because for more than $30$ degrees of freedom, $t$-distribution can be well-approximated by the normal distribution.-->
+<div class="example">
+<p><span id="exm:testt" class="example"><strong>Example 6.4  (Quality inspection of pencils) </strong></span>Example <a href="hypothesis-testing.html#exm:testgauss">6.3</a> cont.</p>
+<p>We consider the same problem without the assumption of a known variance.</p>
+<ul>
+<li><p>Test problem:
+<span class="math inline">\(\displaystyle H_0: \mu=17\quad\text{ versus } \quad H_1: \mu\not=17\)</span>.</p></li>
+<li><p><span class="math inline">\(\alpha=0.01\)</span> is chosen as the significance level.</p></li>
+<li><p>Test statistics: <span class="math inline">\(T = \frac{\overline{X}-\mu_0}{s/\sqrt{n}}=\frac{\overline{X}-17}{s/\sqrt{n}}\sim t(n-1).\)</span></p></li>
+<li><p>The following pencil lengths are available as data:</p></li>
+</ul>
+<p><span class="math display">\[\begin{equation}
+19.2\mathrm{cm};\ 17.4\mathrm{cm};\ 18.5\mathrm{cm};\ 16.5\mathrm{cm};\ 18.9\text{cm}.\end{equation}\]</span></p>
+<ul>
+<li><p>This results in <span class="math inline">\(\overline x=18.1cm\)</span> and <span class="math inline">\(s^2=1.265\)</span>.</p></li>
+<li><p>The test statistics value is:
+<span class="math inline">\(\displaystyle t = \frac{\color{red}{\overline x}-17}{\color{blue}s/\sqrt{n}} = \frac{\color{red}{18.1}-17}{\color{blue}{1.125}/\sqrt{5}} = 2.186\)</span>.</p></li>
+<li><p>The critical value is the <span class="math inline">\((1-\alpha/2)\)</span>-quantile of <span class="math inline">\(t(n-1)\)</span> distribution, so <span class="math inline">\(t_{0.995,4} = 4.604\)</span>. The rejection region is: <span class="math inline">\(|t|&gt;4.694.\)</span></p></li>
+<li><p>Since for the present realization of <span class="math inline">\(T\)</span> holds <span class="math inline">\(|2.186|\not&gt;4.604\)</span>, <span class="math inline">\(H_0\)</span> is not rejected.</p></li>
+</ul>
+<p><img src="_main_files/figure-html/unnamed-chunk-168-1.png" width="100%" /></p>
+</div>
+<hr />
+</div>
+</div>
+<div id="hypothesis-tests-for-p" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> Hypothesis tests for <span class="math inline">\(p\)</span><a href="hypothesis-testing.html#hypothesis-tests-for-p" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Now we formally define hypothesis testing starting with the tests for proportion <span class="math inline">\(p\)</span>. Consider the following example:</p>
 <hr />
 <div class="example">
-<p><span id="exm:testp0" class="example"><strong>Example 6.3  (Quality inspection) </strong></span>Before a batch of goods is delivered, the quality is checked on the basis of a random sample.</p>
+<p><span id="exm:testp0" class="example"><strong>Example 6.5  (Quality inspection) </strong></span>Before a batch of goods is delivered, the quality is checked on the basis of a random sample.</p>
 <ul>
 <li><p>An attribute check is carried out. This means that for each piece produced, it is recorded whether it meets the quality standards (“good”) or not (“bad”). The bad pieces are counted - the number can be assumed to be binomial distributed with parameter <span class="math inline">\(p\)</span> (proportion of the defect pieces) and <span class="math inline">\(n\)</span> number of samples checked.</p></li>
 <li><p>A customer accepts the delivery, if the percentage of the defect peaces is at most <span class="math inline">\(10\%\)</span>.</p></li>
@@ -458,8 +582,8 @@ This probability is called the <strong><span class="math inline">\(p-\)</span>va
 </ul>
 </div>
 <hr />
-<div id="the-exact-binomial-test" class="section level3 hasAnchor" number="6.2.1">
-<h3><span class="header-section-number">6.2.1</span> The exact binomial test<a href="hypothesis-testing.html#the-exact-binomial-test" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="the-exact-binomial-test" class="section level3 hasAnchor" number="6.3.1">
+<h3><span class="header-section-number">6.3.1</span> The exact binomial test<a href="hypothesis-testing.html#the-exact-binomial-test" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>General: Let <span class="math inline">\(X_1, \ldots, X_n\)</span> be sample variables with
 <span class="math display">\[\begin{equation*}
       X_i=
@@ -502,7 +626,7 @@ which <strong>point in the direction of the alternative hypothesis</strong>, and
 \end{align*}\]</span></p>
 <hr />
 <div class="example">
-<p><span id="exm:testp1" class="example"><strong>Example 6.4  (Quality inspection) </strong></span>Example <a href="hypothesis-testing.html#exm:testp0">6.3</a> cont.</p>
+<p><span id="exm:testp1" class="example"><strong>Example 6.6  (Quality inspection) </strong></span>Example <a href="hypothesis-testing.html#exm:testp0">6.5</a> cont.</p>
 <ul>
 <li><p>Hypotheses:
 <span class="math display">\[\begin{align*}
@@ -530,15 +654,15 @@ x_i&amp;115&amp; \color{red}{116}&amp; 120&amp; 125\\
 \mathbb P(X&gt;x_i)&amp; 0,053&amp;\color{red}{0,04334} &amp;0,017&amp; 0,005\\\hline
 \end{array}
 \]</span></p>
-<p><img src="_main_files/figure-html/unnamed-chunk-167-1.png" width="100%" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-169-1.png" width="100%" /></p>
 <ul>
 <li>Test decision: do not reject the null hypothesis.</li>
 </ul>
 </div>
 <hr />
 </div>
-<div id="the-approximate-binomial-test" class="section level3 hasAnchor" number="6.2.2">
-<h3><span class="header-section-number">6.2.2</span> The approximate binomial test<a href="hypothesis-testing.html#the-approximate-binomial-test" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="the-approximate-binomial-test" class="section level3 hasAnchor" number="6.3.2">
+<h3><span class="header-section-number">6.3.2</span> The approximate binomial test<a href="hypothesis-testing.html#the-approximate-binomial-test" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>For large <span class="math inline">\(n\)</span>, the binomial distribution can be approximated by the normal distribution <span class="math inline">\(\leadsto\)</span> <strong>approximative binomial test</strong>.</p>
 <p>Let <span class="math inline">\(X=\sum_{i=1}^n X_i\sim B(n,p)\)</span> be sufficiently large for <span class="math inline">\(np\)</span> and <span class="math inline">\(n(1-p)\)</span>. Then the following applies:
 <span class="math display">\[\begin{align*}
@@ -570,7 +694,7 @@ and the given level <span class="math inline">\(\alpha\)</span></p></li>
   (c)\quad&amp;z&gt;N_{1-\alpha}.
 \end{align*}\]</span></p>
 <div class="example">
-<p><span id="exm:testp2" class="example"><strong>Example 6.5  (Quality inspection) </strong></span>Example <a href="hypothesis-testing.html#exm:testp1">6.4</a> cont.</p>
+<p><span id="exm:testp2" class="example"><strong>Example 6.7  (Quality inspection) </strong></span>Example <a href="hypothesis-testing.html#exm:testp1">6.6</a> cont.</p>
 <ul>
 <li><p>Formulation of the test problem (status quo corresponds to the defect pieces proportion of <span class="math inline">\(0.1\)</span>):
 <span class="math display">\[\begin{equation*}
@@ -598,114 +722,9 @@ for <span class="math inline">\(x^\ast\)</span> results
   100 = 115.58.
 \end{equation*}\]</span></li>
 </ul>
-<p><img src="_main_files/figure-html/unnamed-chunk-168-1.png" width="100%" /></p>
-</div>
-<hr />
-</div>
-</div>
-<div id="hypothesis-tests-for-mu" class="section level2 hasAnchor" number="6.3">
-<h2><span class="header-section-number">6.3</span> Hypothesis tests for <span class="math inline">\(\mu\)</span><a href="hypothesis-testing.html#hypothesis-tests-for-mu" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>We have already seen the example with the discount campaign, where we actually care about mean sales <span class="math inline">\(\rightarrow \mu\)</span>! The population mean <span class="math inline">\(\mu\)</span> is another distribution parameter, that builds frequently a basis for hypothesis testing. Below we specify the tests concerning hypothesis testing about <span class="math inline">\(\mu.\)</span></p>
-<div id="the-gauss-test" class="section level3 hasAnchor" number="6.3.1">
-<h3><span class="header-section-number">6.3.1</span> The Gauss test<a href="hypothesis-testing.html#the-gauss-test" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Assume that independent, identically distributed random variables are given
-<span class="math inline">\(X_1, \ldots, X_n\)</span> with</p>
-<ul>
-<li><p><span class="math inline">\(X_i\sim N(\mu,\sigma^2)\)</span>, or</p></li>
-<li><p><span class="math inline">\(X_i\)</span> with any continuous distribution, <span class="math inline">\(\mathbb E(X_i)=\mu\)</span>, <span class="math inline">\(\text{Var}(X_i)=\sigma^2\)</span>, <span class="math inline">\(n\)</span> big enough (rule of thumb <span class="math inline">\(n\geq 30\)</span> ).</p></li>
-<li><p><mark><span class="math inline">\(\sigma^2\)</span> is known</mark>.</p></li>
-</ul>
-<p>Consider the following test problems:
-<span class="math display">\[\begin{align*}
-      (a) \quad&amp; H_0:\mu=\mu_0\quad\text{ versus } \quad H_1:\mu\not=\mu_0\\
-      (b) \quad &amp; H_0:\mu=\mu_0\quad\text{ versus } \quad H_1:\mu&lt;\mu_0\\
-      (c) \quad &amp; H_0:\mu=\mu_0\quad\text{ versus } \quad H_1:\mu&gt;\mu_0.
-\end{align*}\]</span></p>
-<p>and the test statistics:</p>
-<p><span class="math display">\[\displaystyle Z= \frac{\overline X-\mu_0}{\sigma/ \sqrt{n}}\stackrel{}{\sim} N(0,1).\]</span></p>
-<p>Based on the test statistics <span class="math inline">\(Z\)</span>, the decision in favor of <span class="math inline">\(H_1\)</span> in the test problem is taken, if:</p>
-<p><span class="math display">\[\begin{align*}
-      (a)\quad&amp; |z|&gt;N_{1-\alpha/2}\\
-      (b)\quad&amp; z&lt;-N_{1-\alpha}\\
-      (c)\quad&amp;z&gt;N_{1-\alpha}.
-\end{align*}\]</span></p>
-<div class="example">
-<p><span id="exm:testgauss" class="example"><strong>Example 6.6  (Quality inspection of pencils) </strong></span>Pencils are produced with a should be length of <span class="math inline">\(17\)</span> cm.</p>
-<ul>
-<li><p>Test problem:
-<span class="math display">\[\begin{align*}
-    (a) \quad&amp; H_0:\mu=17\quad\text{ versus } \quad H_1:\mu\not=17&amp;\text{ (two-sided)}\\
-\end{align*}\]</span></p></li>
-<li><p><span class="math inline">\(\alpha=0.01\)</span> is chosen as the significance level.</p></li>
-<li><p>The length <span class="math inline">\(X\)</span> of the pencils is approx. normally distributed with <span class="math inline">\(\mathbb E(X)=\mu\)</span> and <span class="math inline">\(\text{Var}(X)=\sigma^2=(1.5)^2=2.25\)</span>.</p></li>
-<li><p>Test statistics: <span class="math inline">\(Z = \frac{\overline{X}-\mu_0}{\sigma/\sqrt{n}}=\frac{\overline{X}-17}{1.5/\sqrt{n}}\sim N(0;1).\)</span></p></li>
-<li><p>A sample (<span class="math inline">\(n=5\)</span>) is taken from current production; the following lengths are measured:</p>
-<p><span class="math display">\[19.2\mathrm{cm};\ 17.4\mathrm{cm};\ 18.5\mathrm{cm};\ 16.5\mathrm{cm};\ 18.9\mathrm{cm}\]</span></p></li>
-<li><p>This results in <span class="math inline">\(\overline x=18.1\text{cm}\)</span> and the realization of the test statistics:</p></li>
-</ul>
-<p><span class="math display">\[\begin{equation*}
-      z=\frac{\overline x-\mu_0}{\sigma/\sqrt{n}} =
-      \frac{18.1-17}{\sqrt{2.25}/\sqrt{5}} = 1.64.
-\end{equation*}\]</span></p>
-<ul>
-<li><p>The rejection region is given as the <span class="math inline">\((1-\alpha/2)=(1-0.005) = 0.995\)</span>-quantile of the standard normal distribution, so <span class="math inline">\(H_0\)</span> is rejected if <span class="math inline">\((a)~|z| &gt;2.5758.\)</span></p></li>
-<li><p>Because <span class="math inline">\(|z|=1.64\not &gt;2.5758\)</span>, <span class="math inline">\(H_0\)</span> is not rejected.</p></li>
-</ul>
-<p><img src="_main_files/figure-html/unnamed-chunk-169-1.png" width="100%" /></p>
-</div>
-<hr />
-</div>
-<div id="the-t-test" class="section level3 hasAnchor" number="6.3.2">
-<h3><span class="header-section-number">6.3.2</span> The <span class="math inline">\(t\)</span> test<a href="hypothesis-testing.html#the-t-test" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>As in the case of the Gauss test, a hypothetical expected value <span class="math inline">\(\mu_0\)</span> should be compared with an actual, unknown expected value. In contrast to the assumption in the Gauss test, <mark>the variance <span class="math inline">\(\sigma^2\)</span> is assumed to be unknown</mark> here.</p>
-<p>This leads to a different normalization in the denominator of the test statistics than in the Gaussian test, namely the unknown variance
-<span class="math inline">\(\sigma^2\)</span> is replaced by sample variance <span class="math inline">\(S^2=\sum_i (X_i-\overline X)^2/(n-1)\)</span>.</p>
-<p>In the following, let <span class="math inline">\(t(n-1)\)</span> denote the Student <span class="math inline">\(t\)</span> distribution with parameter <span class="math inline">\(n-1\)</span> (degrees of freedom).</p>
-<ul>
-<li><p>Assumptions: <span class="math inline">\(X_1,\ldots, X_n\)</span> are independent and
-identically distributed with <span class="math inline">\(X\sim N(\mu,\sigma^2)\)</span> or arbitrarily distributed and <span class="math inline">\(n&gt;30\)</span>.</p></li>
-<li><p>Hypotheses:
-<span class="math display">\[\begin{align*}
-\text{(a)} \quad &amp; H_0:\mu=\mu_0\quad\text{ versus } \quad H_1:\mu\not=\mu_0\\
-\text{(b)} \quad &amp; H_0:\mu=\mu_0\quad\text{ versus } \quad H_1:\mu&lt;\mu_0\\
-\text{(c)} \quad &amp; H_0:\mu=\mu_0\quad\text{ versus } \quad H_1:\mu&gt;\mu_0.
-\end{align*}\]</span></p></li>
-<li><p>Test statistics:
-<span class="math display">\[\displaystyle T=\frac{\overline X-\mu_0}{S/\sqrt{n}}\sim t(n-1)\]</span></p></li>
-</ul>
-<p>under <span class="math inline">\(H_0.\)</span></p>
-<ul>
-<li>Rejection region:</li>
-</ul>
-<p><span class="math display">\[\begin{align*}
-\text{(a)} \quad &amp; |t|&gt;t_{1-\alpha/2(n-1)}\\
-\text{(b)} \quad &amp; t&lt;t_{\alpha(n-1)}=-t_{1-\alpha(n-1)}\\
-\text{(c)} \quad &amp; t&gt;t_{1-\alpha(n-1)}
-\end{align*}\]</span></p>
-<!--- For $n > 30$ quantiles of $t(n-1)$ can be replaced by the quantiles of
-$N(0,1)$ because for more than $30$ degrees of freedom, $t$-distribution can be well-approximated by the normal distribution.-->
-<div class="example">
-<p><span id="exm:testt" class="example"><strong>Example 6.7  (Quality inspection of pencils) </strong></span>Example <a href="hypothesis-testing.html#exm:testgauss">6.6</a> cont.</p>
-<p>We consider the same problem without the assumption of a known variance.</p>
-<ul>
-<li><p>Test problem:
-<span class="math inline">\(\displaystyle H_0: \mu=17\quad\text{ versus } \quad H_1: \mu\not=17\)</span>.</p></li>
-<li><p><span class="math inline">\(\alpha=0.01\)</span> is chosen as the significance level.</p></li>
-<li><p>Test statistics: <span class="math inline">\(T = \frac{\overline{X}-\mu_0}{s/\sqrt{n}}=\frac{\overline{X}-17}{s/\sqrt{n}}\sim t(n-1).\)</span></p></li>
-<li><p>The following pencil lengths are available as data:</p></li>
-</ul>
-<p><span class="math display">\[\begin{equation}
-19.2\mathrm{cm};\ 17.4\mathrm{cm};\ 18.5\mathrm{cm};\ 16.5\mathrm{cm};\
-18.9\text{cm}.\end{equation}\]</span>18.9.\end{equation}</p>
-<ul>
-<li><p>This results in <span class="math inline">\(\overline x=18.1cm\)</span> and <span class="math inline">\(s^2=1.265\)</span>.</p></li>
-<li><p>The test statistics value is:
-<span class="math inline">\(\displaystyle t = \frac{\color{red}{\overline x}-17}{\color{blue}s/\sqrt{n}} = \frac{\color{red}{18.1}-17}{\color{blue}{1.125}/\sqrt{5}} = 2.186\)</span>.</p></li>
-<li><p>The critical value is the <span class="math inline">\((1-\alpha/2)\)</span>-quantile of <span class="math inline">\(t(n-1)\)</span> distribution, so <span class="math inline">\(t_{0.995,4} = 4.604\)</span>. The rejection region is: <span class="math inline">\(|t|&gt;4.694.\)</span></p></li>
-<li><p>Since for the present realization of <span class="math inline">\(T\)</span> holds <span class="math inline">\(|2.186|\not&gt;4.604\)</span>, <span class="math inline">\(H_0\)</span> is not rejected.</p></li>
-</ul>
 <p><img src="_main_files/figure-html/unnamed-chunk-170-1.png" width="100%" /></p>
 </div>
+<hr />
 <div id="q61" class="quiz">
 <script>
 
@@ -897,7 +916,7 @@ Statisticians try to come up with the hypothesis tests that keep type II error a
 <p>The <strong><span class="math inline">\(p-\)</span>value</strong> is commonly used by <strong>software packages</strong> to facilitate decisions in statistical tests without the need to input the significance level.</p>
 <hr />
 <div class="example">
-<p><span id="exm:testtpw" class="example"><strong>Example 6.8  (Quality inspection of pencils) </strong></span>Example <a href="hypothesis-testing.html#exm:testgauss">6.6</a> cont.</p>
+<p><span id="exm:testtpw" class="example"><strong>Example 6.8  (Quality inspection of pencils) </strong></span>Example <a href="hypothesis-testing.html#exm:testgauss">6.3</a> cont.</p>
 <p>In the quality inspection example, the test variable value is <span class="math inline">\(z=0.21\)</span>.</p>
 <p>The <span class="math inline">\(p-\)</span>value is given as:
 <span class="math display">\[\begin{equation*}
