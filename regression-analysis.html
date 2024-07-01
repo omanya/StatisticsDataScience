@@ -23,7 +23,7 @@
 <meta name="author" content="Maria Osipenko" />
 
 
-<meta name="date" content="2024-06-18" />
+<meta name="date" content="2024-07-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -306,8 +306,7 @@ function checkAnswer_num(q) {
 <span class="math display">\[\begin{equation*}
     Y=\alpha + \beta X.
 \end{equation*}\]</span></p></li>
-<li><p>Given <span class="math inline">\(n\)</span> observations <span class="math inline">\((y_i,x_i)\)</span>, <span class="math inline">\(i=1,\ldots, n\)</span>, (of two
-features <span class="math inline">\(Y\)</span> and <span class="math inline">\(X\)</span>) the following system of equations is set up:
+<li><p>Given <span class="math inline">\(n\)</span> observations <span class="math inline">\((y_i,x_i)\)</span>, <span class="math inline">\(i=1,\ldots, n\)</span>, the following system of equations is set up:
 <span class="math display">\[\begin{equation*}
     y_i = \alpha + \beta\, x_i + \varepsilon_i,\quad i=1,\ldots, n,
 \end{equation*}\]</span>
@@ -351,7 +350,7 @@ of least squares, which is determined by:
 - In the following we assume for the sake of simplicity that
       Regressor is deterministic.
 -->
-<p>In the following, we extend this purely data-based view to a probabilistic setting with dependent variable <span class="math inline">\(Y\)</span> and error
+<p>In the following, we extend this data-based view to a probabilistic setting with dependent variable <span class="math inline">\(Y\)</span> and error
 <span class="math inline">\(\varepsilon\)</span> being random variables with certain properties.</p>
 <p>We start with a simple (or <strong>univariate</strong>) linear regression model, where the following relationship between a dependent random variable <span class="math inline">\(Y\)</span> and a <strong>single</strong> independent (random) variable <span class="math inline">\(X\)</span> applies:
 <span class="math display">\[\begin{equation*}
@@ -406,7 +405,7 @@ and
 <p>As for the distributional parameters in the previous chapters, we can conduct point and interval estimation in the linear regression setup.</p>
 <div id="points-estimators" class="section level4 hasAnchor" number="7.3.1.1">
 <h4><span class="header-section-number">7.3.1.1</span> Points estimators<a href="regression-analysis.html#points-estimators" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>Parameter estimation is conducted via the ordinary <strong>Least Squares</strong> method (OLS)
+<p>Parameter estimation is conducted via the <strong>Ordinary Least Squares</strong> method (OLS)
 The idea of the method is: Determine <span class="math inline">\(\hat\alpha\)</span> and
 <span class="math inline">\(\hat\beta\)</span> such that
 <span class="math display">\[\begin{equation*}
@@ -426,7 +425,7 @@ The idea of the method is: Determine <span class="math inline">\(\hat\alpha\)</s
 with <strong>residuals</strong> <span class="math inline">\(\hat\varepsilon_i=Y_i-\hat Y_i\)</span> and <strong>fitted values</strong> <span class="math inline">\(\hat Y_i=\hat\alpha + \hat\beta\, x_i\)</span>,
 <span class="math inline">\(i=1,\ldots, n\)</span>.</p></li>
 <li><p>Note that <span class="math inline">\(\hat\alpha\)</span>, <span class="math inline">\(\hat\beta\)</span> and
-<span class="math inline">\(\hat\sigma^2\)</span> expression depend on random variables <span class="math inline">\(Y_1,\ldots, Y_n\)</span>, therefore, they are themselves random estimation functions.</p></li>
+<span class="math inline">\(\hat\sigma^2\)</span> expressions depend on random variables <span class="math inline">\(Y_1,\ldots, Y_n\)</span>, therefore, they are themselves random estimation functions.</p></li>
 <li><p>These are unbiased:
 <span class="math display">\[\begin{equation*}
     \mathbb E(\hat\alpha)=\alpha, \quad \mathbb E(\hat\beta)=\beta, \quad \mathbb E(\hat\sigma^2)=\sigma^2,
@@ -497,18 +496,16 @@ Using the result above, we can now forecast the average amount of orders dependi
 <p><span class="math inline">\(\leadsto\)</span> <strong>Confidence intervals</strong> for <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>
 <span class="math display">\[\begin{equation*}
     \hat\alpha \pm \hat\sigma_{\hat\alpha} \,
-    t_{1-\alpha/2}(n-2),\quad \hat\beta \pm \hat\sigma_{\hat\beta}\,
-    t_{1-\alpha/2}(n-2).
+    t_{1-\alpha/2;n-2},\quad \hat\beta \pm \hat\sigma_{\hat\beta}\,
+    t_{1-\alpha/2;n-2}.
 \end{equation*}\]</span></p>
-<p>For <span class="math inline">\(n&gt;30\)</span> the <span class="math inline">\(t\)</span> quantiles can be replaced by <span class="math inline">\(N(0,1)\)</span> quantiles
-be replaced. If the normal distribution assumption is not met, the above results apply approximately
+<p>If the normal distribution assumption is not met, the above results apply approximately
 for sufficiently large <span class="math inline">\(n\)</span>.</p>
 <div class="example">
 <p><span id="exm:linreg3" class="example"><strong>Example 7.3  (Forecasting number of orders) </strong></span>For our linear model in example <a href="regression-analysis.html#exm:linreg2">7.2</a>, we can confidence intervall for the coefficients based on the results returned.</p>
 <p><img src="images/linreg3gr.png" style="width:70.0%" /></p>
 <ul>
-<li><span class="math inline">\(95\%\CI for \(\hat\alpha\)</span> (<span class="math inline">\(\color{green}{n=100}\)</span>):
-)-CI for <span class="math inline">\(\hat\alpha\)</span> (<span class="math inline">\(n=100\)</span>):</li>
+<li><span class="math inline">\(95\%\)</span> CI for <span class="math inline">\(\hat\alpha\)</span> (<span class="math inline">\(\color{green}{n=100}\)</span>):</li>
 </ul>
 <p><span class="math display">\[[2.85 - t_{0.975, 98}\cdot 0.0745; 2.85 + t_{0.975, 98}\cdot 0.0745] = [2.7021; 2.9979]\]</span></p>
 <ul>
@@ -556,7 +553,7 @@ or <span class="math inline">\(\beta\)</span> makes sense in the regression equ
 <div class="example">
 <p><span id="exm:linreg4" class="example"><strong>Example 7.4  (Forecasting number of orders) </strong></span>For our linear model in example <a href="regression-analysis.html#exm:linreg2">7.2</a>, we can conduct significance testing based on the results returned.</p>
 <p><img src="images/linreg4gr.png" style="width:70.0%" /></p>
-<p>Since both <span class="math inline">\(p\)</span>-values are very small (<a href="https://en.wikipedia.org/wiki/Scientific_notation">scientific notation</a>), we reject the Null hypothesis of zero coefficients. Of course, we can also use the <span class="math inline">\(t\)</span>-values (the <span class="math inline">\(t\)</span>-ratio) and check whether they lie in the rejection region instead.</p>
+<p>Since both <span class="math inline">\(p\)</span>-values are very small (<a href="https://en.wikipedia.org/wiki/Scientific_notation">scientific notation</a>), we reject the null hypothesis of zero coefficients. Of course, we can also use the <span class="math inline">\(t\)</span>-values (the <span class="math inline">\(t\)</span>-ratio) and check whether they lie in the rejection region instead.</p>
 </div>
 <p>Besides the significance tests, also other hypothesis can be tested using the results. For example, we could test, whether the obtained <span class="math inline">\(\beta\)</span> is significantly smaller than <span class="math inline">\(1.\)</span></p>
 <div class="example">
@@ -760,11 +757,11 @@ Submit
 </div>
 <div id="multivariate-linear-regression" class="section level2 hasAnchor" number="7.5">
 <h2><span class="header-section-number">7.5</span> Multivariate linear regression<a href="regression-analysis.html#multivariate-linear-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Using <strong>Univariate linear regression</strong> (only one explanatory variable) we found a functional relationship between the sales <span class="math inline">\(U\)</span> and the average temperature <span class="math inline">\(T\)</span>.</p>
-<p><strong>Can we take other influences into account (time spend in online shop)?</strong></p>
+<p>Using the <strong>univariate linear regression</strong> (only one explanatory variable) above, we found a functional relationship between the sales <span class="math inline">\(U\)</span> and the average temperature <span class="math inline">\(T\)</span>.</p>
+<p><strong>Can we take other influences into account (e.g. the time spend in the online shop)?</strong></p>
 <p>Multivariate linear regression:</p>
 <ul>
-<li><p>Approach: <span class="math inline">\(y=b_0 + b_1\, x_1 + b_2\, x_2 + \cdots + b_L\, x_L,\)</span></p></li>
+<li><p>Approach: <span class="math inline">\(y=\beta_0 + \beta_1\, x_1 + \beta_2\, x_2 + \cdots + \beta_L\, x_L,\)</span></p></li>
 <li><p>with the regressand or dependent variable <span class="math inline">\(y\)</span> and <span class="math inline">\(L\)</span> regressors
 <span class="math inline">\(x_1, \ldots, x_L\)</span> (multivariate regression);</p></li>
 <li><p>Sample:</p></li>
@@ -776,17 +773,17 @@ Submit
 <li>System of linear equations:</li>
 </ul>
 <p><span class="math display">\[\begin{align*}
-        y_1 &amp;= b_0 + b_1\, x_{11} + b_2\, x_{21} + \cdots + b_L\, x_{L1}
+        y_1 &amp;= \beta_0 + \beta_1\, x_{11} + \beta_2\, x_{21} + \cdots + \beta_L\, x_{L1}
               + \varepsilon_1\\
         \vdots\\
-        y_n &amp;= b_0+  b_1\, x_{1n} + b_2\, x_{2n} + \cdots + b_L\, x_{Ln}
+        y_n &amp;= \beta_0+  \beta_1\, x_{1n} + \beta_2\, x_{2n} + \cdots + \beta_L\, x_{Ln}
               + \varepsilon_n
       \end{align*}\]</span></p>
 <ul>
 <li>Representation in matrix form:</li>
 </ul>
 <p><span class="math display">\[
-      \bf{y} = \bf{X}\bf{b} + \bf{\varepsilon},
+      \bf{y} = \bf{X}\bf{\beta} + \bf{\varepsilon},
 \]</span></p>
 <p>with the design matrix</p>
 <p><span class="math display">\[
@@ -801,7 +798,7 @@ Submit
 <li>OLS-Solution:</li>
 </ul>
 <p><span class="math display">\[
-        \bf{b} = (\bf{X}^T \bf{X})^{-1}\, \bf{X}^T\, \bf{y}
+        \bf{\hat\beta} = (\bf{X}^T \bf{X})^{-1}\, \bf{X}^T\, \bf{y}
 \]</span></p>
 <div class="example">
 <p><span id="exm:unlabeled-div-4" class="example"><strong>Example 7.6  (Forecasting number of orders) </strong></span>example <a href="regression-analysis.html#exm:linreg">7.1</a> cont.</p>
@@ -832,7 +829,7 @@ Submit
 <ul>
 <li>OLS-Solution:
 <span class="math display">\[\begin{align*}
-  \beta&amp;=(\bf{X}^\top \bf{X})^{-1}\, \bf{X}^\top\, \bf{Y}
+  \hat\beta&amp;=(\bf{X}^\top \bf{X})^{-1}\, \bf{X}^\top\, \bf{Y}
   \end{align*}\]</span></li>
 </ul>
 <p><img src="images/linreg6gr.png" style="width:70.0%" /></p>
