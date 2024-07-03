@@ -23,7 +23,7 @@
 <meta name="author" content="Maria Osipenko" />
 
 
-<meta name="date" content="2024-07-01" />
+<meta name="date" content="2024-07-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -409,7 +409,7 @@ and
 The idea of the method is: Determine <span class="math inline">\(\hat\alpha\)</span> and
 <span class="math inline">\(\hat\beta\)</span> such that
 <span class="math display">\[\begin{equation*}
-        \sum_{i=1}^n (Y_i-\alpha-\beta x_i)^2 \quad\rightarrow\quad \min_{\alpha,\beta}
+         \sum_{i=1}^n \varepsilon^2=\sum_{i=1}^n (Y_i-\alpha-\beta x_i)^2 \quad\rightarrow\quad \min_{\alpha,\beta}
 \end{equation*}\]</span></p>
 <ul>
 <li><p>Minimizing the objective above, results in:
@@ -422,8 +422,7 @@ The idea of the method is: Determine <span class="math inline">\(\hat\alpha\)</s
                     = \frac{1}{n-2} \sum_{i=1}^n (Y_i-\hat\alpha -
                     \hat\beta x_i)^2,
 \end{align*}\]</span>
-with <strong>residuals</strong> <span class="math inline">\(\hat\varepsilon_i=Y_i-\hat Y_i\)</span> and <strong>fitted values</strong> <span class="math inline">\(\hat Y_i=\hat\alpha + \hat\beta\, x_i\)</span>,
-<span class="math inline">\(i=1,\ldots, n\)</span>.</p></li>
+with <strong>residuals</strong> <span class="math inline">\(\hat\varepsilon_i=Y_i-\underbrace{(\hat\alpha + \hat\beta\, x_i)}_{\hat y_i}\)</span> and <strong>fitted values</strong> <span class="math inline">\(\hat y_i=\hat\alpha + \hat\beta\, x_i\)</span>, <span class="math inline">\(i=1,\ldots, n\)</span>.</p></li>
 <li><p>Note that <span class="math inline">\(\hat\alpha\)</span>, <span class="math inline">\(\hat\beta\)</span> and
 <span class="math inline">\(\hat\sigma^2\)</span> expressions depend on random variables <span class="math inline">\(Y_1,\ldots, Y_n\)</span>, therefore, they are themselves random estimation functions.</p></li>
 <li><p>These are unbiased:
@@ -469,7 +468,7 @@ with <strong>residuals</strong> <span class="math inline">\(\hat\varepsilon_i=Y_
 <p>and</p>
 <p><span class="math display">\[\hat\beta=0.8108\leadsto \text{app}.\]</span></p>
 <p>The estimated residual standard deviation can be deduced from the <strong>sum of squared residuals</strong> (<span class="math inline">\(\sum_{i=1}^n\hat\varepsilon_i^2\)</span>), contained in the output, as:</p>
-<p><span class="math display">\[\hat \sigma_\varepsilon = \sqrt{\frac{\color{blue}{\sum_{i=1}^n\hat\varepsilon_i^2}}{\color{green}{n}-2}} = \sqrt{\frac{\color{blue}{20.14512}}{98}}=0.4534.\]</span></p>
+<p><span class="math display">\[\hat \sigma = \sqrt{\frac{\color{blue}{\sum_{i=1}^n\hat\varepsilon_i^2}}{\color{green}{n}-2}} = \sqrt{\frac{\color{blue}{20.14512}}{98}}=0.4534.\]</span></p>
 <!--Now we have a formula for forecasting the average amount of orders using the information on app usage:
 
 \[norders \approx 2.85 + 0.8108\cdot app.\]
@@ -487,20 +486,16 @@ Using the result above, we can now forecast the average amount of orders dependi
 </div>
 <div id="interval-estimators" class="section level4 hasAnchor" number="7.3.1.2">
 <h4><span class="header-section-number">7.3.1.2</span> Interval estimators<a href="regression-analysis.html#interval-estimators" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>Under the normal distribution assumption, we have:
+<p>Under the normal distribution assumption and since we have to estimate the error variance, we have:
 <span class="math display">\[\begin{equation*}
       \frac{\hat\alpha-\alpha}{\hat\sigma_{\hat\alpha}} \sim t(n-2),
       \quad \frac{\hat\beta-\beta}{\hat\sigma_{\hat\beta}} \sim
       t(n-2).
 \end{equation*}\]</span></p>
-<p><span class="math inline">\(\leadsto\)</span> <strong>Confidence intervals</strong> for <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>
-<span class="math display">\[\begin{equation*}
-    \hat\alpha \pm \hat\sigma_{\hat\alpha} \,
-    t_{1-\alpha/2;n-2},\quad \hat\beta \pm \hat\sigma_{\hat\beta}\,
-    t_{1-\alpha/2;n-2}.
-\end{equation*}\]</span></p>
-<p>If the normal distribution assumption is not met, the above results apply approximately
-for sufficiently large <span class="math inline">\(n\)</span>.</p>
+<p><span class="math inline">\(\leadsto\)</span> <strong>Confidence intervals</strong> for <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>:</p>
+<p><span class="math display">\[\hat\alpha \pm     t_{1-\alpha/2;n-2}\cdot\hat\sigma_{\alpha} \,
+,\quad \hat\beta \pm  t_{1-\alpha/2;n-2}\cdot\hat\sigma_{\beta}\,.\]</span></p>
+<p>If the normal distribution assumption is not met, the above results apply approximately for sufficiently large <span class="math inline">\(n\)</span>.</p>
 <div class="example">
 <p><span id="exm:linreg3" class="example"><strong>Example 7.3  (Forecasting number of orders) </strong></span>For our linear model in example <a href="regression-analysis.html#exm:linreg2">7.2</a>, we can confidence intervall for the coefficients based on the results returned.</p>
 <p><img src="images/linreg3gr.png" style="width:70.0%" /></p>
@@ -812,7 +807,7 @@ Submit
 <li>app indicator,</li>
 </ol></li>
 <li><ol start="3" style="list-style-type: decimal">
-<li>time spend in shop</li>
+<li>time spent in shop</li>
 </ol></li>
 </ul></li>
 </ul>
