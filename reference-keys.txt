@@ -104,10 +104,6 @@ exm:linreg3
 exm:linreg4
 exm:linreg5
 exm:unlabeled-div-4
-random-events-and-probability---a-short-review
-outcomes-and-events
-probabilities
-sampling-as-a-random-process
 random-variables
 discrete-random-variable
 probability-and-distribution-functions
