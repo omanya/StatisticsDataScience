@@ -23,7 +23,7 @@
 <meta name="author" content="Maria Osipenko" />
 
 
-<meta name="date" content="2024-07-03" />
+<meta name="date" content="2025-03-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -532,10 +532,10 @@ a_2=Web&amp;0.08&amp;0.09&amp;0.13&amp;0.05&amp;0.03&amp;0.02 \\
 <p>We define the costs that result from all ordering processes on a user account as a random variable <span class="math inline">\(K\)</span>. <span class="math inline">\(K\)</span> is calculated as:</p>
 <p><span class="math display">\[
 K = \begin{cases}
-1.5\cdot \text{No. Orders}, &amp;\text{ if via app and number. Orders }\leq 4,\\
-1\cdot \text{No. Orders} + 1, &amp;\text{ if via web and number. Orders }\leq 4,\\
-6, &amp;\text{ if via app and number. Orders }&gt;4,\\
-5, &amp;\text{ if via web and display. Orders }&gt;4.
+1.5\cdot \text{No. Orders}, &amp;\text{ if via app and No. Orders }\leq 4,\\
+1\cdot \text{No. Orders} + 1, &amp;\text{ if via web and No. Orders }\leq 4,\\
+6, &amp;\text{ if via app and No. Orders }&gt;4,\\
+5, &amp;\text{ if via web and No. Orders }&gt;4.
 \end{cases}
 \]</span></p>
 <p><strong>How are the costs distributed?</strong></p>
@@ -884,8 +884,8 @@ Figure 2.4: Example: Probability function of a continuous random variable
 <div class="example">
 <p><span id="exm:stZV" class="example"><strong>Example 2.6  (Time in the online shop as a continuous random variable) </strong></span>We model the random variable <span class="math inline">\(X=\)</span> time in the online shop in minutes as a continuous random variable with the density:</p>
 <p><span class="math display">\[
-f(x) = \begin{cases}0,001\cdot x , &amp;\text{ for } 0\leq x\leq 20,\\
-                      0,025 -0,00025\cdot x, &amp;\text{ for } 20&lt; x\leq 100.\end{cases}
+f(x) = \begin{cases}0.001\cdot x , &amp;\text{ for } 0\leq x\leq 20,\\
+                      0.025 -0.00025\cdot x, &amp;\text{ for } 20&lt; x\leq 100.\end{cases}
 \]</span></p>
 <p>That is,</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-36"></span>
@@ -898,12 +898,12 @@ Figure 2.5: Probability density of X=Time in online shop
 <ul>
 <li><p><span class="math inline">\(\{X&lt;20\}=\text{&quot;Time in shop less than 20  minutes&quot;}\)</span>:
 <span class="math display">\[\begin{align}
-\mathbb P(X&lt;20)&amp;= \displaystyle \int_0^{20} (0,001\cdot x )dx = \text{Area of the red triangle}\\
+\mathbb P(X&lt;20)&amp;= \displaystyle \int_0^{20} (0.001\cdot x )dx = \text{Area of the red triangle}\\
 &amp;= \frac{1}{2}\cdot 20\cdot 0,02 = 0,2.
 \end{align}\]</span></p></li>
 <li><p><span class="math inline">\(\{X&lt;60\}=\text{&quot;Time in shop less than 60 minutes&quot;}\)</span>:
 <span class="math display">\[\begin{align}
-  \mathbb P(X&lt;60)&amp;= 1-\mathbb P(X\geq 60)=1-\displaystyle \int^{100}_{60} (0,025 -0,00025\cdot x)dx \\
+  \mathbb P(X&lt;60)&amp;= 1-\mathbb P(X\geq 60)=1-\displaystyle \int^{100}_{60} (0.025 -0.00025\cdot x)dx \\
   &amp;= 1- \text{Area of the transparent triagle} = 1-\frac{1}{2}\cdot 40\cdot 0,01 = 0,8.
   \end{align}\]</span></p></li>
 </ul>
@@ -955,7 +955,7 @@ F(x) &amp;= \int_{{0}}^x f(t)~ dt = \int_{0}^x (0.001\cdot t )~ dt=\left[0.001\c
 F(x) =
     \begin{cases}
     0,&amp;x&lt;0,\\
-    0,0005x^2,&amp;0\leq x\leq 20,\\
+    0.0005x^2,&amp;0\leq x\leq 20,\\
     -0.25 + 0.025x -0.000125x^2,&amp;20&lt;x\leq 100,\\
     1,&amp;x&gt;100.
     \end{cases}
@@ -968,7 +968,7 @@ Figure 2.7: Cumulative distribution function of X=Time in online shop
 </div>
 <p>Using the cumulative distribution function, we can calculate the event probabilities:</p>
 <ul>
-<li><p><span class="math inline">\(\{X&lt;20\}=\text{&quot;Time in shop less than 20 minutes&quot;}\)</span>: <span class="math display">\[\begin{align}\mathbb P(X&lt;20)&amp;= \mathbb P(X\leq20)=F(20) = 0,0005\cdot 20^2= 0.2.\end{align}\]</span></p></li>
+<li><p><span class="math inline">\(\{X&lt;20\}=\text{&quot;Time in shop less than 20 minutes&quot;}\)</span>: <span class="math display">\[\begin{align}\mathbb P(X&lt;20)&amp;= \mathbb P(X\leq20)=F(20) = 0.0005\cdot 20^2= 0.2.\end{align}\]</span></p></li>
 <li><p><span class="math inline">\(\{X&lt;60\}=\text{&quot;Zeit im Shop weniger als 60 Minuten&quot;}\)</span>:<span class="math display">\[\begin{align}\mathbb P(X&lt;60)&amp;=\mathbb P(X\leq60)=F(60) =-0.25 + 0.025\cdot 60 -0.000125\cdot 60^2= 0.8.\end{align}\]</span></p></li>
 <li><p><span class="math inline">\(\{X &gt;30\}=\text{&quot;Time in shop less than 30 minutes&quot;}\)</span>:<span class="math display">\[\begin{align}
   \mathbb P(X&gt;30)&amp;=1-\mathbb P(X\leq30)= 1-F(30) \\&amp;= 1-(-0.25 + 0.025\cdot 30 -0.000125\cdot 30^2)\\
@@ -1147,8 +1147,8 @@ Hint: use conditional probability and note that \(\mathbb P((0.1 \leq X \leq 0.3
 <div class="row">
 <div class="column" style="width:60%;">
 <p><span class="math display">\[
-f(x) = \begin{cases}0,001\cdot x , &amp;\text{ for } 0\leq x\leq 20,\\
-                      0,025 -0,00025\cdot x, &amp;\text{ for } 20&lt; x\leq 100.\end{cases}
+f(x) = \begin{cases}0.001\cdot x , &amp;\text{ for } 0\leq x\leq 20,\\
+                      0.025 -0.00025\cdot x, &amp;\text{ for } 20&lt; x\leq 100.\end{cases}
 \]</span></p>
 </div>
 <div class="column" style="width:35%;">
@@ -1161,10 +1161,10 @@ f(x) = \begin{cases}0,001\cdot x , &amp;\text{ for } 0\leq x\leq 20,\\
 </ul>
 <p><span class="math display">\[\begin{align}
 \mathbb E(X) &amp;= \int_{-\infty}^{\infty}x\cdot f(x)dx = \int_{0}^{20}x\cdot f(x)dx + \int_{20}^{100}x\cdot f(x)dx\\
-&amp;=\int_{0}^{20}x\cdot(0,001\cdot x )dx + \int_{20}^{100}x\cdot (0,025 -0,00025\cdot x)dx\\
-&amp;=\int_{0}^{20}0,001\cdot x^2 dx + \int_{20}^{100}0,025\cdot x -0,00025\cdot x^2dx\\
-&amp;=\Big[0,001\cdot \frac{x^3}3\Big]_{0}^{20} + \Big[0,025\cdot \frac{x^2}2 -0,00025\cdot \frac{x^3}3\Big]_{20}^{100}\\
-&amp;=2,6667 + 37,3333 = 40.
+&amp;=\int_{0}^{20}x\cdot(0.001\cdot x )dx + \int_{20}^{100}x\cdot (0.025 -0.00025\cdot x)dx\\
+&amp;=\int_{0}^{20}0.001\cdot x^2 dx + \int_{20}^{100}0.025\cdot x -0.00025\cdot x^2dx\\
+&amp;=\Big[0.001\cdot \frac{x^3}3\Big]_{0}^{20} + \Big[0.025\cdot \frac{x^2}2 -0.00025\cdot \frac{x^3}3\Big]_{20}^{100}\\
+&amp;=2.6667 + 37.3333 = 40.
 \end{align}\]</span></p>
 <ul>
 <li>Variance:</li>
@@ -1256,7 +1256,7 @@ Figure 2.9: Quantile of s atandard normal distribution for p=0,9
 F(x) =
     \begin{cases}
     0,&amp;x&lt;0,\\
-    0,0005x^2,&amp;0\leq x\leq 20,\\
+    0.0005x^2,&amp;0\leq x\leq 20,\\
     -0.25 + 0.025x -0.000125x^2,&amp;20&lt;x\leq 100,\\
     1,&amp;x&gt;100.
     \end{cases}}
@@ -1268,14 +1268,14 @@ F(x) =
 </div>
 <ul>
 <li><span class="math inline">\(0.1\)</span> quantile:
-The distribution function takes the value <span class="math inline">\(0.1\)</span> on the intercept <span class="math inline">\(0\leq x \leq 20\)</span>, so we set <span class="math display">\[F(q_{0.1})=0.1\rightarrow 0.0005q_{0.1}^ 2 = 0.1\]</span> and solve for <span class="math inline">\(q_{0.1}\)</span>: <span class="math display">\[q_{0.1} = \pm\sqrt{\frac{0.1}{0.0005}} = \pm 14, 1421,\]</span> so <span class="math inline">\(q_{0.1} =14.1421\)</span>, since <span class="math inline">\(0\leq q_{0.1} \leq 20\)</span> must hold.</li>
+The distribution function takes the value <span class="math inline">\(0.1\)</span> on the intercept <span class="math inline">\(0\leq x \leq 20\)</span>, so we set <span class="math display">\[F(q_{0.1})=0.1\rightarrow 0.0005q_{0.1}^ 2 = 0.1\]</span> and solve for <span class="math inline">\(q_{0.1}\)</span>: <span class="math display">\[q_{0.1} = \pm\sqrt{\frac{0.1}{0.0005}} = \pm 14.1421,\]</span> so <span class="math inline">\(q_{0.1} =14.1421\)</span>, since <span class="math inline">\(0\leq q_{0.1} \leq 20\)</span> must hold.</li>
 </ul>
-<p>With a probability of 10%, the time spent in the online shop is shorter than <span class="math inline">\(14.1421\)</span> minutes.</p>
+<p>With a probability of <span class="math inline">\(10\%\)</span>, the time spent in the online shop is shorter than <span class="math inline">\(14.1421\)</span> minutes.</p>
 <ul>
 <li><span class="math inline">\(0.9\)</span> quantile:
 The distribution function takes the value <span class="math inline">\(0.9\)</span> on the intercept <span class="math inline">\(20\leq x \leq 100\)</span>, so we set <span class="math display">\[F(q_{0.9})=0.9\rightarrow -0.25 + 0.025 q_{ 0.9} - 0.000125q_{0.9}^2 = 0.9.\]</span> Then (<span class="math inline">\(abc\)</span> formula for quadratic equations <span class="math inline">\(ax^2 + bx + c=0\)</span>: <span class="math inline">\(x_{1,2}=\frac{-b\pm\sqrt{b^2 - 4ac}}{2a}\)</span>) we have <span class="math display">\[q_{0.9} = \frac{-0.025\pm\sqrt{0.025^2 - 4\cdot(-0.000125)\cdot(-1.15)}}{2\cdot ( -0.000125)}.\]</span> In addition, <span class="math inline">\(q_{0.9}\)</span> should be between <span class="math inline">\(20\)</span> and <span class="math inline">\(100\)</span>. So, let’s take the “<span class="math inline">\(+\)</span> version” and calculate <span class="math inline">\(q_{0.9} = 71.7157\)</span>.</li>
 </ul>
-<p>With a probability of 10%, time spent in the online shop is longer than <span class="math inline">\(71.7157\)</span> minutes.</p>
+<p>With a probability of <span class="math inline">\(90\%\)</span>, time spent in the online shop will be shorter than <span class="math inline">\(71.7157\)</span> minutes. With a probability of <span class="math inline">\(10\%\)</span> the time spent will be longer than <span class="math inline">\(71.7157.\)</span></p>
 </div>
 <hr />
 <div id="q2quant" class="quiz">

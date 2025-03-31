@@ -23,7 +23,7 @@
 <meta name="author" content="Maria Osipenko" />
 
 
-<meta name="date" content="2024-07-03" />
+<meta name="date" content="2025-03-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -462,8 +462,8 @@ $A: \text{Anzahl von App-Nutzern unter den 20 Befragten}$, da $\mathbb P(App) = 
 <div class="example">
 <p><span id="exm:zgs2" class="example"><strong>Example 4.2  (Average time in the online shop) </strong></span>In examples <a href="random-variables.html#exm:stZV">2.6</a> and <a href="random-variables.html#exm:stZVkenz">2.7</a> we have modelled <span class="math inline">\(X=\)</span>“time in the online shop” as a continuous random variable with the density:</p>
 <p><span class="math display">\[
-f(x) = \begin{cases}0,001\cdot x , &amp;\text{ for } 0\leq x\leq 20,\\
-                      0,025 -0,00025\cdot x, &amp;\text{ for } 20&lt; x\leq 100.\end{cases}
+f(x) = \begin{cases}0.001\cdot x , &amp;\text{ for } 0\leq x\leq 20,\\
+                      0.025 -0.00025\cdot x, &amp;\text{ for } 20&lt; x\leq 100.\end{cases}
 \]</span></p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-116"></span>
 <img src="_main_files/figure-html/unnamed-chunk-116-1.png" alt="Density function of X=time in the online shop" width="40%" />
@@ -474,10 +474,10 @@ Figure 4.1: Density function of X=time in the online shop
 <p>and computed:</p>
 <p><span class="math display">\[\begin{align}
 \mathbb E(X) &amp;= 40,\\
-\text{Var}(X) &amp;= 466,6667.
+\text{Var}(X) &amp;= 466.6667.
 \end{align}\]</span></p>
 <p>Now we draw a pair of samples of size <span class="math inline">\(n\)</span> from this distribution and in each sample realization we take the average of the values. The ZGS states that (although the individual times are obviously <strong>not</strong> normally distributed) the distribution of the (standardized) average will get closer and closer to the (standard) normal distribution as <span class="math inline">\(n\)</span> increases.</p>
-<p>That is, <span class="math inline">\(\bar X=\frac 1n(X_1 + \ldots + X_n)\)</span> mit <span class="math inline">\(\mathbb E(\bar X) = n\cdot \frac 1n\cdot \mathbb E(X) = 40\)</span> und <span class="math inline">\(\text{Var}(\bar X)=n\cdot\frac1{n^2}\cdot \text{Var}(X) = \frac{466,6667}{n}.\)</span></p>
+<p>That is, <span class="math inline">\(\bar X=\frac 1n(X_1 + \ldots + X_n)\)</span> mit <span class="math inline">\(\mathbb E(\bar X) = n\cdot \frac 1n\cdot \mathbb E(X) = 40\)</span> und <span class="math inline">\(\text{Var}(\bar X)=n\cdot\frac1{n^2}\cdot \text{Var}(X) = \frac{466.6667}{n}.\)</span></p>
 <p>For <span class="math inline">\(n=50\)</span> holds:</p>
 <p><span class="math display">\[
 \bar X\stackrel{a}{\sim} N(40;9,3333)
