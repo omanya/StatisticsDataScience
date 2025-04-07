@@ -23,7 +23,7 @@
 <meta name="author" content="Maria Osipenko" />
 
 
-<meta name="date" content="2025-04-01" />
+<meta name="date" content="2025-04-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -899,12 +899,12 @@ Figure 1.5: Probability density of X=Time in online shop
 <li><p><span class="math inline">\(\{X&lt;20\}=\text{&quot;Time in shop less than 20  minutes&quot;}\)</span>:
 <span class="math display">\[\begin{align}
 \mathbb P(X&lt;20)&amp;= \displaystyle \int_0^{20} (0.001\cdot x )dx = \text{Area of the red triangle}\\
-&amp;= \frac{1}{2}\cdot 20\cdot 0,02 = 0,2.
+&amp;= \frac{1}{2}\cdot 20\cdot 0.02 = 0.2.
 \end{align}\]</span></p></li>
 <li><p><span class="math inline">\(\{X&lt;60\}=\text{&quot;Time in shop less than 60 minutes&quot;}\)</span>:
 <span class="math display">\[\begin{align}
   \mathbb P(X&lt;60)&amp;= 1-\mathbb P(X\geq 60)=1-\displaystyle \int^{100}_{60} (0.025 -0.00025\cdot x)dx \\
-  &amp;= 1- \text{Area of the transparent triagle} = 1-\frac{1}{2}\cdot 40\cdot 0,01 = 0,8.
+  &amp;= 1- \text{Area of the transparent triagle} = 1-\frac{1}{2}\cdot 40\cdot 0.01 = 0.8.
   \end{align}\]</span></p></li>
 </ul>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-37"></span>
@@ -1191,8 +1191,8 @@ f(x) = \begin{cases}0.001\cdot x , &amp;\text{ for } 0\leq x\leq 20,\\
  // Generate a random question
     const questionObj24 = generateQuestion_num(24);
 // Display the question
-    document.getElementById('question-text24').textContent = "\\(X=\\) 'Proportion of the customers who are satisfied with your service' follows the distribution with the cumulative distribution function:\\[F(x)=\\begin{cases}x^2,&\\text{ if } 0\\leq x\\leq 1,\\\\0,&\\text{ if }x<0,\\\\1,&\\text{ if }x>1.\\end{cases}\\] Compute the expected value for \\(X\\):";
-    questionObj24.answer = 0.6667
+    document.getElementById('question-text24').textContent = "\\(X=\\) 'Proportion of the customers who are satisfied with your service' follows the distribution with the cumulative distribution function:\\[F(x)=\\begin{cases}x^2,&\\text{ if } 0\\leq x\\leq 1,\\\\0,&\\text{ if }x<0,\\\\1,&\\text{ if }x>1.\\end{cases}\\] Compute the variance of \\(X\\):";
+    questionObj24.answer = 0.0556// E(X) =2/3=0.6667, E(X^2) = 1/2, Var(X) = 1/18
 </script>
 <p id="question">
 <span id="question-text25"></span>
@@ -1206,8 +1206,8 @@ f(x) = \begin{cases}0.001\cdot x , &amp;\text{ for } 0\leq x\leq 20,\\
  // Generate a random question
     const questionObj25 = generateQuestion_num(25);
 // Display the question
-    document.getElementById('question-text25').textContent = "Now the proportion is transformed as follows: \\[Y=" + questionObj25.question[0] + "X-" + questionObj25.question[1] + ".\\] \\(\\mathbb E(Y)=\\)";
-    questionObj25.answer = questionObj25.question[0]*0.6667-questionObj25.question[1]
+    document.getElementById('question-text25').textContent = "Now the proportion is transformed as follows: \\[Y=" + questionObj25.question[0] + "X-" + questionObj25.question[1] + ".\\] \\(\\mathbb Var(Y)=\\)";
+    questionObj25.answer = questionObj25.question[0]*questionObj25.question[0]*0.0556//questionObj25.question[0]*0.6667-questionObj25.question[1]// expectation
 </script>
 </div>
 <!--::: {.exercise name="Erwartungswert und Varianz"}
@@ -1282,8 +1282,8 @@ The distribution function takes the value <span class="math inline">\(0.9\)</spa
 <script>
   // Generate a random question
     const questionObj215 = {
-      question: 'Let X be a continuous random variable with the distribution function:\\[F(x)=\\begin{cases}x^2,&\\text{ if }0\\leq x \\leq 1,\\\\0,&\\text{ if } x<0,\\\\1,&\\text{ if }x>1.\\end{cases}\\] Its quartile is:\\[\\]\\(q_{0.25}=\\)',
-      options: [0.1111,0.1667, 0.3333, 0.5, 0.6667],
+      question: 'Let X be a continuous random variable with the distribution function:\\[F(x)=\\begin{cases}x^2,&\\text{ if }0\\leq x \\leq 1,\\\\0,&\\text{ if } x<0,\\\\1,&\\text{ if }x>1.\\end{cases}\\] Its quartile is:\\[\\]\\(q_{0.1}=\\)',
+      options: [0.01,0.1,0.1581, 0.3162, 0.6325],
       answer: '4',
       id: 215
     };
@@ -1293,19 +1293,19 @@ The distribution function takes the value <span class="math inline">\(0.9\)</spa
 </p>
 <div class="options">
 <label>
-<input type="radio" name="option215" value=1> 0.1111
+<input type="radio" name="option215" value=1> 0.01
 </label>
 <label>
-<input type="radio" name="option215" value=2> 0.25
+<input type="radio" name="option215" value=2> 0.1
 </label>
 <label>
-<input type="radio" name="option215" value=3> 0.3333
+<input type="radio" name="option215" value=3> 0.1581
 </label>
 <label>
-<input type="radio" name="option215" value=4> 0.5
+<input type="radio" name="option215" value=4> 0.3162
 </label>
 <label>
-<input type="radio" name="option215" value=5> 0.6667
+<input type="radio" name="option215" value=5> 0.6325
 </label>
 </div>
 <button onclick="checkAnswer_match(questionObj215)">Submit</button>
