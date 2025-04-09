@@ -23,7 +23,7 @@
 <meta name="author" content="Maria Osipenko" />
 
 
-<meta name="date" content="2025-04-07" />
+<meta name="date" content="2025-04-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1191,8 +1191,8 @@ f(x) = \begin{cases}0.001\cdot x , &amp;\text{ for } 0\leq x\leq 20,\\
  // Generate a random question
     const questionObj24 = generateQuestion_num(24);
 // Display the question
-    document.getElementById('question-text24').textContent = "\\(X=\\) 'Proportion of the customers who are satisfied with your service' follows the distribution with the cumulative distribution function:\\[F(x)=\\begin{cases}x^2,&\\text{ if } 0\\leq x\\leq 1,\\\\0,&\\text{ if }x<0,\\\\1,&\\text{ if }x>1.\\end{cases}\\] Compute the variance of \\(X\\):";
-    questionObj24.answer = 0.0556// E(X) =2/3=0.6667, E(X^2) = 1/2, Var(X) = 1/18
+    document.getElementById('question-text24').textContent = "\\(X=\\) 'Proportion of the customers who are satisfied with your service' follows the distribution with the cumulative distribution function:\\[F(x)=\\begin{cases}x^2,&\\text{ if } 0\\leq x\\leq 1,\\\\0,&\\text{ if }x<0,\\\\1,&\\text{ if }x>1.\\end{cases}\\] Compute the expectation of \\(X\\):";
+    questionObj24.answer =0.6667// 0.0556// E(X) =2/3=0.6667, E(X^2) = 1/2, Var(X) = 1/18
 </script>
 <p id="question">
 <span id="question-text25"></span>
@@ -1206,8 +1206,8 @@ f(x) = \begin{cases}0.001\cdot x , &amp;\text{ for } 0\leq x\leq 20,\\
  // Generate a random question
     const questionObj25 = generateQuestion_num(25);
 // Display the question
-    document.getElementById('question-text25').textContent = "Now the proportion is transformed as follows: \\[Y=" + questionObj25.question[0] + "X-" + questionObj25.question[1] + ".\\] \\(\\mathbb Var(Y)=\\)";
-    questionObj25.answer = questionObj25.question[0]*questionObj25.question[0]*0.0556//questionObj25.question[0]*0.6667-questionObj25.question[1]// expectation
+    document.getElementById('question-text25').textContent = "Now the proportion is transformed as follows: \\[Y=" + questionObj25.question[0] + "X-" + questionObj25.question[1] + ".\\] \\(\\mathbb E(Y)=\\)";
+    questionObj25.answer = questionObj25.question[0]*0.6667-questionObj25.question[1]//questionObj25.question[0]*questionObj25.question[0]*0.0556//questionObj25.question[0]*0.6667-questionObj25.question[1]// expectation
 </script>
 </div>
 <!--::: {.exercise name="Erwartungswert und Varianz"}
