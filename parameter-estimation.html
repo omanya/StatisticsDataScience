@@ -23,7 +23,7 @@
 <meta name="author" content="Maria Osipenko" />
 
 
-<meta name="date" content="2025-04-09" />
+<meta name="date" content="2025-04-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -837,7 +837,7 @@ is unbiased estimator for the <strong>share</strong>/ the <strong>probability</s
 \end{equation*}\]</span></p></li>
 <li><p>If we now take several random samples (e.g. <span class="math inline">\(100\)</span>) and calculate the sample mean for each drawing with a certain size <span class="math inline">\(n\)</span>, then we observe the following:</p></li>
 </ul>
-<p><img src="_main_files/figure-html/unnamed-chunk-135-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-137-1.png" width="672" /></p>
 </div>
 <hr />
 <div class="example">
@@ -889,7 +889,7 @@ This results in:
 <ul>
 <li>If we now carry out several samplings (e.g. <span class="math inline">\(100\)</span>) and calculate the sample variance and the mean square deviation for each drawing with a certain size <span class="math inline">\(n\)</span>, then we observe the following:</li>
 </ul>
-<p><img src="_main_files/figure-html/unnamed-chunk-136-1.png" width="100%" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-138-1.png" width="100%" /></p>
 </div>
 <hr />
 </div>
@@ -1075,7 +1075,7 @@ p^3\cdot (1-p).
 </ul></li>
 <li><p>Representation of the likelihood function:</p></li>
 </ul>
-<p><img src="_main_files/figure-html/unnamed-chunk-138-1.png" width="100%" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-140-1.png" width="100%" /></p>
 <ul>
 <li>Interpretation of the likelihood function: <span class="math inline">\(L(p)\)</span> is the probability of the observations <span class="math inline">\(x_1=1,x_2=1, x_3=0\)</span> and <span class="math inline">\(x_4=1\)</span> occurring together under the assumption that <span class="math inline">\(\mathbb P(X =1)=p\)</span>.</li>
 </ul>
@@ -1104,7 +1104,7 @@ L(\lambda) = f(x_1|\lambda)\cdots f(x_4|\lambda) = \prod_{i=1}^4
 </ul></li>
 <li><p>Representation of the likelihood function and log-likelihood function:</p></li>
 </ul>
-<p><img src="_main_files/figure-html/unnamed-chunk-139-1.png" width="100%" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-141-1.png" width="100%" /></p>
 <ul>
 <li><p>Interpretation of the likelihood function: <span class="math inline">\(L(\lambda)\)</span> is the density for the co-occurrence of the observations <span class="math inline">\(x_1=0.95\)</span>, <span class="math inline">\(x_2=1.81\)</span>, <span class="math inline">\(x_3=1\)</span> and <span class="math inline">\(x_4=0, 67\)</span> under the assumption that there is an exponential distribution with parameter <span class="math inline">\(\lambda\)</span>.</p></li>
 <li><p>A high density value <span class="math inline">\(f(x)\)</span> at location <span class="math inline">\(x\)</span> implies a high probability of occurrence in a small interval around <span class="math inline">\(x\)</span>.</p></li>
@@ -1207,7 +1207,7 @@ showInterv(200)
 <li><p>Repeated sampling and interval calculation for the given coverage probability <span class="math inline">\(1−\alpha\)</span> gives on average approximately a <span class="math inline">\((1−\alpha)\)</span> proportion of the interval estimates that cover the true parameter.</p></li>
 <li><p>For our example <a href="parameter-estimation.html#exm:intsch">4.14</a> we want to estimate <span class="math inline">\(\mu_X\)</span> using a sample of size <span class="math inline">\(n=50\)</span> and assuming <span class="math inline">\(\sigma_X=10.\)</span> Then, a collection of <span class="math inline">\(100\)</span> repeated interval estimates for <span class="math inline">\(\alpha=0.05\)</span> could look like this:</p></li>
 </ul>
-<p><img src="_main_files/figure-html/unnamed-chunk-143-1.png" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-145-1.png" width="672" /></p>
 </div>
 <hr />
 <p>Obviously, computation of confidence intervals depends on the confidence level <span class="math inline">\(1-\alpha\)</span> and the sample size <span class="math inline">\(n\)</span>. Moreover, also the following factors matter for the interval estimation:</p>
@@ -1720,8 +1720,8 @@ p + N_{1-\alpha/2} \sqrt{\frac{\hat p(1-\hat p)}{n}} - \Big( p - N_{1-\alpha/2} 
 &amp;=2\cdot N_{1-\alpha/2} \frac{\sqrt{\hat p(1-\hat p)}}{\sqrt{n}}
 \end{align}\]</span>
 Before a sample is drawn, <span class="math inline">\(\hat p\)</span> is a random variable, so is the term <span class="math inline">\(\sqrt{\hat p(1-\hat p)}\)</span>. However, you can the later from above, because for <span class="math inline">\(p=\frac 12\)</span> it takes on the maximum value.</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-159"></span>
-<img src="_main_files/figure-html/unnamed-chunk-159-1.png" alt="f(p)=p(1-p)" width="80%" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-161"></span>
+<img src="_main_files/figure-html/unnamed-chunk-161-1.png" alt="f(p)=p(1-p)" width="80%" />
 <p class="caption">
 Figure 4.1: f(p)=p(1-p)
 </p>

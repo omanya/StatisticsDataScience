@@ -23,7 +23,7 @@
 <meta name="author" content="Maria Osipenko" />
 
 
-<meta name="date" content="2025-04-09" />
+<meta name="date" content="2025-04-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -349,8 +349,8 @@ function normalCDF(x, mean, std) {
 <!--
 <iframe src="http://learning-dashboard.lehre.hwr-berlin.de:3838/Apps_RBook/#section-verteilungen" width="672" height="600px" data-external="1"></iframe>
 -->
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-65"></span>
-<img src="_main_files/figure-html/unnamed-chunk-65-1.png" alt="Distributional models for discrete random variables" width="672" />
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-67"></span>
+<img src="_main_files/figure-html/unnamed-chunk-67-1.png" alt="Distributional models for discrete random variables" width="672" />
 <p class="caption">
 Figure 2.1: Distributional models for discrete random variables
 </p>
@@ -369,7 +369,7 @@ Figure 2.1: Distributional models for discrete random variables
 \end{align*}\]</span></p></li>
 <li><p>Application examples:</p>
 <ul>
-<li>Rolling a fair game dice</li>
+<li>Rolling fair game dice</li>
 <li>Selecting a customer from the pool of <span class="math inline">\(n\)</span> customers</li>
 </ul></li>
 </ul>
@@ -384,11 +384,11 @@ Figure 2.1: Distributional models for discrete random variables
 <li><p>Parameters:</p>
 <ul>
 <li>Expected value: <span class="math inline">\(\mathbb E(X) = \frac 15(1 + 2 + \ldots +5) = 3\)</span>. On average, around 3 product recommendations are displayed.</li>
-<li>Variance: <span class="math inline">\(\text{Var}(X)=\frac 15 (1^2 + 2^2 + \ldots + 5^2) - 3^2 = 2\)</span>. So the standard deviation of the NUMBER of product recommendations is <span class="math inline">\(\sqrt{2}\)</span>.</li>
+<li>Variance: <span class="math inline">\(\text{Var}(X)=\frac 15 (1^2 + 2^2 + \ldots + 5^2) - 3^2 = 2\)</span>. So the standard deviation of the number of product recommendations is <span class="math inline">\(\sqrt{2}\)</span>.</li>
 </ul></li>
 </ul>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-67"></span>
-<img src="_main_files/figure-html/unnamed-chunk-67-1.png" alt="Discrete uniform distribution with n=5" width="672" />
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-69"></span>
+<img src="_main_files/figure-html/unnamed-chunk-69-1.png" alt="Discrete uniform distribution with n=5" width="672" />
 <p class="caption">
 Figure 2.2: Discrete uniform distribution with n=5
 </p>
@@ -449,8 +449,8 @@ is <strong>Bernoulli distributed</strong> with parameter <span class="math inlin
 <li><span class="math inline">\(\text{Var}(A) = 0.6\cdot (1-0.6) = 0.24.\)</span></li>
 </ul>
 <p>We took a little longer when we had to calculate these metrics “from scratch” in <a href="random-variables.html#exm:ziehungbestKov">1.5</a> 😏</p>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-68"></span>
-<img src="_main_files/figure-html/unnamed-chunk-68-1.png" alt="Bernoulli distribution with p=0.6" width="672" />
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-70"></span>
+<img src="_main_files/figure-html/unnamed-chunk-70-1.png" alt="Bernoulli distribution with p=0.6" width="672" />
 <p class="caption">
 Figure 2.3: Bernoulli distribution with p=0.6
 </p>
@@ -507,8 +507,8 @@ binomially distributed: <br>if <span class="math inline">\(X\sim B(n,p)\)</span>
 \text{Var}(X)&amp;= n\cdot \color{blue}{p}\cdot(1-\color{blue}{p}) = 10\cdot \color{blue}{0.6}\cdot (1-\color{blue}{0.6}) = 2.4.
 \end{align}\]</span></p></li>
 </ul>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-69"></span>
-<img src="_main_files/figure-html/unnamed-chunk-69-1.png" alt="Binomial distribution with n=10 and p=0.6" width="672" />
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-71"></span>
+<img src="_main_files/figure-html/unnamed-chunk-71-1.png" alt="Binomial distribution with n=10 and p=0.6" width="672" />
 <p class="caption">
 Figure 2.4: Binomial distribution with n=10 and p=0.6
 </p>
@@ -527,8 +527,8 @@ Figure 2.4: Binomial distribution with n=10 and p=0.6
         \mathbb P(P&gt;1) &amp;=1-\mathbb P(P\leq 1) =1-\sum_{k=0}^1\binom{n}{k}p^k(1-p)^{n-k} \\
         &amp;=1- \Big(\frac{500!}{0!500!}(\color{blue}{0,01})^0(1-\color{blue}{0.01})^{500} + \frac{500!}{1!499!}(\color{blue}{0.01})^1(1-\color{blue}{0.01})^{499}\Big)=0,9602.
 \end{align*}\]</span></p>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-70"></span>
-<img src="_main_files/figure-html/unnamed-chunk-70-1.png" alt="Binomial distribution with n=500 and p=0.01" width="672" />
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-72"></span>
+<img src="_main_files/figure-html/unnamed-chunk-72-1.png" alt="Binomial distribution with n=500 and p=0.01" width="672" />
 <p class="caption">
 Figure 2.5: Binomial distribution with n=500 and p=0.01
 </p>
@@ -672,19 +672,19 @@ Figure 2.5: Binomial distribution with n=500 and p=0.01
 </div>
 <div id="geometric-distribution" class="section level3 hasAnchor" number="2.1.4">
 <h3><span class="header-section-number">2.1.4</span> Geometric distribution<a href="some-important-distribution-models.html#geometric-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>If a Bernoulli experiment is repeated with the same probability <span class="math inline">\(p=\mathbb P(A)\)</span> until the first one
-The random variable is the time the event of interest <span class="math inline">\(A\)</span> occurs
+<p>A Bernoulli experiment is repeated with the same probability <span class="math inline">\(p=\mathbb P(A)\)</span> until the first success occurs and the number of attempts is counted.
+The resulting random variable (the number of attempts until the event of interest <span class="math inline">\(A\)</span> occurs):
 <span class="math display">\[\begin{equation*}
       X=\text{&quot;Number of attempts until $A$ occurs for the first time&#39;&#39;}
 \end{equation*}\]</span>
 is <strong>geometrically distributed</strong> with parameter <span class="math inline">\(p\)</span>.</p>
 <p>Application examples:</p>
 <ul>
-<li>Duration (“discrete waiting time” in days) until the first failure of one
+<li>Duration (“discrete waiting time” in days) until the first failure of a
 device,</li>
-<li>Duration in days until an insurance customer makes one for the first time
-reports damage,</li>
+<li>Duration in days until an insurance customer reports a damage for the first time,</li>
 <li>Number of customers interviewed (waiting time in customers 😄), until the first time a customer with the desired characteristic is interviewed.</li>
+<li>Number of ads shown to a customer until click.</li>
 </ul>
 <p>A random variable <span class="math inline">\(X\)</span> is said to be <strong>geometrically distributed</strong> (<span class="math inline">\(X\sim G(p)\)</span>) with parameter <span class="math inline">\(p\)</span> if:
 <span class="math display">\[\begin{equation*}
@@ -702,19 +702,19 @@ and <span class="math inline">\(f(k)=0\)</span> else.</p>
 </ul>
 <hr />
 <div class="example">
-<p><span id="exm:dgeomvert" class="example"><strong>Example 2.5  (App user in a customer Survey) </strong></span>A survey of <span class="math inline">\(n=50\)</span> customers is conducted. Customers are randomly selected in the survey and can take part multiple times. The proportion of customers who use the app is 60%.</p>
+<p><span id="exm:dgeomvert" class="example"><strong>Example 2.5  (User clicks) </strong></span>Assuming that the probability for a customer click on an advertisement lies by <span class="math inline">\(10\%\)</span>, we model the amount of ads, that will be shown until such a click occurs.</p>
 <ul>
-<li><p>Random variable: <span class="math inline">\(M = \text{&#39;Number of app users in the customer survey&#39;}\)</span>, <span class="math inline">\(M\sim B(n=50,p=0.6)\)</span>.</p></li>
-<li><p>Random variable <span class="math inline">\(V = \text{&#39;Number of respondents until an app user is interviewed&#39;}\)</span> is geometrically distributed <span class="math inline">\(V\sim G(p=0.6)\)</span>.
+<li><p>Random variable: <span class="math inline">\(C = \text{&#39;Click or not&#39;}\)</span>, <span class="math inline">\(C\sim Bern(p=0.1)\)</span>.</p></li>
+<li><p>Random variable <span class="math inline">\(N = \text{&#39;Number of ads until click&#39;}\)</span> is geometrically distributed <span class="math inline">\(N\sim G(p=0.1)\)</span>.
 <span class="math display">\[\begin{align*}
-\mathbb E(V) &amp;= \frac 1p = 1.6667,\\
-\text{Var}(V) &amp;=\frac{1-p}{p^2}=\frac{0.4}{0.36} = 1.1111,\\
-\mathbb P(V&lt; 5)&amp; = \mathbb P(V\leq 4) =f_{G_{0.6}}(1) + f_{G_{0.6}}(2) + \ldots + f_ {G_{0,6}}(4),\\
-&amp;=(1-0.6)^0\cdot 0.6 + (1-0.6)^1\cdot 0.6 + \ldots + (1-0.6)^3\cdot 0.6 = 0,9898.
+\mathbb E(N) &amp;= \frac 1p = 10,\\
+\text{Var}(N) &amp;=\frac{1-p}{p^2}=\frac{0.9}{0.01} = 90,\\
+\mathbb P(N&lt;5)&amp; = \mathbb P(V\leq 4) =f_{G_{0.1}}(1) + f_{G_{0.1}}(2) + \ldots + f_ {G_{0.1}}(4),\\
+&amp;=(1-0.1)^0\cdot 0.1 + (1-0.1)^1\cdot 0.1 + \ldots + (1-0.1)^3\cdot 0.1 = 0,4095.
 \end{align*}\]</span></p></li>
 </ul>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-80"></span>
-<img src="_main_files/figure-html/unnamed-chunk-80-1.png" alt="Geometric distribution with p=0.6" width="672" />
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-82"></span>
+<img src="_main_files/figure-html/unnamed-chunk-82-1.png" alt="Geometric distribution with p=0.6" width="672" />
 <p class="caption">
 Figure 2.6: Geometric distribution with p=0.6
 </p>
@@ -759,25 +759,25 @@ If <span class="math inline">\(X\sim Poi(\lambda)\)</span> and <span class="math
 <ul>
 <li><p>Application examples:</p>
 <ul>
-<li>the number of loan defaults by a bank in a given accounting period;</li>
-<li>the number of customers arriving at a counter during a certain period of time;</li>
+<li>number of loan defaults in a given period;</li>
+<li>number of customers visiting an online shop during a certain period of time.</li>
 </ul></li>
 </ul>
 <hr />
 <div class="example">
-<p><span id="exm:dpoisvert" class="example"><strong>Example 2.6  (Advertisement) </strong></span>An advertising banner will be displayed on your website between 8 a.m. and 10 a.m. or 7 p.m. and 8 p.m. The visitors to your website act independently and the click rate (<span class="math inline">\(\lambda\)</span>) in the two time periods is constant and is 5 thousand clicks per hour.</p>
+<p><span id="exm:dpoisvert" class="example"><strong>Example 2.6  (Advertisement) </strong></span>An advertising banner is displayed on your website between 8 a.m. and 10 a.m. or 7 p.m. and 8 p.m. The visitors to your website act independently and the click rate (<span class="math inline">\(\lambda\)</span>) in the two time periods is constant and is 5 thousand clicks per hour.</p>
 <ul>
 <li><p><span class="math inline">\(B_{morning} = \text{&#39;Number of clicks between 8 and 10 a.m.&#39;}\)</span>, <span class="math inline">\(B_M\sim Poi(\lambda_{morning}=2\cdot\lambda=10)\)</span>.</p></li>
 <li><p><span class="math inline">\(B_{evening} = \text{&#39;Number of clicks between 7 p.m. and 8 p.m.&#39;}\)</span>, <span class="math inline">\(B_A\sim Poi(\lambda_{evening}=\lambda=5)\)</span>.</p></li>
-<li><p>Because of the addition property of the Poisson distribution: <span class="math inline">\(B_{total} = \text{&#39;number of clicks on your advertising banner in the two time periods&#39;}\)</span> is also Poisson distributed <span class="math inline">\(B_{total}\sim Poi(\lambda_{total} =\lambda _{morning}+\lambda _{evening}=15)\)</span>.
+<li><p>Because of the addition property of the Poisson distribution: <span class="math inline">\(B_{total} = \text{&#39;number of clicks on your ad in the two time periods&#39;}\)</span> is also Poisson distributed <span class="math inline">\(B_{total}\sim Poi(\lambda_{total} =\lambda _{morning}+\lambda _{evening}=15)\)</span>.
 <span class="math display">\[\begin{align}
 \mathbb E(B_{total}) &amp;= \lambda_{total} = 15,\\
 \text{Var}(B_{total}) &amp;=\lambda_{total}=15,\\
 \mathbb P(B_{total}&gt;10)&amp;=1-\mathbb P(B_{total}\leq 10) = 1-(f_{poi_{15}}(0) + f_{poi_{15}}( 1) + \ldots+ f_{poi_{15}}(10))\\ &amp;=1-\exp(-15)\cdot\Big(\frac{15^0}{0!}+\frac{15^ 1}{1!}+\ldots+\frac{15^{10}}{10!}\Big)= 0.8815.
 \end{align}\]</span></p></li>
 </ul>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-81"></span>
-<img src="_main_files/figure-html/unnamed-chunk-81-1.png" alt="Poisson distribution with \(\lambda=15\)" width="672" />
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-83"></span>
+<img src="_main_files/figure-html/unnamed-chunk-83-1.png" alt="Poisson distribution with \(\lambda=15\)" width="672" />
 <p class="caption">
 Figure 2.7: Poisson distribution with <span class="math inline">\(\lambda=15\)</span>
 </p>
@@ -944,8 +944,8 @@ $$
 <div id="continuous-distributions" class="section level2 hasAnchor" number="2.2">
 <h2><span class="header-section-number">2.2</span> Continuous distributions<a href="some-important-distribution-models.html#continuous-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>There are also continuous random variables distribution models that are used in several contexts. We will learn about a pair of continuous distributions here.</p>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-90"></span>
-<img src="_main_files/figure-html/unnamed-chunk-90-1.png" alt="Distributional models for continuous random variables" width="672" />
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-92"></span>
+<img src="_main_files/figure-html/unnamed-chunk-92-1.png" alt="Distributional models for continuous random variables" width="672" />
 <p class="caption">
 Figure 2.8: Distributional models for continuous random variables
 </p>
@@ -1021,8 +1021,8 @@ In particular in the case <span class="math inline">\(\mu=0\)</span>: <span clas
 &amp; = 0.8944 - 0.1056 = 0.7887.
 \end{align*}\]</span></p></li>
 </ul>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-92"></span>
-<img src="_main_files/figure-html/unnamed-chunk-92-1.png" alt="Distributional models for continuous random variables" width="672" />
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-94"></span>
+<img src="_main_files/figure-html/unnamed-chunk-94-1.png" alt="Distributional models for continuous random variables" width="672" />
 <p class="caption">
 Figure 2.9: Distributional models for continuous random variables
 </p>
@@ -1224,8 +1224,8 @@ and <span class="math inline">\(f(x)=0\)</span> else.</p>
 <p><span class="math display">\[
 \mathbb P(X&lt;5) = F_{E}(5) = 1-\text{e}^{-0.1\cdot 5} = 0,3935
 \]</span></p>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-100"></span>
-<img src="_main_files/figure-html/unnamed-chunk-100-1.png" alt="Distributional models for continuous random variables" width="672" />
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-102"></span>
+<img src="_main_files/figure-html/unnamed-chunk-102-1.png" alt="Distributional models for continuous random variables" width="672" />
 <p class="caption">
 Figure 2.10: Distributional models for continuous random variables
 </p>
@@ -1278,8 +1278,8 @@ Figure 2.10: Distributional models for continuous random variables
 \text{Var}(Z)&amp;=\frac{(b-a)^2}{12} = \frac{400}{12}=33\frac13.
 \end{align*}\]</span></p></li>
 </ul>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-101"></span>
-<img src="_main_files/figure-html/unnamed-chunk-101-1.png" alt="Distributional models for continuous random variables" width="672" />
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-103"></span>
+<img src="_main_files/figure-html/unnamed-chunk-103-1.png" alt="Distributional models for continuous random variables" width="672" />
 <p class="caption">
 Figure 2.11: Distributional models for continuous random variables
 </p>
@@ -1375,8 +1375,8 @@ Figure 2.11: Distributional models for continuous random variables
 \end{equation*}\]</span></p></li>
 <li><p>Some <span class="math inline">\(\chi^2\)</span> distributions:</p></li>
 </ul>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-107"></span>
-<img src="_main_files/figure-html/unnamed-chunk-107-1.png" alt="Einige Chi-Quadrat-Verteilungen" width="80%" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-109"></span>
+<img src="_main_files/figure-html/unnamed-chunk-109-1.png" alt="Einige Chi-Quadrat-Verteilungen" width="80%" />
 <p class="caption">
 Figure 2.12: Einige Chi-Quadrat-Verteilungen
 </p>
@@ -1414,8 +1414,8 @@ Then the random variable <span class="math inline">\(\frac{(n-1)S^2}{\sigma^2}\)
 <ul>
 <li>Some <span class="math inline">\(t\)</span> distributions:</li>
 </ul>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-109"></span>
-<img src="_main_files/figure-html/unnamed-chunk-109-1.png" alt="Einige t-Verteilungen" width="80%" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-111"></span>
+<img src="_main_files/figure-html/unnamed-chunk-111-1.png" alt="Einige t-Verteilungen" width="80%" />
 <p class="caption">
 Figure 2.13: Einige t-Verteilungen
 </p>
