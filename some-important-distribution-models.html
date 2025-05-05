@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 2 Some important distribution models | Statistics and Data Science Applications</title>
   <meta name="description" content="This is the script for the course." />
-  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 2 Some important distribution models | Statistics and Data Science Applications" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Maria Osipenko" />
 
 
-<meta name="date" content="2025-04-14" />
+<meta name="date" content="2025-05-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1027,6 +1027,10 @@ In particular in the case <span class="math inline">\(\mu=0\)</span>: <span clas
 Figure 2.9: Distributional models for continuous random variables
 </p>
 </div>
+<ul>
+<li>Quantiles: which temperature threshold is exceeded only with 10% probability?</li>
+</ul>
+<p><span class="math display">\[q_{0.9} = 25.1262.\]</span></p>
 </div>
 </div>
 <div id="calculating-with-normal-distribution" class="section level4 unnumbered hasAnchor">
@@ -1047,7 +1051,7 @@ Figure 2.9: Distributional models for continuous random variables
 <ul>
 <li><p><span class="math inline">\(X_i\sim N(\mu_X,\sigma_X^2)\)</span> by assumption, since we are selecting from a normally distributed population.</p></li>
 <li><p><span class="math inline">\(X_i\)</span> independent, as you move with replacement</p></li>
-<li><p><span class="math inline">\(\overline X = \frac 1n\sum_{i=1}^n\)</span> using the additive property of the normal distribution,</p></li>
+<li><p><span class="math inline">\(\overline X = \frac 1n\sum_{i=1}^n X_i\)</span> using the additive property of the normal distribution,</p></li>
 <li><p><span class="math inline">\(\overline X\sim N(\mu_X,\frac{\sigma_X^2}n)\)</span>, since <span class="math inline">\(\mathbb E(\overline X) = \frac 1n\cdot n\cdot \mu_X=\color{blue}{\mu_X}\)</span>, <span class="math inline">\({\text{Var}(\overline X)}=\frac 1{n^2}\cdot n\cdot \sigma_X^2=\color{red}{\frac {\sigma^2_X}{n}}\)</span>, and <span class="math inline">\(\sqrt{\text{Var}(\overline X)} = \color{red}{\frac {\sigma_X}{\sqrt n}}\)</span>.</p></li>
 <li><p>Hence the sample mean is distributed as follows:
 <span class="math display">\[\overline X\sim N\left (\color{blue}{\mu_X};\color{red}{\frac {\sigma^2_X}{n}}\right),\]</span>
@@ -1099,7 +1103,7 @@ rv’s that are independent and identically distributed with
  // Generate a random question
     const questionObj313 = generateQuestion_num(313);
 // Display the question
-    document.getElementById('question-text313').textContent = "If \\(X\\sim N(\\mu="+ questionObj310.question[0]+ ";\\sigma^2=" + Math.pow(questionObj312.question[0],2)+ ")\\) then \\(\\mathbb P(X>" + questionObj313.question[0] + ")=\\)";
+    document.getElementById('question-text313').textContent = "1. If \\(X\\sim N(\\mu="+ questionObj310.question[0]+ ";\\sigma^2=" + Math.pow(questionObj312.question[0],2)+ ")\\) then \\(\\mathbb P(X>" + questionObj313.question[0] + ")=\\)";
     questionObj313.answer = 1-normalCDF(questionObj313.question[0],questionObj310.question[0],questionObj312.question[0])
 </script>
 <hr />
@@ -1115,7 +1119,7 @@ rv’s that are independent and identically distributed with
  // Generate a random question
     const questionObj314 = generateQuestion_num(314);
 // Display the question
-    document.getElementById('question-text314').textContent = "\\(Z\\) is a standard normally distributed random variable. What is \\(c\\) such that: \\(\\mathbb P(-c\\leq Z\\leq c)=90\\%\\)?";
+    document.getElementById('question-text314').textContent = "2. \\(Z\\) is a standard normally distributed random variable. What is \\(c\\) such that: \\(\\mathbb P(-c\\leq Z\\leq c)=90\\%\\)?";
     questionObj314.answer = 1.644854
 </script>
 <hr />
@@ -1131,7 +1135,7 @@ rv’s that are independent and identically distributed with
  // Generate a random question
     const questionObj315 = generateQuestion_num(315);
 // Display the question
-    document.getElementById('question-text315').textContent = "The weekly demand for an art object in an online art store is normally distributed with mean \\(50\\) and standard deviation \\(5\\). The store typically has an inventory of \\(60\\) pieces and orders once a week.\\[\\] What is the probability that a week's demand will not be met?";
+    document.getElementById('question-text315').textContent = "3. The weekly demand for an art object in an online art store is normally distributed with mean \\(50\\) and standard deviation \\(5\\). The store typically has an inventory of \\(60\\) pieces and orders once a week.\\[\\] What is the probability that a week's demand exceeds the inventory?";
     questionObj315.answer = 1-normalCDF(60,50,5)
 </script>
 <p id="question">
@@ -1146,7 +1150,7 @@ rv’s that are independent and identically distributed with
  // Generate a random question
     const questionObj316 = generateQuestion_num(316);
 // Display the question
-    document.getElementById('question-text316').textContent = "How high should the inventory be so that a week's demand is not met only 10% of the time? (round to the next higher whole number)";
+    document.getElementById('question-text316').textContent = "How high should the inventory be so that a week's demand exceeds it only 10% of the time? (round to the next higher whole number)";
     questionObj316.answer = 57
 </script>
 <script>
@@ -1215,14 +1219,14 @@ and <span class="math inline">\(f(x)=0\)</span> else.</p>
 <hr />
 <div class="example">
 <p><span id="exm:dexptrans" class="example"><strong>Example 2.10  (Transaction duration in payment service) </strong></span>As part of fraud prevention, you monitor transaction times (i.e. the waiting times until a payment transaction is completed) in seconds.</p>
-<p>You model the random variable <span class="math inline">\(X =\)</span>“transaction duration in seconds” as exponentially distributed. The average transaction duration is <span class="math inline">\(5\)</span> seconds.</p>
+<p>You model the random variable <span class="math inline">\(X =\)</span>“transaction duration in seconds” as exponentially distributed. The average transaction duration is <span class="math inline">\(10\)</span> seconds.</p>
 <ul>
 <li><p><span class="math inline">\(\mathbb E(X) = 10\)</span> <span class="math inline">\(\leadsto\)</span> <span class="math inline">\(\lambda = \frac 1{\mathbb E(X)}=\frac 1{10}=0.1\)</span></p></li>
 <li><p><span class="math inline">\(X\sim E(0.1)\)</span> and</p></li>
 <li><p>the probability of transaction times less than 5 seconds:</p></li>
 </ul>
 <p><span class="math display">\[
-\mathbb P(X&lt;5) = F_{E}(5) = 1-\text{e}^{-0.1\cdot 5} = 0,3935
+\mathbb P(X&lt;5) = F_{E}(5) = 1-\text{e}^{-0.1\cdot 5} = 0.3935
 \]</span></p>
 <div class="figure"><span style="display:block;" id="fig:unnamed-chunk-100"></span>
 <img src="_main_files/figure-html/unnamed-chunk-100-1.png" alt="Distributional models for continuous random variables" width="672" />
@@ -1240,10 +1244,10 @@ Figure 2.10: Distributional models for continuous random variables
 <li><p>Solving for <span class="math inline">\(x_0\)</span> gives:</p></li>
 </ul>
 <p><span class="math display">\[\begin{equation*}
-    x_0 =-\ln (0.1)/0.1 = 1,0536\text{ Sekunden}.
+    x_0 =-\ln (0.1)/0.1 = 1.0536\text{ Sekunden}.
 \end{equation*}\]</span></p>
 <ul>
-<li>The threshold value should therefore be approximately 1,05 seconds.</li>
+<li>The threshold value should therefore be approximately 1.05 seconds.</li>
 </ul>
 </div>
 <hr />
@@ -1376,9 +1380,9 @@ Figure 2.11: Distributional models for continuous random variables
 <li><p>Some <span class="math inline">\(\chi^2\)</span> distributions:</p></li>
 </ul>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-107"></span>
-<img src="_main_files/figure-html/unnamed-chunk-107-1.png" alt="Einige Chi-Quadrat-Verteilungen" width="80%" />
+<img src="_main_files/figure-html/unnamed-chunk-107-1.png" alt="Some \(\chi^2\)- distributions" width="80%" />
 <p class="caption">
-Figure 2.12: Einige Chi-Quadrat-Verteilungen
+Figure 2.12: Some <span class="math inline">\(\chi^2\)</span>- distributions
 </p>
 </div>
 <ul>
@@ -1415,9 +1419,9 @@ Then the random variable <span class="math inline">\(\frac{(n-1)S^2}{\sigma^2}\)
 <li>Some <span class="math inline">\(t\)</span> distributions:</li>
 </ul>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-109"></span>
-<img src="_main_files/figure-html/unnamed-chunk-109-1.png" alt="Einige t-Verteilungen" width="80%" />
+<img src="_main_files/figure-html/unnamed-chunk-109-1.png" alt="Some \(\t\)- distributions" width="80%" />
 <p class="caption">
-Figure 2.13: Einige t-Verteilungen
+Figure 2.13: Some <span class="math inline">\(\t\)</span>- distributions
 </p>
 </div>
 <ul>
@@ -1495,42 +1499,42 @@ So we have a standard normally distributed rv divided by the square root of a <s
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": "https://github.com/USERNAME/REPO/edit/BRANCH/03-Distributions.rmd",
-"text": "Edit"
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": ["_main.pdf", "_main.epub"],
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/USERNAME/REPO/edit/BRANCH/03-Distributions.rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["_main.pdf", "_main.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
 });
 });
 </script>

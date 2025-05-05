@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 4 Parameter estimation | Statistics and Data Science Applications</title>
   <meta name="description" content="This is the script for the course." />
-  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 4 Parameter estimation | Statistics and Data Science Applications" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Maria Osipenko" />
 
 
-<meta name="date" content="2025-04-14" />
+<meta name="date" content="2025-05-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -355,7 +355,7 @@ function normalCDF(x, mean, std) {
 <p><span id="exm:sampling" class="example"><strong>Example 4.1  (New customers) </strong></span>You want to expand your customer base to a specific population group and are interested in:</p>
 <ul>
 <li><p>to what proportion will the new customers use the app (<span class="math inline">\(Y\)</span>), specifically: what would be <strong>the proportion of app users</strong> in your new customer base (<span class="math inline">\(p\)</span>),</p></li>
-<li><p>what average sales/invoice amount can you expect from new customers (<span class="math inline">\(X\)</span>), specifically: what would be <strong>the average invoice amount</strong> of your new customers (<span class="math inline">\(\mathbb E(X)=\mathbb \mu_X\)</span>).</p></li>
+<li><p>what average sales amount can you expect from new customers (<span class="math inline">\(X\)</span>), specifically: what would be <strong>the average sales amount</strong> of your new customers (<span class="math inline">\(\mathbb E(X)=\mathbb \mu_X\)</span>).</p></li>
 </ul>
 <p><span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are random variables. We are interested in the distribution parameters of these random variables.
 We will build upon the following concept of a random sample…</p>
@@ -370,7 +370,7 @@ Y=\begin{cases}1,&amp;\text{if app usage},\\0,&amp;\text{no app usage}.\end{case
 \]</span>
 <span class="math inline">\(Y\sim Ber(p)\)</span>. Of interest is <strong>the share of app users</strong> (<span class="math inline">\(p\)</span>).</p>
 <ul>
-<li>Invoice amount is size <span class="math inline">\(X\)</span> and the average invoice amount is of interest: <span class="math inline">\(\mathbb E(X)=\mu_x\)</span>.</li>
+<li>Sales amount is size <span class="math inline">\(X\)</span> and the average sales amount is of interest: <span class="math inline">\(\mathbb E(X)=\mu_x\)</span>.</li>
 </ul>
 </div>
 <div id="random-sample" class="section level4 unnumbered hasAnchor">
@@ -390,7 +390,7 @@ The set <span class="math inline">\(\mathcal X\)</span> of all possible sample r
 where <span class="math inline">\(Y_i\)</span> takes the value 1 or 0, depending on whether the <span class="math inline">\(i\)</span>th selected person uses the app or not. So the value of <span class="math inline">\(Y_i\)</span> is initially <strong>unknown</strong> because we don’t know which person will be interviewed in the <span class="math inline">\(i\)</span>th position.</p>
 <p><span class="math inline">\(\leadsto\)</span> <span class="math inline">\(Y_1,\ldots, Y_n\)</span> are <strong>random variables!</strong></p>
 <ul>
-<li><strong>Invoice amount</strong>:
+<li><strong>Sales amount</strong>:
 The sample variables for <span class="math inline">\(X\)</span> are: <span class="math inline">\({\color{red}{X_1, X_2,\ldots,X_n}},\)</span>
 where <span class="math inline">\(X_i\)</span> represents the estimate of the bill amount of the <span class="math inline">\(i\)</span>th selected person. So the value of <span class="math inline">\(X_i\)</span> is initially <strong>unknown</strong> because we don’t know which person will be interviewed in the <span class="math inline">\(i\)</span>th position.</li>
 </ul>
@@ -409,7 +409,7 @@ where <span class="math inline">\(X_i\)</span> represents the estimate of the bi
 \color{blue}{\overline{Y}}&amp;\color{blue}{=\frac 1n (Y_1 + Y_2 + \ldots Y_n)} \leadsto\color{blue}{\frac{\text{Number of 1s (=app usage)}}{\text{Number of values}}}\\
 &amp;\color{blue}{= \text{Sample frequency of ones (=app usage)}}
 \end{align}\]</span></p></li>
-<li><p>the average invoice amount (<span class="math inline">\(\mathbb E(X)\)</span>):
+<li><p>the average sales amount (<span class="math inline">\(\mathbb E(X)\)</span>):
 <span class="math display">\[\color{red}{\overline{X}=\frac 1n (X_1 + X_2 + \ldots X_n) \leadsto\text{sample mean}}.\]</span></p></li>
 </ul>
 <p><span class="math inline">\(\overline{Y}\)</span> and <span class="math inline">\(\overline{X}\)</span> are functions of the sample variables, so they are themselves <strong>random variables</strong>.</p>
@@ -418,7 +418,7 @@ where <span class="math inline">\(X_i\)</span> represents the estimate of the bi
 </div>
 <div id="parameter-estimation-practically" class="section level3 hasAnchor" number="4.1.2">
 <h3><span class="header-section-number">4.1.2</span> Parameter estimation practically<a href="parameter-estimation.html#parameter-estimation-practically" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Let us return to our estimation problem. Assume the proportion of app users is <span class="math inline">\(0.6\)</span> and the mean invoice amount in the population of all potential new customers is <span class="math inline">\(25\)</span> Euro. In the reality we do not know those values and we have to estimate them.</p>
+<p>Let us return to our estimation problem. Assume the proportion of app users is <span class="math inline">\(0.6\)</span> and the mean sales in the population of all potential new customers is <span class="math inline">\(25\)</span> Euro. In the reality we do not know those values and we have to estimate them.</p>
 <p>So imagine, we conduct a survey among the potential new customers and ask the survey participants to indicate whether they would use the app or not, and how high would be their willingness to pay.</p>
 <div class="example">
 <p><span id="exm:sampling4" class="example"><strong>Example 4.4  (New customers) </strong></span>Example <a href="parameter-estimation.html#exm:sampling3">4.3</a> cont.</p>
@@ -599,7 +599,7 @@ As realizations of the corresponding 0-1 Bernoulli random variable:
 </p>
 </li>
 <li>
-Willingness to pay in form of self-estimated invoice amount with sample values:
+Willingness to pay in form of self-estimated sales amount with sample values:
 <p id="sample2">
 \(\color{red}{\{x_1,x_2,\ldots,x_n\}=}~\)<span id="app-text-3100"></span>
 </p>
@@ -616,7 +616,7 @@ The estimate for the proportion of app users:
 </p>
 </li>
 <li>
-The estimate for the average invoice amount:
+The estimate for the average sales amount:
 <p id="mean1">
 \(\color{red}{\bar x=\frac 1n(x_1+x_2 + \ldots + x_n)= }\)<span id="app-text-5100"></span>
 </p>
@@ -635,7 +635,7 @@ showSample(100)
 
 // Generate a random question
   const questionObj51 = {
-      question: 'What do you observe when you conduct several different simulated surveys with \\(n=10\\) in the app above? (Keep in mind that the actual population parameters correspond to \\(0.6\\) for the proportion of app users and to \\(25\\) Euro average invoice amount.)',
+      question: 'What do you observe when you conduct several different simulated surveys with \\(n=10\\) in the app above? (Keep in mind that the actual population parameters correspond to \\(0.6\\) for the proportion of app users and to \\(25\\) Euro average sales amount.)',
       options: ['The estimates change the sample.', 'The estimated values change from sample to sample.', 'The estimation result deviates from the true parameter.', 'The estimation result perfectly agrees with the population parameter to be estimated.'],
       answer: ['2','3'],
       id: 51
@@ -914,7 +914,7 @@ This results in:
 the expected value is estimated by <span class="math inline">\(\overline X=\displaystyle\frac{1}{n} \sum_{i=1}^n X_i\)</span>.</p>
 <ul>
 <li><p><span class="math inline">\(\mathbb E(\overline X)=\mu\)</span> (See unbiasedness of <span class="math inline">\(\bar X\)</span> <span class="math inline">\(\leadsto \text{Bias}(\overline X)=0\)</span>)</p></li>
-<li><p><span class="math inline">\(\text{MSE}(\overline X) = \text{Var}(\overline X) + \text{Bias}^2(\overline X)=\frac{\sigma^2}{n} + 0^2 {\rightarrow}0\)</span> for <span class="math inline">\({n\rightarrow\infty}\)</span> (<span class="math inline">\(\leadsto\)</span> consistency)</p></li>
+<li><p><span class="math inline">\(\text{MSE}(\overline X) = \text{Var}(\overline X) +  \text{Bias}^2(\overline X)=\frac{\sigma^2}{n} + 0^2 {\rightarrow}0\)</span> for <span class="math inline">\({n\rightarrow\infty}\)</span> (<span class="math inline">\(\leadsto\)</span> consistency)</p></li>
 </ul>
 </div>
 <hr />
@@ -1125,7 +1125,7 @@ L(\lambda) = f(x_1|\lambda)\cdots f(x_4|\lambda) = \prod_{i=1}^4
 <p>Since <strong>the width of such an interval</strong> can also be understood as the accuracy of the estimate, the <strong>sample size</strong>, which ensures some predefined accuracy for the given confidence level, can be derived from it.</p>
 <hr />
 <div class="example">
-<p><span id="exm:intsch" class="example"><strong>Example 4.14  (Estimate the average invoice amount (Rechnungsbetrag)) </strong></span>Our estimator is the sample mean <span class="math inline">\(\overline{X}=\frac 1n \sum_{i=1}^nX_i\)</span> which values fluctuate less as the sample size <span class="math inline">\(n\)</span> increases.</p>
+<p><span id="exm:intsch" class="example"><strong>Example 4.14  (Estimate the average sales amount (Rechnungsbetrag)) </strong></span>Our estimator is the sample mean <span class="math inline">\(\overline{X}=\frac 1n \sum_{i=1}^nX_i\)</span> which values fluctuate less as the sample size <span class="math inline">\(n\)</span> increases.</p>
 <p><strong>But how exactly is the relationship to the sample size?</strong></p>
 <p>The answer is provided by the central limit theorem (CLT). If the sample variables <span class="math inline">\(X_1,X_2,\ldots, X_n\)</span> are identically and independently distributed with a finite mean <span class="math inline">\(\mu_X\)</span> and a finite variance <span class="math inline">\(\sigma_X^2\)</span>, the approximate distribution of sample mean is: <span class="math display">\[\bar{X} \stackrel{a}{\sim} N\Big(\mu_X, \frac{\sigma_X^2}{n}\Big)\]</span> or in its standardized version: <span class="math display">\[\frac{\overline X-\mu_X}{\sigma_X/\sqrt{n}}\stackrel{a}{\sim}N(0;1).\]</span></p>
 <p>The variance of the estimator depends on the sample size <span class="math inline">\(n\)</span> and on the possibly unknown variance in the population <span class="math inline">\(\sigma^2\)</span>. In practice, if <span class="math inline">\(\sigma^2\)</span> is unknown, an estimate of the population variance is used.</p>
@@ -1173,7 +1173,7 @@ Sample realizations:
 </h3>
 <ul>
 <li>
-Willingness to pay in form of self-estimated invoice amount with sample values:
+Willingness to pay in form of self-estimated sales amount with sample values:
 <p id="sample200">
 \(\color{red}{\{x_1,x_2,\ldots,x_n\}=}~\)<span id="app-text-3200"></span>
 </p>
@@ -1184,13 +1184,13 @@ Calculation of the resulting estimates:
 </h3>
 <ul>
 <li>
-The estimate for the average invoice amount:
+The estimate for the average sales amount:
 <p id="mean200">
 \(\color{red}{\bar x=\frac 1n(x_1+x_2 + \ldots + x_n)= }\)<span id="app-text-5200"></span>
 </p>
 </li>
 <li>
-The interval estimate for the average invoice amount:
+The interval estimate for the average sales amount:
 <p id="inter">
 \(\color{blue}{\left[\overline x-1,96\cdot \frac{10}{\sqrt n}; \overline x+1,96\cdot \frac{10}{\sqrt n}\right]}=[\)<span id="app-text-6200"></span>\(\color{blue}{]}\)
 </p>
@@ -1342,9 +1342,9 @@ as an <strong>approximate confidence interval</strong>.</p>
 </ul>
 <hr />
 <div class="example">
-<p><span id="exm:intschkont" class="example"><strong>Example 4.17  (Estimating the average invoice amount) </strong></span>Example <a href="parameter-estimation.html#exm:intsch">4.14</a> cont.</p>
+<p><span id="exm:intschkont" class="example"><strong>Example 4.17  (Estimating the average sales amount) </strong></span>Example <a href="parameter-estimation.html#exm:intsch">4.14</a> cont.</p>
 <ul>
-<li>In this example, we have already derived the <span class="math inline">\(95\%\)</span> confidence interval for the mean invoice amount and <span class="math inline">\(\sigma=10\)</span> known <span class="math inline">\((n=100)\)</span>:</li>
+<li>In this example, we have already derived the <span class="math inline">\(95\%\)</span> confidence interval for the mean sales and <span class="math inline">\(\sigma=10\)</span> known <span class="math inline">\((n=100)\)</span>:</li>
 </ul>
 <p><span class="math display">\[
 \overline X\pm 1.96\cdot \frac{\sigma}{\sqrt n}
@@ -1797,42 +1797,42 @@ For example, if the <span class="math inline">\(\pm\)</span>accuracy of <span cl
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": "https://github.com/USERNAME/REPO/edit/BRANCH/05-Estimators.rmd",
-"text": "Edit"
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": ["_main.pdf", "_main.epub"],
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/USERNAME/REPO/edit/BRANCH/05-Estimators.rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["_main.pdf", "_main.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
 });
 });
 </script>
