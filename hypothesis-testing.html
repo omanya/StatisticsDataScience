@@ -23,7 +23,7 @@
 <meta name="author" content="Maria Osipenko" />
 
 
-<meta name="date" content="2025-05-05" />
+<meta name="date" content="2025-06-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -429,7 +429,7 @@ Then <span class="math inline">\(H_0\)</span> is rejected with a probability of 
         \geq \overline y^{\ast}|\mu=25.0) =0.05.
 \end{align*}\]</span></p>
 <p>This gives <span class="math inline">\(\overline y^\ast=25.718\)</span>.</p>
-<p>Our decision would be: Reject the null hypothesis that action has no effect, because <span class="math inline">\(\overline Y=26.3\geq 25.718\)</span>.</p>
+<p>Our decision would be: Reject the null hypothesis that action has no effect, because <span class="math inline">\(\overline y=26.3\geq 25.718 = \overline y^\ast\)</span>.</p>
 <p><img src="_main_files/figure-html/unnamed-chunk-165-1.png" width="672" /></p>
 <p>This is <strong>not</strong> a proof that <span class="math inline">\(H_0\)</span> is false. <strong>High evidence against</strong> <span class="math inline">\(H_0\)</span> leads to rejection. Because: If the true expected value is <span class="math inline">\(25.0\)</span>, samples with <span class="math inline">\(\overline Y\geq 25.718\)</span> can still occur with a probability of <span class="math inline">\(5\%\)</span>.</p>
 <p>Decision rule: Reject <span class="math inline">\(H_0\)</span> if <span class="math inline">\(\overline Y\geq 25.718\)</span>.</p>
@@ -438,7 +438,7 @@ This probability is called the <strong><span class="math inline">\(p-\)</span>va
 <p><span class="math display">\[\begin{equation*}
         \mathbb P(\overline Y_{\text{Rep.}}\geq \overline Y|H_0)
         = \mathbb P(\overline Y_{\text{Rep.}} \geq 26.3|\mu=25.0)
-        = 0.0015 = 0.15%.
+        = 0.0015 = 0.15\%.
 \end{equation*}\]</span></p>
 </div>
 <hr />
@@ -477,7 +477,7 @@ or standardized:
 <ul>
 <li><strong>Rejection region</strong>:
 How large does <span class="math inline">\(\overline X\)</span> or <span class="math inline">\(Z\)</span> have to be so that it is extremely unlikely that <span class="math inline">\(\overline X\)</span> or <span class="math inline">\(Z\)</span> follows the distribution under <span class="math inline">\(H_0\)</span>?
-First, specify “extremely unlikely”; usual values <span class="math inline">\(0.01\)</span>; <span class="math inline">\(0.05\)</span>; <span class="math inline">\(0.1\)</span>, denoted as <strong>significance level</strong>/ <strong>confidence level</strong> with symbol <span class="math inline">\(\alpha\)</span>.</li>
+First, specify “extremely unlikely”; usual values <span class="math inline">\(0.01\)</span>; <span class="math inline">\(0.05\)</span>; <span class="math inline">\(0.1\)</span>, denoted as <strong>significance level</strong> with symbol <span class="math inline">\(\alpha\)</span>. The corresponding <strong>confidence level</strong> is then <span class="math inline">\((1-\alpha)\)</span>.</li>
 </ul>
 <p>This results in the <strong>rejection region</strong>, i.e. those values of the random experiment,
 which <strong>point in the direction of the alternative hypothesis</strong>, and whose probability under <span class="math inline">\(H_0\)</span> is <strong>less than</strong> <span class="math inline">\(\alpha\)</span>:</p>
@@ -642,15 +642,15 @@ which <strong>point in the direction of the alternative hypothesis</strong>, and
 <p><span class="math display">\[
 \begin{array}{cccccccc}\hline
 x_i&amp;101&amp;102&amp; 105 &amp;110 &amp;115&amp; 120&amp; 125\\
-\mathbb P(X&gt;x_i)&amp;0,432 &amp;0,391&amp; 0,278&amp; 0,135&amp; 0,053&amp; 0,017&amp; 0,005\\\hline
+\mathbb P(X&gt;x_i)&amp;0.432 &amp;0.391&amp; 0.278&amp; 0.135&amp; 0.053&amp; 0.017&amp; 0.005\\\hline
 \end{array}
 \]</span></p>
 <p><span class="math inline">\(\mathbb P(X&gt;102) = 0.391\)</span> i.e. not small enough (this should be smaller than the error probability <span class="math inline">\(\alpha=0.01/0.05/0.1\)</span>).</p>
-<p>What is the critical value? At what point would we decline? (<span class="math inline">\(\mathbb P(X&gt;x_i)\leq \alpha\)</span>)</p>
+<p>What is the critical value? At what point would we reject? (<span class="math inline">\(\mathbb P(X&gt;x_i)\leq \alpha\)</span>)</p>
 <p><span class="math display">\[
 \begin{array}{ccccc}\hline
 x_i&amp;115&amp; \color{red}{116}&amp; 120&amp; 125\\
-\mathbb P(X&gt;x_i)&amp; 0,053&amp;\color{red}{0,04334} &amp;0,017&amp; 0,005\\\hline
+\mathbb P(X&gt;x_i)&amp; 0.053&amp;\color{red}{0.04334} &amp;0.017&amp; 0.005\\\hline
 \end{array}
 \]</span></p>
 <p><img src="_main_files/figure-html/unnamed-chunk-169-1.png" width="100%" /></p>
