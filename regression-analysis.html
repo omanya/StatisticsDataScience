@@ -23,7 +23,7 @@
 <meta name="author" content="Maria Osipenko" />
 
 
-<meta name="date" content="2025-06-06" />
+<meta name="date" content="2025-06-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -519,8 +519,7 @@ Using the result above, we can now forecast the average amount of orders dependi
 <span class="math display">\[\begin{equation*}
     H_0: \beta=0, \quad H_1:\beta\not=0.
 \end{equation*}\]</span></p></li>
-<li><p>Here, <span class="math inline">\(H_0:\beta=0\)</span> means that <span class="math inline">\(Y_i=\alpha +\varepsilon_i\)</span>, <span class="math inline">\(i=1,\ldots, n\)</span>, actually applies, and therefore <span class="math inline">\(X\)</span> none
-has explanatory value for <span class="math inline">\(Y\)</span>.</p></li>
+<li><p>Here, <span class="math inline">\(H_0:\beta=0\)</span> means that <span class="math inline">\(Y_i=\alpha +\varepsilon_i\)</span>, <span class="math inline">\(i=1,\ldots, n\)</span>, actually applies, and therefore <span class="math inline">\(X\)</span> has <strong>no explanatory value</strong> for <span class="math inline">\(Y\)</span>.</p></li>
 </ul>
 <p>The relevant test type is the <span class="math inline">\(t\)</span>-test.The <span class="math inline">\(t\)</span>-test should be used to test
 the Hypotheses regarding <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\alpha_0\)</span>, or <span class="math inline">\(\beta\)</span> and
@@ -552,7 +551,7 @@ or <span class="math inline">\(\beta\)</span> makes sense in the regression equ
 </div>
 <p>Besides the significance tests, also other hypothesis can be tested using the results. For example, we could test, whether the obtained <span class="math inline">\(\beta\)</span> is significantly smaller than <span class="math inline">\(1.\)</span></p>
 <div class="example">
-<p><span id="exm:linreg5" class="example"><strong>Example 6.5  (Forecasting number of orders) </strong></span>For our linear model in example <a href="regression-analysis.html#exm:linreg2">6.2</a>, we can test the hypothesis whether the obtained <span class="math inline">\(\beta\)</span> is significantly smaller than <span class="math inline">\(1.\)</span> based on the results returned.</p>
+<p><span id="exm:linreg5" class="example"><strong>Example 6.5  (Forecasting number of orders) </strong></span>For our linear model in example <a href="regression-analysis.html#exm:linreg2">6.2</a>, we can test the hypothesis whether the obtained <span class="math inline">\(\beta\)</span> is significantly smaller than <span class="math inline">\(1\)</span> based on the results returned.</p>
 <p><img src="images/linreg3gr.png" style="width:70.0%" /></p>
 <ul>
 <li><p>Hypothesis: <span class="math inline">\(H_0: \beta=1\)</span> vs <span class="math inline">\(H_1: \beta&lt;1\)</span></p></li>
@@ -584,7 +583,7 @@ the variance of the sample <span class="math inline">\((y_1,\ldots, y_n)\)</span
 \end{equation*}\]</span></p>
 <p>It holds <span class="math inline">\(0\leq R^2\leq 1\)</span>, where <span class="math inline">\(R^2=0\)</span> the uncorrelated case, and <span class="math inline">\(R^2=1\)</span> the case of a perfect linear relationship between the features <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</p>
 <div class="example">
-<p><span id="exm:linreg5" class="example"><strong>Example 6.5  (Forecasting number of orders) </strong></span>Let us take a look on the output of running a linear regression is from example <a href="regression-analysis.html#exm:linreg">6.1</a> again.</p>
+<p><span id="exm:linreg5" class="example"><strong>Example 6.5  (Forecasting number of orders) </strong></span>Let us take a look on the output of running a linear regression from example <a href="regression-analysis.html#exm:linreg">6.1</a> again.</p>
 <p><img src="images/linreg5gr.png" style="width:70.0%" /></p>
 <p>Now we have a formula for forecasting the average amount of orders using the information on app usage:</p>
 <p><span class="math display">\[norders \approx 2.85 + 0.8108\cdot app.\]</span></p>
@@ -830,7 +829,7 @@ Submit
 <p><img src="images/linreg6gr.png" style="width:70.0%" /></p>
 <ul>
 <li><p>Function to forecast the number of orders:
-<span class="math display">\[norders\approx 2.0121 + 0.7941\cdot app + 0.0198\cdot times.\]</span></p></li>
+<span class="math display">\[norders\approx 2.0121 + 0.7941\cdot app + 0.0198\cdot time.\]</span></p></li>
 <li><p>Which number of order would you forecast for an app user with <span class="math inline">\(41.8\)</span> minutes spend in shop?</p></li>
 </ul>
 </div>
