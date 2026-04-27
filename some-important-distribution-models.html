@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 2 Some important distribution models | Statistics and Data Science Applications</title>
   <meta name="description" content="This is the script for the course." />
-  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 2 Some important distribution models | Statistics and Data Science Applications" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Maria Osipenko" />
 
 
-<meta name="date" content="2025-06-16" />
+<meta name="date" content="2026-04-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -720,6 +720,13 @@ Figure 2.6: Geometric distribution with p=0.6
 </p>
 </div>
 </div>
+<hr />
+<p>The above form of the geometric distribution is used for modeling the number of trials up to and including the first success (<span class="math inline">\(k=1,2,\ldots\)</span>). By contrast, the <strong>shifted geometric distribution</strong> is used for modeling the number of failures until the first success:</p>
+<p><span class="math display">\[\begin{equation*}
+      \mathbb P(X=k)=f(k) = (1-p)^{k}\cdot p, \quad \text{ for }
+      k=0,1,\ldots,
+\end{equation*}\]</span></p>
+<p>with <span class="math inline">\(\mathbb E(X) = \frac 1p -1.\)</span></p>
 <hr />
 </div>
 <div id="poisson-distribution" class="section level3 hasAnchor" number="2.1.5">
