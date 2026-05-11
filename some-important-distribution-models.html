@@ -1531,7 +1531,7 @@ Finite equally likely outcomes
 <span class="math inline">\(n \in \mathbb{N}\)</span>
 </td>
 <td style="text-align:left;">
-$x_1,, x_n
+<span class="math inline">\(x_1,\ldots, x_n\)</span>
 </td>
 <td style="text-align:left;">
 <span class="math inline">\(f(x)=\frac{1}{b-a}\)</span>
@@ -1686,7 +1686,7 @@ Counts in fixed interval
 <thead>
 <tr>
 <th style="text-align:left;">
-Distribution
+Distr
 </th>
 <th style="text-align:left;">
 Description
@@ -1698,6 +1698,9 @@ Notation
 Parameters
 </th>
 <th style="text-align:left;">
+Values
+</th>
+<th style="text-align:left;">
 Density
 </th>
 <th style="text-align:left;">
@@ -1707,7 +1710,7 @@ Distr.fun
 Expectation
 </th>
 <th style="text-align:left;">
-Variance
+Variance____
 </th>
 </tr>
 </thead>
@@ -1724,6 +1727,9 @@ Symmetric continuous data
 </td>
 <td style="text-align:left;">
 <span class="math inline">\(\mu \in \mathbb{R},\; \sigma&gt;0\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(x\in \mathbb R\)</span>
 </td>
 <td style="text-align:left;">
 <span class="math inline">\(f(x)=\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}\)</span>
@@ -1752,6 +1758,9 @@ Standardized normal variable
 None
 </td>
 <td style="text-align:left;">
+<span class="math inline">\(x\in \mathbb R\)</span>
+</td>
+<td style="text-align:left;">
 <span class="math inline">\(f(x)=\frac{1}{\sqrt{2\pi}}e^{-x^2/2}\)</span>
 </td>
 <td style="text-align:left;">
@@ -1776,6 +1785,9 @@ Waiting times
 </td>
 <td style="text-align:left;">
 <span class="math inline">\(\lambda&gt;0\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(x\in \mathbb R^+\)</span>
 </td>
 <td style="text-align:left;">
 <span class="math inline">\(f(x)=\lambda e^{-\lambda x}\)</span>
@@ -1804,6 +1816,9 @@ Equal likelihood on interval
 <span class="math inline">\(a&lt;b\)</span>
 </td>
 <td style="text-align:left;">
+<span class="math inline">\(x\in [a,b]\)</span>
+</td>
+<td style="text-align:left;">
 <span class="math inline">\(f(x)=\frac{1}{b-a}\)</span>
 </td>
 <td style="text-align:left;">
@@ -1830,16 +1845,19 @@ Min-mode-max model
 <span class="math inline">\(a&lt;c&lt;b\)</span>
 </td>
 <td style="text-align:left;">
+<span class="math inline">\(x\in [a,b]\)</span>
+</td>
+<td style="text-align:left;">
 <span class="math inline">\(f(x)=\begin{cases}\frac{2(x-a)}{(b-a)(c-a)}, &amp;x\leq c\\ \frac{2(b-x)}{(b-a)(b-c)}, &amp;x&gt;c\end{cases}\)</span>
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(F(x)=\begin{cases}\frac{(x-a)^2}{(b-a)(c-a)}, &amp;x\leq c\\ 1-\frac{(b-x)^2}{(b-a)(b-c)}, &amp;x&gt; c\end{cases}\)</span>
+<span class="math inline">\(F(x)=\begin{cases}\frac{(x-a)^2}{(b-a)(c-a)}, \\ 1-\frac{(b-x)^2}{(b-a)(b-c)}. \end{cases}\)</span>
 </td>
 <td style="text-align:left;">
 <span class="math inline">\(\frac{a+b+c}{3}\)</span>
 </td>
 <td style="text-align:left;">
-<span class="math inline">\(\frac{a^2+b^2+c^2-ab-ac-bc}{18}\)</span>
+<span class="math inline">\((a^2+b^2\\+c^2-ab\\-ac-bc\\)/18\)</span>
 </td>
 </tr>
 </tbody>
