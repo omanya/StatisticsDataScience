@@ -23,7 +23,7 @@
 <meta name="author" content="Maria Osipenko" />
 
 
-<meta name="date" content="2026-04-28" />
+<meta name="date" content="2026-05-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,6 +52,8 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 
@@ -131,6 +133,11 @@
 <ul>
 <li class="chapter" data-level="2.3.1" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#chi2-distribution"><i class="fa fa-check"></i><b>2.3.1</b> <span class="math inline">\(\chi^2\)</span>-distribution</a></li>
 <li class="chapter" data-level="2.3.2" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#t-distribution"><i class="fa fa-check"></i><b>2.3.2</b> t-distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#fitting-distribution-models-to-data"><i class="fa fa-check"></i><b>2.4</b> Fitting Distribution Models to Data</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#overview-of-common-distribution-models"><i class="fa fa-check"></i><b>2.4.1</b> Overview of Common Distribution Models</a></li>
+<li class="chapter" data-level="2.4.2" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#fitting-a-distribution"><i class="fa fa-check"></i><b>2.4.2</b> Fitting a Distribution</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="limit-theorems.html"><a href="limit-theorems.html"><i class="fa fa-check"></i><b>3</b> Limit theorems</a>
@@ -1469,6 +1476,729 @@ So we have a standard normally distributed rv divided by the square root of a <s
 <p>These derived distributions will be useful to us later when we quantify the uncertainty associated with an estimate.</p>
 </div>
 <hr />
+</div>
+</div>
+<div id="fitting-distribution-models-to-data" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Fitting Distribution Models to Data<a href="some-important-distribution-models.html#fitting-distribution-models-to-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="overview-of-common-distribution-models" class="section level3 hasAnchor" number="2.4.1">
+<h3><span class="header-section-number">2.4.1</span> Overview of Common Distribution Models<a href="some-important-distribution-models.html#overview-of-common-distribution-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="discrete-distributions-1" class="section level4 hasAnchor" number="2.4.1.1">
+<h4><span class="header-section-number">2.4.1.1</span> Discrete Distributions<a href="some-important-distribution-models.html#discrete-distributions-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<table class="table" style="font-size: 8px; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:ddists">Table 2.1: </span>Discrete probability distributions
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Distribution
+</th>
+<th style="text-align:left;">
+Description
+</th>
+<th style="text-align:left;">
+Notation
+</th>
+<th style="text-align:left;">
+Parameters
+</th>
+<th style="text-align:left;">
+Values
+</th>
+<th style="text-align:left;">
+Probailities
+</th>
+<th style="text-align:left;">
+Expectation
+</th>
+<th style="text-align:left;">
+Variance
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Discrete Uniform
+</td>
+<td style="text-align:left;">
+Finite equally likely outcomes
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(X \sim Disc.U(x_i,n)\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(n \in \mathbb{N}\)</span>
+</td>
+<td style="text-align:left;">
+$x_1,, x_n
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(f(x)=\frac{1}{b-a}\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\frac{a+b}{2}\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\frac{(b-a)^2}{12}\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Bernoulli
+</td>
+<td style="text-align:left;">
+Single success/failure trial
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(X \sim Ber(p)\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(0 \le p \le 1\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(0,1\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(f(x)=p^x(1-p)^{1-x}\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(p\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(p(1-p)\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Binomial
+</td>
+<td style="text-align:left;">
+Number of successes in n trials
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(X \sim B(n,p)\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(n \in \mathbb{N},\; 0&lt; p &lt;1\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(0,1,\ldots, n\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(f(x)=\binom{n}{x}p^x(1-p)^{n-x}\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(np\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(np(1-p)\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Geometric
+</td>
+<td style="text-align:left;">
+Trials until first success
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(X \sim G(p)\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(0&lt; p&lt;1\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(1,2,\ldots\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(f(x)=(1-p)^{x-1}p\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\frac{1}{p}\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\frac{1-p}{p^2}\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+shifted Geometric
+</td>
+<td style="text-align:left;">
+Trials until first success
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(X \sim G_0(p)\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(0&lt;p&lt;1\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(0,1,\ldots\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(f(x)=(1-p)^{x}p\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\frac{1}{p}-1\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\frac{1-p}{p^2}\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Poisson
+</td>
+<td style="text-align:left;">
+Counts in fixed interval
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(X \sim Poi(\lambda)\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\lambda&gt;0\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(0,1,\ldots\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(f(x)=\frac{\lambda^x e^{-\lambda}}{x!}\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\lambda\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\lambda\)</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Many other discrete distribution models are available, see <a href="https://en.wikipedia.org/wiki/List_of_probability_distributions" class="uri">https://en.wikipedia.org/wiki/List_of_probability_distributions</a>.</p>
+</div>
+<div id="continuous-distributions-1" class="section level4 hasAnchor" number="2.4.1.2">
+<h4><span class="header-section-number">2.4.1.2</span> Continuous Distributions<a href="some-important-distribution-models.html#continuous-distributions-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<table class="table" style="font-size: 8px; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:cdists">Table 2.2: </span>Continuous probability distributions
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Distribution
+</th>
+<th style="text-align:left;">
+Description
+</th>
+<th style="text-align:left;">
+Notation
+</th>
+<th style="text-align:left;">
+Parameters
+</th>
+<th style="text-align:left;">
+Density
+</th>
+<th style="text-align:left;">
+Distr.fun
+</th>
+<th style="text-align:left;">
+Expectation
+</th>
+<th style="text-align:left;">
+Variance
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Normal
+</td>
+<td style="text-align:left;">
+Symmetric continuous data
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(X \sim \mathcal{N}(\mu,\sigma^2)\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\mu \in \mathbb{R},\; \sigma&gt;0\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(f(x)=\frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(F(x)=\Phi\left(\frac{x-\mu}{\sigma}\right)\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\mu\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\sigma^2\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Standard Normal
+</td>
+<td style="text-align:left;">
+Standardized normal variable
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(X \sim \mathcal{N}(0,1)\)</span>
+</td>
+<td style="text-align:left;">
+None
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(f(x)=\frac{1}{\sqrt{2\pi}}e^{-x^2/2}\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(F(x)=\Phi(x)\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(0\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(1\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Exponential
+</td>
+<td style="text-align:left;">
+Waiting times
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(X \sim Exp(\lambda)\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\lambda&gt;0\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(f(x)=\lambda e^{-\lambda x}\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(F(x)=1-e^{-\lambda x}\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\frac{1}{\lambda}\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\frac{1}{\lambda^2}\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Uniform
+</td>
+<td style="text-align:left;">
+Equal likelihood on interval
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(X \sim U(a,b)\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(a&lt;b\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(f(x)=\frac{1}{b-a}\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(F(x)=\frac{x-a}{b-a}\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\frac{a+b}{2}\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\frac{(b-a)^2}{12}\)</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Triangular
+</td>
+<td style="text-align:left;">
+Min-mode-max model
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(X \sim Tri(a,c,b)\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(a&lt;c&lt;b\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(f(x)=\begin{cases}\frac{2(x-a)}{(b-a)(c-a)}, &amp;x\leq c\\ \frac{2(b-x)}{(b-a)(b-c)}, &amp;x&gt;c\end{cases}\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(F(x)=\begin{cases}\frac{(x-a)^2}{(b-a)(c-a)}, &amp;x\leq c\\ 1-\frac{(b-x)^2}{(b-a)(b-c)}, &amp;x&gt; c\end{cases}\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\frac{a+b+c}{3}\)</span>
+</td>
+<td style="text-align:left;">
+<span class="math inline">\(\frac{a^2+b^2+c^2-ab-ac-bc}{18}\)</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Many other continuous distribution models are available, see <a href="https://en.wikipedia.org/wiki/List_of_probability_distributions" class="uri">https://en.wikipedia.org/wiki/List_of_probability_distributions</a>.</p>
+</div>
+</div>
+<div id="fitting-a-distribution" class="section level3 hasAnchor" number="2.4.2">
+<h3><span class="header-section-number">2.4.2</span> Fitting a Distribution<a href="some-important-distribution-models.html#fitting-a-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Fitting a distribution to data means selecting a suitable probability distribution model and determining its parameter values based on the observed data.</p>
+<p>The choice of a suitable distribution model depends on:</p>
+<ul>
+<li>the type of data (discrete or continuous),</li>
+<li>the range of possible values,</li>
+<li>the underlying mechanism generating the data,</li>
+<li>and the shape of the observed distribution.</li>
+</ul>
+<p>For example:</p>
+<ul>
+<li>Bernoulli and Binomial distributions are suitable for modelling binary outcomes and counts of successes,</li>
+<li>Poisson distributions are commonly used for counts of events,</li>
+<li>Exponential distributions model waiting times,</li>
+<li>Normal distributions are appropriate for many approximately symmetric continuous measurements.</li>
+</ul>
+<p>Once a distribution family has been selected, its parameters must be estimated from the data.</p>
+<div class="example">
+<p><span id="exm:fitd0" class="example"><strong>Example 2.15  (Casual Bike Rentals) </strong></span>The relative frequencies in the data for casual bike rentals between 07:00 am and 07:59 (see the corresponding data exercise) are:</p>
+<div class="figure"><span style="display:block;" id="fig:figfitd0"></span>
+<img src="_main_files/figure-html/figfitd0-1.png" alt="Relative frequencies for casual bike rental counts." width="672" />
+<p class="caption">
+Figure 2.14: Relative frequencies for casual bike rental counts.
+</p>
+</div>
+<p>with <span class="math inline">\(\overline x_1 = 11.06,\)</span> <span class="math inline">\(s_1 = 8.36,\)</span> and <span class="math inline">\(\overline x_2 = 21.69,\)</span> <span class="math inline">\(s_2 = 6.53.\)</span></p>
+</div>
+<div class="example">
+<p><span id="exm:fitc0" class="example"><strong>Example 2.16  (Air Quality) </strong></span>In the data exercise “Air Quality”, we studied PM10 data in 2021 and in 2023 in Berlin. Dividing the data into equally sized classes, gives the histograms:</p>
+<div class="figure"><span style="display:block;" id="fig:figfitc0"></span>
+<img src="_main_files/figure-html/figfitc0-1.png" alt="Histograms of PM10 measurements in 2021 and 2023." width="672" />
+<p class="caption">
+Figure 2.15: Histograms of PM10 measurements in 2021 and 2023.
+</p>
+</div>
+<p>with <span class="math inline">\(\overline y_{2021} = 25.73,\)</span> <span class="math inline">\(y_{med,2021} = 23,\)</span> <span class="math inline">\(s_{2021} = 14.24,\)</span> and <span class="math inline">\(\overline y_{2023} = 19.39,\)</span> <span class="math inline">\(y_{med,2023} = 18,\)</span> <span class="math inline">\(s_{2023} = 8.55.\)</span></p>
+</div>
+<p>Two important approaches for parameter estimation are:</p>
+<ul>
+<li><p><strong>Method of Moments</strong><br />
+Parameters are chosen such that the theoretical moments of the distribution match the corresponding sample moments. Typically:</p>
+<ul>
+<li>the expectation is matched to the sample mean,</li>
+<li>the variance is matched to the sample variance.</li>
+</ul></li>
+<li><p><strong>Maximum Likelihood</strong><br />
+Parameters are chosen such that the observed sample is as likely as possible under the assumed distribution model.</p></li>
+</ul>
+<p>These methods will be discussed in detail in subsequent chapters.</p>
+<p>For now, we use the following simplified approach:</p>
+<ul>
+<li>if the distribution has one parameter, we choose it such that the theoretical expectation mimics the data average;</li>
+<li>if the distribution has two parameters, we additionally match the theoretical variance to the data variance.</li>
+</ul>
+<div class="example">
+<p><span id="exm:fitd1" class="example"><strong>Example 2.17  (Casual Bike Rentals II) </strong></span>For the two candidate distributions - Poisson and shifted Geometric - the parameters a re specified as follows:</p>
+<ul>
+<li>Poisson: <span class="math inline">\(\lambda_1 = {\overline x_1} = 11.06,\)</span> and <span class="math inline">\(\lambda_2 = {\overline x_2} = 21.69;\)</span></li>
+<li>shifted Geometric: <span class="math inline">\(p_1 =  \frac 1{\overline x_1+1} = 0.08,\)</span> and <span class="math inline">\(p_2 =  \frac 1{\overline x_2+1} = 0.04.\)</span></li>
+</ul>
+</div>
+<div class="example">
+<p><span id="exm:fitc1" class="example"><strong>Example 2.18  (Air Quality II) </strong></span>The two candidate distributions - Normal <span class="math inline">\(N(\mu,\sigma^2)\)</span> and <span class="math inline">\(N(\tilde\mu,\sigma^2)\)</span> - maybe fitted with parameters specified as follows:</p>
+<ul>
+<li><p>Normal (mean): <span class="math inline">\(\mu_{2021} = \overline y_{2021} = 25.73,\)</span> <span class="math inline">\(\sigma_{2021} = {s_{2021}} = 14.24,\)</span> and <span class="math inline">\(\mu_{2023} = {\overline y_{2023}} = 19.39,\)</span> <span class="math inline">\(\sigma_{2023} = {s_{2023}} = 8.55,\)</span></p></li>
+<li><p>Normal (median): <span class="math inline">\(\tilde\mu_{2021} = y_{med,2021} = 23,\)</span> <span class="math inline">\(\sigma_{2021} = {s_{{2021}}} = 14.24,\)</span> and <span class="math inline">\(\tilde\mu_{2023} = y_{med,2023}  = 18,\)</span> <span class="math inline">\(\sigma_{2023} = {s_{{2023}}} = 8.55,\)</span></p></li>
+</ul>
+</div>
+<p>After estimating the parameters, we assess how well the candidate distribution fits the data. This can be done either graphically or analytically.</p>
+<div id="graphical-assessment" class="section level4 hasAnchor" number="2.4.2.1">
+<h4><span class="header-section-number">2.4.2.1</span> Graphical Assessment<a href="some-important-distribution-models.html#graphical-assessment" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>A graphical assessment compares the observed data distribution with the fitted theoretical distribution.</p>
+<ul>
+<li><p>For <strong>discrete data</strong>, we compare:</p>
+<ul>
+<li>the relative frequency barplot of the data,</li>
+<li>with the probability function of the fitted distribution.</li>
+</ul></li>
+<li><p>For <strong>continuous data</strong>, we compare:</p>
+<ul>
+<li>the histogram of the data,</li>
+<li>with the density function of the fitted distribution.</li>
+</ul></li>
+</ul>
+<p>A good fit is indicated when the theoretical probabilities or densities closely follow the observed empirical distribution.</p>
+<div class="example">
+<p><span id="exm:fitd2" class="example"><strong>Example 2.19  (Casual Bike Rentals III) </strong></span><img src="_main_files/figure-html/figfitd1-1.png" alt="" width="672" /></p>
+<!--Consider the example of modelling the number of casual bike rentals during summer weekdays (see the corresponding data exercise).
+
+Suppose that two candidate distributions are considered:
+
+- a shifted Geometric distribution,
+- and a Poisson distribution.
+
+**Graphically**, we compare:
+
+- the empirical relative frequencies,
+- with the fitted probability functions of both candidate distributions.-->
+<p>In the first case, the shifted Geometric distribution appears to fit better to the data. The Poisson distribution follows the observed frequencies more closely in the second case.</p>
+<p>We additionally compute the <span class="math inline">\(\chi^2\)</span>-<strong>goodness-of-fit statistics</strong> for both fitted models below.</p>
+</div>
+<div class="example">
+<p><span id="exm:fitc2" class="example"><strong>Example 2.20  (Air Quality III) </strong></span>The histogram of the data shows noticeable right skewness. The fitted Normal density where <span class="math inline">\(\mu\)</span> is estimated based on the median (robust to outliers) might show a better fit than the sample mean-based <span class="math inline">\(\mu\)</span>.</p>
+<p><img src="_main_files/figure-html/figfitc2-1.png" alt="" width="672" /></p>
+</div>
+</div>
+<div id="analytical-assessment" class="section level4 hasAnchor" number="2.4.2.2">
+<h4><span class="header-section-number">2.4.2.2</span> Analytical Assessment<a href="some-important-distribution-models.html#analytical-assessment" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>A distribution fit can also be evaluated numerically using a goodness-of-fit criterion.</p>
+<p>One commonly used measure is the chi-squared goodness-of-fit statistic:</p>
+<p><span class="math display">\[\chi^2 = n\sum_{i=1}^{k} \frac{(h_i - p_i)^2}{p_i},\]</span></p>
+<p>where:</p>
+<ul>
+<li><span class="math inline">\(h_i\)</span> is the observed relative frequency in class or category <span class="math inline">\(i\)</span>,</li>
+<li><span class="math inline">\(p_i\)</span> is the probability under the fitted distribution,</li>
+<li><span class="math inline">\(n\)</span> is the sample size and <span class="math inline">\(k\)</span> is the number of classes or categories.</li>
+</ul>
+<p>This formula is applicable when <span class="math inline">\(np&gt;5,\)</span> otherwise the categories should be combined to have more than five counts.</p>
+<p>The chi-squared measure compares observed and expected frequencies and therefore quantifies the discrepancy between the empirical data distribution and the theoretical distribution. Therefore, smaller values of the <span class="math inline">\(\chi^2\)</span>-statistic indicate a better agreement between the data and the fitted model.</p>
+<div class="example">
+<p><span id="exm:fitd3" class="example"><strong>Example 2.21  (Casual Bike Rentals IV) </strong></span></p>
+<ul>
+<li><span class="math inline">\(X_1=\)</span> Casual rentals (7:00-7:59 am):</li>
+</ul>
+<table>
+<caption><span id="tab:tabchi0">Table 2.3: </span>Data frequencies and probabilities under the the Poisson and the Geometric distribution for <span class="math inline">\(X_1\)</span></caption>
+<thead>
+<tr class="header">
+<th align="left"><span class="math inline">\(x_i\)</span></th>
+<th align="left"><span class="math inline">\(H_i\)</span></th>
+<th align="left"><span class="math inline">\(h_i\)</span></th>
+<th align="left"><span class="math inline">\(p_{Poi,i}\)</span></th>
+<th align="left"><span class="math inline">\(p_{G,i}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math inline">\(x_i=0\)</span></td>
+<td align="left">38</td>
+<td align="left">0.05</td>
+<td align="left">0</td>
+<td align="left">0.08</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(0&lt;x_i\leq 5\)</span></td>
+<td align="left">201</td>
+<td align="left">0.28</td>
+<td align="left">0.04</td>
+<td align="left">0.32</td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(5&lt;x_i\leq 10\)</span></td>
+<td align="left">149</td>
+<td align="left">0.2</td>
+<td align="left">0.42</td>
+<td align="left">0.21</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(10&lt;x_i\leq 15\)</span></td>
+<td align="left">131</td>
+<td align="left">0.18</td>
+<td align="left">0.45</td>
+<td align="left">0.14</td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(15&lt;x_i\leq 20\)</span></td>
+<td align="left">101</td>
+<td align="left">0.14</td>
+<td align="left">0.09</td>
+<td align="left">0.09</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(20&lt;x_i\leq 25\)</span></td>
+<td align="left">57</td>
+<td align="left">0.08</td>
+<td align="left">0</td>
+<td align="left">0.06</td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(25&lt;x_i\leq 30\)</span></td>
+<td align="left">37</td>
+<td align="left">0.05</td>
+<td align="left">0</td>
+<td align="left">0.04</td>
+</tr>
+<tr class="even">
+<td align="left">&gt;30</td>
+<td align="left">13</td>
+<td align="left">0.02</td>
+<td align="left">0</td>
+<td align="left">0.07</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><span class="math inline">\(X_2=\)</span> Casual rentals (7:00-7:59 am, Summer, Clear, Tue &amp; Wed):</li>
+</ul>
+<table>
+<caption><span id="tab:tabchi1">Table 2.4: </span>Data frequencies and probabilities under the Poisson and the Geometric distribution for <span class="math inline">\(X_2\)</span></caption>
+<thead>
+<tr class="header">
+<th align="left"><span class="math inline">\(x_i\)</span></th>
+<th align="left"><span class="math inline">\(H_i\)</span></th>
+<th align="left"><span class="math inline">\(h_i\)</span></th>
+<th align="left"><span class="math inline">\(p_{Poi,i}\)</span></th>
+<th align="left"><span class="math inline">\(p_{G,i}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math inline">\(x_i\leq 15\)</span></td>
+<td align="left">8</td>
+<td align="left">0.17</td>
+<td align="left">0.09</td>
+<td align="left">0.51</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(15&lt;x_i\leq 20\)</span></td>
+<td align="left">12</td>
+<td align="left">0.25</td>
+<td align="left">0.33</td>
+<td align="left">0.1</td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(20&lt;x_i\leq 25\)</span></td>
+<td align="left">15</td>
+<td align="left">0.31</td>
+<td align="left">0.38</td>
+<td align="left">0.08</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(25&lt;x_i\leq 30\)</span></td>
+<td align="left">8</td>
+<td align="left">0.17</td>
+<td align="left">0.17</td>
+<td align="left">0.06</td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(x_i&gt; 30\)</span></td>
+<td align="left">5</td>
+<td align="left">0.1</td>
+<td align="left">0.03</td>
+<td align="left">0.25</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><span class="math inline">\(X_1=\)</span> Casual rentals (7:00-7:59 am):
+<ul>
+<li><span class="math inline">\(\chi^2_{Poi} = 502295.37,\)</span> <span class="math inline">\(\chi^2_{G} = 81.85.\)</span></li>
+</ul></li>
+<li><span class="math inline">\(X_2=\)</span> Casual rentals (7:00-7:59 am, Summer, Clear, Tue &amp; Wed):
+<ul>
+<li><span class="math inline">\(\chi^2_{Poi} = 11.74,\)</span> <span class="math inline">\(\chi^2_{G} = 68.48.\)</span></li>
+</ul></li>
+</ul>
+<p>The Geometric distribution shows lower <span class="math inline">\(\chi^2\)</span> value for <span class="math inline">\(X_1\)</span>. The Poisson distribution produces a smaller <span class="math inline">\(\chi^2\)</span>-measure than the shifted Geometric distribution for <span class="math inline">\(X_2\)</span>, indicating a better fit to the observed data.</p>
+</div>
+<div class="example">
+<p><span id="exm:fitc2" class="example"><strong>Example 2.20  (Air Quality IV) </strong></span></p>
+<table>
+<caption><span id="tab:tabchi2">Table 2.5: </span>Data frequencies and probabilities under the Normal distribution for <span class="math inline">\(2021\)</span></caption>
+<thead>
+<tr class="header">
+<th align="left"><span class="math inline">\(x_i\)</span></th>
+<th align="left"><span class="math inline">\(h_i\)</span></th>
+<th align="left"><span class="math inline">\(N(\mu,\sigma^2)\)</span></th>
+<th align="left"><span class="math inline">\(N(\tilde{\mu},\sigma^2)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math inline">\(x_i\leq 10\)</span></td>
+<td align="left">0.03</td>
+<td align="left">0.13</td>
+<td align="left">0.18</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(10&lt;x_i\leq 20\)</span></td>
+<td align="left">0.36</td>
+<td align="left">0.21</td>
+<td align="left">0.24</td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(20&lt;x_i\leq 30\)</span></td>
+<td align="left">0.35</td>
+<td align="left">0.27</td>
+<td align="left">0.27</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(30&lt;x_i\leq 40\)</span></td>
+<td align="left">0.17</td>
+<td align="left">0.22</td>
+<td align="left">0.2</td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(x_i&gt; 40\)</span></td>
+<td align="left">0.08</td>
+<td align="left">0.16</td>
+<td align="left">0.12</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption><span id="tab:tabchi3">Table 2.6: </span>Data frequencies and probabilities under the Normal distribution for <span class="math inline">\(2023\)</span></caption>
+<thead>
+<tr class="header">
+<th align="left"><span class="math inline">\(x_i\)</span></th>
+<th align="left"><span class="math inline">\(h_i\)</span></th>
+<th align="left"><span class="math inline">\(N(\mu,\sigma^2)\)</span></th>
+<th align="left"><span class="math inline">\(N(\tilde{\mu},\sigma^2)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math inline">\(x_i\leq 10\)</span></td>
+<td align="left">0.08</td>
+<td align="left">0.14</td>
+<td align="left">0.17</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(10&lt;x_i\leq 20\)</span></td>
+<td align="left">0.55</td>
+<td align="left">0.39</td>
+<td align="left">0.42</td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(20&lt;x_i\leq 30\)</span></td>
+<td align="left">0.3</td>
+<td align="left">0.36</td>
+<td align="left">0.33</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(30&lt;x_i\leq 40\)</span></td>
+<td align="left">0.05</td>
+<td align="left">0.1</td>
+<td align="left">0.08</td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(x_i&gt; 40\)</span></td>
+<td align="left">0.02</td>
+<td align="left">0.01</td>
+<td align="left">0.01</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>2021: <span class="math inline">\(\chi^2_{N(\mu,\sigma^2)} = 97.79,\)</span> <span class="math inline">\(\chi^2_{N(\tilde\mu,\sigma^2)} = 85.35,\)</span></p></li>
+<li><p>2023: <span class="math inline">\(\chi^2_{N(\mu,\sigma^2)} = 50.82,\)</span> <span class="math inline">\(\chi^2_{N(\tilde\mu,\sigma^2)} = 52.88.\)</span></p></li>
+</ul>
+</div>
 <!--::: {.exercise name="Continuous distributions"}
 
 
@@ -1483,6 +2213,7 @@ So we have a standard normally distributed rv divided by the square root of a <s
 ```
 -->
 
+</div>
 </div>
 </div>
 </div>

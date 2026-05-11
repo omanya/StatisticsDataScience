@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Statistics and Data Science Applications</title>
+  <title>Chapter 3 Fitting Distribution Models to Data | Statistics and Data Science Applications</title>
   <meta name="description" content="This is the script for the course." />
   <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Statistics and Data Science Applications" />
+  <meta property="og:title" content="Chapter 3 Fitting Distribution Models to Data | Statistics and Data Science Applications" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This is the script for the course." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Statistics and Data Science Applications" />
+  <meta name="twitter:title" content="Chapter 3 Fitting Distribution Models to Data | Statistics and Data Science Applications" />
   
   <meta name="twitter:description" content="This is the script for the course." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="random-events-and-probability---a-short-review.html"/>
+<link rel="prev" href="some-important-distribution-models.html"/>
+<link rel="next" href="limit-theorems.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -52,8 +52,6 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 
@@ -83,6 +81,7 @@
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-goals-and-context"><i class="fa fa-check"></i>Course goals and context</a>
 <ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#course-goals"><i class="fa fa-check"></i>Course goals</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#terminology"><i class="fa fa-check"></i>Terminology</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html"><i class="fa fa-check"></i>Random events and probability - a short review</a>
@@ -96,6 +95,7 @@
 <li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#joint-and-conditional-probabilities-independence-of-events"><i class="fa fa-check"></i>Joint and conditional probabilities, independence of events</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#sampling-as-a-random-process"><i class="fa fa-check"></i>Sampling as a random process</a></li>
+<li class="chapter" data-level="" data-path="random-events-and-probability---a-short-review.html"><a href="random-events-and-probability---a-short-review.html#rückblick"><i class="fa fa-check"></i>Rückblick</a></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="random-variables.html"><a href="random-variables.html"><i class="fa fa-check"></i><b>1</b> Random variables</a>
 <ul>
@@ -112,6 +112,7 @@
 <li class="chapter" data-level="1.2.3" data-path="random-variables.html"><a href="random-variables.html#expected-value-and-variance-1"><i class="fa fa-check"></i><b>1.2.3</b> Expected value and variance</a></li>
 <li class="chapter" data-level="1.2.4" data-path="random-variables.html"><a href="random-variables.html#quantiles-of-continuous-random-variables"><i class="fa fa-check"></i><b>1.2.4</b> Quantiles of continuous random variables</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="random-variables.html"><a href="random-variables.html#rückblick-1"><i class="fa fa-check"></i>Rückblick</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html"><i class="fa fa-check"></i><b>2</b> Some important distribution models</a>
 <ul>
@@ -134,42 +135,49 @@
 <li class="chapter" data-level="2.3.1" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#chi2-distribution"><i class="fa fa-check"></i><b>2.3.1</b> <span class="math inline">\(\chi^2\)</span>-distribution</a></li>
 <li class="chapter" data-level="2.3.2" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#t-distribution"><i class="fa fa-check"></i><b>2.3.2</b> t-distribution</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#fitting-distribution-models-to-data"><i class="fa fa-check"></i><b>2.4</b> Fitting Distribution Models to Data</a>
+</ul></li>
+<li class="chapter" data-level="3" data-path="fitting-distribution-models-to-data.html"><a href="fitting-distribution-models-to-data.html"><i class="fa fa-check"></i><b>3</b> Fitting Distribution Models to Data</a>
 <ul>
-<li class="chapter" data-level="2.4.1" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#overview-of-common-distribution-models"><i class="fa fa-check"></i><b>2.4.1</b> Overview of Common Distribution Models</a></li>
-<li class="chapter" data-level="2.4.2" data-path="some-important-distribution-models.html"><a href="some-important-distribution-models.html#fitting-a-distribution"><i class="fa fa-check"></i><b>2.4.2</b> Fitting a Distribution</a></li>
+<li class="chapter" data-level="3.1" data-path="fitting-distribution-models-to-data.html"><a href="fitting-distribution-models-to-data.html#overview-of-common-distribution-models"><i class="fa fa-check"></i><b>3.1</b> Overview of Common Distribution Models</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="fitting-distribution-models-to-data.html"><a href="fitting-distribution-models-to-data.html#discrete-distributions-1"><i class="fa fa-check"></i><b>3.1.1</b> Discrete Distributions</a></li>
+<li class="chapter" data-level="3.1.2" data-path="fitting-distribution-models-to-data.html"><a href="fitting-distribution-models-to-data.html#continuous-distributions-1"><i class="fa fa-check"></i><b>3.1.2</b> Continuous Distributions</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="limit-theorems.html"><a href="limit-theorems.html"><i class="fa fa-check"></i><b>3</b> Limit theorems</a>
+<li class="chapter" data-level="4" data-path="limit-theorems.html"><a href="limit-theorems.html"><i class="fa fa-check"></i><b>4</b> Limit theorems</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="limit-theorems.html"><a href="limit-theorems.html#strong-law-of-large-numbers"><i class="fa fa-check"></i><b>3.1</b> Strong law of large numbers 💪</a></li>
-<li class="chapter" data-level="3.2" data-path="limit-theorems.html"><a href="limit-theorems.html#central-limit-theorem"><i class="fa fa-check"></i><b>3.2</b> Central limit theorem</a></li>
+<li class="chapter" data-level="4.1" data-path="limit-theorems.html"><a href="limit-theorems.html#strong-law-of-large-numbers"><i class="fa fa-check"></i><b>4.1</b> Strong law of large numbers 💪</a></li>
+<li class="chapter" data-level="4.2" data-path="limit-theorems.html"><a href="limit-theorems.html#central-limit-theorem"><i class="fa fa-check"></i><b>4.2</b> Central limit theorem</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="limit-theorems.html"><a href="limit-theorems.html#approximation-von-binomialverteilten-zufallsvariablen"><i class="fa fa-check"></i><b>4.2.1</b> Approximation von binomialverteilten Zufallsvariablen</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="iii-inductive-statistics.html"><a href="iii-inductive-statistics.html"><i class="fa fa-check"></i>III Inductive Statistics</a></li>
-<li class="chapter" data-level="4" data-path="parameter-estimation.html"><a href="parameter-estimation.html"><i class="fa fa-check"></i><b>4</b> Parameter estimation</a>
-<ul>
-<li class="chapter" data-level="4.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#basic-ideas-of-inductive-statistics"><i class="fa fa-check"></i><b>4.1</b> Basic ideas of inductive statistics</a>
-<ul>
-<li class="chapter" data-level="4.1.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#parameter-estimation-theoretically"><i class="fa fa-check"></i><b>4.1.1</b> Parameter estimation theoretically</a></li>
-<li class="chapter" data-level="4.1.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#parameter-estimation-practically"><i class="fa fa-check"></i><b>4.1.2</b> Parameter estimation practically</a></li>
+<li class="chapter" data-level="" data-path="limit-theorems.html"><a href="limit-theorems.html#rückblick-2"><i class="fa fa-check"></i>Rückblick</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#point-estimation"><i class="fa fa-check"></i><b>4.2</b> Point estimation</a>
+<li class="chapter" data-level="" data-path="iii-inductive-statistics.html"><a href="iii-inductive-statistics.html"><i class="fa fa-check"></i>III Inductive Statistics</a>
 <ul>
-<li class="chapter" data-level="4.2.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#estimation-functions"><i class="fa fa-check"></i><b>4.2.1</b> Estimation functions</a></li>
-<li class="chapter" data-level="4.2.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#properties-of-estimators"><i class="fa fa-check"></i><b>4.2.2</b> Properties of estimators</a></li>
-</ul></li>
-<li class="chapter" data-level="4.3" data-path="parameter-estimation.html"><a href="parameter-estimation.html#construction-of-estimators"><i class="fa fa-check"></i><b>4.3</b> Construction of estimators</a>
+<li class="chapter" data-level="4.3" data-path="iii-inductive-statistics.html"><a href="iii-inductive-statistics.html#basic-ideas-of-inductive-statistics"><i class="fa fa-check"></i><b>4.3</b> Basic ideas of inductive statistics</a>
 <ul>
-<li class="chapter" data-level="4.3.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#method-of-moments"><i class="fa fa-check"></i><b>4.3.1</b> Method of moments</a></li>
-<li class="chapter" data-level="4.3.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#maximum-likelihood-method"><i class="fa fa-check"></i><b>4.3.2</b> Maximum likelihood method</a></li>
+<li class="chapter" data-level="4.3.1" data-path="iii-inductive-statistics.html"><a href="iii-inductive-statistics.html#parameter-estimation-theoretically"><i class="fa fa-check"></i><b>4.3.1</b> Parameter estimation theoretically</a></li>
+<li class="chapter" data-level="4.3.2" data-path="iii-inductive-statistics.html"><a href="iii-inductive-statistics.html#parameter-estimation-practically"><i class="fa fa-check"></i><b>4.3.2</b> Parameter estimation practically</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="parameter-estimation.html"><a href="parameter-estimation.html#interval-estimation"><i class="fa fa-check"></i><b>4.4</b> Interval estimation</a>
+<li class="chapter" data-level="4.4" data-path="iii-inductive-statistics.html"><a href="iii-inductive-statistics.html#point-estimation"><i class="fa fa-check"></i><b>4.4</b> Point estimation</a>
 <ul>
-<li class="chapter" data-level="4.4.1" data-path="parameter-estimation.html"><a href="parameter-estimation.html#alpha-confidence-intervals-for-mu"><i class="fa fa-check"></i><b>4.4.1</b> <span class="math inline">\((1-\alpha)\)</span> confidence intervals for <span class="math inline">\(\mu\)</span></a></li>
-<li class="chapter" data-level="4.4.2" data-path="parameter-estimation.html"><a href="parameter-estimation.html#alpha-confidence-interval-for-sigma2"><i class="fa fa-check"></i><b>4.4.2</b> <span class="math inline">\((1-\alpha)\)</span> confidence interval for <span class="math inline">\(\sigma^2\)</span></a></li>
-<li class="chapter" data-level="4.4.3" data-path="parameter-estimation.html"><a href="parameter-estimation.html#alpha-confidence-interval-for-probability-p"><i class="fa fa-check"></i><b>4.4.3</b> <span class="math inline">\((1-\alpha)\)</span> confidence interval for probability <span class="math inline">\(p\)</span></a></li>
-<li class="chapter" data-level="4.4.4" data-path="parameter-estimation.html"><a href="parameter-estimation.html#determining-n-based-on-the-length-of-confidence-intervals"><i class="fa fa-check"></i><b>4.4.4</b> Determining <span class="math inline">\(n\)</span> based on the length of confidence intervals</a></li>
+<li class="chapter" data-level="4.4.1" data-path="iii-inductive-statistics.html"><a href="iii-inductive-statistics.html#estimation-functions"><i class="fa fa-check"></i><b>4.4.1</b> Estimation functions</a></li>
+<li class="chapter" data-level="4.4.2" data-path="iii-inductive-statistics.html"><a href="iii-inductive-statistics.html#properties-of-estimators"><i class="fa fa-check"></i><b>4.4.2</b> Properties of estimators</a></li>
 </ul></li>
+<li class="chapter" data-level="4.5" data-path="iii-inductive-statistics.html"><a href="iii-inductive-statistics.html#construction-of-estimators"><i class="fa fa-check"></i><b>4.5</b> Construction of estimators</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="iii-inductive-statistics.html"><a href="iii-inductive-statistics.html#method-of-moments"><i class="fa fa-check"></i><b>4.5.1</b> Method of moments</a></li>
+<li class="chapter" data-level="4.5.2" data-path="iii-inductive-statistics.html"><a href="iii-inductive-statistics.html#maximum-likelihood-method"><i class="fa fa-check"></i><b>4.5.2</b> Maximum likelihood method</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="iii-inductive-statistics.html"><a href="iii-inductive-statistics.html#interval-estimation"><i class="fa fa-check"></i><b>4.6</b> Interval estimation</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="iii-inductive-statistics.html"><a href="iii-inductive-statistics.html#alpha-confidence-intervals-for-mu"><i class="fa fa-check"></i><b>4.6.1</b> <span class="math inline">\((1-\alpha)\)</span> confidence intervals for <span class="math inline">\(\mu\)</span></a></li>
+<li class="chapter" data-level="4.6.2" data-path="iii-inductive-statistics.html"><a href="iii-inductive-statistics.html#alpha-confidence-interval-for-sigma2"><i class="fa fa-check"></i><b>4.6.2</b> <span class="math inline">\((1-\alpha)\)</span> confidence interval for <span class="math inline">\(\sigma^2\)</span></a></li>
+<li class="chapter" data-level="4.6.3" data-path="iii-inductive-statistics.html"><a href="iii-inductive-statistics.html#alpha-confidence-interval-for-probability-p"><i class="fa fa-check"></i><b>4.6.3</b> <span class="math inline">\((1-\alpha)\)</span> confidence interval for probability <span class="math inline">\(p\)</span></a></li>
+<li class="chapter" data-level="4.6.4" data-path="iii-inductive-statistics.html"><a href="iii-inductive-statistics.html#determining-n-based-on-the-length-of-confidence-intervals"><i class="fa fa-check"></i><b>4.6.4</b> Determining <span class="math inline">\(n\)</span> based on the length of confidence intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="iii-inductive-statistics.html"><a href="iii-inductive-statistics.html#rückblick-3"><i class="fa fa-check"></i>Rückblick</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>5</b> Hypothesis testing</a>
 <ul>
@@ -186,6 +194,7 @@
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#type-1-and-type-2-errors"><i class="fa fa-check"></i><b>5.4</b> Type 1 and Type 2 errors</a></li>
 <li class="chapter" data-level="5.5" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#exceeding-probability-p-value"><i class="fa fa-check"></i><b>5.5</b> Exceeding probability: <span class="math inline">\(p-\)</span>value</a></li>
+<li class="chapter" data-level="" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#rückblick-4"><i class="fa fa-check"></i>Rückblick</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="regression-analysis.html"><a href="regression-analysis.html"><i class="fa fa-check"></i><b>6</b> Regression analysis</a>
 <ul>
@@ -198,6 +207,7 @@
 </ul></li>
 <li class="chapter" data-level="6.4" data-path="regression-analysis.html"><a href="regression-analysis.html#forecast-in-linear-regression-models"><i class="fa fa-check"></i><b>6.4</b> Forecast in linear regression models</a></li>
 <li class="chapter" data-level="6.5" data-path="regression-analysis.html"><a href="regression-analysis.html#multivariate-linear-regression"><i class="fa fa-check"></i><b>6.5</b> Multivariate linear regression</a></li>
+<li class="chapter" data-level="" data-path="regression-analysis.html"><a href="regression-analysis.html#rückblick-5"><i class="fa fa-check"></i>Rückblick</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -219,94 +229,168 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Statistics and Data Science Applications</h1>
-<p class="author"><em>Maria Osipenko</em></p>
-<p class="date"><em>2026-05-11</em></p>
+<div id="fitting-distribution-models-to-data" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Fitting Distribution Models to Data<a href="fitting-distribution-models-to-data.html#fitting-distribution-models-to-data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="overview-of-common-distribution-models" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Overview of Common Distribution Models<a href="fitting-distribution-models-to-data.html#overview-of-common-distribution-models" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="discrete-distributions-1" class="section level3 hasAnchor" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Discrete Distributions<a href="fitting-distribution-models-to-data.html#discrete-distributions-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<table style="width:100%;">
+<colgroup>
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Distribution</th>
+<th>What it models</th>
+<th>Notation</th>
+<th>Parameters</th>
+<th>PMF <span class="math inline">\(P(X=x)\)</span></th>
+<th>Expectation <span class="math inline">\(E[X]\)</span></th>
+<th>Variance <span class="math inline">\(\mathrm{Var}(X)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Discrete Uniform</td>
+<td>Finite set of equally likely outcomes</td>
+<td><span class="math inline">\(X \sim \mathrm{DU}(a,b)\)</span></td>
+<td><span class="math inline">\(a,b \in \mathbb{Z}, a \le b\)</span></td>
+<td><span class="math inline">\(P(X=x)=\frac{1}{b-a+1}\)</span> for <span class="math inline">\(x=a,\dots,b\)</span></td>
+<td><span class="math inline">\(\frac{a+b}{2}\)</span></td>
+<td><span class="math inline">\(\frac{(b-a+1)^2-1}{12}\)</span></td>
+</tr>
+<tr class="even">
+<td>Bernoulli</td>
+<td>Single trial with success/failure outcome</td>
+<td><span class="math inline">\(X \sim \mathrm{Bernoulli}(p)\)</span></td>
+<td><span class="math inline">\(0 \le p \le 1\)</span></td>
+<td><span class="math inline">\(P(X=x)=p^x(1-p)^{1-x}\)</span>, <span class="math inline">\(x\in\{0,1\}\)</span></td>
+<td><span class="math inline">\(p\)</span></td>
+<td><span class="math inline">\(p(1-p)\)</span></td>
+</tr>
+<tr class="odd">
+<td>Binomial</td>
+<td>Number of successes in <span class="math inline">\(n\)</span> independent Bernoulli trials</td>
+<td><span class="math inline">\(X \sim \mathrm{Bin}(n,p)\)</span></td>
+<td><span class="math inline">\(n\in\mathbb{N},\ 0\le p\le1\)</span></td>
+<td><span class="math inline">\(P(X=x)=\binom{n}{x}p^x(1-p)^{n-x}\)</span></td>
+<td><span class="math inline">\(np\)</span></td>
+<td><span class="math inline">\(np(1-p)\)</span></td>
+</tr>
+<tr class="even">
+<td>Geometric</td>
+<td>Number of trials until first success</td>
+<td><span class="math inline">\(X \sim \mathrm{Geom}(p)\)</span></td>
+<td><span class="math inline">\(0 &lt; p \le 1\)</span></td>
+<td><span class="math inline">\(P(X=x)=(1-p)^{x-1}p,\ x=1,2,\dots\)</span></td>
+<td><span class="math inline">\(\frac{1}{p}\)</span></td>
+<td><span class="math inline">\(\frac{1-p}{p^2}\)</span></td>
+</tr>
+<tr class="odd">
+<td>Poisson</td>
+<td>Number of events occurring in a fixed interval</td>
+<td><span class="math inline">\(X \sim \mathrm{Pois}(\lambda)\)</span></td>
+<td><span class="math inline">\(\lambda&gt;0\)</span></td>
+<td><span class="math inline">\(P(X=x)=\frac{\lambda^x e^{-\lambda}}{x!}\)</span></td>
+<td><span class="math inline">\(\lambda\)</span></td>
+<td><span class="math inline">\(\lambda\)</span></td>
+</tr>
+</tbody>
+</table>
+<hr />
 </div>
-<div id="introduction" class="section level1 unnumbered hasAnchor">
-<h1>Introduction<a href="index.html#introduction" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<!-- change output to bookdown::gitbook for pdf 
-1.compile 
-  bookdown::render_book('index.Rmd',"bookdown::gitbook")
-2. put in the head of index.html (after compiling)
-  <script type="text/javascript">window.onload=function(){window.scrollTo(0,0);}</script>
--->
-<div id="course-goals-and-context" class="section level2 unnumbered hasAnchor">
-<h2>Course goals and context<a href="index.html#course-goals-and-context" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>This course follows the introductory statistics course and contains statistics concepts on intermediate and advanced level.</p>
-<div id="course-goals" class="section level3 unnumbered hasAnchor">
-<h3>Course goals<a href="index.html#course-goals" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<ol style="list-style-type: decimal">
-<li>You will become familiar with basic statistical concepts:</li>
-</ol>
-<ul>
-<li>Calculate and interpret probabilities, expected values and other key parameters of distributions.</li>
-<li>Explain the relationship between population and sample.</li>
-<li>Describe the properties of a statistic or estimator including its probability distribution, expected value, variance, bias, and mean squared error.</li>
-<li>State and apply the law of large numbers and central limit theorem.</li>
-<li>Explain the principles of hypothesis testing, conduct hypothesis testing and interpret the results.</li>
-<li>Explain and apply linear regression model, conduct hypothesis testing.</li>
-</ul>
-<ol start="2" style="list-style-type: decimal">
-<li>You will apply these skills to analyse real-world data, in particular:</li>
-</ol>
-<ul>
-<li>Prepare your data for the analysis.</li>
-<li>Choose an appropriate distributional model/ statistical technique for analyzing your data.</li>
-<li>Construct an estimator for the unknown parameters.</li>
-<li>Compute and interpret point estimates.</li>
-<li>Construct and interpret hypothesis tests and confidence intervals.</li>
-</ul>
-<p>We will be switching back and forth between theory, its applications, and data analysis.</p>
-<p>Hopefully you are in this course because you are passionate about statistical data analysis and can’t wait to learn more about it 😍. If you are taking the course just because it’s a required course, I hope you become at least a little bit a fan of statistics. So, to give you motivation for that, let’s look at some examples of using statistics for solving business problems.</p>
-<p>We will be working with excel/calc for data manipulations under the assumption that you have basic skills in it. If you are not, please look at the tutorial here: <a href="https://bookdown.org/bkrauth/BOOK/basic-data-cleaning-with-excel.html#a-quick-tour-of-excel" class="uri">https://bookdown.org/bkrauth/BOOK/basic-data-cleaning-with-excel.html#a-quick-tour-of-excel</a></p>
-<p><strong>Why Statistics and Data Science?</strong></p>
-<div class="example">
-<p><span id="exm:needs" class="example"><strong>Example 0.1  (Analysing customer behavior) </strong></span>Imaging that you work in a data analysts team for some company running online shops. Your customers order stuff online using either a mobile application (app) or web interface (web). They login, spend some time in the shop and then they (hopefully) buy a lot of your products.</p>
-<p>Your task is to improve customer experience in order to boost the sales. You may need to answer the following questions:</p>
-<ul>
-<li>Do the customers order more, if they are using the app or the web?</li>
-<li>How likely is that a customer, who just logged in, clicks on an advertisement shown in the shop?</li>
-<li>Does the time spend in the shop by a person has anything to do with the amount of her orders?</li>
-<li>Is the current discount campaign successful (meaning that it persistently increases the mean sales)?</li>
-<li>Can we predict the sales in a new market segment?</li>
-</ul>
-</div>
-<!--::: {.example #survey name="Customer survey"}
+<div id="continuous-distributions-1" class="section level3 hasAnchor" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> Continuous Distributions<a href="fitting-distribution-models-to-data.html#continuous-distributions-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<table>
+<colgroup>
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+<col width="12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Distribution</th>
+<th>What it models</th>
+<th>Notation</th>
+<th>Parameters</th>
+<th>PDF <span class="math inline">\(f(x)\)</span></th>
+<th>CDF <span class="math inline">\(F(x)\)</span></th>
+<th>Expectation <span class="math inline">\(E[X]\)</span></th>
+<th>Variance <span class="math inline">\(\mathrm{Var}(X)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Normal</td>
+<td>Symmetric continuous data around a mean</td>
+<td><span class="math inline">\(X \sim \mathcal{N}(\mu,\sigma^2)\)</span></td>
+<td><span class="math inline">\(\mu\in\mathbb{R},\ \sigma&gt;0\)</span></td>
+<td><span class="math inline">\(f(x)=\frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)\)</span></td>
+<td><span class="math inline">\(F(x)=\Phi\left(\frac{x-\mu}{\sigma}\right)\)</span></td>
+<td><span class="math inline">\(\mu\)</span></td>
+<td><span class="math inline">\(\sigma^2\)</span></td>
+</tr>
+<tr class="even">
+<td>Standard Normal</td>
+<td>Standardized normal variable</td>
+<td><span class="math inline">\(X \sim \mathcal{N}(0,1)\)</span></td>
+<td>none</td>
+<td><span class="math inline">\(f(x)=\frac{1}{\sqrt{2\pi}}e^{-x^2/2}\)</span></td>
+<td><span class="math inline">\(F(x)=\Phi(x)\)</span></td>
+<td><span class="math inline">\(0\)</span></td>
+<td><span class="math inline">\(1\)</span></td>
+</tr>
+<tr class="odd">
+<td>Exponential</td>
+<td>Waiting time between Poisson events</td>
+<td><span class="math inline">\(X \sim \mathrm{Exp}(\lambda)\)</span></td>
+<td><span class="math inline">\(\lambda&gt;0\)</span></td>
+<td><span class="math inline">\(f(x)=\lambda e^{-\lambda x},\ x\ge0\)</span></td>
+<td><span class="math inline">\(F(x)=1-e^{-\lambda x}\)</span></td>
+<td><span class="math inline">\(\frac{1}{\lambda}\)</span></td>
+<td><span class="math inline">\(\frac{1}{\lambda^2}\)</span></td>
+</tr>
+<tr class="even">
+<td>Continuous Uniform</td>
+<td>All values in an interval equally likely</td>
+<td><span class="math inline">\(X \sim U(a,b)\)</span></td>
+<td><span class="math inline">\(a&lt;b\)</span></td>
+<td><span class="math inline">\(f(x)=\frac{1}{b-a},\ a\le x\le b\)</span></td>
+<td><span class="math inline">\(F(x)=\frac{x-a}{b-a}\)</span></td>
+<td><span class="math inline">\(\frac{a+b}{2}\)</span></td>
+<td><span class="math inline">\(\frac{(b-a)^2}{12}\)</span></td>
+</tr>
+<tr class="odd">
+<td>Triangular</td>
+<td>Data with minimum, maximum, and most likely value</td>
+<td><span class="math inline">\(X \sim \mathrm{Tri}(a,c,b)\)</span></td>
+<td><span class="math inline">\(a&lt;c&lt;b\)</span></td>
+<td><span class="math inline">\(f(x)=\begin{cases}\frac{2(x-a)}{(b-a)(c-a)}, &amp; a\le x&lt;c \\[6pt]\frac{2(b-x)}{(b-a)(b-c)}, &amp; c\le x\le b\end{cases}\)</span></td>
+<td><span class="math inline">\(F(x)=\begin{cases}0, &amp; x&lt;a \\[4pt]\frac{(x-a)^2}{(b-a)(c-a)}, &amp; a\le x&lt;c \\[6pt]1-\frac{(b-x)^2}{(b-a)(b-c)}, &amp; c\le x\le b \\[6pt]1, &amp; x&gt;b\end{cases}\)</span></td>
+<td><span class="math inline">\(\frac{a+b+c}{3}\)</span></td>
+<td><span class="math inline">\(\frac{a^2+b^2+c^2-ab-ac-bc}{18}\)</span></td>
+</tr>
+</tbody>
+</table>
+<!--::: {.exercise name="Continuous distributions"}
 
 
 
 :::-->
-<hr />
-<p>Data analysis using statistical methods:</p>
-<ul>
-<li><p>Confirm or clarify assumptions through data</p></li>
-<li><p>Discover new connections, determine influencing factors</p></li>
-<li><p>(further) develop products/advertising, model behavior, predict business development, …</p></li>
-</ul>
-<hr />
 <!--
-### Terminology {-}
-
-<script>
-window.onload=function(){window.scrollTo(0,0);}
-</script>
-
-
-- $\Omega$: **population**, a set of uniform objects, also called statistical units $\omega\in\Omega$, which are characterized by the same **characteristics**.
-- $X$: **feature**, observable property of the elements of $\Omega$. Each feature appears in different
-    **Types**.
-- $A_X$: Set of possible **values** for the feature $X$.
-- $X_1, X_2, \ldots , X_n$: **sample** is the **random** selection
-    of objects from the population. After a sample has been drawn, the series of measurements (determining the respective characteristics of one or more characteristics) is created on those randomly selected
-    objects.
-    - $n$: **sample size**
-    - $x_i$: $i$-th **sample value**/**measured value**
-    
----
--->
-<!--## Wortwolke{-}
+## Rückblick{-}
 
 
 ```{=html}
@@ -322,8 +406,8 @@ window.onload=function(){window.scrollTo(0,0);}
           </div>
         </div>
       </div>
-
-<a href="random-events-and-probability---a-short-review.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="some-important-distribution-models.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="limit-theorems.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -354,7 +438,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/USERNAME/REPO/edit/BRANCH/index.Rmd",
+    "link": "https://github.com/USERNAME/REPO/edit/BRANCH/03-Distributions.rmd",
     "text": "Edit"
   },
   "history": {
