@@ -844,7 +844,7 @@ is unbiased estimator for the <strong>share</strong>/ the <strong>probability</s
 \end{equation*}\]</span></p></li>
 <li><p>If we now take several random samples (e.g. <span class="math inline">\(100\)</span>) and calculate the sample mean for each drawing with a certain size <span class="math inline">\(n\)</span>, then we observe the following:</p></li>
 </ul>
-<p><img src="_main_files/figure-html/unnamed-chunk-158-1.png" alt="" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-138-1.png" alt="" width="672" /></p>
 </div>
 <hr />
 <div class="example">
@@ -896,7 +896,7 @@ This results in:
 <ul>
 <li>If we now carry out several random samples (e.g. <span class="math inline">\(100\)</span>) and calculate the sample variance and the mean square deviation for each drawing with a certain size <span class="math inline">\(n\)</span>, then we observe the following:</li>
 </ul>
-<p><img src="_main_files/figure-html/unnamed-chunk-159-1.png" alt="" width="100%" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-139-1.png" alt="" width="100%" /></p>
 </div>
 <hr />
 </div>
@@ -924,9 +924,9 @@ the expected value is estimated by <span class="math inline">\(\overline X=\disp
 <li><p>Relative frequency (sample proportion): <span class="math inline">\(\text{MSE}(\overline Y) = \text{Var}(\overline Y) +  \text{Bias}^2(\overline Y)=\frac{p(1-p)}{n} + 0^2 {\rightarrow}0\)</span> for <span class="math inline">\({n\rightarrow\infty}\)</span> (<span class="math inline">\(\leadsto\)</span> consistency)</p></li>
 <li><p>Sample variance (under the Normal distribution assumption): <span class="math inline">\(\text{MSE}(S^2) = \text{Var}(S^2) +  \text{Bias}^2(S^2)=\frac{\sigma^4}{n-1} + 0^2 {\rightarrow}0\)</span> for <span class="math inline">\({n\rightarrow\infty}\)</span> (<span class="math inline">\(\leadsto\)</span> consistency)</p></li>
 </ul>
+<p><img src="_main_files/figure-html/unnamed-chunk-140-1.png" alt="" width="672" /></p>
 </div>
 <hr />
-<p><img src="_main_files/figure-html/unnamed-chunk-160-1.png" alt="" width="672" /></p>
 </div>
 <div id="efficiency" class="section level4 hasAnchor" number="4.2.2.3">
 <h4><span class="header-section-number">4.2.2.3</span> Efficiency<a href="parameter-estimation.html#efficiency" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -942,10 +942,11 @@ the expected value is estimated by <span class="math inline">\(\overline X=\disp
 <li><span class="math inline">\(\overline X\)</span> is efficient for the parameter <span class="math inline">\(\lambda\)</span> of the Poisson distribution.</li>
 </ul>
 <div class="example">
-<p><span id="exm:eff" class="example"><strong>Example 4.9  (Efficiency) </strong></span><span class="math inline">\(\overline X\)</span> is more efficient than <span class="math inline">\(X_{med}\)</span> for estimating <span class="math inline">\(\mu\)</span> of a normal population.</p>
-<p><img src="_main_files/figure-html/unnamed-chunk-161-1.png" alt="" width="672" /></p>
+<p><span id="exm:eff3" class="example"><strong>Example 4.9  (Efficiency) </strong></span><span class="math inline">\(\overline X\)</span> is more efficient than <span class="math inline">\(X_{med}\)</span> for estimating <span class="math inline">\(\mu\)</span> of a normal population.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-141-1.png" alt="" width="672" /></p>
 </div>
 <p>Overall, the formulas, that we learned in the descriptive statistics, constitute estimators, which exhibit the nice properties above. That is, they are <strong>unbiased, consistent and efficient estimators</strong> of the corresponding unknown parameters of the population.</p>
+<hr />
 </div>
 </div>
 </div>
@@ -1089,7 +1090,7 @@ p^3\cdot (1-p).
 </ul></li>
 <li><p>Representation of the likelihood function:</p></li>
 </ul>
-<p><img src="_main_files/figure-html/unnamed-chunk-163-1.png" alt="" width="100%" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-143-1.png" alt="" width="100%" /></p>
 <ul>
 <li>Interpretation of the likelihood function: <span class="math inline">\(L(p)\)</span> is the probability of the observations <span class="math inline">\(x_1=1,x_2=1, x_3=0\)</span> and <span class="math inline">\(x_4=1\)</span> occurring together under the assumption that <span class="math inline">\(\mathbb P(X =1)=p\)</span>.</li>
 </ul>
@@ -1118,7 +1119,7 @@ L(\lambda) = f(x_1|\lambda)\cdots f(x_4|\lambda) = \prod_{i=1}^4
 </ul></li>
 <li><p>Representation of the likelihood function and log-likelihood function:</p></li>
 </ul>
-<p><img src="_main_files/figure-html/unnamed-chunk-164-1.png" alt="" width="100%" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-144-1.png" alt="" width="100%" /></p>
 <ul>
 <li><p>Interpretation of the likelihood function: <span class="math inline">\(L(\lambda)\)</span> is the density for the co-occurrence of the observations <span class="math inline">\(x_1=0.95\)</span>, <span class="math inline">\(x_2=1.81\)</span>, <span class="math inline">\(x_3=1\)</span> and <span class="math inline">\(x_4=0, 67\)</span> under the assumption that there is an exponential distribution with parameter <span class="math inline">\(\lambda\)</span>.</p></li>
 <li><p>A high density value <span class="math inline">\(f(x)\)</span> at location <span class="math inline">\(x\)</span> implies a high probability of occurrence in a small interval around <span class="math inline">\(x\)</span>.</p></li>
@@ -1221,7 +1222,7 @@ showInterv(200)
 <li><p>Repeated sampling and interval calculation for the given coverage probability <span class="math inline">\(1−\alpha\)</span> gives on average approximately a <span class="math inline">\((1−\alpha)\)</span> proportion of the interval estimates that cover the true parameter.</p></li>
 <li><p>For our example <a href="parameter-estimation.html#exm:intsch">4.15</a> we want to estimate <span class="math inline">\(\mu_X\)</span> using a sample of size <span class="math inline">\(n=50\)</span> and assuming <span class="math inline">\(\sigma_X=10.\)</span> Then, a collection of <span class="math inline">\(100\)</span> repeated interval estimates for <span class="math inline">\(\alpha=0.05\)</span> could look like this:</p></li>
 </ul>
-<p><img src="_main_files/figure-html/unnamed-chunk-168-1.png" alt="" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-148-1.png" alt="" width="672" /></p>
 </div>
 <hr />
 <p>Obviously, computation of confidence intervals depends on the confidence level <span class="math inline">\(1-\alpha\)</span> and the sample size <span class="math inline">\(n\)</span>. Moreover, also the following factors matter for the interval estimation:</p>
@@ -1743,8 +1744,8 @@ and solve for <span class="math inline">\(n\)</span>:</p>
 <p>In particular, for the proportion <span class="math inline">\(p\)</span> holds (<span class="math inline">\(X\sim Ber(p)\)</span>):</p>
 <p><span class="math display">\[n\geq \left(\frac{N_{1-\alpha/2}}{\text{precision}}\right)^2\cdot {p\cdot(1-p)},\]</span>
 where <span class="math inline">\(p(1-p)\)</span> is in general unknown but takes on the maximum value for <span class="math inline">\(p=\frac 12\)</span>. Thus, <span class="math inline">\(\text{Var}(X)\leq \max (p(1-p)) = 0.25.\)</span></p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-184"></span>
-<img src="_main_files/figure-html/unnamed-chunk-184-1.png" alt="f(p)=p(1-p)" width="80%" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-164"></span>
+<img src="_main_files/figure-html/unnamed-chunk-164-1.png" alt="f(p)=p(1-p)" width="80%" />
 <p class="caption">
 Figure 4.1: f(p)=p(1-p)
 </p>
