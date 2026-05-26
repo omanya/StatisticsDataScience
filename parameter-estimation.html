@@ -23,7 +23,7 @@
 <meta name="author" content="Maria Osipenko" />
 
 
-<meta name="date" content="2026-05-11" />
+<meta name="date" content="2026-05-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -799,7 +799,7 @@ of the random sample <span class="math inline">\((X_1,\ldots, X_n)\)</span> an <
 <li><p><span class="math inline">\(\displaystyle\overline X = \frac{1}{n} \sum_{i=1}^nX_i\)</span> is an estimator for the <strong>population mean</strong> <span class="math inline">\(\mu_X=\mathbb E(X).\)</span></p></li>
 <li><p><span class="math inline">\(\displaystyle \overline Y = \frac{1}{n} \sum_{i=1}^nY_i,\)</span> where <span class="math inline">\(Y_i\)</span>s take the values <span class="math inline">\(\{0,1\},\)</span> is an estimator for the
 <strong>probability</strong> <span class="math inline">\(\mathbb P(Y=1)\)</span>.</p></li>
-<li><p><span class="math inline">\(\hat\sigma_X^2=\displaystyle S_X^2 = g(X_1,\ldots, X_n) = \frac{1}{n-1}\sum_{i=1}^n (X_i-\overline X )^2\)</span> is estimator for the <strong>variance</strong> <span class="math inline">\(\sigma_X^2=\text{Var}(X)\)</span>.</p></li>
+<li><p><span class="math inline">\(\hat\sigma_X^2=\displaystyle S_X^2 = g(X_1,\ldots, X_n) = \frac{1}{n-1}\sum_{i=1}^n (X_i-\overline X )^2\)</span> is an estimator for the <strong>variance</strong> <span class="math inline">\(\sigma_X^2=\text{Var}(X)\)</span>.</p></li>
 </ul>
 </div>
 <p>A <strong>point estimate</strong> for <span class="math inline">\(\theta\)</span> is a function of realizations of the form
@@ -844,7 +844,7 @@ is unbiased estimator for the <strong>share</strong>/ the <strong>probability</s
 \end{equation*}\]</span></p></li>
 <li><p>If we now take several random samples (e.g. <span class="math inline">\(100\)</span>) and calculate the sample mean for each drawing with a certain size <span class="math inline">\(n\)</span>, then we observe the following:</p></li>
 </ul>
-<p><img src="_main_files/figure-html/unnamed-chunk-137-1.png" alt="" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-158-1.png" alt="" width="672" /></p>
 </div>
 <hr />
 <div class="example">
@@ -894,9 +894,9 @@ This results in:
 </details>
 <p><br></p>
 <ul>
-<li>If we now carry out several samplings (e.g. <span class="math inline">\(100\)</span>) and calculate the sample variance and the mean square deviation for each drawing with a certain size <span class="math inline">\(n\)</span>, then we observe the following:</li>
+<li>If we now carry out several random samples (e.g. <span class="math inline">\(100\)</span>) and calculate the sample variance and the mean square deviation for each drawing with a certain size <span class="math inline">\(n\)</span>, then we observe the following:</li>
 </ul>
-<p><img src="_main_files/figure-html/unnamed-chunk-138-1.png" alt="" width="100%" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-159-1.png" alt="" width="100%" /></p>
 </div>
 <hr />
 </div>
@@ -917,14 +917,16 @@ This results in:
 \end{equation*}\]</span></p>
 <hr />
 <div class="example">
-<p><span id="exm:kons" class="example"><strong>Example 4.8  (Consistency of the sample mean) </strong></span>From independent, identically distributed observations <span class="math inline">\(X_1,\ldots, X_n\)</span> with <span class="math inline">\(\mathbb E(X_1)=\mu\)</span> and <span class="math inline">\(\text{Var}(X_1)=\sigma^2\)</span>
+<p><span id="exm:kons" class="example"><strong>Example 4.8  (Consistency of some estimators) </strong></span>From independent, identically distributed observations <span class="math inline">\(X_1,\ldots, X_n\)</span> with <span class="math inline">\(\mathbb E(X_1)=\mu\)</span> and <span class="math inline">\(\text{Var}(X_1)=\sigma^2\)</span>
 the expected value is estimated by <span class="math inline">\(\overline X=\displaystyle\frac{1}{n} \sum_{i=1}^n X_i\)</span>.</p>
 <ul>
-<li><p><span class="math inline">\(\mathbb E(\overline X)=\mu\)</span> (See unbiasedness of <span class="math inline">\(\bar X\)</span> <span class="math inline">\(\leadsto \text{Bias}(\overline X)=0\)</span>)</p></li>
-<li><p><span class="math inline">\(\text{MSE}(\overline X) = \text{Var}(\overline X) +  \text{Bias}^2(\overline X)=\frac{\sigma^2}{n} + 0^2 {\rightarrow}0\)</span> for <span class="math inline">\({n\rightarrow\infty}\)</span> (<span class="math inline">\(\leadsto\)</span> consistency)</p></li>
+<li><p>Sample mean: <span class="math inline">\(\text{MSE}(\overline X) = \text{Var}(\overline X) +  \text{Bias}^2(\overline X)=\frac{\sigma^2}{n} + 0^2 {\rightarrow}0\)</span> for <span class="math inline">\({n\rightarrow\infty}\)</span> (<span class="math inline">\(\leadsto\)</span> consistency)</p></li>
+<li><p>Relative frequency (sample proportion): <span class="math inline">\(\text{MSE}(\overline Y) = \text{Var}(\overline Y) +  \text{Bias}^2(\overline Y)=\frac{p(1-p)}{n} + 0^2 {\rightarrow}0\)</span> for <span class="math inline">\({n\rightarrow\infty}\)</span> (<span class="math inline">\(\leadsto\)</span> consistency)</p></li>
+<li><p>Sample variance (under the Normal distribution assumption): <span class="math inline">\(\text{MSE}(S^2) = \text{Var}(S^2) +  \text{Bias}^2(S^2)=\frac{\sigma^4}{n-1} + 0^2 {\rightarrow}0\)</span> for <span class="math inline">\({n\rightarrow\infty}\)</span> (<span class="math inline">\(\leadsto\)</span> consistency)</p></li>
 </ul>
 </div>
 <hr />
+<p><img src="_main_files/figure-html/unnamed-chunk-160-1.png" alt="" width="672" /></p>
 </div>
 <div id="efficiency" class="section level4 hasAnchor" number="4.2.2.3">
 <h4><span class="header-section-number">4.2.2.3</span> Efficiency<a href="parameter-estimation.html#efficiency" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -939,6 +941,11 @@ the expected value is estimated by <span class="math inline">\(\overline X=\disp
 <li><span class="math inline">\(\overline X\)</span>, with <span class="math inline">\(X_i\in\{0,1\}\)</span> is efficient for <span class="math inline">\(\mathbb P(X=1)\)</span>;</li>
 <li><span class="math inline">\(\overline X\)</span> is efficient for the parameter <span class="math inline">\(\lambda\)</span> of the Poisson distribution.</li>
 </ul>
+<div class="example">
+<p><span id="exm:eff" class="example"><strong>Example 4.9  (Efficiency) </strong></span><span class="math inline">\(\overline X\)</span> is more efficient than <span class="math inline">\(X_{med}\)</span> for estimating <span class="math inline">\(\mu\)</span> of a normal population.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-161-1.png" alt="" width="672" /></p>
+</div>
+<p>Overall, the formulas, that we learned in the descriptive statistics, constitute estimators, which exhibit the nice properties above. That is, they are <strong>unbiased, consistent and efficient estimators</strong> of the corresponding unknown parameters of the population.</p>
 </div>
 </div>
 </div>
@@ -963,7 +970,7 @@ the expected value is estimated by <span class="math inline">\(\overline X=\disp
 <p>Starting with the first moment, just enough moments are included so that all parameters to be estimated can be clearly estimated.</p>
 <hr />
 <div class="example">
-<p><span id="exm:schbern" class="example"><strong>Example 4.9  (Bernoulli distribution) </strong></span>Estimation of the parameter <span class="math inline">\(p\)</span> of a <strong>Bernoulli distribution</strong>.</p>
+<p><span id="exm:schbern" class="example"><strong>Example 4.10  (Bernoulli distribution) </strong></span>Estimation of the parameter <span class="math inline">\(p\)</span> of a <strong>Bernoulli distribution</strong>.</p>
 <ul>
 <li><p>Theoretically:</p>
 <ul>
@@ -981,7 +988,7 @@ the expected value is estimated by <span class="math inline">\(\overline X=\disp
 </div>
 <hr />
 <div class="example">
-<p><span id="exm:schexp" class="example"><strong>Example 4.10  (Exponential distribution) </strong></span>Estimation of the parameter <span class="math inline">\(\lambda\)</span> of an <strong>exponential distribution</strong>.</p>
+<p><span id="exm:schexp" class="example"><strong>Example 4.11  (Exponential distribution) </strong></span>Estimation of the parameter <span class="math inline">\(\lambda\)</span> of an <strong>exponential distribution</strong>.</p>
 <ul>
 <li><p>Theoretically:</p>
 <ul>
@@ -999,7 +1006,7 @@ the expected value is estimated by <span class="math inline">\(\overline X=\disp
 </div>
 <hr />
 <div class="example">
-<p><span id="exm:schnorm" class="example"><strong>Example 4.11  (Normal distribution) </strong></span>Estimation of the parameters <span class="math inline">\((\mu,\sigma^2)\)</span> of a <strong>normal distribution</strong>.</p>
+<p><span id="exm:schnorm" class="example"><strong>Example 4.12  (Normal distribution) </strong></span>Estimation of the parameters <span class="math inline">\((\mu,\sigma^2)\)</span> of a <strong>normal distribution</strong>.</p>
 <ul>
 <li><p>Theoretically:</p>
 <ul>
@@ -1061,7 +1068,7 @@ Because of the strict monotonicity of the logarithm, maximizing <span class="mat
 </ul>
 <hr />
 <div class="example">
-<p><span id="exm:mlschbern" class="example"><strong>Example 4.12  (ML: Bernoulli distribution) </strong></span>Randomly select <span class="math inline">\(n=4\)</span> customers from a customer pool with <span class="math inline">\(a\)</span> app users and <span class="math inline">\(w\)</span> web users (with replacement); <span class="math inline">\(p=\displaystyle\frac{a}{a+w}\)</span> unknown.</p>
+<p><span id="exm:mlschbern" class="example"><strong>Example 4.13  (ML: Bernoulli distribution) </strong></span>Randomly select <span class="math inline">\(n=4\)</span> customers from a customer pool with <span class="math inline">\(a\)</span> app users and <span class="math inline">\(w\)</span> web users (with replacement); <span class="math inline">\(p=\displaystyle\frac{a}{a+w}\)</span> unknown.</p>
 <ul>
 <li><p>Construction:</p>
 <ul>
@@ -1082,14 +1089,14 @@ p^3\cdot (1-p).
 </ul></li>
 <li><p>Representation of the likelihood function:</p></li>
 </ul>
-<p><img src="_main_files/figure-html/unnamed-chunk-140-1.png" alt="" width="100%" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-163-1.png" alt="" width="100%" /></p>
 <ul>
 <li>Interpretation of the likelihood function: <span class="math inline">\(L(p)\)</span> is the probability of the observations <span class="math inline">\(x_1=1,x_2=1, x_3=0\)</span> and <span class="math inline">\(x_4=1\)</span> occurring together under the assumption that <span class="math inline">\(\mathbb P(X =1)=p\)</span>.</li>
 </ul>
 </div>
 <hr />
 <div class="example">
-<p><span id="exm:mlschexp" class="example"><strong>Example 4.13  (ML: Exponential distribution) </strong></span>Let <span class="math inline">\(X_1,\ldots, X_4\)</span> be independent repetitions of an exponentially distributed quantity with estimated value <span class="math inline">\(\lambda\)</span>.</p>
+<p><span id="exm:mlschexp" class="example"><strong>Example 4.14  (ML: Exponential distribution) </strong></span>Let <span class="math inline">\(X_1,\ldots, X_4\)</span> be independent repetitions of an exponentially distributed quantity with estimated value <span class="math inline">\(\lambda\)</span>.</p>
 <ul>
 <li><p>Construction:</p>
 <ul>
@@ -1111,7 +1118,7 @@ L(\lambda) = f(x_1|\lambda)\cdots f(x_4|\lambda) = \prod_{i=1}^4
 </ul></li>
 <li><p>Representation of the likelihood function and log-likelihood function:</p></li>
 </ul>
-<p><img src="_main_files/figure-html/unnamed-chunk-141-1.png" alt="" width="100%" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-164-1.png" alt="" width="100%" /></p>
 <ul>
 <li><p>Interpretation of the likelihood function: <span class="math inline">\(L(\lambda)\)</span> is the density for the co-occurrence of the observations <span class="math inline">\(x_1=0.95\)</span>, <span class="math inline">\(x_2=1.81\)</span>, <span class="math inline">\(x_3=1\)</span> and <span class="math inline">\(x_4=0, 67\)</span> under the assumption that there is an exponential distribution with parameter <span class="math inline">\(\lambda\)</span>.</p></li>
 <li><p>A high density value <span class="math inline">\(f(x)\)</span> at location <span class="math inline">\(x\)</span> implies a high probability of occurrence in a small interval around <span class="math inline">\(x\)</span>.</p></li>
@@ -1132,7 +1139,7 @@ L(\lambda) = f(x_1|\lambda)\cdots f(x_4|\lambda) = \prod_{i=1}^4
 <p>Since <strong>the width of such an interval</strong> can also be understood as the accuracy of the estimate, the <strong>sample size</strong>, which ensures some predefined accuracy for the given confidence level, can be derived from it.</p>
 <hr />
 <div class="example">
-<p><span id="exm:intsch" class="example"><strong>Example 4.14  (Estimate the average sales amount (Rechnungsbetrag)) </strong></span>Our estimator is the sample mean <span class="math inline">\(\overline{X}=\frac 1n \sum_{i=1}^nX_i\)</span> which values fluctuate less as the sample size <span class="math inline">\(n\)</span> increases.</p>
+<p><span id="exm:intsch" class="example"><strong>Example 4.15  (Estimate the average sales amount (Rechnungsbetrag)) </strong></span>Our estimator is the sample mean <span class="math inline">\(\overline{X}=\frac 1n \sum_{i=1}^nX_i\)</span> which values fluctuate less as the sample size <span class="math inline">\(n\)</span> increases.</p>
 <p><strong>But how exactly is the relationship to the sample size?</strong></p>
 <p>The answer is provided by the central limit theorem (CLT). If the sample variables <span class="math inline">\(X_1,X_2,\ldots, X_n\)</span> are identically and independently distributed with a finite mean <span class="math inline">\(\mu_X\)</span> and a finite variance <span class="math inline">\(\sigma_X^2\)</span>, the approximate distribution of sample mean is: <span class="math display">\[\bar{X} \stackrel{a}{\sim} N\Big(\mu_X, \frac{\sigma_X^2}{n}\Big)\]</span> or in its standardized version: <span class="math display">\[\frac{\overline X-\mu_X}{\sigma_X/\sqrt{n}}\stackrel{a}{\sim}N(0;1).\]</span></p>
 <p>The variance of the estimator depends on the sample size <span class="math inline">\(n\)</span> and on the possibly unknown variance in the population <span class="math inline">\(\sigma^2\)</span>. In practice, if <span class="math inline">\(\sigma^2\)</span> is unknown, an estimate of the population variance is used.</p>
@@ -1212,9 +1219,9 @@ showInterv(200)
 </div>
 <ul>
 <li><p>Repeated sampling and interval calculation for the given coverage probability <span class="math inline">\(1−\alpha\)</span> gives on average approximately a <span class="math inline">\((1−\alpha)\)</span> proportion of the interval estimates that cover the true parameter.</p></li>
-<li><p>For our example <a href="parameter-estimation.html#exm:intsch">4.14</a> we want to estimate <span class="math inline">\(\mu_X\)</span> using a sample of size <span class="math inline">\(n=50\)</span> and assuming <span class="math inline">\(\sigma_X=10.\)</span> Then, a collection of <span class="math inline">\(100\)</span> repeated interval estimates for <span class="math inline">\(\alpha=0.05\)</span> could look like this:</p></li>
+<li><p>For our example <a href="parameter-estimation.html#exm:intsch">4.15</a> we want to estimate <span class="math inline">\(\mu_X\)</span> using a sample of size <span class="math inline">\(n=50\)</span> and assuming <span class="math inline">\(\sigma_X=10.\)</span> Then, a collection of <span class="math inline">\(100\)</span> repeated interval estimates for <span class="math inline">\(\alpha=0.05\)</span> could look like this:</p></li>
 </ul>
-<p><img src="_main_files/figure-html/unnamed-chunk-145-1.png" alt="" width="672" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-168-1.png" alt="" width="672" /></p>
 </div>
 <hr />
 <p>Obviously, computation of confidence intervals depends on the confidence level <span class="math inline">\(1-\alpha\)</span> and the sample size <span class="math inline">\(n\)</span>. Moreover, also the following factors matter for the interval estimation:</p>
@@ -1236,7 +1243,7 @@ showInterv(200)
       X-\mu}{\sigma/\sqrt{n}}\leq N_{1-\alpha/2}\right)=1-\alpha,
 \end{equation*}\]</span>
 with <span class="math inline">\(N_{1-\alpha/2}\)</span> the <span class="math inline">\(1-\alpha/2\)</span> quantile of the standard normal distribution.</p></li>
-<li><p>Rearranging the term inside the probability as in <a href="parameter-estimation.html#exm:intsch">4.14</a> results in:
+<li><p>Rearranging the term inside the probability as in <a href="parameter-estimation.html#exm:intsch">4.15</a> results in:
 <span class="math display">\[\begin{equation*}
       1-\alpha = \mathbb P\left(\overline X - N_{1-\alpha/2}
       \frac{\sigma}{\sqrt{n}} \leq \mu \leq \overline X + N_{1-\alpha/2}
@@ -1251,7 +1258,7 @@ and the <span class="math inline">\((1-\alpha)\)</span> confidence interval is g
 </ul>
 <hr />
 <div class="example">
-<p><span id="exm:intsch2" class="example"><strong>Example 4.15  (Monthly returns) </strong></span>Compute the <span class="math inline">\(95\%\)</span>-confidence interval for the mean of monthly stock returns.</p>
+<p><span id="exm:intsch2" class="example"><strong>Example 4.16  (Monthly returns) </strong></span>Compute the <span class="math inline">\(95\%\)</span>-confidence interval for the mean of monthly stock returns.</p>
 <ul>
 <li><p>random monthly return <span class="math inline">\(X\sim N(\mu,\sigma^2)\)</span> with known <span class="math inline">\(\sigma^2 = 0.25\)</span></p></li>
 <li><p>Data: <span class="math inline">\(12\)</span> monthly returns in <span class="math inline">\(\%\)</span></p></li>
@@ -1304,7 +1311,7 @@ where <span class="math inline">\(t_{1-\alpha/2,(n-1)}\)</span> is the <span cla
 \end{equation*}\]</span></p></li>
 </ul>
 <div class="example">
-<p><span id="exm:intsch22" class="example"><strong>Example 4.16  (Monthly returns) </strong></span>Example <a href="parameter-estimation.html#exm:intsch2">4.15</a> cont.</p>
+<p><span id="exm:intsch22" class="example"><strong>Example 4.17  (Monthly returns) </strong></span>Example <a href="parameter-estimation.html#exm:intsch2">4.16</a> cont.</p>
 <ul>
 <li>Data: <span class="math inline">\(12\)</span> monthly returns in <span class="math inline">\(\%\)</span></li>
 </ul>
@@ -1349,7 +1356,7 @@ as an <strong>approximate confidence interval</strong>.</p>
 </ul>
 <hr />
 <div class="example">
-<p><span id="exm:intschkont" class="example"><strong>Example 4.17  (Estimating the average sales amount) </strong></span>Example <a href="parameter-estimation.html#exm:intsch">4.14</a> cont.</p>
+<p><span id="exm:intschkont" class="example"><strong>Example 4.18  (Estimating the average sales amount) </strong></span>Example <a href="parameter-estimation.html#exm:intsch">4.15</a> cont.</p>
 <ul>
 <li>In this example, we have already derived the <span class="math inline">\(95\%\)</span> confidence interval for the mean sales and <span class="math inline">\(\sigma=10\)</span> known <span class="math inline">\((n=100)\)</span>:</li>
 </ul>
@@ -1564,7 +1571,7 @@ function checkAnswer_num2(q) {
 <p>Note that - in contrast to the normal or <span class="math inline">\(t\)</span> distribution - the <span class="math inline">\(\chi^2\)</span> distribution is not symmetric. The required quantiles are both positive and take on different values.</p>
 <hr />
 <div class="example">
-<p><span id="exm:intsch222" class="example"><strong>Example 4.18  (Monthly returns) </strong></span>Example <a href="parameter-estimation.html#exm:intsch22">4.16</a> cont.</p>
+<p><span id="exm:intsch222" class="example"><strong>Example 4.19  (Monthly returns) </strong></span>Example <a href="parameter-estimation.html#exm:intsch22">4.17</a> cont.</p>
 <ul>
 <li><p>Sample variance: <span class="math inline">\(s^2 = 0.2284\)</span></p></li>
 <li><p>Quantiles:
@@ -1653,7 +1660,7 @@ function checkAnswer_num2(q) {
 where <span class="math inline">\(\hat p=\overline X\)</span> denotes the relative frequency.</p>
 <hr />
 <div class="example">
-<p><span id="exm:intsch3" class="example"><strong>Example 4.19  (App usage) </strong></span>Of the <span class="math inline">\(100\)</span> customers surveyed, <span class="math inline">\(55\)</span> were app users.</p>
+<p><span id="exm:intsch3" class="example"><strong>Example 4.20  (App usage) </strong></span>Of the <span class="math inline">\(100\)</span> customers surveyed, <span class="math inline">\(55\)</span> were app users.</p>
 <ul>
 <li><p>If you use a confidence level of <span class="math inline">\(1-\alpha=0.95\)</span>, you get <span class="math inline">\(N_{1-\alpha/2}=1.96\)</span>.</p></li>
 <li><p>This results in <span class="math inline">\(\hat p= 55/100=0.55\)</span>:
@@ -1720,30 +1727,31 @@ where <span class="math inline">\(\hat p=\overline X\)</span> denotes the relati
 <h3><span class="header-section-number">4.4.4</span> Determining <span class="math inline">\(n\)</span> based on the length of confidence intervals<a href="parameter-estimation.html#determining-n-based-on-the-length-of-confidence-intervals" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>If a certain precision (e.g. <span class="math inline">\(\pm 1\%\)</span> or <span class="math inline">\(\pm 0.01\)</span>) with a given high confidence has to be achieved in an estimation problem, one can utilize the <strong>length</strong> of the associated confidence interval to determine the required <strong>sample size</strong>.</p>
 <iframe title="Problemstellung" src="./htmls/Problemstellung.html" width="760" height="700"></iframe>
-<p>The <strong>length</strong> of the <span class="math inline">\(1-\alpha\)</span> confidence interval for <span class="math inline">\(p\)</span> is:</p>
+<p>Since <span class="math inline">\(\bar X\stackrel{a}\sim N\Big(\mathbb E(X),\frac{\text{Var}(X)}{n}\Big)\)</span>, the <strong>length</strong> of the (approximate) <span class="math inline">\(1-\alpha\)</span> confidence interval:</p>
 <p><span class="math display">\[\begin{align}
 \text{upper limit} - \text{lower limit} &amp;=
-p + N_{1-\alpha/2} \sqrt{\frac{\hat p(1-\hat p)}{n}} - \Big( p - N_{1-\alpha/2} \sqrt{ \frac{\hat p(1-\hat p)}{n}}\Big)\\
-&amp;=2\cdot N_{1-\alpha/2} \frac{\sqrt{\hat p(1-\hat p)}}{\sqrt{n}}
-\end{align}\]</span>
-Before a sample is drawn, <span class="math inline">\(\hat p\)</span> is a random variable, so is the term <span class="math inline">\(\sqrt{\hat p(1-\hat p)}\)</span>. However, you can the later from above, because for <span class="math inline">\(p=\frac 12\)</span> it takes on the maximum value.</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-161"></span>
-<img src="_main_files/figure-html/unnamed-chunk-161-1.png" alt="f(p)=p(1-p)" width="80%" />
+\mathbb E(X) + N_{1-\alpha/2} \sqrt{\frac{\text{Var}(X)}{n}} - \Big( \mathbb E(X) + N_{1-\alpha/2} \sqrt{\frac{\text{Var}(X)}{n}} \Big)\\
+&amp;=2\cdot N_{1-\alpha/2} \frac{\sqrt{\text{Var}(X)}}{\sqrt{n}}
+\end{align}\]</span></p>
+<p>In order to maintain the required <span class="math inline">\(\pm\)</span> precision we set:</p>
+<p><span class="math display">\[2\cdot N_{1-\alpha/2} \frac{\sqrt{\text{Var}(X)}}{\sqrt{n}}\leq 2\cdot\text{precision}\]</span>
+and solve for <span class="math inline">\(n\)</span>:</p>
+<p><span class="math display">\[
+\sqrt n\geq \frac{N_{1-\alpha/2}\sqrt{\text{Var}(X)}}{\text{precision}}\rightarrow n\geq \left(\frac{N_{1-\alpha/2}}{\text{precision}}\right)^2\cdot {\text{Var}(X)}
+\]</span></p>
+<p>In the formula above, <span class="math inline">\(\text{Var}(X)\)</span> is usually substituted by some estimate or its upperbound.</p>
+<p>In particular, for the proportion <span class="math inline">\(p\)</span> holds (<span class="math inline">\(X\sim Ber(p)\)</span>):</p>
+<p><span class="math display">\[n\geq \left(\frac{N_{1-\alpha/2}}{\text{precision}}\right)^2\cdot {p\cdot(1-p)},\]</span>
+where <span class="math inline">\(p(1-p)\)</span> is in general unknown but takes on the maximum value for <span class="math inline">\(p=\frac 12\)</span>. Thus, <span class="math inline">\(\text{Var}(X)\leq \max (p(1-p)) = 0.25.\)</span></p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-184"></span>
+<img src="_main_files/figure-html/unnamed-chunk-184-1.png" alt="f(p)=p(1-p)" width="80%" />
 <p class="caption">
 Figure 4.1: f(p)=p(1-p)
 </p>
 </div>
 <p>I.e. the maximum length of the confidence interval in this case is (<span class="math inline">\(p=\frac 12\)</span> inserted):</p>
-<p><span class="math display">\[\text{max. length} = 2\cdot N_{1-\alpha/2} \frac{\sqrt{\frac12(1-\frac12)}}{\sqrt{n}}=\frac{N_{1-\alpha/2}}{\sqrt{n}}.\]</span></p>
-<p>In order to maintain the required <span class="math inline">\(\pm\)</span>accuracy, we set:</p>
-<p><span class="math display">\[
-\frac{N_{1-\alpha/2}}{\sqrt{n}}\leq 2\cdot\text{accuracy}
-\]</span>
-and solve for <span class="math inline">\(n\)</span>:</p>
-<p><span class="math display">\[
-\sqrt n\geq \frac 12\cdot\frac{N_{1-\alpha/2}}{\text{accuracy}}\rightarrow n\geq \left(\frac 12\cdot\frac{N_{1-\alpha/2}}{\text{accuracy}}\right)^2
-\]</span>
-For example, if the <span class="math inline">\(\pm\)</span>accuracy of <span class="math inline">\(\pm 0.01\)</span> is required at the confidence level of <span class="math inline">\(99\%\)</span>, then the minimum sample size is <span class="math inline">\(n\geq 16588\)</span>.</p>
+<p><span class="math display">\[n\geq 0.25\left(\frac{N_{1-\alpha/2}}{\text{precision}}\right)^2.\]</span></p>
+<p>For example, if the <span class="math inline">\(\pm\)</span>accuracy of <span class="math inline">\(\pm 0.01\)</span> is required at the confidence level of <span class="math inline">\(99\%\)</span>, then the minimum sample size is <span class="math inline">\(n\geq 16588\)</span>.</p>
 <hr />
 <div id="q56" class="quiz">
 <p id="question">
