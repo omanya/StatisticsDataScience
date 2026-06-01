@@ -23,7 +23,7 @@
 <meta name="author" content="Maria Osipenko" />
 
 
-<meta name="date" content="2026-05-26" />
+<meta name="date" content="2026-06-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -968,7 +968,8 @@ the expected value is estimated by <span class="math inline">\(\overline X=\disp
         \mathbb E(X^m) &amp; &amp; \displaystyle \overline{x^m}=\frac{1}{n} \sum_{i=1}^n x_i^m\\\hline
       \end{array}
 \]</span></p>
-<p>Starting with the first moment, just enough moments are included so that all parameters to be estimated can be clearly estimated.</p>
+<p>Starting with the first moment, just enough moments are included in the corresponding equation system, so that all unknown parameters can be estimated. Hence, the resulting estimating function <span class="math inline">\(\hat\theta(X_1,X_2,\ldots, X_n)\)</span> is constructed such that there is a correspondence between the moments of the assumed distribution and the sample moments. The resulting estimate depends in particular on the realized sample: <span class="math inline">\(\hat\theta = \hat\theta(x_1,x_2,\ldots, x_n).\)</span></p>
+<p>The corresponding estimating function <span class="math inline">\(\hat\theta_{MM}(X_1,X_2,\ldots, X_n)\)</span> is called the <strong>Method of Moments estimator</strong> (MM estimator).</p>
 <hr />
 <div class="example">
 <p><span id="exm:schbern" class="example"><strong>Example 4.10  (Bernoulli distribution) </strong></span>Estimation of the parameter <span class="math inline">\(p\)</span> of a <strong>Bernoulli distribution</strong>.</p>
@@ -996,7 +997,7 @@ the expected value is estimated by <span class="math inline">\(\overline X=\disp
 <li>Distribution assumption: <span class="math inline">\(X\sim E(\lambda), \lambda&gt;0\)</span></li>
 <li>First moment of the distribution: <span class="math inline">\(\mathbb E(X) = \displaystyle\frac{1}{\lambda}\)</span></li>
 <li>First moment of the sample: <span class="math inline">\(\bar X = \frac 1n \sum_{i=1}^n X_i\)</span></li>
-<li>Estimator: <span class="math inline">\(\hat\lambda = \displaystyle\frac{1}{\overline X}\)</span> (because then: <span class="math inline">\(\overline X = \displaystyle \mathbb E(X) = \frac{1}{\lambda}\)</span> )</li>
+<li>Estimator: <span class="math inline">\(\hat\lambda = \displaystyle\frac{1}{\overline X}\)</span> (since <span class="math inline">\(\overline X = \displaystyle \mathbb E(X) = \frac{1}{\lambda}\)</span> )</li>
 </ul></li>
 <li><p>Practical: estimate the <span class="math inline">\(\lambda\)</span> for the transaction duration.</p>
 <ul>
@@ -1036,9 +1037,9 @@ the expected value is estimated by <span class="math inline">\(\overline X=\disp
 <h3><span class="header-section-number">4.3.2</span> Maximum likelihood method<a href="parameter-estimation.html#maximum-likelihood-method" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Let <span class="math inline">\(X_1,\ldots, X_n\)</span> be independent, identically distributed random variables.
 The distribution of <span class="math inline">\(X_i\)</span>, <span class="math inline">\(i=1,\ldots, n\)</span> is unknown, but we assume that the distribution belongs to a <strong>distribution model</strong> parameterized by an unknown <span class="math inline">\(\theta\)</span>.</p>
-<p>That is, <span class="math inline">\(X_i\)</span> has probability function or density <span class="math inline">\(f(x|\theta)\)</span>, <span class="math inline">\(\theta\in\Theta\)</span>, where <span class="math inline">\(\theta\)</span> is a vector of punknown arameters from the set <span class="math inline">\(\Theta\)</span>.</p>
+<p>That is, <span class="math inline">\(X_i\)</span> has probability function or density <span class="math inline">\(f(x|\theta)\)</span>, <span class="math inline">\(\theta\in\Theta\)</span>, where <span class="math inline">\(\theta\)</span> is a vector of unknown parameters from the set <span class="math inline">\(\Theta\)</span>.</p>
 <p>The <strong>maximum likelihood principle</strong> states:</p>
-<p>For the sample outcome <span class="math inline">\((x_1,\ldots, x_n)\)</span>, choose the value <span class="math inline">\(\hat\theta\)</span> as the estimate for <span class="math inline">\(\theta\)</span>, for which the <strong>probability of the sample outcome is the greatest</strong>.</p>
+<p><mark>For the sample outcome <span class="math inline">\((x_1,\ldots, x_n)\)</span>, choose the value <span class="math inline">\(\hat\theta\)</span> as the estimate for <span class="math inline">\(\theta\)</span>, for which the <strong>probability of the sample outcome is the greatest</strong>.</mark></p>
 <p>The sentence “for which the probability of the sample outcome is the greatest” can be replaced by: “for which the corresponding probability function or density is at its maximum”. The latter is quantified using the <strong>likelihood function</strong>:</p>
 <ul>
 <li><p>If a sample realization <span class="math inline">\((x_1,\ldots, x_n)\)</span> is given, the joint probability / density (<span class="math inline">\(\leadsto\)</span> <strong>Linkelihood</strong>) of the sample outcome can be determined as a function of the unknown parameters <span class="math inline">\(\theta\)</span>:
@@ -1058,14 +1059,14 @@ corresponding to
     f(x_1,\ldots, x_n|\hat\theta) = \max_{\theta} f(x_1,\ldots,x_n|\theta).
 \end{equation*}\]</span></p></li>
 </ul>
-<p>Thus, for the given realizations <span class="math inline">\(x_1,\ldots, x_n\)</span>, one chooses the parameter estimate <span class="math inline">\(\hat\theta\)</span>, for which the probability or density of those realizations occurring together in a sample is <strong>maximum</strong>. These are the values for the parameters <span class="math inline">\(\theta\)</span> that provide the <strong>most plausible explanation</strong> for how these sample came about. The estimate depends in particular on the sample: <span class="math inline">\(\hat\theta=\hat\theta(x_1,\ldots, x_n)\)</span>.</p>
+<p>Thus, for the given sample realizations <span class="math inline">\(x_1,\ldots, x_n\)</span>, one chooses the parameter estimate <span class="math inline">\(\hat\theta\)</span>, for which the probability or density of those realizations occurring together in a sample is <strong>maximum</strong>. These are the values for the parameters <span class="math inline">\(\theta\)</span> that provide the <strong>most plausible explanation</strong> for the sample presented. The resulting estimate depends in particular on the realized sample: <span class="math inline">\(\hat\theta=\hat\theta(x_1,\ldots, x_n)\)</span>.</p>
 <ul>
-<li><p>The corresponding estimating function <span class="math inline">\(g(X_1,\ldots, X_n)=\hat\theta(X_1,\ldots, X_n)\)</span> is called <strong>maximum likelihood estimator</strong> (ML estimator).</p></li>
+<li><p>The corresponding estimating function <span class="math inline">\(g(X_1,\ldots, X_n)=\hat\theta(X_1,\ldots, X_n)\)</span> is called <strong>Maximum Likelihood estimator</strong> (ML estimator).</p></li>
 <li><p>To practically determine the maximum, one often chooses the <strong>logarithm of the likelihood function</strong>, the <strong>log-likelihood</strong>, as this converts the product of the densities into a sum:
 <span class="math display">\[\begin{equation*}
     \mathcal L(\theta) = \ln L(\theta) = \sum_{i=1}^n \ln f(x_i|\theta).
 \end{equation*}\]</span>
-Because of the strict monotonicity of the logarithm, maximizing <span class="math inline">\(L(\theta)\)</span> and <span class="math inline">\(\ln L(\theta)\)</span> yield the same value <span class="math inline">\(\hat\theta\)</span>.</p></li>
+Because of the strict monotonicity of the logarithm, maximizing <span class="math inline">\(L(\theta)\)</span> and <span class="math inline">\(\ln L(\theta)\)</span> yield the same value <span class="math inline">\(\hat\theta_{ML}\)</span>.</p></li>
 </ul>
 <hr />
 <div class="example">
