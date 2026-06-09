@@ -23,7 +23,7 @@
 <meta name="author" content="Maria Osipenko" />
 
 
-<meta name="date" content="2026-06-01" />
+<meta name="date" content="2026-06-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1146,9 +1146,8 @@ L(\lambda) = f(x_1|\lambda)\cdots f(x_4|\lambda) = \prod_{i=1}^4
 <p>The answer is provided by the central limit theorem (CLT). If the sample variables <span class="math inline">\(X_1,X_2,\ldots, X_n\)</span> are identically and independently distributed with a finite mean <span class="math inline">\(\mu_X\)</span> and a finite variance <span class="math inline">\(\sigma_X^2\)</span>, the approximate distribution of sample mean is: <span class="math display">\[\bar{X} \stackrel{a}{\sim} N\Big(\mu_X, \frac{\sigma_X^2}{n}\Big)\]</span> or in its standardized version: <span class="math display">\[\frac{\overline X-\mu_X}{\sigma_X/\sqrt{n}}\stackrel{a}{\sim}N(0;1).\]</span></p>
 <p>The variance of the estimator depends on the sample size <span class="math inline">\(n\)</span> and on the possibly unknown variance in the population <span class="math inline">\(\sigma^2\)</span>. In practice, if <span class="math inline">\(\sigma^2\)</span> is unknown, an estimate of the population variance is used.</p>
 <ul>
-<li><p>Assuming <span class="math inline">\(\sigma_X=100\)</span> is known and <span class="math inline">\(n=50\)</span>, it follows <span class="math inline">\(\frac{\sigma_X^2}{n}=\frac{100}{50}=2\)</span>, then according to the CLT :
-<span class="math display">\[\overline{X}\stackrel{a}{\sim} N(\mu_X; 2)\]</span>
-or <span class="math display">\[\frac{\overline X-\mu_X}{\sqrt 2}\stackrel{a}{\sim} N(0;1).\]</span> Thus, we know that <span class="math display">\[\mathbb P\left(-1.96\leq\frac{\overline X-\mu_X}{\sqrt 2}\leq1.96\right)=0.95.\]</span></p></li>
+<li><p>Assuming <span class="math inline">\(\sigma^2_X=100\)</span> is known and <span class="math inline">\(n=50\)</span>, it follows <span class="math inline">\(\frac{\sigma_X^2}{n}=\frac{100}{50}=2\)</span>, then according to the CLT :
+<span class="math display">\[\frac{\overline X-\mu_X}{\sqrt 2}\stackrel{a}{\sim} N(0;1).\]</span> Thus, we know that <span class="math display">\[\mathbb P\left(-1.96\leq\frac{\overline X-\mu_X}{\sqrt 2}\leq1.96\right)=0.95.\]</span></p></li>
 <li><p>Rearranging the inequalities within the probability according to <span class="math inline">\(\mu_X\)</span> gives:</p></li>
 </ul>
 <p><span class="math display">\[\begin{align}
@@ -1729,10 +1728,10 @@ where <span class="math inline">\(\hat p=\overline X\)</span> denotes the relati
 <h3><span class="header-section-number">4.4.4</span> Determining <span class="math inline">\(n\)</span> based on the length of confidence intervals<a href="parameter-estimation.html#determining-n-based-on-the-length-of-confidence-intervals" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>If a certain precision (e.g. <span class="math inline">\(\pm 1\%\)</span> or <span class="math inline">\(\pm 0.01\)</span>) with a given high confidence has to be achieved in an estimation problem, one can utilize the <strong>length</strong> of the associated confidence interval to determine the required <strong>sample size</strong>.</p>
 <iframe title="Problemstellung" src="./htmls/Problemstellung.html" width="760" height="700"></iframe>
-<p>Since <span class="math inline">\(\bar X\stackrel{a}\sim N\Big(\mathbb E(X),\frac{\text{Var}(X)}{n}\Big)\)</span>, the <strong>length</strong> of the (approximate) <span class="math inline">\(1-\alpha\)</span> confidence interval:</p>
+<p>Since <span class="math inline">\(\bar X\stackrel{a}\sim N\Big(\mathbb E(X),\frac{\text{Var}(X)}{n}\Big)\)</span>, the <strong>length</strong> of the (approximate) <span class="math inline">\(1-\alpha\)</span> confidence interval for <span class="math inline">\(\mathbb E(X)\)</span> is:</p>
 <p><span class="math display">\[\begin{align}
 \text{upper limit} - \text{lower limit} &amp;=
-\mathbb E(X) + N_{1-\alpha/2} \sqrt{\frac{\text{Var}(X)}{n}} - \Big( \mathbb E(X) + N_{1-\alpha/2} \sqrt{\frac{\text{Var}(X)}{n}} \Big)\\
+\overline X+ N_{1-\alpha/2} \sqrt{\frac{\text{Var}(X)}{n}} - \Big( \overline X - N_{1-\alpha/2} \sqrt{\frac{\text{Var}(X)}{n}} \Big)\\
 &amp;=2\cdot N_{1-\alpha/2} \frac{\sqrt{\text{Var}(X)}}{\sqrt{n}}
 \end{align}\]</span></p>
 <p>In order to maintain the required <span class="math inline">\(\pm\)</span> precision we set:</p>
@@ -1741,7 +1740,7 @@ and solve for <span class="math inline">\(n\)</span>:</p>
 <p><span class="math display">\[
 \sqrt n\geq \frac{N_{1-\alpha/2}\sqrt{\text{Var}(X)}}{\text{precision}}\rightarrow n\geq \left(\frac{N_{1-\alpha/2}}{\text{precision}}\right)^2\cdot {\text{Var}(X)}
 \]</span></p>
-<p>In the formula above, <span class="math inline">\(\text{Var}(X)\)</span> is usually substituted by some estimate or its upperbound.</p>
+<p>In the formula above, <span class="math inline">\(\text{Var}(X)\)</span> is usually substituted by some estimate or its upper bound.</p>
 <p>In particular, for the proportion <span class="math inline">\(p\)</span> holds (<span class="math inline">\(X\sim Ber(p)\)</span>):</p>
 <p><span class="math display">\[n\geq \left(\frac{N_{1-\alpha/2}}{\text{precision}}\right)^2\cdot {p\cdot(1-p)},\]</span>
 where <span class="math inline">\(p(1-p)\)</span> is in general unknown but takes on the maximum value for <span class="math inline">\(p=\frac 12\)</span>. Thus, <span class="math inline">\(\text{Var}(X)\leq \max (p(1-p)) = 0.25.\)</span></p>
@@ -1753,7 +1752,7 @@ Figure 4.1: f(p)=p(1-p)
 </div>
 <p>I.e. the maximum length of the confidence interval in this case is (<span class="math inline">\(p=\frac 12\)</span> inserted):</p>
 <p><span class="math display">\[n\geq 0.25\left(\frac{N_{1-\alpha/2}}{\text{precision}}\right)^2.\]</span></p>
-<p>For example, if the <span class="math inline">\(\pm\)</span>accuracy of <span class="math inline">\(\pm 0.01\)</span> is required at the confidence level of <span class="math inline">\(99\%\)</span>, then the minimum sample size is <span class="math inline">\(n\geq 16588\)</span>.</p>
+<p>For example, if the <span class="math inline">\(\pm\)</span> precision of <span class="math inline">\(\pm 0.01\)</span> is required at the confidence level of <span class="math inline">\(99\%\)</span>, then the minimum sample size is <span class="math inline">\(n\geq 16587\)</span>.</p>
 <hr />
 <div id="q56" class="quiz">
 <p id="question">
@@ -1768,7 +1767,7 @@ Figure 4.1: f(p)=p(1-p)
  // Generate a random question
     const questionObj617 = generateQuestion_num(617);
 // Display the question
-    document.getElementById('question-text617').textContent = "Compute the minimum required sample size \\(n\\) for the app usage sample in the previous quiz question which guarantees that the estimation accurancy on the confidence level of \\("+((1-questionObj6141.question[2])*100) + "\\%\\) is \\(\\pm 0.05.\\) The resulting \\(n\\geq\\)";
+    document.getElementById('question-text617').textContent = "Compute the minimum required sample size \\(n\\) for the app usage sample in the previous quiz question which guarantees that the estimation precision on the confidence level of \\("+((1-questionObj6141.question[2])*100) + "\\%\\) is \\(\\pm 0.05.\\) The resulting \\(n\\geq\\)";
     questionObj617.answer = Math.floor(Math.pow(0.5*questionObj6141.question[3]/0.05,2)+1)
 </script>
 </div>
